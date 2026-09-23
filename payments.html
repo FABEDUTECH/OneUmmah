@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments — DataForge Academy</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-mark">D</span> DataForge Academy</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="dashboard.html">Learning Dashboard</a>
+      <a href="payments.html">Payments</a>
+    </nav>
+    <div class="nav-actions" id="guestActions">
+      <a class="btn btn-ghost" href="login.html">Login</a>
+      <a class="btn btn-primary" href="register.html">Register</a>
+    </div>
+    <div class="nav-actions user-chip" id="authActions" style="display:none">
+      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
+      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section alt">
+      <div class="section-heading"><div><span class="eyebrow">SECURE CHECKOUT</span><h2>Payments</h2></div></div>
+      <div class="payment-card">
+        <div><span class="eyebrow">ORDER SUMMARY</span><h3>Azure Data Engineering</h3><p>Full course access • Projects • Assignments • Certificate</p></div>
+        <div class="price">₹4,999</div>
+        <button class="btn btn-primary btn-lg" onclick="handlePay()">Pay Securely</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="brand"><span class="brand-mark">D</span> DataForge Academy</div>
+    <span>© 2026 Technical Learning Platform</span>
+    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+
+</body>
+</html>
