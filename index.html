@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataForge Academy — Technical Learning Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-mark">D</span> DataForge Academy</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="dashboard.html">Learning Dashboard</a>
+      <a href="payments.html">Payments</a>
+    </nav>
+    <div class="nav-actions" id="guestActions">
+      <a class="btn btn-ghost" href="login.html">Login</a>
+      <a class="btn btn-primary" href="register.html">Register</a>
+    </div>
+    <div class="nav-actions user-chip" id="authActions" style="display:none">
+      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
+      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">PRACTICAL • PROJECT-BASED • CAREER-FOCUSED</span>
+        <h1>Build skills that<br><span>build your career.</span></h1>
+        <p>Learn SQL, Python, Data Engineering, Snowflake, Azure and Java through structured courses, hands-on assignments and real-world projects.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary btn-lg" href="courses.html">Explore Courses →</a>
+          <a class="btn btn-outline btn-lg" href="register.html">Start Learning</a>
+        </div>
+        <div class="stats">
+          <div><strong>20+</strong><small>Courses</small></div>
+          <div><strong>100+</strong><small>Projects & Labs</small></div>
+          <div><strong>24/7</strong><small>Learning Access</small></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="code-top"><i></i><i></i><i></i></div>
+        <div class="code">
+          <span class="purple">def</span> <span class="blue">build_career</span>():<br>
+          &nbsp;&nbsp;skills = [<span class="green">"SQL"</span>, <span class="green">"Python"</span>]<br>
+          &nbsp;&nbsp;skills += [<span class="green">"PySpark"</span>, <span class="green">"Cloud"</span>]<br>
+          &nbsp;&nbsp;<span class="purple">return</span> <span class="yellow">"Ready for industry"</span>
+        </div>
+        <div class="progress-card">
+          <span>Learning progress</span><strong>72%</strong>
+          <div class="progress"><div style="width:72%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><span class="eyebrow">LEARN & BUILD</span><h2>Popular Courses</h2></div>
+        <a href="courses.html" class="text-link">View all courses →</a>
+      </div>
+      <div class="course-grid">
+        <article class="course-card">
+          <div class="course-icon sql">SQL</div><span class="level">BEGINNER → ADVANCED</span>
+          <h3>Master SQL</h3><p>Queries, joins, CTEs, window functions, optimization and interview problems.</p>
+          <div class="course-meta"><span>48 Lessons</span><span>12 Projects</span></div>
+          <a class="course-btn" href="courses.html#sql">View Course</a>
+        </article>
+        <article class="course-card featured">
+          <div class="course-icon py">Py</div><span class="level">BEGINNER → ADVANCED</span>
+          <h3>Python for Data Engineering</h3><p>Python fundamentals, automation, APIs, data processing and production patterns.</p>
+          <div class="course-meta"><span>56 Lessons</span><span>15 Projects</span></div>
+          <a class="course-btn" href="courses.html#python">View Course</a>
+        </article>
+        <article class="course-card">
+          <div class="course-icon cloud">AZ</div><span class="level">ADVANCED</span>
+          <h3>Azure Data Engineering</h3><p>ADF, PySpark, Fabric, Delta Lake, pipelines, architecture and deployment.</p>
+          <div class="course-meta"><span>64 Lessons</span><span>18 Projects</span></div>
+          <a class="course-btn" href="courses.html#azure">View Course</a>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="brand"><span class="brand-mark">D</span> DataForge Academy</div>
+    <span>© 2026 Technical Learning Platform</span>
+    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+
+</body>
+</html>

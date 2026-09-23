@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses — DataForge Academy</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-mark">D</span> DataForge Academy</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="dashboard.html">Learning Dashboard</a>
+      <a href="payments.html">Payments</a>
+    </nav>
+    <div class="nav-actions" id="guestActions">
+      <a class="btn btn-ghost" href="login.html">Login</a>
+      <a class="btn btn-primary" href="register.html">Register</a>
+    </div>
+    <div class="nav-actions user-chip" id="authActions" style="display:none">
+      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
+      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-heading">
+        <div><span class="eyebrow">LEARN & BUILD</span><h2>Explore Courses</h2></div>
+      </div>
+      <div class="course-grid">
+        <article class="course-card" id="sql">
+          <div class="course-icon sql">SQL</div><span class="level">BEGINNER → ADVANCED</span>
+          <h3>Master SQL</h3><p>Queries, joins, CTEs, window functions, optimization and interview problems.</p>
+          <div class="course-meta"><span>48 Lessons</span><span>12 Projects</span></div>
+          <button class="course-btn" onclick="openCourse('sql')">View Curriculum</button>
+          <button class="course-btn course-btn-alt" data-course="sql" onclick="handleEnroll('sql')">Enroll</button>
+        </article>
+        <article class="course-card featured" id="python">
+          <div class="course-icon py">Py</div><span class="level">BEGINNER → ADVANCED</span>
+          <h3>Python for Data Engineering</h3><p>Python fundamentals, automation, APIs, data processing and production patterns.</p>
+          <div class="course-meta"><span>56 Lessons</span><span>15 Projects</span></div>
+          <button class="course-btn" onclick="openCourse('python')">View Curriculum</button>
+          <button class="course-btn course-btn-alt" data-course="python" onclick="handleEnroll('python')">Enroll</button>
+        </article>
+        <article class="course-card" id="azure">
+          <div class="course-icon cloud">AZ</div><span class="level">ADVANCED</span>
+          <h3>Azure Data Engineering</h3><p>ADF, PySpark, Fabric, Delta Lake, pipelines, architecture and deployment.</p>
+          <div class="course-meta"><span>64 Lessons</span><span>18 Projects</span></div>
+          <button class="course-btn" onclick="openCourse('azure')">View Curriculum</button>
+          <button class="course-btn course-btn-alt" data-course="azure" onclick="handleEnroll('azure')">Enroll</button>
+        </article>
+        <article class="course-card" id="snowflake">
+          <div class="course-icon snow">SF</div><span class="level">INTERMEDIATE → ADVANCED</span>
+          <h3>Snowflake & dbt</h3><p>Modern data warehouse design, ELT, dbt models, testing and Data Vault concepts.</p>
+          <div class="course-meta"><span>42 Lessons</span><span>10 Projects</span></div>
+          <button class="course-btn" onclick="openCourse('snowflake')">View Curriculum</button>
+          <button class="course-btn course-btn-alt" data-course="snowflake" onclick="handleEnroll('snowflake')">Enroll</button>
+        </article>
+        <article class="course-card" id="java">
+          <div class="course-icon java">J</div><span class="level">BEGINNER → ADVANCED</span>
+          <h3>Java Development</h3><p>Core Java, OOP, collections, APIs and practical application development.</p>
+          <div class="course-meta"><span>52 Lessons</span><span>11 Projects</span></div>
+          <button class="course-btn" onclick="openCourse('java')">View Curriculum</button>
+          <button class="course-btn course-btn-alt" data-course="java" onclick="handleEnroll('java')">Enroll</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="course-details" class="section alt">
+      <div class="detail-layout">
+        <div>
+          <span class="eyebrow">COURSE DETAILS</span>
+          <h2 id="detailTitle">Everything you need in one learning path.</h2>
+          <p>Each course combines video lessons, assignments, projects, progress tracking and a certificate when you complete the required learning path.</p>
+          <ul class="check-list">
+            <li>Structured modules and video lessons</li>
+            <li>Practical assignments after every major topic</li>
+            <li>Industry-style capstone projects</li>
+            <li>Progress tracking and completion certificates</li>
+          </ul>
+        </div>
+        <div class="lesson-panel">
+          <div class="lesson-head"><span id="detailModule">Python for Data Engineering</span><b>Module 4 of 8</b></div>
+          <div class="lesson active"><span>▶</span> Getting Started <small>18:42</small></div>
+          <div class="lesson"><span>✓</span> Working with APIs <small>24:16</small></div>
+          <div class="lesson"><span>○</span> Hands-on Project <small>Assignment</small></div>
+          <div class="lesson"><span>○</span> Module Quiz <small>10 questions</small></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="brand"><span class="brand-mark">D</span> DataForge Academy</div>
+    <span>© 2026 Technical Learning Platform</span>
+    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+
+</body>
+</html>
