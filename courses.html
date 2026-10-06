@@ -1,108 +1,1540 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Courses — OneUmmah Data Skills</title>
-  <link rel="stylesheet" href="styles.css">
-  
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
+  <style>
+
+    /* =========================
+       SQL VIDEO SECTION
+    ========================= */
+
+    #sql-learning {
+      display: none;
+      margin-top: 40px;
+      padding: 30px;
+      border-radius: 22px;
+      background:
+        linear-gradient(
+          135deg,
+          #101827,
+          #1d2939
+        );
+      box-shadow:
+        0 20px 50px
+        rgba(0,0,0,0.25);
+    }
+
+
+    #sql-learning.show {
+      display: block;
+
+      animation:
+        showVideo 0.5s ease;
+    }
+
+
+    @keyframes showVideo {
+
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+
+    .sql-learning-header {
+      margin-bottom: 25px;
+    }
+
+
+    .sql-learning-header h2 {
+      color: white;
+      font-size: 30px;
+      margin: 8px 0;
+    }
+
+
+    .sql-learning-header p {
+      color: #b7c2d2;
+    }
+
+
+    /* =========================
+       VIDEO PLAYER
+    ========================= */
+
+    .sql-video-wrapper {
+
+      width: 100%;
+      max-width: 950px;
+
+      margin: auto;
+
+      background: #000;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 15px 45px
+        rgba(0,0,0,0.45);
+
+    }
+
+
+    .sql-video-wrapper video {
+
+      width: 100%;
+
+      display: block;
+
+      background: #000;
+
+      cursor: pointer;
+
+    }
+
+
+    /* =========================
+       VIDEO INFO
+    ========================= */
+
+    .video-info {
+
+      max-width: 950px;
+
+      margin: 22px auto 0;
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items: center;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .video-title {
+
+      color: white;
+
+      font-size: 20px;
+
+      font-weight: 600;
+
+    }
+
+
+    .video-status {
+
+      color: #d4af37;
+
+      font-size: 14px;
+
+    }
+
+
+    /* =========================
+       PROGRESS
+    ========================= */
+
+    .sql-progress {
+
+      max-width: 950px;
+
+      margin: 20px auto 0;
+
+    }
+
+
+    .progress-label {
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      color: #cbd5e1;
+
+      font-size: 13px;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .progress-bar {
+
+      width: 100%;
+
+      height: 8px;
+
+      background: #374151;
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+    }
+
+
+    .progress-fill {
+
+      width: 0%;
+
+      height: 100%;
+
+      background: #d4af37;
+
+      transition:
+        width 0.3s ease;
+
+    }
+
+
+    /* =========================
+       LESSONS
+    ========================= */
+
+    .sql-lessons {
+
+      max-width: 950px;
+
+      margin: 28px auto 0;
+
+    }
+
+
+    .sql-lessons h3 {
+
+      color: white;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .lesson-button {
+
+      width: 100%;
+
+      padding: 15px;
+
+      margin-bottom: 9px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      text-align: left;
+
+      background:
+        rgba(255,255,255,0.06);
+
+      color: #e5e7eb;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+
+    }
+
+
+    .lesson-button:hover {
+
+      background:
+        rgba(255,255,255,0.12);
+
+    }
+
+
+    .lesson-button.active {
+
+      background: #d4af37;
+
+      color: #111827;
+
+      font-weight: 700;
+
+    }
+
+
+    /* =========================
+       CLOSE BUTTON
+    ========================= */
+
+    .close-video {
+
+      margin-top: 20px;
+
+      padding: 11px 18px;
+
+      border: 1px solid
+        rgba(255,255,255,0.2);
+
+      border-radius: 9px;
+
+      background: transparent;
+
+      color: white;
+
+      cursor: pointer;
+
+    }
+
+
+    .close-video:hover {
+
+      background:
+        rgba(255,255,255,0.08);
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width: 700px) {
+
+      #sql-learning {
+
+        padding: 18px;
+
+      }
+
+      .sql-learning-header h2 {
+
+        font-size: 24px;
+
+      }
+
+      .video-info {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
+
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
   <header class="navbar">
-    <a class="brand" href="index.html"><span class="brand-mark">O</span> OneUmmah Data Skills</a>
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+
+      <span class="brand-mark">
+        O
+      </span>
+
+      OneUmmah Data Skills
+
+    </a>
+
+
     <nav>
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Learning Dashboard</a>
-      <a href="payments.html">Payments</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="courses.html">
+        Courses
+      </a>
+
+      <a href="dashboard.html">
+        Learning Dashboard
+      </a>
+
+      <a href="payments.html">
+        Payments
+      </a>
+
     </nav>
-    <div class="nav-actions" id="guestActions">
-      <a class="btn btn-ghost" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Register</a>
+
+
+    <!-- GUEST -->
+
+    <div
+      class="nav-actions"
+      id="guestActions"
+    >
+
+      <a
+        class="btn btn-ghost"
+        href="login.html"
+      >
+        Login
+      </a>
+
+      <a
+        class="btn btn-primary"
+        href="register.html"
+      >
+        Register
+      </a>
+
     </div>
-    <div class="nav-actions user-chip" id="authActions" style="display:none">
-      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
-      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+
+
+    <!-- LOGGED IN -->
+
+    <div
+      class="nav-actions user-chip"
+      id="authActions"
+      style="display:none"
+    >
+
+      <a
+        href="dashboard.html"
+        class="user-pill"
+      >
+
+        <span
+          class="user-pill-avatar"
+          id="navAvatar"
+        >
+          K
+        </span>
+
+        <span id="navName">
+          Student
+        </span>
+
+      </a>
+
+
+      <button
+        class="btn btn-ghost"
+        onclick="handleLogout()"
+      >
+        Logout
+      </button>
+
     </div>
+
   </header>
 
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
   <main>
+
+
     <section class="section">
+
+
       <div class="section-heading">
-        <div><span class="eyebrow">LEARN & BUILD</span><h2>Explore Courses</h2></div>
+
+        <div>
+
+          <span class="eyebrow">
+            LEARN & BUILD
+          </span>
+
+          <h2>
+            Explore Courses
+          </h2>
+
+        </div>
+
       </div>
+
+
+
+      <!-- =========================
+           COURSE GRID
+      ========================= -->
+
       <div class="course-grid">
-        <article class="course-card" id="sql">
-          <div class="course-icon sql">SQL</div><span class="level">BEGINNER → ADVANCED</span>
-          <h3>Master SQL</h3><p>Queries, joins, CTEs, window functions, optimization and interview problems.</p>
-          <div class="course-meta"><span>48 Lessons</span><span>12 Projects</span></div>
-          <button class="course-btn" onclick="openCourse('sql')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="sql" onclick="handleEnroll('sql')">Enroll</button>
+
+
+        <!-- =====================
+             SQL
+        ====================== -->
+
+        <article
+          class="course-card"
+          id="sql"
+        >
+
+          <div
+            class="course-icon sql"
+          >
+            SQL
+          </div>
+
+
+          <span class="level">
+            BEGINNER → ADVANCED
+          </span>
+
+
+          <h3>
+            Master SQL
+          </h3>
+
+
+          <p>
+            Queries, joins, CTEs,
+            window functions,
+            optimization and
+            interview problems.
+          </p>
+
+
+          <div class="course-meta">
+
+            <span>
+              48 Lessons
+            </span>
+
+            <span>
+              12 Projects
+            </span>
+
+          </div>
+
+
+          <button
+            class="course-btn"
+            onclick="openCourse('sql')"
+          >
+            View Curriculum
+          </button>
+
+
+          <!-- IMPORTANT -->
+          <!-- SQL ENROLL BUTTON -->
+
+          <button
+            class="course-btn course-btn-alt"
+            onclick="enrollSQL()"
+          >
+            Enroll Now
+          </button>
+
         </article>
-        <article class="course-card featured" id="python">
-          <div class="course-icon py">Py</div><span class="level">BEGINNER → ADVANCED</span>
-          <h3>Python for Data Engineering</h3><p>Python fundamentals, automation, APIs, data processing and production patterns.</p>
-          <div class="course-meta"><span>56 Lessons</span><span>15 Projects</span></div>
-          <button class="course-btn" onclick="openCourse('python')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="python" onclick="handleEnroll('python')">Enroll</button>
+
+
+
+        <!-- =====================
+             PYTHON
+        ====================== -->
+
+        <article
+          class="course-card featured"
+          id="python"
+        >
+
+          <div
+            class="course-icon py"
+          >
+            Py
+          </div>
+
+
+          <span class="level">
+            BEGINNER → ADVANCED
+          </span>
+
+
+          <h3>
+            Python for Data Engineering
+          </h3>
+
+
+          <p>
+            Python fundamentals,
+            automation, APIs,
+            data processing and
+            production patterns.
+          </p>
+
+
+          <div class="course-meta">
+
+            <span>
+              56 Lessons
+            </span>
+
+            <span>
+              15 Projects
+            </span>
+
+          </div>
+
+
+          <button
+            class="course-btn"
+            onclick="openCourse('python')"
+          >
+            View Curriculum
+          </button>
+
+
+          <button
+            class="course-btn course-btn-alt"
+            onclick="handleEnroll('python')"
+          >
+            Enroll Now
+          </button>
+
         </article>
-        <article class="course-card" id="azure">
-          <div class="course-icon cloud">AZ</div><span class="level">ADVANCED</span>
-          <h3>Azure Data Engineering</h3><p>ADF, PySpark, Fabric, Delta Lake, pipelines, architecture and deployment.</p>
-          <div class="course-meta"><span>64 Lessons</span><span>18 Projects</span></div>
-          <button class="course-btn" onclick="openCourse('azure')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="azure" onclick="handleEnroll('azure')">Enroll</button>
+
+
+
+        <!-- =====================
+             AZURE
+        ====================== -->
+
+        <article
+          class="course-card"
+          id="azure"
+        >
+
+          <div
+            class="course-icon cloud"
+          >
+            AZ
+          </div>
+
+
+          <span class="level">
+            ADVANCED
+          </span>
+
+
+          <h3>
+            Azure Data Engineering
+          </h3>
+
+
+          <p>
+            ADF, PySpark, Fabric,
+            Delta Lake, pipelines,
+            architecture and deployment.
+          </p>
+
+
+          <div class="course-meta">
+
+            <span>
+              64 Lessons
+            </span>
+
+            <span>
+              18 Projects
+            </span>
+
+          </div>
+
+
+          <button
+            class="course-btn"
+            onclick="openCourse('azure')"
+          >
+            View Curriculum
+          </button>
+
+
+          <button
+            class="course-btn course-btn-alt"
+            onclick="handleEnroll('azure')"
+          >
+            Enroll Now
+          </button>
+
         </article>
-        <article class="course-card" id="snowflake">
-          <div class="course-icon snow">SF</div><span class="level">INTERMEDIATE → ADVANCED</span>
-          <h3>Snowflake & dbt</h3><p>Modern data warehouse design, ELT, dbt models, testing and Data Vault concepts.</p>
-          <div class="course-meta"><span>42 Lessons</span><span>10 Projects</span></div>
-          <button class="course-btn" onclick="openCourse('snowflake')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="snowflake" onclick="handleEnroll('snowflake')">Enroll</button>
+
+
+
+        <!-- =====================
+             SNOWFLAKE
+        ====================== -->
+
+        <article
+          class="course-card"
+          id="snowflake"
+        >
+
+          <div
+            class="course-icon snow"
+          >
+            SF
+          </div>
+
+
+          <span class="level">
+            INTERMEDIATE → ADVANCED
+          </span>
+
+
+          <h3>
+            Snowflake & dbt
+          </h3>
+
+
+          <p>
+            Modern data warehouse
+            design, ELT, dbt models,
+            testing and Data Vault
+            concepts.
+          </p>
+
+
+          <div class="course-meta">
+
+            <span>
+              42 Lessons
+            </span>
+
+            <span>
+              10 Projects
+            </span>
+
+          </div>
+
+
+          <button
+            class="course-btn"
+            onclick="openCourse('snowflake')"
+          >
+            View Curriculum
+          </button>
+
+
+          <button
+            class="course-btn course-btn-alt"
+            onclick="handleEnroll('snowflake')"
+          >
+            Enroll Now
+          </button>
+
         </article>
-        <article class="course-card" id="java">
-          <div class="course-icon java">J</div><span class="level">BEGINNER → ADVANCED</span>
-          <h3>Java Development</h3><p>Core Java, OOP, collections, APIs and practical application development.</p>
-          <div class="course-meta"><span>52 Lessons</span><span>11 Projects</span></div>
-          <button class="course-btn" onclick="openCourse('java')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="java" onclick="handleEnroll('java')">Enroll</button>
+
+
+
+        <!-- =====================
+             JAVA
+        ====================== -->
+
+        <article
+          class="course-card"
+          id="java"
+        >
+
+          <div
+            class="course-icon java"
+          >
+            J
+          </div>
+
+
+          <span class="level">
+            BEGINNER → ADVANCED
+          </span>
+
+
+          <h3>
+            Java Development
+          </h3>
+
+
+          <p>
+            Core Java, OOP,
+            collections, APIs and
+            practical application
+            development.
+          </p>
+
+
+          <div class="course-meta">
+
+            <span>
+              52 Lessons
+            </span>
+
+            <span>
+              11 Projects
+            </span>
+
+          </div>
+
+
+          <button
+            class="course-btn"
+            onclick="openCourse('java')"
+          >
+            View Curriculum
+          </button>
+
+
+          <button
+            class="course-btn course-btn-alt"
+            onclick="handleEnroll('java')"
+          >
+            Enroll Now
+          </button>
+
         </article>
+
+
       </div>
+
+
+
+      <!-- ==================================================
+           SQL LEARNING AREA
+           Initially hidden
+      =================================================== -->
+
+      <section
+        id="sql-learning"
+      >
+
+
+        <div
+          class="sql-learning-header"
+        >
+
+          <span class="eyebrow">
+            SQL COURSE
+          </span>
+
+
+          <h2>
+            Master SQL — Lesson 1
+          </h2>
+
+
+          <p>
+            Welcome to OneUmmah Data Skills.
+            Start your SQL learning journey below.
+          </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             VIDEO PLAYER
+        ========================== -->
+
+        <div
+          class="sql-video-wrapper"
+        >
+
+          <video
+            id="sqlVideo"
+            controls
+            preload="metadata"
+            playsinline
+          >
+
+            <!--
+              IMPORTANT:
+              sql-course.mp4 must be
+              in the same folder as
+              courses.html
+            -->
+
+            <source
+              src="sql-course.mp4"
+              type="video/mp4"
+            >
+
+            Your browser does not
+            support HTML5 video.
+
+          </video>
+
+        </div>
+
+
+
+        <!-- =========================
+             VIDEO INFO
+        ========================== -->
+
+        <div class="video-info">
+
+          <div
+            class="video-title"
+            id="videoTitle"
+          >
+            Lesson 1 — Introduction to SQL
+          </div>
+
+
+          <div
+            class="video-status"
+            id="videoStatus"
+          >
+            Ready to watch
+          </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             PROGRESS
+        ========================== -->
+
+        <div class="sql-progress">
+
+          <div class="progress-label">
+
+            <span>
+              Video Progress
+            </span>
+
+            <span id="videoPercent">
+              0%
+            </span>
+
+          </div>
+
+
+          <div class="progress-bar">
+
+            <div
+              class="progress-fill"
+              id="progressFill"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             LESSON LIST
+        ========================== -->
+
+        <div class="sql-lessons">
+
+          <h3>
+            SQL Course Lessons
+          </h3>
+
+
+          <button
+            class="lesson-button active"
+            onclick="selectLesson(0)"
+          >
+            ▶ Lesson 1 — Introduction to SQL
+          </button>
+
+
+          <button
+            class="lesson-button"
+            onclick="selectLesson(1)"
+          >
+            ○ Lesson 2 — SELECT Statements
+          </button>
+
+
+          <button
+            class="lesson-button"
+            onclick="selectLesson(2)"
+          >
+            ○ Lesson 3 — WHERE Clause
+          </button>
+
+
+          <button
+            class="lesson-button"
+            onclick="selectLesson(3)"
+          >
+            ○ Lesson 4 — SQL JOIN
+          </button>
+
+
+          <button
+            class="lesson-button"
+            onclick="selectLesson(4)"
+          >
+            ○ Lesson 5 — GROUP BY
+          </button>
+
+        </div>
+
+
+
+        <!-- CLOSE -->
+
+        <button
+          class="close-video"
+          onclick="closeSQLVideo()"
+        >
+          Close SQL Course
+        </button>
+
+
+      </section>
+
     </section>
 
-    <section id="course-details" class="section alt">
+
+
+    <!-- =========================
+         COURSE DETAILS
+    ========================== -->
+
+    <section
+      id="course-details"
+      class="section alt"
+    >
+
+
       <div class="detail-layout">
+
+
         <div>
-          <span class="eyebrow">COURSE DETAILS</span>
-          <h2 id="detailTitle">Everything you need in one learning path.</h2>
-          <p>Each course combines video lessons, assignments, projects, progress tracking and a certificate when you complete the required learning path.</p>
+
+          <span class="eyebrow">
+            COURSE DETAILS
+          </span>
+
+
+          <h2 id="detailTitle">
+            Everything you need in
+            one learning path.
+          </h2>
+
+
+          <p>
+
+            Each course combines
+            video lessons, assignments,
+            projects, progress tracking
+            and a certificate when you
+            complete the required
+            learning path.
+
+          </p>
+
+
           <ul class="check-list">
-            <li>Structured modules and video lessons</li>
-            <li>Practical assignments after every major topic</li>
-            <li>Industry-style capstone projects</li>
-            <li>Progress tracking and completion certificates</li>
+
+            <li>
+              Structured modules
+              and video lessons
+            </li>
+
+            <li>
+              Practical assignments
+              after every major topic
+            </li>
+
+            <li>
+              Industry-style
+              capstone projects
+            </li>
+
+            <li>
+              Progress tracking and
+              completion certificates
+            </li>
+
           </ul>
+
         </div>
+
+
+
         <div class="lesson-panel">
-          <div class="lesson-head"><span id="detailModule">Python for Data Engineering</span><b>Module 4 of 8</b></div>
-          <div class="lesson active"><span>▶</span> Getting Started <small>18:42</small></div>
-          <div class="lesson"><span>✓</span> Working with APIs <small>24:16</small></div>
-          <div class="lesson"><span>○</span> Hands-on Project <small>Assignment</small></div>
-          <div class="lesson"><span>○</span> Module Quiz <small>10 questions</small></div>
+
+
+          <div class="lesson-head">
+
+            <span id="detailModule">
+              SQL Course
+            </span>
+
+            <b>
+              Module 1 of 8
+            </b>
+
+          </div>
+
+
+          <div class="lesson active">
+
+            <span>
+              ▶
+            </span>
+
+            Introduction to SQL
+
+            <small>
+              Video
+            </small>
+
+          </div>
+
+
+          <div class="lesson">
+
+            <span>
+              ○
+            </span>
+
+            SELECT Statements
+
+            <small>
+              Video
+            </small>
+
+          </div>
+
+
+          <div class="lesson">
+
+            <span>
+              ○
+            </span>
+
+            SQL Practice
+
+            <small>
+              Assignment
+            </small>
+
+          </div>
+
+
+          <div class="lesson">
+
+            <span>
+              ○
+            </span>
+
+            Module Quiz
+
+            <small>
+              10 Questions
+            </small>
+
+          </div>
+
         </div>
+
       </div>
+
     </section>
 
   </main>
 
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
   <footer>
-    <div class="brand"><span class="brand-mark">O</span> OneUmmah Data Skills</div>
-    <span>© 2026 Technical Learning Platform</span>
-    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
+
+    <div class="brand">
+
+      <span class="brand-mark">
+        O
+      </span>
+
+      OneUmmah Data Skills
+
+    </div>
+
+
+    <span>
+      © 2026 Technical Learning Platform
+    </span>
+
+
+    <div>
+
+      <a href="courses.html">
+        Courses
+      </a>
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="login.html">
+        Login
+      </a>
+
+    </div>
+
   </footer>
 
-  <div id="toast" class="toast"></div>
+
+
+  <!-- TOAST -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+
+  <!-- EXISTING JS -->
+
   <script src="script.js"></script>
 
+
+
+  <!-- =========================
+       SQL VIDEO JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* ==========================
+       LESSON DATA
+    ========================== */
+
+    const sqlLessons = [
+
+      {
+        title:
+          "Lesson 1 — Introduction to SQL"
+      },
+
+      {
+        title:
+          "Lesson 2 — SELECT Statements"
+      },
+
+      {
+        title:
+          "Lesson 3 — WHERE Clause"
+      },
+
+      {
+        title:
+          "Lesson 4 — SQL JOIN"
+      },
+
+      {
+        title:
+          "Lesson 5 — GROUP BY"
+      }
+
+    ];
+
+
+    let currentLesson = 0;
+
+
+
+    /* ==========================
+       ENROLL SQL
+    ========================== */
+
+    function enrollSQL() {
+
+      const learning =
+        document.getElementById(
+          "sql-learning"
+        );
+
+
+      /* Show learning section */
+
+      learning.classList.add("show");
+
+
+      /* Scroll to video */
+
+      learning.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+      });
+
+
+      /* Set first lesson */
+
+      selectLesson(0);
+
+
+      /*
+        Video does NOT autoplay.
+        Student clicks Play.
+      */
+
+      document
+        .getElementById("sqlVideo")
+        .focus();
+
+    }
+
+
+
+    /* ==========================
+       SELECT LESSON
+    ========================== */
+
+    function selectLesson(index) {
+
+      currentLesson = index;
+
+
+      const title =
+        document.getElementById(
+          "videoTitle"
+        );
+
+
+      title.textContent =
+        sqlLessons[index].title;
+
+
+      /* Active lesson */
+
+      const lessons =
+        document.querySelectorAll(
+          ".lesson-button"
+        );
+
+
+      lessons.forEach(
+        function(button, i) {
+
+          button.classList.toggle(
+            "active",
+            i === index
+          );
+
+        }
+      );
+
+
+      /*
+        Currently the uploaded
+        MP4 is Lesson 1.
+
+        When you upload more videos,
+        we can connect each lesson
+        to its own MP4.
+      */
+
+      if (index === 0) {
+
+        const video =
+          document.getElementById(
+            "sqlVideo"
+          );
+
+        video.load();
+
+      }
+
+    }
+
+
+
+    /* ==========================
+       CLOSE SQL COURSE
+    ========================== */
+
+    function closeSQLVideo() {
+
+      const learning =
+        document.getElementById(
+          "sql-learning"
+        );
+
+
+      const video =
+        document.getElementById(
+          "sqlVideo"
+        );
+
+
+      video.pause();
+
+
+      learning.classList.remove(
+        "show"
+      );
+
+
+      document.getElementById(
+        "sql"
+      ).scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+      });
+
+    }
+
+
+
+    /* ==========================
+       VIDEO PLAY
+    ========================== */
+
+    const sqlVideo =
+      document.getElementById(
+        "sqlVideo"
+      );
+
+
+    sqlVideo.addEventListener(
+      "play",
+      function() {
+
+        document.getElementById(
+          "videoStatus"
+        ).textContent =
+          "▶ Playing";
+
+      }
+    );
+
+
+    /* ==========================
+       VIDEO PAUSE
+    ========================== */
+
+    sqlVideo.addEventListener(
+      "pause",
+      function() {
+
+        document.getElementById(
+          "videoStatus"
+        ).textContent =
+          "⏸ Paused";
+
+      }
+    );
+
+
+    /* ==========================
+       VIDEO PROGRESS
+    ========================== */
+
+    sqlVideo.addEventListener(
+      "timeupdate",
+      function() {
+
+        if (!sqlVideo.duration) {
+          return;
+        }
+
+
+        const percent =
+          Math.round(
+            (sqlVideo.currentTime /
+              sqlVideo.duration) *
+              100
+          );
+
+
+        document.getElementById(
+          "videoPercent"
+        ).textContent =
+          percent + "%";
+
+
+        document.getElementById(
+          "progressFill"
+        ).style.width =
+          percent + "%";
+
+      }
+    );
+
+
+    /* ==========================
+       VIDEO ENDED
+    ========================== */
+
+    sqlVideo.addEventListener(
+      "ended",
+      function() {
+
+        document.getElementById(
+          "videoStatus"
+        ).textContent =
+          "✓ Lesson Completed";
+
+
+        document.getElementById(
+          "videoPercent"
+        ).textContent =
+          "100%";
+
+
+        document.getElementById(
+          "progressFill"
+        ).style.width =
+          "100%";
+
+      }
+    );
+
+  </script>
+
+
 </body>
+
 </html>
+```
