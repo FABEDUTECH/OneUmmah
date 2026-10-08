@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneUmmah Data Skills | SQL Workshop Certificate</title>
+
+<!-- PDF & QR Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050d0a;--card:rgba(16,34,28,.72);
+  --gold:#c9a961;--gold2:#f0d998;--gold3:#8a6d2f;
+  --green:#7fc9a3;--emerald:#1a4d3a;
+  --white:#f8f5ec;--muted:#9bada5;--border:rgba(201,169,97,.18)
+}
+html{scroll-behavior:smooth}
+body{
+  color:var(--white);font-family:'Inter','Segoe UI',Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(26,77,58,.35),transparent 35%),
+    radial-gradient(circle at 85% 8%,rgba(201,169,97,.12),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(26,77,58,.18),transparent 40%),
+    linear-gradient(160deg,var(--bg),#020605 75%);
+  min-height:100vh;overflow-x:hidden
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+header{
+  position:sticky;top:0;z-index:100;padding:16px 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(201,169,97,.12);
+  background:rgba(4,10,8,.88);backdrop-filter:blur(20px);
+  flex-wrap:wrap;gap:10px
+}
+.logo{
+  font-family:'Cinzel',serif;font-size:16px;font-weight:700;
+  letter-spacing:2.5px;display:flex;align-items:center;gap:10px
+}
+.logo-mark{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  display:grid;place-items:center;color:#0a1813;font-size:16px;font-weight:900;
+  box-shadow:0 4px 14px rgba(201,169,97,.35)
+}
+.logo span{color:var(--gold)}
+nav{display:flex;gap:6px}
+nav button{
+  background:none;border:0;color:#c8d4cf;font-weight:500;
+  cursor:pointer;font-size:13.5px;padding:9px 18px;border-radius:9px;
+  transition:.25s;font-family:inherit;letter-spacing:.4px
+}
+nav button:hover{color:var(--gold2);background:rgba(201,169,97,.08)}
+nav button.active{color:var(--gold2);background:rgba(201,169,97,.14);font-weight:600}
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.container{max-width:1180px;margin:auto;padding:55px 20px 80px}
+.hero{text-align:center;max-width:820px;margin:0 auto 42px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:999px;
+  border:1px solid var(--border);background:rgba(201,169,97,.06);
+  color:var(--gold2);font-size:10.5px;font-weight:600;letter-spacing:2.5px;
+  text-transform:uppercase
+}
+.badge::before{content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,7vw,76px);line-height:1;margin:22px 0 16px;
+  font-weight:600;letter-spacing:-1px
+}
+.hero h1 em{
+  font-family:'Great Vibes',cursive;font-style:normal;
+  color:var(--gold2);font-weight:400;font-size:1.05em
+}
+.hero p{color:var(--muted);line-height:1.85;font-size:15.5px;max-width:640px;margin:auto}
+
+/* ─── Cards ──────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  backdrop-filter:blur(14px);transition:.35s;position:relative;overflow:hidden
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:.35s
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(201,169,97,.35)}
+.card:hover::before{opacity:1}
+.card h2{margin:0 0 10px;font-size:19px;font-weight:600;letter-spacing:.3px}
+.card p{color:var(--muted);line-height:1.7;font-size:14px}
+.icon{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(201,169,97,.16),rgba(201,169,97,.04));
+  border:1px solid var(--border);margin-bottom:20px;font-size:24px
+}
+
+/* ─── Forms ──────────────────────────────────────────────── */
+.form-card{max-width:720px;margin:auto}
+label{
+  display:block;color:#c8d4cf;font-size:12px;font-weight:600;
+  margin:18px 0 8px;letter-spacing:1.2px;text-transform:uppercase
+}
+label .opt{color:#6b7d76;font-weight:400;text-transform:none;letter-spacing:0;font-size:11px}
+input{
+  width:100%;padding:16px 18px;border-radius:12px;border:1px solid #243a31;
+  background:#061410;color:white;font-size:15px;outline:none;
+  font-family:inherit;transition:.25s
+}
+input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,169,97,.1)}
+input::placeholder{color:#4a5c55}
+
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{
+  border:0;border-radius:12px;padding:15px 22px;font-weight:600;
+  cursor:pointer;transition:.25s;font-family:inherit;font-size:14px;
+  letter-spacing:.3px;display:inline-flex;align-items:center;gap:8px
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#0a1813;box-shadow:0 8px 24px rgba(201,169,97,.25)
+}
+.primary:hover{box-shadow:0 12px 32px rgba(201,169,97,.4)}
+.secondary{background:#11231c;color:var(--white);border:1px solid #2a4438}
+.secondary:hover{border-color:var(--gold);color:var(--gold2)}
+.download{
+  background:linear-gradient(135deg,#c9a961,#f0d998);
+  color:#0a1813;font-size:15px;font-weight:700;
+  box-shadow:0 8px 30px rgba(201,169,97,.3)
+}
+
+.result{
+  margin-top:18px;padding:18px;border-radius:14px;
+  background:#061410;border:1px solid #243a31;line-height:1.7;
+  word-break:break-word;font-size:13.5px
+}
+.hidden{display:none!important}
+.valid{color:var(--green)}.invalid{color:#f2a0a0}
+a{color:var(--gold2)}
+.tip{font-size:12px!important;color:#788a83!important;margin-top:14px!important;
+  text-align:center;line-height:1.6}
+
+/* ═══════════════════════════════════════════════════════════
+   CERTIFICATE STAGE — Fixed 1400x990 scaled responsively
+   ═══════════════════════════════════════════════════════════ */
+.certificate-stage{
+  margin:38px auto 0;max-width:1040px;
+  background:linear-gradient(145deg,#0a1813,#061410);
+  border:1px solid var(--border);border-radius:24px;padding:26px;
+  box-shadow:0 30px 80px rgba(0,0,0,.4)
+}
+.stage-title{
+  text-align:center;margin:0 0 22px;color:var(--muted);
+  font-size:11px;letter-spacing:3px;font-weight:600;text-transform:uppercase
+}
+.stage-title::before,.stage-title::after{
+  content:"";display:inline-block;width:40px;height:1px;
+  background:var(--gold);vertical-align:middle;margin:0 12px;opacity:.5
+}
+
+/* The wrapper keeps correct aspect ratio and clips overflow */
+.cert-frame{
+  width:100%;
+  aspect-ratio: 1400 / 990;
+  position:relative;
+  overflow:hidden;
+  border-radius:3px;
+  box-shadow:0 25px 70px rgba(0,0,0,.5);
+  background:#faf7ec
+}
+
+/* The actual certificate is a FIXED 1400x990 canvas.
+   We scale it with JS to fit the wrapper at any size. */
+.certificate{
+  position:absolute;
+  top:0;left:0;
+  width:1400px;
+  height:990px;
+  background:#faf7ec;
+  color:#1a251f;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  transform-origin:top left;
+  overflow:hidden
+}
+
+/* Decorative corner ornaments */
+.corner{position:absolute;width:120px;height:120px;pointer-events:none}
+.corner svg{width:100%;height:100%;display:block}
+.corner.tl{top:0;left:0}
+.corner.tr{top:0;right:0;transform:scaleX(-1)}
+.corner.bl{bottom:0;left:0;transform:scaleY(-1)}
+.corner.br{bottom:0;right:0;transform:scale(-1,-1)}
+
+/* Borders */
+.certificate .outer-border{
+  position:absolute;inset:18px;border:3px solid #1a4d3a;
+  pointer-events:none
+}
+.certificate .outer-border::before{
+  content:"";position:absolute;inset:6px;border:1px solid #c9a961;opacity:.55
+}
+.certificate .inner-border{
+  position:absolute;inset:38px;border:1px solid #c9a961;
+  pointer-events:none
+}
+.certificate .inner-border::before{
+  content:"";position:absolute;inset:5px;border:1px dashed #c9a961;opacity:.35
+}
+
+/* Guilloche pattern background */
+.certificate .pattern{
+  position:absolute;inset:0;opacity:.05;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 30%, #1a4d3a 1.5px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, #c9a961 1.5px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, #1a4d3a 1px, transparent 1px);
+  background-size:60px 60px, 80px 80px, 40px 40px;
+  background-position:0 0, 30px 30px, 15px 15px
+}
+
+/* Watermark seal */
+.watermark{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:440px;height:440px;opacity:.06;pointer-events:none
+}
+.watermark svg{width:100%;height:100%}
+
+/* ── Content ── */
+.cert-content{
+  position:absolute;inset:70px;display:flex;flex-direction:column;
+  align-items:center;text-align:center;justify-content:center;
+  padding:0 60px
+}
+
+.emblem{
+  width:96px;height:96px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f0d998,#c9a961 55%,#8a6d2f);
+  display:grid;place-items:center;margin-bottom:18px;
+  box-shadow:
+    0 0 0 4px #faf7ec,
+    0 0 0 6px #c9a961,
+    0 8px 26px rgba(138,109,47,.35)
+}
+.emblem-inner{
+  width:76px;height:76px;border-radius:50%;
+  border:2px solid rgba(26,77,58,.5);
+  display:grid;place-items:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:14px;color:#1a4d3a;letter-spacing:1.5px;line-height:1.15;
+  text-align:center
+}
+
+.c-org{
+  font-family:'Cinzel',serif;font-size:22px;
+  font-weight:600;letter-spacing:7px;color:#1a4d3a;
+  margin-bottom:6px
+}
+.c-org-sub{
+  font-family:'Inter',sans-serif;font-size:11px;
+  letter-spacing:6px;color:#8a6d2f;font-weight:500;text-transform:uppercase;
+  margin-bottom:18px
+}
+
+.ribbon{display:flex;align-items:center;gap:14px;margin:4px 0 14px}
+.ribbon::before,.ribbon::after{
+  content:"";width:90px;height:1px;
+  background:linear-gradient(90deg,transparent,#c9a961)
+}
+.ribbon::after{background:linear-gradient(90deg,#c9a961,transparent)}
+.ribbon-diamond{
+  width:9px;height:9px;background:#c9a961;transform:rotate(45deg);
+  box-shadow:0 0 0 3px #faf7ec, 0 0 0 4px #c9a961
+}
+
+.c-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:76px;
+  font-weight:600;color:#1a4d3a;line-height:1;
+  letter-spacing:3px;margin:6px 0 4px
+}
+.c-subtitle{
+  font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:9px;color:#8a6d2f;font-weight:500;
+  margin-bottom:22px
+}
+
+.c-presented{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:19px;color:#6b7d76;
+  margin-bottom:8px;letter-spacing:.5px
+}
+
+.c-name{
+  font-family:'Great Vibes',cursive;
+  font-size:88px;
+  color:#1a4d3a;line-height:1.1;
+  margin:6px 0 10px;font-weight:400;
+  position:relative;display:inline-block;padding:0 20px;
+  max-width:1100px;word-break:break-word
+}
+.c-name::after{
+  content:"";position:absolute;bottom:-2px;left:15%;right:15%;height:1.5px;
+  background:linear-gradient(90deg,transparent,#c9a961,transparent)
+}
+
+.c-achievement{
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;color:#3a4a42;
+  max-width:820px;margin:18px auto 10px;line-height:1.7
+}
+.c-course{
+  font-family:'Cinzel',serif;font-size:30px;
+  font-weight:700;letter-spacing:5px;color:#1a4d3a;margin:10px 0;
+  position:relative;display:inline-block;padding:6px 32px
+}
+.c-course::before,.c-course::after{
+  content:"";position:absolute;top:50%;width:16px;height:16px;
+  border:1.8px solid #c9a961;transform:translateY(-50%) rotate(45deg)
+}
+.c-course::before{left:-6px}
+.c-course::after{right:-6px}
+
+/* Meta row */
+.c-meta-row{
+  position:absolute;bottom:86px;left:0;right:0;
+  display:flex;justify-content:space-around;align-items:flex-end;
+  padding:0 140px
+}
+.meta-block{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  min-width:180px
+}
+.meta-label{
+  font-family:'Inter',sans-serif;font-size:10px;
+  letter-spacing:3px;color:#8a6d2f;font-weight:600;text-transform:uppercase
+}
+.meta-value{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;color:#1a4d3a;font-weight:600
+}
+.meta-line{
+  width:180px;height:1px;background:#c9a961;opacity:.5;margin-top:4px
+}
+
+/* QR code */
+.qr-wrap{
+  position:absolute;right:78px;bottom:180px;
+  background:white;padding:8px;border-radius:4px;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+  border:1.5px solid #c9a961;
+  display:flex;flex-direction:column;align-items:center
+}
+.qr-label{
+  font-family:'Inter',sans-serif;font-size:8px;letter-spacing:2px;
+  color:#8a6d2f;text-align:center;margin-top:5px;font-weight:600;
+  text-transform:uppercase
+}
+
+/* Gold seal */
+.gold-seal{
+  position:absolute;left:78px;bottom:180px;
+  width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f0d998,#c9a961 55%,#8a6d2f);
+  display:grid;place-items:center;
+  box-shadow:
+    0 0 0 3px #faf7ec,
+    0 0 0 5px #c9a961,
+    0 6px 20px rgba(138,109,47,.35)
+}
+.gold-seal-inner{
+  width:84%;height:84%;border-radius:50%;
+  border:1.5px dashed rgba(26,77,58,.6);
+  display:grid;place-items:center;
+  font-family:'Cinzel',serif;font-weight:700;
+  color:#1a4d3a;letter-spacing:1.5px;line-height:1.15;text-align:center;
+  font-size:13px
+}
+
+.bottom-ribbon{
+  position:absolute;bottom:0;left:0;right:0;height:8px;
+  background:linear-gradient(90deg,#1a4d3a,#c9a961,#1a4d3a);
+  opacity:.85
+}
+
+/* URL box */
+.url-box{
+  margin-top:20px;padding:15px 18px;border:1px solid #243a31;
+  border-radius:12px;background:#061410;
+  font-family:'Courier New',monospace;font-size:12px;color:var(--gold2);
+  word-break:break-all;line-height:1.6
+}
+
+footer{
+  text-align:center;padding:30px;border-top:1px solid rgba(201,169,97,.08);
+  color:#6b7d76;font-size:12px;letter-spacing:.5px
+}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:30px;right:30px;z-index:9999;
+  background:linear-gradient(135deg,#11231c,#061410);
+  border:1px solid var(--gold);border-radius:14px;padding:18px 24px;
+  color:var(--white);font-size:14px;font-weight:500;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  display:flex;align-items:center;gap:12px;
+  transform:translateX(420px);opacity:0;
+  transition:.4s cubic-bezier(.175,.885,.32,1.275);
+  max-width:360px
+}
+.toast.show{transform:translateX(0);opacity:1}
+.toast-icon{
+  font-size:18px;width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;flex-shrink:0;
+  background:rgba(127,201,163,.15);color:var(--green)
+}
+.toast.success{border-color:var(--green)}
+.toast.error{border-color:#f2a0a0}
+.toast.error .toast-icon{background:rgba(242,160,160,.15);color:#f2a0a0}
+
+/* ─── Mobile ─────────────────────────────────────────────── */
+@media(max-width:700px){
+  header{flex-direction:column;gap:10px;padding:14px 4%}
+  nav button{padding:7px 12px;font-size:12.5px}
+  .container{padding:30px 14px 60px}
+  .hero h1{font-size:clamp(32px,9vw,52px)}
+  .hero p{font-size:14px}
+  .certificate-stage{padding:12px;border-radius:16px}
+  .actions{flex-direction:column}
+  .actions .btn{width:100%;justify-content:center}
+  .toast{right:15px;left:15px;bottom:15px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <div class="logo-mark">☪</div>
+    ONE UMMAH <span>DATA SKILLS</span>
+  </div>
+  <nav>
+    <button data-page="home" class="active" onclick="show('home')">Home</button>
+    <button data-page="generate" onclick="show('generate')">Generate</button>
+    <button data-page="verify" onclick="show('verify')">Verify</button>
+  </nav>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero">
+    <div class="badge">SQL Workshop · Certificate Portal</div>
+    <h1>Excellence <em>Certified</em></h1>
+    <p>
+      Generate a distinguished OneUmmah Data Skills certificate for your SQL Workshop.
+      Each certificate features a unique ID, a verification QR code, and downloads
+      automatically as a print-ready PDF — perfectly on any device.
+    </p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🎓</div>
+      <h2>Generate Certificate</h2>
+      <p>Create a personalized certificate using the student's name and completion date.</p>
+      <button class="btn primary" style="margin-top:20px" onclick="show('generate')">Create Certificate</button>
+    </div>
+    <div class="card">
+      <div class="icon">📄</div>
+      <h2>Auto PDF Download</h2>
+      <p>The certificate downloads automatically to your computer as soon as it's generated.</p>
+      <span class="badge" style="margin-top:20px">AUTO DOWNLOAD</span>
+    </div>
+    <div class="card">
+      <div class="icon">🔐</div>
+      <h2>Verify Online</h2>
+      <p>Every certificate receives a unique verification URL and scannable QR code.</p>
+      <button class="btn secondary" style="margin-top:20px" onclick="show('verify')">Verify Certificate</button>
+    </div>
+  </div>
+</section>
+
+<!-- GENERATE -->
+<section id="generate" class="hidden">
+  <div class="hero">
+    <div class="badge">Certificate Generator</div>
+    <h1>SQL <em>Workshop</em></h1>
+    <p>Enter the student's details below. Your certificate PDF will download automatically.</p>
+  </div>
+
+  <div class="card form-card">
+    <label>Student Full Name</label>
+    <input id="studentName" placeholder="e.g. Ayesha Khan" autocomplete="off">
+
+    <label>Completion Date</label>
+    <input id="completionDate" type="date">
+
+    <label>Certificate ID <span class="opt">— optional, auto-generated if blank</span></label>
+    <input id="certificateId" placeholder="ODS-SQL-2026-0001" autocomplete="off">
+
+    <div class="actions">
+      <button class="btn primary" onclick="generateCertificate()">✨ Generate Certificate</button>
+      <button class="btn secondary" onclick="clearForm()">Clear</button>
+    </div>
+
+    <div id="genResult" class="result hidden"></div>
+  </div>
+
+  <div id="certificateArea" class="certificate-stage hidden">
+    <p class="stage-title">Certificate Preview</p>
+
+    <!-- ═══════════ CERTIFICATE — FIXED 1400×990, AUTO-SCALED ═══════════ -->
+    <div class="cert-frame" id="certFrame">
+      <div id="certificate" class="certificate">
+        <div class="pattern"></div>
+
+        <!-- Corner ornaments -->
+        <div class="corner tl">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#c9a961" stroke-width="1.2">
+            <path d="M2 2 L2 40 M2 2 L40 2" stroke="#1a4d3a" stroke-width="2.2"/>
+            <path d="M8 8 L8 34 M8 8 L34 8" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="6" fill="none" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="2.5" fill="#c9a961"/>
+            <path d="M22 10 L22 14 M22 30 L22 34 M10 22 L14 22 M30 22 L34 22" stroke="#1a4d3a" stroke-width="1"/>
+            <path d="M40 2 Q60 2 60 20" stroke="#c9a961" stroke-width=".8" fill="none"/>
+            <path d="M2 40 Q2 60 20 60" stroke="#c9a961" stroke-width=".8" fill="none"/>
+          </svg>
+        </div>
+        <div class="corner tr">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#c9a961" stroke-width="1.2">
+            <path d="M2 2 L2 40 M2 2 L40 2" stroke="#1a4d3a" stroke-width="2.2"/>
+            <path d="M8 8 L8 34 M8 8 L34 8" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="6" fill="none" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="2.5" fill="#c9a961"/>
+            <path d="M22 10 L22 14 M22 30 L22 34 M10 22 L14 22 M30 22 L34 22" stroke="#1a4d3a" stroke-width="1"/>
+            <path d="M40 2 Q60 2 60 20" stroke="#c9a961" stroke-width=".8" fill="none"/>
+            <path d="M2 40 Q2 60 20 60" stroke="#c9a961" stroke-width=".8" fill="none"/>
+          </svg>
+        </div>
+        <div class="corner bl">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#c9a961" stroke-width="1.2">
+            <path d="M2 2 L2 40 M2 2 L40 2" stroke="#1a4d3a" stroke-width="2.2"/>
+            <path d="M8 8 L8 34 M8 8 L34 8" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="6" fill="none" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="2.5" fill="#c9a961"/>
+            <path d="M22 10 L22 14 M22 30 L22 34 M10 22 L14 22 M30 22 L34 22" stroke="#1a4d3a" stroke-width="1"/>
+            <path d="M40 2 Q60 2 60 20" stroke="#c9a961" stroke-width=".8" fill="none"/>
+            <path d="M2 40 Q2 60 20 60" stroke="#c9a961" stroke-width=".8" fill="none"/>
+          </svg>
+        </div>
+        <div class="corner br">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#c9a961" stroke-width="1.2">
+            <path d="M2 2 L2 40 M2 2 L40 2" stroke="#1a4d3a" stroke-width="2.2"/>
+            <path d="M8 8 L8 34 M8 8 L34 8" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="6" fill="none" stroke="#c9a961" stroke-width="1"/>
+            <circle cx="22" cy="22" r="2.5" fill="#c9a961"/>
+            <path d="M22 10 L22 14 M22 30 L22 34 M10 22 L14 22 M30 22 L34 22" stroke="#1a4d3a" stroke-width="1"/>
+            <path d="M40 2 Q60 2 60 20" stroke="#c9a961" stroke-width=".8" fill="none"/>
+            <path d="M2 40 Q2 60 20 60" stroke="#c9a961" stroke-width=".8" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Watermark -->
+        <div class="watermark">
+          <svg viewBox="0 0 200 200" fill="none" stroke="#1a4d3a" stroke-width="1">
+            <circle cx="100" cy="100" r="90"/>
+            <circle cx="100" cy="100" r="75"/>
+            <circle cx="100" cy="100" r="55"/>
+            <path d="M100 10 L100 45 M100 155 L100 190 M10 100 L45 100 M155 100 L190 100"/>
+            <path d="M40 40 L65 65 M160 160 L135 135 M160 40 L135 65 M40 160 L65 135"/>
+            <polygon points="100,30 106,44 120,44 109,53 113,67 100,58 87,67 91,53 80,44 94,44" stroke="#c9a961" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="outer-border"></div>
+        <div class="inner-border"></div>
+
+        <div class="cert-content">
+          <div class="emblem">
+            <div class="emblem-inner">ODS<br>EST.</div>
+          </div>
+
+          <div class="c-org">ONE UMMAH DATA SKILLS</div>
+          <div class="c-org-sub">Excellence in Data Education</div>
+
+          <div class="ribbon"><span class="ribbon-diamond"></span></div>
+
+          <div class="c-title">Certificate</div>
+          <div class="c-subtitle">OF COMPLETION</div>
+
+          <div class="c-presented">This is to certify that</div>
+
+          <div class="c-name" id="certName">Student Name</div>
+
+          <div class="c-achievement">
+            has successfully completed all requirements and demonstrated
+            proficiency in the
+          </div>
+
+          <div class="c-course">SQL WORKSHOP</div>
+
+          <!-- Gold seal -->
+          <div class="gold-seal">
+            <div class="gold-seal-inner">
+              OFFICIAL<br>SEAL
+            </div>
+          </div>
+
+          <!-- QR code -->
+          <div class="qr-wrap">
+            <div id="qr"></div>
+            <div class="qr-label">SCAN TO VERIFY</div>
+          </div>
+
+          <!-- Meta row -->
+          <div class="c-meta-row">
+            <div class="meta-block">
+              <div class="meta-label">Date Issued</div>
+              <div class="meta-value" id="certDate">—</div>
+              <div class="meta-line"></div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Certificate ID</div>
+              <div class="meta-value" id="certId">—</div>
+              <div class="meta-line"></div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Authorized By</div>
+              <div class="meta-value" style="font-family:'Great Vibes',cursive;font-size:22px">Director</div>
+              <div class="meta-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-ribbon"></div>
+      </div>
+    </div>
+    <!-- ═══════════ END CERTIFICATE ═══════════ -->
+
+    <div class="url-box" id="urlBox"></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn download" onclick="downloadPDF()">⬇ Download Again</button>
+      <button class="btn secondary" onclick="printCertificate()">🖨 Print</button>
+    </div>
+
+    <p class="tip">
+      The PDF is downloaded automatically when you generate a certificate.
+      Use "Download Again" to re-save it at any time.
+    </p>
+  </div>
+</section>
+
+<!-- VERIFY -->
+<section id="verify" class="hidden">
+  <div class="hero">
+    <div class="badge">Public Verification</div>
+    <h1>Verify <em>Certificate</em></h1>
+    <p>Enter the certificate ID to confirm its authenticity in this demo portal.</p>
+  </div>
+
+  <div class="card form-card">
+    <label>Certificate ID</label>
+    <input id="verifyId" placeholder="ODS-SQL-2026-0001" autocomplete="off">
+    <button class="btn primary" onclick="verifyCertificate()" style="margin-top:18px">🔎 Verify Certificate</button>
+    <div id="verifyResult"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+© <span id="year"></span> OneUmmah Data Skills · SQL Workshop Certificate Portal
+</footer>
+
+<div id="toast" class="toast">
+  <span class="toast-icon">✓</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+const STORE = "oneummah_sql_certificates_v5";
+let currentCertificate = null;
+let isGenerating = false;
+
+const $ = id => document.getElementById(id);
+$("year").textContent = new Date().getFullYear();
+$("completionDate").value = new Date().toISOString().slice(0,10);
+
+/* ─── Responsive scaling of the fixed 1400×990 certificate ─── */
+const CERT_W = 1400;
+const CERT_H = 990;
+
+function scaleCertificate(){
+  const frame = $("certFrame");
+  const cert = $("certificate");
+  if(!frame || !cert) return;
+
+  const frameW = frame.clientWidth;
+  const scale = frameW / CERT_W;
+
+  cert.style.transform = `scale(${scale})`;
+  // Frame already has aspect-ratio, so no need to set height.
+}
+
+window.addEventListener("resize", scaleCertificate);
+window.addEventListener("orientationchange", () => setTimeout(scaleCertificate, 200));
+
+/* ─── Navigation ─────────────────────────────────────────── */
+function show(id){
+  ["home","generate","verify"].forEach(x => $(x).classList.add("hidden"));
+  $(id).classList.remove("hidden");
+  document.querySelectorAll("nav button").forEach(b => {
+    b.classList.toggle("active", b.dataset.page === id);
+  });
+  window.scrollTo({top:0, behavior:"smooth"});
+  if(id === "generate") setTimeout(scaleCertificate, 50);
+}
+
+/* ─── Storage ────────────────────────────────────────────── */
+function getCertificates(){
+  try{ return JSON.parse(localStorage.getItem(STORE) || "[]") }
+  catch(e){ return [] }
+}
+function saveCertificates(a){
+  try{ localStorage.setItem(STORE, JSON.stringify(a)) }catch(e){}
+}
+function nextId(){
+  const year = new Date().getFullYear();
+  const count = getCertificates().filter(x => x.certificate_id.startsWith("ODS-SQL-"+year)).length + 1;
+  return "ODS-SQL-" + year + "-" + String(count).padStart(4,"0");
+}
+function formatDate(value){
+  return new Date(value + "T00:00:00").toLocaleDateString("en-IN",
+    {day:"2-digit", month:"short", year:"numeric"});
+}
+function formatDateLong(value){
+  return new Date(value + "T00:00:00").toLocaleDateString("en-IN",
+    {day:"2-digit", month:"long", year:"numeric"});
+}
+function verificationURL(id){
+  return location.href.split("?")[0] + "?verify=" + encodeURIComponent(id);
+}
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+/* ─── Toast ──────────────────────────────────────────────── */
+let toastTimer;
+function showToast(msg, type="success"){
+  const t = $("toast");
+  $("toastMsg").textContent = msg;
+  t.className = "toast show " + type;
+  t.querySelector(".toast-icon").textContent = type === "success" ? "✓" : "✕";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 4200);
+}
+
+/* ─── Generate ───────────────────────────────────────────── */
+async function generateCertificate(){
+  if(isGenerating) return;
+
+  const name = $("studentName").value.trim();
+  const date = $("completionDate").value;
+  let id = ($("certificateId").value.trim() || nextId()).toUpperCase();
+
+  if(!name || !date){
+    showToast("Please enter the student's name and completion date.", "error");
+    return;
+  }
+
+  const list = getCertificates();
+  if(list.some(x => x.certificate_id === id)){
+    showToast("This Certificate ID already exists. Please use another.", "error");
+    return;
+  }
+
+  const record = {
+    certificate_id: id,
+    student_name: name,
+    workshop: "SQL Workshop",
+    completion_date: date,
+    status: "VALID",
+    verification_url: verificationURL(id),
+    created_at: new Date().toISOString()
+  };
+
+  list.push(record);
+  saveCertificates(list);
+  currentCertificate = record;
+
+  // Fill in the certificate
+  $("certName").textContent = name;
+  $("certDate").textContent = formatDate(date);
+  $("certId").textContent = id;
+
+  // QR
+  $("qr").innerHTML = "";
+  try{
+    new QRCode($("qr"), {
+      text: record.verification_url,
+      width: 120, height: 120,
+      colorDark: "#1a4d3a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }catch(e){ console.warn("QR error", e); }
+
+  $("certificateArea").classList.remove("hidden");
+  $("urlBox").innerHTML = "🔗 VERIFY URL: " + escapeHTML(record.verification_url);
+
+  $("genResult").classList.remove("hidden");
+  $("genResult").innerHTML =
+    '<span class="valid">✓ Certificate generated successfully.</span><br>' +
+    '<b>Certificate ID:</b> ' + escapeHTML(id) + '<br>' +
+    '<b>Verification:</b> <a href="' + record.verification_url + '">' +
+    escapeHTML(record.verification_url) + '</a><br><br>' +
+    '<b>⏳ Preparing automatic PDF download…</b>';
+
+  $("certificateArea").scrollIntoView({behavior:"smooth", block:"start"});
+
+  // Rescale preview after layout
+  setTimeout(scaleCertificate, 100);
+
+  // AUTO DOWNLOAD
+  isGenerating = true;
+  setTimeout(async () => {
+    await downloadPDF(true);
+    isGenerating = false;
+  }, 900);
+}
+
+/* ─── PDF Download ───────────────────────────────────────── */
+async function downloadPDF(silent = false){
+  if(!currentCertificate){
+    if(!silent) showToast("Please generate a certificate first.", "error");
+    return;
+  }
+
+  const button = document.querySelector(".download");
+  const old = button.innerHTML;
+  if(!silent){
+    button.disabled = true;
+    button.innerHTML = "⏳ Creating PDF...";
+  }
+
+  try{
+    await new Promise(r => setTimeout(r, 500));
+
+    const element = $("certificate");
+
+    // Temporarily reset transform so html2canvas captures full 1400×990
+    const prevTransform = element.style.transform;
+    element.style.transform = "none";
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#faf7ec",
+      logging: false,
+      width: CERT_W,
+      height: CERT_H,
+      windowWidth: CERT_W,
+      windowHeight: CERT_H
+    });
+
+    // Restore transform
+    element.style.transform = prevTransform;
+
+    const img = canvas.toDataURL("image/jpeg", 0.97);
+    const { jsPDF } = window.jspdf;
+
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: "a4",
+      compress: true
+    });
+
+    const pageW = 297, pageH = 210;
+    pdf.setFillColor(250,247,236);
+    pdf.rect(0, 0, pageW, pageH, "F");
+
+    // Fit to page with small margin, keep aspect ratio
+    const margin = 4;
+    const ratio = canvas.width / canvas.height;
+    let w = pageW - margin * 2;
+    let h = w / ratio;
+    if(h > pageH - margin * 2){
+      h = pageH - margin * 2;
+      w = h * ratio;
+    }
+
+    const x = (pageW - w) / 2;
+    const y = (pageH - h) / 2;
+
+    pdf.addImage(img, "JPEG", x, y, w, h, "CERT", "FAST");
+    pdf.save(currentCertificate.certificate_id + ".pdf");
+
+    if(silent){
+      $("genResult").innerHTML =
+        '<span class="valid">✓ Certificate generated & PDF downloaded!</span><br>' +
+        '<b>Certificate ID:</b> ' + escapeHTML(currentCertificate.certificate_id) + '<br>' +
+        '<b>Verification:</b> <a href="' + currentCertificate.verification_url + '">' +
+        escapeHTML(currentCertificate.verification_url) + '</a><br><br>' +
+        '<span style="color:#7fc9a3">📁 Check your Downloads folder for the PDF</span>';
+      showToast("Certificate generated & PDF downloaded!", "success");
+    } else {
+      showToast("PDF downloaded successfully!", "success");
+    }
+
+  }catch(error){
+    console.error(error);
+    if(silent){
+      $("genResult").innerHTML += '<br><span class="invalid">✕ Auto-download failed. Click "Download Again".</span>';
+    } else {
+      showToast("PDF creation failed. Please try again.", "error");
+    }
+  }finally{
+    if(!silent){
+      button.disabled = false;
+      button.innerHTML = old;
+    }
+  }
+}
+
+/* ─── Print ──────────────────────────────────────────────── */
+function printCertificate(){
+  if(!currentCertificate){
+    showToast("Generate a certificate first.", "error");
+    return;
+  }
+  showToast("Use 'Download Again' for a print-ready PDF.", "success");
+}
+
+/* ─── Verify ─────────────────────────────────────────────── */
+function verifyCertificate(){
+  const id = $("verifyId").value.trim().toUpperCase();
+  const result = $("verifyResult");
+  if(!id){
+    result.innerHTML = '<div class="result invalid">Please enter a Certificate ID.</div>';
+    return;
+  }
+  const found = getCertificates().find(x => x.certificate_id === id);
+
+  if(!found){
+    result.innerHTML = '<div class="result invalid">✕ <b>Certificate not found.</b><br>Please check the Certificate ID.</div>';
+    return;
+  }
+
+  result.innerHTML = `
+  <div class="result valid">
+    <h2 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-size:24px">✓ Certificate Verified</h2>
+    <p style="margin:6px 0"><b>Student:</b> ${escapeHTML(found.student_name)}</p>
+    <p style="margin:6px 0"><b>Workshop:</b> ${escapeHTML(found.workshop)}</p>
+    <p style="margin:6px 0"><b>Completion Date:</b> ${formatDateLong(found.completion_date)}</p>
+    <p style="margin:6px 0"><b>Certificate ID:</b> ${escapeHTML(found.certificate_id)}</p>
+    <p style="margin:6px 0"><b>Status:</b> ${escapeHTML(found.status)}</p>
+    <p style="margin:6px 0"><b>Issued by:</b> OneUmmah Data Skills</p>
+  </div>`;
+}
+
+/* ─── Clear ──────────────────────────────────────────────── */
+function clearForm(){
+  $("studentName").value = "";
+  $("certificateId").value = "";
+  $("completionDate").value = new Date().toISOString().slice(0,10);
+  $("genResult").classList.add("hidden");
+  $("certificateArea").classList.add("hidden");
+  currentCertificate = null;
+}
+
+/* ─── Auto-Verify via URL ────────────────────────────────── */
+const params = new URLSearchParams(location.search);
+if(params.get("verify")){
+  $("verifyId").value = params.get("verify");
+  show("verify");
+  verifyCertificate();
+}
+
+/* ─── Init ───────────────────────────────────────────────── */
+window.addEventListener("load", () => {
+  scaleCertificate();
+  setTimeout(scaleCertificate, 300);
+});
+</script>
+</body>
+</html>
