@@ -65,7 +65,7 @@
           <h3>Java Development</h3><p>Core Java, OOP, collections, APIs and practical application development.</p>
           <div class="course-meta"><span>52 Lessons</span><span>11 Projects</span></div>
           <button class="course-btn" onclick="openCourse('java')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="java" onclick="handleEnroll('java')">Enroll</button>
+          <button class="course-btn course-btn-alt" data-course="sql" onclick="enrollSQL()">Enroll</button>
         </article>
       </div>
     </section>
@@ -103,6 +103,42 @@
 
   <div id="toast" class="toast"></div>
   <script src="script.js"></script>
+
+<script>
+
+  function enrollSQL() {
+
+    let enrolledCourses = [];
+
+    try {
+      enrolledCourses =
+        JSON.parse(
+          localStorage.getItem("oneUmmahEnrolledCourses")
+        ) || [];
+    } catch (error) {
+      enrolledCourses = [];
+    }
+
+    /* SQL ko enrolled courses mein save karo */
+
+    if (!enrolledCourses.includes("sql")) {
+      enrolledCourses.push("sql");
+    }
+
+    localStorage.setItem(
+      "oneUmmahEnrolledCourses",
+      JSON.stringify(enrolledCourses)
+    );
+
+    /* Existing enrollment system bhi run karo */
+
+    if (typeof handleEnroll === "function") {
+      handleEnroll("sql");
+    }
+
+  }
+
+</script>
 
 </body>
 </html>
