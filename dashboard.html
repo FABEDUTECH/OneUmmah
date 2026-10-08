@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,1498 +8,1174 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    /* ---------- Course Folder Area ---------- */
+    /* Dashboard additions - existing theme preserved */
 
-    .course-learning-area {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(120, 120, 120, 0.15);
+    .learning-box {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 14px;
+      background: var(--card, #ffffff);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .learning-box h3 {
+      margin-top: 0;
     }
 
     .course-folder {
-      border: 1px solid rgba(120, 120, 120, 0.16);
+      margin-top: 18px;
+      border: 1px solid rgba(0,0,0,.10);
       border-radius: 12px;
       overflow: hidden;
-      margin-top: 10px;
     }
 
-    .course-folder-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 13px 15px;
-      cursor: pointer;
-      background: rgba(120, 120, 120, 0.04);
+    .folder-title {
+      padding: 16px 18px;
+      font-weight: 700;
+      background: rgba(0,0,0,.03);
     }
-
-    .course-folder-header:hover {
-      background: rgba(120, 120, 120, 0.08);
-    }
-
-    .folder-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .folder-icon {
-      font-size: 18px;
-    }
-
-    .folder-name {
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .folder-arrow {
-      transition: transform 0.2s ease;
-      font-size: 13px;
-    }
-
-    .course-folder.open .folder-arrow {
-      transform: rotate(90deg);
-    }
-
-    .course-folder-content {
-      display: none;
-      padding: 8px 12px 12px;
-    }
-
-    .course-folder.open .course-folder-content {
-      display: block;
-    }
-
-    /* ---------- Day Folder ---------- */
 
     .day-folder {
-      border: 1px solid rgba(120, 120, 120, 0.13);
-      border-radius: 10px;
-      margin-top: 8px;
-      overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 15px 18px;
     }
 
-    .day-header {
+    .day-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .lesson-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 11px 13px;
-      cursor: pointer;
-      background: rgba(120, 120, 120, 0.025);
+      gap: 15px;
+      padding: 10px 0;
     }
 
-    .day-header:hover {
-      background: rgba(120, 120, 120, 0.07);
-    }
-
-    .day-left {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .day-icon {
-      font-size: 15px;
-    }
-
-    .day-name {
-      font-size: 13px;
+    .lesson-name {
       font-weight: 600;
     }
 
-    .day-topic {
-      font-size: 12px;
-      opacity: 0.65;
-      margin-left: 4px;
+    .video-area {
+      margin-top: 20px;
     }
 
-    .day-arrow {
-      font-size: 12px;
-      transition: transform 0.2s ease;
-    }
-
-    .day-folder.open .day-arrow {
-      transform: rotate(90deg);
-    }
-
-    .day-content {
-      display: none;
-      padding: 10px;
-    }
-
-    .day-folder.open .day-content {
-      display: block;
-    }
-
-    /* ---------- Video File ---------- */
-
-    .video-file {
-      border-radius: 10px;
-      border: 1px solid rgba(120, 120, 120, 0.13);
-      overflow: hidden;
-      background: rgba(120, 120, 120, 0.025);
-    }
-
-    .video-file-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 12px;
-    }
-
-    .video-file-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(90, 80, 220, 0.10);
-      font-size: 14px;
-    }
-
-    .video-file-title {
-      flex: 1;
-    }
-
-    .video-file-title strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .video-file-title small {
-      display: block;
-      font-size: 11px;
-      opacity: 0.6;
-      margin-top: 2px;
-    }
-
-    .video-status {
-      font-size: 11px;
-      opacity: 0.65;
-    }
-
-    .dashboard-video {
+    .video-area video {
       width: 100%;
-      display: block;
-      background: #000;
-      max-height: 500px;
-    }
-
-    .video-progress {
-      padding: 10px 12px;
-      font-size: 11px;
-      opacity: 0.7;
-    }
-
-    .video-progress-bar {
-      width: 100%;
-      height: 5px;
-      border-radius: 10px;
-      background: rgba(120,120,120,0.15);
-      margin-top: 6px;
-      overflow: hidden;
-    }
-
-    .video-progress-fill {
-      height: 100%;
-      width: 0%;
-      background: currentColor;
-      transition: width 0.2s ease;
-    }
-
-    /* ---------- Coming Soon ---------- */
-
-    .coming-soon {
-      padding: 13px;
-      font-size: 12px;
-      opacity: 0.6;
-    }
-
-    /* ---------- Empty State ---------- */
-
-    .no-course-message {
-      padding: 30px 20px;
-      text-align: center;
-      border: 1px dashed rgba(120,120,120,0.2);
+      max-width: 850px;
       border-radius: 12px;
+      display: block;
     }
 
-    .no-course-message p {
-      opacity: 0.7;
-      margin-bottom: 15px;
+    .assignment-box {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.02);
     }
 
-    /* ---------- Sidebar clickable items ---------- */
+    .question {
+      margin: 18px 0;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+    }
 
-    .dashboard-side-link {
+    .question label {
+      display: block;
+      margin: 8px 0;
       cursor: pointer;
+    }
+
+    .result-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .pass-box {
+      border: 1px solid #3a8f5b;
+      background: rgba(58,143,91,.08);
+    }
+
+    .fail-box {
+      border: 1px solid #b84a4a;
+      background: rgba(184,74,74,.08);
+    }
+
+    .certificate-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      background: #111;
+      color: #fff;
+    }
+
+    .retry-btn {
+      margin-top: 14px;
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">O</span> OneUmmah Data Skills
+  </a>
 
-  <header class="navbar">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Learning Dashboard</a>
+    <a href="payments.html">Payments</a>
+  </nav>
 
-    <a class="brand" href="index.html">
-      <span class="brand-mark">O</span>
-      OneUmmah Data Skills
+  <div class="nav-actions" id="guestActions">
+    <a class="btn btn-ghost" href="login.html">Login</a>
+    <a class="btn btn-primary" href="register.html">Register</a>
+  </div>
+
+  <div class="nav-actions user-chip" id="authActions" style="display:none">
+    <a href="dashboard.html" class="user-pill">
+      <span class="user-pill-avatar" id="navAvatar">K</span>
+      <span id="navName">Student</span>
     </a>
+    <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Learning Dashboard</a>
-      <a href="payments.html">Payments</a>
-    </nav>
 
-    <div class="nav-actions" id="guestActions">
-      <a class="btn btn-ghost" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Register</a>
+<main>
+
+<section class="section">
+
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">STUDENT AREA</span>
+      <h2>Learning Dashboard</h2>
     </div>
-
-    <div class="nav-actions user-chip" id="authActions" style="display:none">
-
-      <a href="dashboard.html" class="user-pill">
-        <span class="user-pill-avatar" id="navAvatar">K</span>
-        <span id="navName">Student</span>
-      </a>
-
-      <button class="btn btn-ghost" onclick="handleLogout()">
-        Logout
-      </button>
-
-    </div>
-
-  </header>
+  </div>
 
 
-  <!-- ================= MAIN ================= -->
+  <div class="dashboard">
 
-  <main>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <section class="section">
-
-      <div class="section-heading">
+      <div class="student">
+        <div class="avatar" id="dashAvatar">K</div>
 
         <div>
-          <span class="eyebrow">STUDENT AREA</span>
-          <h2>Learning Dashboard</h2>
+          <b id="dashName">Student</b>
+          <small id="dashEmail">Learning Account</small>
+        </div>
+      </div>
+
+      <a class="side-active">▦ Overview</a>
+
+      <a href="#myCoursesSection">▣ My Courses</a>
+
+      <a href="#videoSection">▶ Video Player</a>
+
+      <a href="#assignmentSection">✓ Assignments</a>
+
+      <a>◆ Projects</a>
+
+      <a href="#certificateSection">♜ Certificates</a>
+
+      <a href="payments.html">₹ Payments</a>
+
+      <a>⚙ Profile</a>
+
+    </aside>
+
+
+    <!-- MAIN DASHBOARD -->
+    <div class="dash-main">
+
+      <div class="welcome">
+
+        <div>
+          <span class="eyebrow">YOUR PROGRESS</span>
+
+          <h3 id="dashWelcome">
+            Keep going — you're making progress.
+          </h3>
+        </div>
+
+        <a class="btn btn-primary" href="courses.html">
+          Continue Learning
+        </a>
+
+      </div>
+
+
+      <!-- METRICS -->
+      <div class="metric-grid">
+
+        <div class="metric">
+          <span>Active Courses</span>
+          <strong id="metricActive">0</strong>
+          <small id="metricActiveSub">
+            Browse courses to enroll
+          </small>
+        </div>
+
+        <div class="metric">
+          <span>Lessons Completed</span>
+          <strong id="metricLessons">0</strong>
+          <small>Across all courses</small>
+        </div>
+
+        <div class="metric">
+          <span>Assignments</span>
+          <strong id="metricAssign">0</strong>
+          <small>Submitted</small>
+        </div>
+
+        <div class="metric">
+          <span>Certificates</span>
+          <strong id="metricCerts">0</strong>
+          <small>Earned</small>
         </div>
 
       </div>
 
 
-      <div class="dashboard">
+      <!-- MY COURSES -->
+      <div class="my-courses" id="myCoursesSection">
+
+        <div class="dash-title">
+          <h3>My Courses</h3>
+          <a class="text-link" href="courses.html">
+            Browse more →
+          </a>
+        </div>
+
+        <div id="myCoursesList"></div>
+
+      </div>
 
 
-        <!-- ================= SIDEBAR ================= -->
+      <!-- SQL LEARNING AREA -->
+      <div id="sqlLearningArea" class="learning-box hidden">
 
-        <aside class="sidebar">
+        <h3>Master SQL</h3>
 
-          <div class="student">
+        <p>
+          Your enrolled SQL course content.
+        </p>
 
-            <div class="avatar" id="dashAvatar">
-              K
+
+        <!-- COURSE FOLDERS -->
+        <div class="course-folder">
+
+          <div class="folder-title">
+            📁 Master SQL
+          </div>
+
+
+          <!-- DAY 1 -->
+          <div class="day-folder">
+
+            <div class="day-title">
+              📂 Day 1
             </div>
 
-            <div>
+            <div class="lesson-row">
 
-              <b id="dashName">
-                Student
-              </b>
+              <div class="lesson-name">
+                🎬 SQL Introduction
+              </div>
 
-              <small id="dashEmail">
-                Learning Account
-              </small>
+              <button
+                class="btn btn-primary"
+                onclick="openSQLVideo()">
+                Start Learning
+              </button>
 
             </div>
 
           </div>
 
 
-          <a
-            class="side-active dashboard-side-link"
-            onclick="dashboardOverview()">
-            ▦ Overview
-          </a>
+          <!-- DAY 2 -->
+          <div class="day-folder">
 
-          <a
-            class="dashboard-side-link"
-            onclick="scrollToMyCourses()">
-            ▣ My Courses
-          </a>
-
-          <a
-            class="dashboard-side-link"
-            onclick="openVideoPlayer()">
-            ▶ Video Player
-          </a>
-
-          <a class="dashboard-side-link">
-            ✓ Assignments
-          </a>
-
-          <a class="dashboard-side-link">
-            ◆ Projects
-          </a>
-
-          <a class="dashboard-side-link">
-            ♜ Certificates
-          </a>
-
-          <a href="payments.html">
-            ₹ Payments
-          </a>
-
-          <a class="dashboard-side-link">
-            ⚙ Profile
-          </a>
-
-        </aside>
-
-
-        <!-- ================= DASHBOARD MAIN ================= -->
-
-        <div class="dash-main">
-
-
-          <!-- WELCOME -->
-
-          <div class="welcome">
-
-            <div>
-
-              <span class="eyebrow">
-                YOUR PROGRESS
-              </span>
-
-              <h3 id="dashWelcome">
-                Keep going — you're making progress.
-              </h3>
-
+            <div class="day-title">
+              📂 Day 2
             </div>
 
-            <a
-              class="btn btn-primary"
-              href="courses.html">
-              Continue Learning
-            </a>
-
-          </div>
-
-
-          <!-- METRICS -->
-
-          <div class="metric-grid">
-
-            <div class="metric">
-
-              <span>
-                Active Courses
-              </span>
-
-              <strong id="metricActive">
-                0
-              </strong>
-
-              <small id="metricActiveSub">
-                Browse courses to enroll
-              </small>
-
-            </div>
-
-
-            <div class="metric">
-
-              <span>
-                Lessons Completed
-              </span>
-
-              <strong id="metricLessons">
-                0
-              </strong>
-
-              <small>
-                Across all courses
-              </small>
-
-            </div>
-
-
-            <div class="metric">
-
-              <span>
-                Assignments
-              </span>
-
-              <strong id="metricAssign">
-                0
-              </strong>
-
-              <small>
-                Submitted
-              </small>
-
-            </div>
-
-
-            <div class="metric">
-
-              <span>
-                Certificates
-              </span>
-
-              <strong id="metricCerts">
-                0
-              </strong>
-
-              <small>
-                Earned
-              </small>
-
+            <div class="lesson-name">
+              SQL Basics
             </div>
 
           </div>
 
 
-          <!-- ================= MY COURSES ================= -->
+          <!-- DAY 3 -->
+          <div class="day-folder">
 
+            <div class="day-title">
+              📂 Day 3
+            </div>
+
+            <div class="lesson-name">
+              SQL Queries
+            </div>
+
+          </div>
+
+
+          <!-- DAY 4 -->
+          <div class="day-folder">
+
+            <div class="day-title">
+              📂 Day 4
+            </div>
+
+            <div class="lesson-name">
+              SQL Practice
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- VIDEO PLAYER -->
+        <div
+          id="videoSection"
+          class="video-area hidden">
+
+          <h3>SQL Introduction</h3>
+
+          <video
+            id="sqlVideo"
+            controls
+            preload="metadata">
+
+            <source
+              src="./sql-course.mp4"
+              type="video/mp4">
+
+            Your browser does not support HTML5 video.
+          </video>
+
+          <p id="videoProgressText">
+            Progress: 0%
+          </p>
+
+        </div>
+
+
+        <!-- ASSIGNMENT -->
+        <div
+          id="assignmentSection"
+          class="assignment-box">
+
+          <h3>✓ SQL Assignment</h3>
+
+          <p>
+            Complete all 10 questions.
+            You need <strong>80% or above</strong>
+            to pass and unlock the certificate.
+          </p>
+
+
+          <form id="sqlAssignmentForm">
+
+
+            <!-- Q1 -->
+            <div class="question">
+
+              <strong>1. Which SQL command is used to retrieve data?</strong>
+
+              <label>
+                <input type="radio" name="q1" value="A">
+                INSERT
+              </label>
+
+              <label>
+                <input type="radio" name="q1" value="B">
+                SELECT
+              </label>
+
+              <label>
+                <input type="radio" name="q1" value="C">
+                DELETE
+              </label>
+
+              <label>
+                <input type="radio" name="q1" value="D">
+                UPDATE
+              </label>
+
+            </div>
+
+
+            <!-- Q2 -->
+            <div class="question">
+
+              <strong>2. Which clause is used to filter rows?</strong>
+
+              <label>
+                <input type="radio" name="q2" value="A">
+                ORDER BY
+              </label>
+
+              <label>
+                <input type="radio" name="q2" value="B">
+                GROUP BY
+              </label>
+
+              <label>
+                <input type="radio" name="q2" value="C">
+                WHERE
+              </label>
+
+              <label>
+                <input type="radio" name="q2" value="D">
+                JOIN
+              </label>
+
+            </div>
+
+
+            <!-- Q3 -->
+            <div class="question">
+
+              <strong>3. Which clause sorts SQL results?</strong>
+
+              <label>
+                <input type="radio" name="q3" value="A">
+                ORDER BY
+              </label>
+
+              <label>
+                <input type="radio" name="q3" value="B">
+                WHERE
+              </label>
+
+              <label>
+                <input type="radio" name="q3" value="C">
+                INSERT
+              </label>
+
+              <label>
+                <input type="radio" name="q3" value="D">
+                DELETE
+              </label>
+
+            </div>
+
+
+            <!-- Q4 -->
+            <div class="question">
+
+              <strong>4. Which clause groups rows?</strong>
+
+              <label>
+                <input type="radio" name="q4" value="A">
+                WHERE
+              </label>
+
+              <label>
+                <input type="radio" name="q4" value="B">
+                GROUP BY
+              </label>
+
+              <label>
+                <input type="radio" name="q4" value="C">
+                ORDER BY
+              </label>
+
+              <label>
+                <input type="radio" name="q4" value="D">
+                SELECT
+              </label>
+
+            </div>
+
+
+            <!-- Q5 -->
+            <div class="question">
+
+              <strong>5. Which SQL operation combines data from tables?</strong>
+
+              <label>
+                <input type="radio" name="q5" value="A">
+                JOIN
+              </label>
+
+              <label>
+                <input type="radio" name="q5" value="B">
+                DELETE
+              </label>
+
+              <label>
+                <input type="radio" name="q5" value="C">
+                UPDATE
+              </label>
+
+              <label>
+                <input type="radio" name="q5" value="D">
+                DROP
+              </label>
+
+            </div>
+
+
+            <!-- Q6 -->
+            <div class="question">
+
+              <strong>6. Which function counts rows?</strong>
+
+              <label>
+                <input type="radio" name="q6" value="A">
+                SUM()
+              </label>
+
+              <label>
+                <input type="radio" name="q6" value="B">
+                COUNT()
+              </label>
+
+              <label>
+                <input type="radio" name="q6" value="C">
+                AVG()
+              </label>
+
+              <label>
+                <input type="radio" name="q6" value="D">
+                MAX()
+              </label>
+
+            </div>
+
+
+            <!-- Q7 -->
+            <div class="question">
+
+              <strong>7. Which keyword removes duplicate values?</strong>
+
+              <label>
+                <input type="radio" name="q7" value="A">
+                UNIQUE
+              </label>
+
+              <label>
+                <input type="radio" name="q7" value="B">
+                DISTINCT
+              </label>
+
+              <label>
+                <input type="radio" name="q7" value="C">
+                DIFFERENT
+              </label>
+
+              <label>
+                <input type="radio" name="q7" value="D">
+                REMOVE
+              </label>
+
+            </div>
+
+
+            <!-- Q8 -->
+            <div class="question">
+
+              <strong>8. Which command adds new rows?</strong>
+
+              <label>
+                <input type="radio" name="q8" value="A">
+                UPDATE
+              </label>
+
+              <label>
+                <input type="radio" name="q8" value="B">
+                INSERT
+              </label>
+
+              <label>
+                <input type="radio" name="q8" value="C">
+                SELECT
+              </label>
+
+              <label>
+                <input type="radio" name="q8" value="D">
+                ALTER
+              </label>
+
+            </div>
+
+
+            <!-- Q9 -->
+            <div class="question">
+
+              <strong>9. Which command changes existing data?</strong>
+
+              <label>
+                <input type="radio" name="q9" value="A">
+                UPDATE
+              </label>
+
+              <label>
+                <input type="radio" name="q9" value="B">
+                SELECT
+              </label>
+
+              <label>
+                <input type="radio" name="q9" value="C">
+                CREATE
+              </label>
+
+              <label>
+                <input type="radio" name="q9" value="D">
+                INSERT
+              </label>
+
+            </div>
+
+
+            <!-- Q10 -->
+            <div class="question">
+
+              <strong>10. Which command removes rows?</strong>
+
+              <label>
+                <input type="radio" name="q10" value="A">
+                DELETE
+              </label>
+
+              <label>
+                <input type="radio" name="q10" value="B">
+                SELECT
+              </label>
+
+              <label>
+                <input type="radio" name="q10" value="C">
+                INSERT
+              </label>
+
+              <label>
+                <input type="radio" name="q10" value="D">
+                UPDATE
+              </label>
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="btn btn-primary">
+              Submit Assignment
+            </button>
+
+          </form>
+
+
+          <!-- RESULT -->
           <div
-            class="my-courses"
-            id="myCoursesSection">
-
-            <div class="dash-title">
-
-              <h3>
-                My Courses
-              </h3>
-
-              <a
-                class="text-link"
-                href="courses.html">
-                Browse more →
-              </a>
-
-            </div>
-
-
-            <!-- IMPORTANT:
-                 JavaScript will put ONLY
-                 enrolled courses here.
-            -->
-
-            <div id="myCoursesList"></div>
+            id="assignmentResult"
+            class="result-box">
 
           </div>
 
+        </div>
+
+
+        <!-- CERTIFICATE -->
+        <div
+          id="certificateSection"
+          class="assignment-box hidden">
+
+          <h3>♜ Certificate</h3>
+
+          <p>
+            Congratulations! You have successfully
+            passed the SQL Assignment.
+          </p>
+
+          <p>
+            Your score is 80% or above.
+          </p>
+
+          <a
+            href="ODS_WEB.html"
+            target="_blank"
+            class="certificate-btn">
+
+            Generate SQL Certificate
+          </a>
 
         </div>
 
       </div>
 
-    </section>
-
-  </main>
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer>
-
-    <div class="brand">
-
-      <span class="brand-mark">
-        O
-      </span>
-
-      OneUmmah Data Skills
-
     </div>
 
-    <span>
-      © 2026 Technical Learning Platform
-    </span>
+  </div>
 
-    <div>
+</section>
 
-      <a href="courses.html">
-        Courses
-      </a>
-
-      <a href="dashboard.html">
-        Dashboard
-      </a>
-
-      <a href="login.html">
-        Login
-      </a>
-
-    </div>
-
-  </footer>
+</main>
 
 
-  <div id="toast" class="toast"></div>
+<footer>
+
+  <div class="brand">
+    <span class="brand-mark">O</span>
+    OneUmmah Data Skills
+  </div>
+
+  <span>
+    © 2026 Technical Learning Platform
+  </span>
+
+  <div>
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+  </div>
+
+</footer>
 
 
-  <!-- EXISTING WEBSITE JAVASCRIPT -->
-
-  <script src="script.js"></script>
+<div id="toast" class="toast"></div>
 
 
-  <!-- ================= DASHBOARD FUNCTIONALITY ================= -->
+<script src="script.js"></script>
 
-  <script>
 
-    /* =========================================================
-       ENROLLED COURSES
-       ========================================================= */
+<script>
 
-    function getEnrolledCourses() {
+  /* -----------------------------------
+     ENROLLED COURSES
+  ----------------------------------- */
 
-      try {
+  function getEnrolledCourses() {
 
-        const courses =
-          JSON.parse(
-            localStorage.getItem(
-              "oneUmmahEnrolledCourses"
-            )
+    try {
+
+      return JSON.parse(
+        localStorage.getItem("oneUmmahEnrolledCourses")
+      ) || [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
+  }
+
+
+  /* -----------------------------------
+     SHOW ENROLLED COURSES
+  ----------------------------------- */
+
+  function loadDashboardCourses() {
+
+    const enrolled = getEnrolledCourses();
+
+    const list = document.getElementById("myCoursesList");
+
+    const sqlArea =
+      document.getElementById("sqlLearningArea");
+
+    const active =
+      document.getElementById("metricActive");
+
+    active.textContent = enrolled.length;
+
+
+    if (enrolled.includes("sql")) {
+
+      sqlArea.classList.remove("hidden");
+
+      list.innerHTML = `
+        <div class="course-card">
+          <h3>Master SQL</h3>
+          <p>SQL Workshop & Practical Learning</p>
+          <button
+            class="course-btn course-btn-alt"
+            onclick="openSQLVideo()">
+            Continue Learning
+          </button>
+        </div>
+      `;
+
+    } else {
+
+      list.innerHTML = `
+        <div class="learning-box">
+          <p>
+            You have not enrolled in any course yet.
+          </p>
+
+          <a
+            class="btn btn-primary"
+            href="courses.html">
+            Browse Courses
+          </a>
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  /* -----------------------------------
+     OPEN SQL VIDEO
+  ----------------------------------- */
+
+  function openSQLVideo() {
+
+    const videoSection =
+      document.getElementById("videoSection");
+
+    videoSection.classList.remove("hidden");
+
+    videoSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+  /* -----------------------------------
+     VIDEO PROGRESS
+  ----------------------------------- */
+
+  const sqlVideo =
+    document.getElementById("sqlVideo");
+
+  if (sqlVideo) {
+
+    const savedTime =
+      parseFloat(
+        localStorage.getItem("sqlDay1VideoTime")
+      ) || 0;
+
+    if (savedTime > 0) {
+      sqlVideo.currentTime = savedTime;
+    }
+
+
+    sqlVideo.addEventListener("timeupdate", function () {
+
+      if (sqlVideo.duration) {
+
+        const percent =
+          Math.round(
+            (sqlVideo.currentTime /
+            sqlVideo.duration) * 100
           );
 
-        return Array.isArray(courses)
-          ? courses
-          : [];
+        localStorage.setItem(
+          "sqlDay1VideoTime",
+          sqlVideo.currentTime
+        );
 
-      } catch (error) {
+        localStorage.setItem(
+          "sqlDay1Progress",
+          percent
+        );
 
-        return [];
-
-      }
-
-    }
-
-
-    /* =========================================================
-       COURSE DATA
-       ========================================================= */
-
-    const dashboardCourses = {
-
-      sql: {
-
-        name: "Master SQL",
-
-        icon: "SQL",
-
-        lessons: 48,
-
-        progress: 0,
-
-        days: [
-
-          {
-            day: 1,
-            title: "SQL Introduction",
-            video: "sql-course.mp4",
-            videoTitle: "SQL Introduction"
-          },
-
-          {
-            day: 2,
-            title: "SQL Basics",
-            video: null,
-            videoTitle: "SQL Basics"
-          },
-
-          {
-            day: 3,
-            title: "Queries & Filters",
-            video: null,
-            videoTitle: "Queries & Filters"
-          },
-
-          {
-            day: 4,
-            title: "SQL Practice",
-            video: null,
-            videoTitle: "SQL Practice"
-          }
-
-        ]
-
-      },
-
-
-      python: {
-
-        name: "Python for Data Engineering",
-
-        icon: "Py",
-
-        lessons: 56,
-
-        progress: 0,
-
-        days: [
-
-          {
-            day: 1,
-            title: "Python Introduction",
-            video: null,
-            videoTitle: "Python Introduction"
-          },
-
-          {
-            day: 2,
-            title: "Python Basics",
-            video: null,
-            videoTitle: "Python Basics"
-          }
-
-        ]
-
-      },
-
-
-      azure: {
-
-        name: "Azure Data Engineering",
-
-        icon: "AZ",
-
-        lessons: 64,
-
-        progress: 0,
-
-        days: []
-
-      },
-
-
-      snowflake: {
-
-        name: "Snowflake & dbt",
-
-        icon: "SF",
-
-        lessons: 42,
-
-        progress: 0,
-
-        days: []
-
-      },
-
-
-      java: {
-
-        name: "Java Development",
-
-        icon: "J",
-
-        lessons: 52,
-
-        progress: 0,
-
-        days: []
-
-      }
-
-    };
-
-
-    /* =========================================================
-       RENDER MY COURSES
-       ========================================================= */
-
-    function renderMyCourses() {
-
-      const list =
         document.getElementById(
-          "myCoursesList"
-        );
-
-      if (!list) return;
-
-
-      const enrolled =
-        getEnrolledCourses();
-
-
-      list.innerHTML = "";
-
-
-      /* No enrolled course */
-
-      if (enrolled.length === 0) {
-
-        list.innerHTML = `
-
-          <div class="no-course-message">
-
-            <p>
-              You haven't enrolled in any course yet.
-            </p>
-
-            <a
-              href="courses.html"
-              class="btn btn-primary">
-              Browse Courses
-            </a>
-
-          </div>
-
-        `;
-
-        updateMetrics([]);
-
-        return;
+          "videoProgressText"
+        ).textContent =
+          "Progress: " + percent + "%";
 
       }
 
+    });
 
-      /* Create only enrolled courses */
 
-      enrolled.forEach(function(courseId) {
+    sqlVideo.addEventListener("ended", function () {
 
-        const course =
-          dashboardCourses[courseId];
+      localStorage.setItem(
+        "sqlDay1Completed",
+        "true"
+      );
 
-        if (!course) return;
+      document.getElementById(
+        "metricLessons"
+      ).textContent = "1";
 
+    });
 
-        const courseCard =
-          document.createElement("div");
+  }
 
-        courseCard.className =
-          "course-card dashboard-course-card";
 
-        courseCard.dataset.course =
-          courseId;
+  /* -----------------------------------
+     SQL ASSIGNMENT
+  ----------------------------------- */
 
+  const assignmentForm =
+    document.getElementById("sqlAssignmentForm");
 
-        courseCard.innerHTML = `
 
-          <div class="course-card-top">
+  if (assignmentForm) {
 
-            <div class="course-icon ${getCourseIconClass(courseId)}">
-              ${course.icon}
-            </div>
+    assignmentForm.addEventListener(
+      "submit",
+      function(event) {
 
-            <div>
+        event.preventDefault();
 
-              <h3>
-                ${course.name}
-              </h3>
 
-              <span class="course-progress-label">
-                ${getCourseProgress(courseId)}% complete
-              </span>
+        const answers = {
 
-            </div>
+          q1: "B",
+          q2: "C",
+          q3: "A",
+          q4: "B",
+          q5: "A",
+          q6: "B",
+          q7: "B",
+          q8: "B",
+          q9: "A",
+          q10: "A"
 
-          </div>
+        };
 
 
-          <div class="course-progress">
+        let score = 0;
 
-            <div
-              class="course-progress-fill"
-              style="width:${getCourseProgress(courseId)}%">
-            </div>
 
-          </div>
-
-
-          <div class="course-learning-area">
-
-            <div class="course-folder">
-
-              <div
-                class="course-folder-header"
-                onclick="toggleCourseFolder(this)">
-
-                <div class="folder-left">
-
-                  <span class="folder-icon">
-                    📁
-                  </span>
-
-                  <span class="folder-name">
-                    ${course.name}
-                  </span>
-
-                </div>
-
-                <span class="folder-arrow">
-                  ▶
-                </span>
-
-              </div>
-
-
-              <div class="course-folder-content">
-
-                ${renderDays(courseId, course)}
-
-              </div>
-
-            </div>
-
-          </div>
-
-        `;
-
-
-        list.appendChild(courseCard);
-
-      });
-
-
-      updateMetrics(enrolled);
-
-      restoreSQLProgress();
-
-    }
-
-
-    /* =========================================================
-       COURSE ICON CLASS
-       ========================================================= */
-
-    function getCourseIconClass(courseId) {
-
-      if (courseId === "python")
-        return "py";
-
-      if (courseId === "azure")
-        return "cloud";
-
-      if (courseId === "snowflake")
-        return "snow";
-
-      if (courseId === "java")
-        return "java";
-
-      return "sql";
-
-    }
-
-
-    /* =========================================================
-       RENDER DAYS
-       ========================================================= */
-
-    function renderDays(courseId, course) {
-
-      if (!course.days.length) {
-
-        return `
-
-          <div class="coming-soon">
-            Course folders will appear here when lessons are uploaded.
-          </div>
-
-        `;
-
-      }
-
-
-      return course.days.map(function(day) {
-
-        if (day.video) {
-
-          return `
-
-            <div
-              class="day-folder"
-              id="${courseId}Day${day.day}">
-
-              <div
-                class="day-header"
-                onclick="toggleDayFolder(this)">
-
-                <div class="day-left">
-
-                  <span class="day-icon">
-                    📁
-                  </span>
-
-                  <span class="day-name">
-                    Day ${day.day}
-                  </span>
-
-                  <span class="day-topic">
-                    ${day.title}
-                  </span>
-
-                </div>
-
-                <span class="day-arrow">
-                  ▶
-                </span>
-
-              </div>
-
-
-              <div class="day-content">
-
-                <div class="video-file">
-
-                  <div class="video-file-header">
-
-                    <div class="video-file-icon">
-                      ▶
-                    </div>
-
-                    <div class="video-file-title">
-
-                      <strong>
-                        ${day.videoTitle}
-                      </strong>
-
-                      <small>
-                        Video • Day ${day.day}
-                      </small>
-
-                    </div>
-
-                    <span
-                      id="${courseId}Day${day.day}Status"
-                      class="video-status">
-                      Not Started
-                    </span>
-
-                  </div>
-
-
-                  <video
-                    id="${courseId}Video"
-                    class="dashboard-video"
-                    controls
-                    playsinline
-                    preload="metadata">
-
-                    <source
-                      src="./${day.video}"
-                      type="video/mp4">
-
-                    Your browser does not support HTML5 video.
-
-                  </video>
-
-
-                  <div class="video-progress">
-
-                    <span>
-                      Progress:
-                      <b id="${courseId}ProgressText">
-                        0%
-                      </b>
-                    </span>
-
-                    <div class="video-progress-bar">
-
-                      <div
-                        id="${courseId}ProgressFill"
-                        class="video-progress-fill">
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-
-
-        return `
-
-          <div
-            class="day-folder"
-            id="${courseId}Day${day.day}">
-
-            <div
-              class="day-header"
-              onclick="toggleDayFolder(this)">
-
-              <div class="day-left">
-
-                <span class="day-icon">
-                  📁
-                </span>
-
-                <span class="day-name">
-                  Day ${day.day}
-                </span>
-
-                <span class="day-topic">
-                  ${day.title}
-                </span>
-
-              </div>
-
-              <span class="day-arrow">
-                ▶
-              </span>
-
-            </div>
-
-
-            <div class="day-content">
-
-              <div class="coming-soon">
-                Video not uploaded yet.
-              </div>
-
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-    }
-
-
-    /* =========================================================
-       TOGGLE COURSE FOLDER
-       ========================================================= */
-
-    function toggleCourseFolder(header) {
-
-      const folder =
-        header.parentElement;
-
-      folder.classList.toggle("open");
-
-    }
-
-
-    /* =========================================================
-       TOGGLE DAY FOLDER
-       ========================================================= */
-
-    function toggleDayFolder(header) {
-
-      const folder =
-        header.parentElement;
-
-      folder.classList.toggle("open");
-
-    }
-
-
-    /* =========================================================
-       COURSE PROGRESS
-       ========================================================= */
-
-    function getCourseProgress(courseId) {
-
-      if (courseId === "sql") {
-
-        return parseInt(
-          localStorage.getItem(
-            "sqlDay1Progress"
-          ) || "0"
-        );
-
-      }
-
-      return 0;
-
-    }
-
-
-    /* =========================================================
-       METRICS
-       ========================================================= */
-
-    function updateMetrics(enrolled) {
-
-      const active =
-        document.getElementById(
-          "metricActive"
-        );
-
-      const activeSub =
-        document.getElementById(
-          "metricActiveSub"
-        );
-
-      const lessons =
-        document.getElementById(
-          "metricLessons"
-        );
-
-
-      if (active) {
-
-        active.textContent =
-          enrolled.length;
-
-      }
-
-
-      if (activeSub) {
-
-        activeSub.textContent =
-          enrolled.length === 0
-            ? "Browse courses to enroll"
-            : "Keep up your learning";
-
-      }
-
-
-      if (lessons) {
-
-        let completed = 0;
-
-        if (
-          localStorage.getItem(
-            "sqlDay1Completed"
-          ) === "true"
+        for (
+          let i = 1;
+          i <= 10;
+          i++
         ) {
 
-          completed = 1;
+          const selected =
+            document.querySelector(
+              'input[name="q' + i + '"]:checked'
+            );
 
-        }
-
-        lessons.textContent =
-          completed;
-
-      }
-
-    }
-
-
-    /* =========================================================
-       SQL VIDEO PROGRESS
-       ========================================================= */
-
-    function setupSQLVideo() {
-
-      const video =
-        document.getElementById(
-          "sqlVideo"
-        );
-
-      if (!video) return;
-
-
-      const savedTime =
-        parseFloat(
-          localStorage.getItem(
-            "sqlDay1VideoTime"
-          ) || "0"
-        );
-
-
-      video.addEventListener(
-        "loadedmetadata",
-        function() {
 
           if (
-            savedTime > 0 &&
-            savedTime < video.duration
+            selected &&
+            selected.value === answers["q" + i]
           ) {
 
-            video.currentTime =
-              savedTime;
+            score++;
 
           }
 
         }
-      );
 
 
-      video.addEventListener(
-        "timeupdate",
-        function() {
-
-          if (
-            video.duration &&
-            !isNaN(video.duration)
-          ) {
-
-            const percent =
-              Math.floor(
-                (video.currentTime /
-                video.duration) * 100
-              );
+        const percentage =
+          score * 10;
 
 
-            localStorage.setItem(
-              "sqlDay1VideoTime",
-              video.currentTime
-            );
+        const result =
+          document.getElementById(
+            "assignmentResult"
+          );
 
 
-            localStorage.setItem(
-              "sqlDay1Progress",
-              percent
-            );
+        result.style.display = "block";
 
 
-            updateSQLVideoProgress(
-              percent
-            );
+        if (percentage >= 80) {
 
-          }
-
-        }
-      );
+          result.className =
+            "result-box pass-box";
 
 
-      video.addEventListener(
-        "ended",
-        function() {
+          result.innerHTML = `
+            <h3>🎉 Congratulations! You Passed</h3>
+
+            <p>
+              Your Score:
+              <strong>${score}/10 (${percentage}%)</strong>
+            </p>
+
+            <p>
+              You have achieved the required
+              80% passing score.
+            </p>
+          `;
+
+
+          document
+            .getElementById("certificateSection")
+            .classList.remove("hidden");
+
 
           localStorage.setItem(
-            "sqlDay1Completed",
+            "sqlAssignmentPassed",
             "true"
           );
 
           localStorage.setItem(
-            "sqlDay1Progress",
-            "100"
+            "sqlAssignmentScore",
+            percentage
           );
 
 
-          updateSQLVideoProgress(
-            100
-          );
+          document.getElementById(
+            "metricAssign"
+          ).textContent = "1";
 
 
-          const status =
-            document.getElementById(
-              "sqlDay1Status"
-            );
+          document.getElementById(
+            "metricCerts"
+          ).textContent = "1";
 
 
-          if (status) {
+          document
+            .getElementById("certificateSection")
+            .scrollIntoView({
+              behavior: "smooth"
+            });
 
-            status.textContent =
-              "✓ Completed";
 
-          }
+        } else {
+
+          result.className =
+            "result-box fail-box";
 
 
-          updateMetrics(
-            getEnrolledCourses()
-          );
+          result.innerHTML = `
+            <h3>❌ Not Passed</h3>
+
+            <p>
+              Your Score:
+              <strong>${score}/10 (${percentage}%)</strong>
+            </p>
+
+            <p>
+              You need at least 80% to pass.
+              Please try the assignment again.
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-primary retry-btn"
+              onclick="retryAssignment()">
+              Retry Assignment
+            </button>
+          `;
+
+
+          document
+            .getElementById("certificateSection")
+            .classList.add("hidden");
 
         }
-      );
-
-    }
-
-
-    /* =========================================================
-       UPDATE VIDEO PROGRESS
-       ========================================================= */
-
-    function updateSQLVideoProgress(percent) {
-
-      const text =
-        document.getElementById(
-          "sqlProgressText"
-        );
-
-      const fill =
-        document.getElementById(
-          "sqlProgressFill"
-        );
-
-
-      if (text) {
-
-        text.textContent =
-          percent + "%";
-
-      }
-
-
-      if (fill) {
-
-        fill.style.width =
-          percent + "%";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       RESTORE VIDEO PROGRESS
-       ========================================================= */
-
-    function restoreSQLProgress() {
-
-      const progress =
-        parseInt(
-          localStorage.getItem(
-            "sqlDay1Progress"
-          ) || "0"
-        );
-
-
-      updateSQLVideoProgress(
-        progress
-      );
-
-
-      const status =
-        document.getElementById(
-          "sqlDay1Status"
-        );
-
-
-      if (!status) return;
-
-
-      if (
-        localStorage.getItem(
-          "sqlDay1Completed"
-        ) === "true"
-      ) {
-
-        status.textContent =
-          "✓ Completed";
-
-      } else if (progress > 0) {
-
-        status.textContent =
-          "In Progress";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       SIDEBAR — MY COURSES
-       ========================================================= */
-
-    function scrollToMyCourses() {
-
-      const section =
-        document.getElementById(
-          "myCoursesSection"
-        );
-
-      if (section) {
-
-        section.scrollIntoView({
-          behavior: "smooth"
-        });
-
-      }
-
-    }
-
-
-    /* =========================================================
-       SIDEBAR — VIDEO PLAYER
-       ========================================================= */
-
-    function openVideoPlayer() {
-
-      const video =
-        document.getElementById(
-          "sqlVideo"
-        );
-
-      if (!video) {
-
-        scrollToMyCourses();
-
-        return;
-
-      }
-
-
-      const dayFolder =
-        video.closest(
-          ".day-folder"
-        );
-
-
-      const courseFolder =
-        video.closest(
-          ".course-folder"
-        );
-
-
-      if (courseFolder) {
-
-        courseFolder.classList.add(
-          "open"
-        );
-
-      }
-
-
-      if (dayFolder) {
-
-        dayFolder.classList.add(
-          "open"
-        );
-
-      }
-
-
-      video.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-    }
-
-
-    /* =========================================================
-       SIDEBAR — OVERVIEW
-       ========================================================= */
-
-    function dashboardOverview() {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-
-    /* =========================================================
-       INITIALIZE
-       ========================================================= */
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      function() {
-
-        renderMyCourses();
-
-        setupSQLVideo();
-
-        restoreSQLProgress();
 
       }
     );
 
-  </script>
+  }
+
+
+  /* -----------------------------------
+     RETRY ASSIGNMENT
+  ----------------------------------- */
+
+  function retryAssignment() {
+
+    document
+      .getElementById("sqlAssignmentForm")
+      .reset();
+
+    const result =
+      document.getElementById(
+        "assignmentResult"
+      );
+
+    result.style.display = "none";
+
+    result.innerHTML = "";
+
+    document
+      .getElementById("assignmentSection")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  /* -----------------------------------
+     LOAD SAVED RESULT
+  ----------------------------------- */
+
+  function loadSavedAssignment() {
+
+    const passed =
+      localStorage.getItem(
+        "sqlAssignmentPassed"
+      );
+
+    const score =
+      localStorage.getItem(
+        "sqlAssignmentScore"
+      );
+
+
+    if (passed === "true") {
+
+      const certificate =
+        document.getElementById(
+          "certificateSection"
+        );
+
+      certificate.classList.remove("hidden");
+
+
+      document.getElementById(
+        "metricAssign"
+      ).textContent = "1";
+
+
+      document.getElementById(
+        "metricCerts"
+      ).textContent = "1";
+
+    }
+
+  }
+
+
+  /* -----------------------------------
+     INITIAL LOAD
+  ----------------------------------- */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+      loadDashboardCourses();
+
+      loadSavedAssignment();
+
+    }
+  );
+
+</script>
 
 </body>
 </html>
+```
