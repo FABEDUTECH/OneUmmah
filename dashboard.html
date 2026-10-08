@@ -233,156 +233,6 @@
     .dashboard-side-link {
       cursor: pointer;
     }
-
-    /* =========================================================
-       NEW: ASSIGNMENT + CERTIFICATE STYLES
-       ========================================================= */
-
-    .assignment-block {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 12px;
-      background: rgba(120, 120, 120, 0.04);
-      border: 1px solid rgba(120, 120, 120, 0.13);
-    }
-
-    .assignment-title {
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .quiz-question {
-      margin-bottom: 14px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 10px;
-      border: 1px solid rgba(120, 120, 120, 0.1);
-    }
-
-    .quiz-question p {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .quiz-options label {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 13px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.1s;
-    }
-
-    .quiz-options label:hover {
-      background: rgba(120, 120, 120, 0.08);
-    }
-
-    .quiz-options input[type="radio"] {
-      width: 15px;
-      height: 15px;
-      accent-color: #3f3b8c;
-      cursor: pointer;
-    }
-
-    .assignment-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .btn-check {
-      padding: 9px 22px;
-      border-radius: 30px;
-      border: none;
-      background: #3f3b8c;
-      color: white;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-check:hover {
-      background: #2e2b6e;
-    }
-
-    .result-box {
-      margin-top: 12px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      display: none;
-    }
-
-    .result-pass {
-      background: #e3f5e9;
-      color: #0b6e3b;
-      border: 1px solid #b8e6cd;
-      display: block;
-    }
-
-    .result-fail {
-      background: #fde8e8;
-      color: #b91c1c;
-      border: 1px solid #f5c6c6;
-      display: block;
-    }
-
-    .certificate-area {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px dashed rgba(120, 120, 120, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .certificate-btn {
-      padding: 10px 24px;
-      border-radius: 30px;
-      background: #1e7e34;
-      color: white;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.15s;
-    }
-
-    .certificate-btn:hover {
-      background: #16642a;
-    }
-
-    .certificate-btn.disabled {
-      background: #b0b4c8;
-      pointer-events: none;
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .cert-hint {
-      font-size: 12px;
-      opacity: 0.65;
-    }
   </style>
 </head>
 
@@ -487,9 +337,7 @@
             ▶ Video Player
           </a>
 
-          <a
-            class="dashboard-side-link"
-            onclick="scrollToAssignment()">
+          <a class="dashboard-side-link">
             ✓ Assignments
           </a>
 
@@ -497,9 +345,7 @@
             ◆ Projects
           </a>
 
-          <a
-            class="dashboard-side-link"
-            onclick="scrollToCertificate()">
+          <a class="dashboard-side-link">
             ♜ Certificates
           </a>
 
@@ -998,8 +844,6 @@
 
                 ${renderDays(courseId, course)}
 
-                ${renderAssignmentAndCertificate(courseId)}
-
               </div>
 
             </div>
@@ -1017,8 +861,6 @@
       updateMetrics(enrolled);
 
       restoreSQLProgress();
-
-      restoreAssignmentState();
 
     }
 
@@ -1231,277 +1073,30 @@
 
 
     /* =========================================================
-       NEW: RENDER ASSIGNMENT + CERTIFICATE (only for SQL)
-       ========================================================= */
-
-    function renderAssignmentAndCertificate(courseId) {
-
-      if (courseId !== "sql") {
-        return "";
-      }
-
-      return `
-
-        <div class="assignment-block" id="sqlAssignmentBlock">
-
-          <div class="assignment-title">
-            📝 SQL Assignment — Day 1
-          </div>
-
-
-          <div class="quiz-question">
-            <p>1. What does SQL stand for?</p>
-            <div class="quiz-options">
-              <label><input type="radio" name="sqlQ1" value="A"> Structured Query Language</label>
-              <label><input type="radio" name="sqlQ1" value="B"> Simple Query Language</label>
-              <label><input type="radio" name="sqlQ1" value="C"> Standard Query Logic</label>
-              <label><input type="radio" name="sqlQ1" value="D"> Sequential Query Language</label>
-            </div>
-          </div>
-
-
-          <div class="quiz-question">
-            <p>2. Which SQL statement is used to retrieve data?</p>
-            <div class="quiz-options">
-              <label><input type="radio" name="sqlQ2" value="A"> GET</label>
-              <label><input type="radio" name="sqlQ2" value="B"> SELECT</label>
-              <label><input type="radio" name="sqlQ2" value="C"> FETCH</label>
-              <label><input type="radio" name="sqlQ2" value="D"> RETRIEVE</label>
-            </div>
-          </div>
-
-
-          <div class="quiz-question">
-            <p>3. Which clause is used to filter rows?</p>
-            <div class="quiz-options">
-              <label><input type="radio" name="sqlQ3" value="A"> ORDER BY</label>
-              <label><input type="radio" name="sqlQ3" value="B"> GROUP BY</label>
-              <label><input type="radio" name="sqlQ3" value="C"> WHERE</label>
-              <label><input type="radio" name="sqlQ3" value="D"> HAVING</label>
-            </div>
-          </div>
-
-
-          <div class="quiz-question">
-            <p>4. Which command is used to add new rows?</p>
-            <div class="quiz-options">
-              <label><input type="radio" name="sqlQ4" value="A"> INSERT INTO</label>
-              <label><input type="radio" name="sqlQ4" value="B"> ADD ROW</label>
-              <label><input type="radio" name="sqlQ4" value="C"> UPDATE</label>
-              <label><input type="radio" name="sqlQ4" value="D"> APPEND</label>
-            </div>
-          </div>
-
-
-          <div class="quiz-question">
-            <p>5. Which JOIN returns all rows from the left table?</p>
-            <div class="quiz-options">
-              <label><input type="radio" name="sqlQ5" value="A"> INNER JOIN</label>
-              <label><input type="radio" name="sqlQ5" value="B"> RIGHT JOIN</label>
-              <label><input type="radio" name="sqlQ5" value="C"> LEFT JOIN</label>
-              <label><input type="radio" name="sqlQ5" value="D"> FULL JOIN</label>
-            </div>
-          </div>
-
-
-          <div class="assignment-actions">
-            <button class="btn-check" onclick="checkSqlAssignment()">
-              Check Score
-            </button>
-          </div>
-
-          <div id="assignmentResult" class="result-box"></div>
-
-
-          <div class="certificate-area" id="certificateArea">
-
-            <a
-              id="certificateBtn"
-              class="certificate-btn disabled"
-              href="#"
-              onclick="return handleCertificateDownload(event)">
-              🎓 Download Certificate
-            </a>
-
-            <span class="cert-hint" id="certHint">
-              Score 80% or more to unlock.
-            </span>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-
-
-    /* =========================================================
-       CHECK SQL ASSIGNMENT
-       Correct answers: 1-A, 2-B, 3-C, 4-A, 5-C
-       ========================================================= */
-
-    function checkSqlAssignment() {
-
-      const correct = {
-        sqlQ1: "A",
-        sqlQ2: "B",
-        sqlQ3: "C",
-        sqlQ4: "A",
-        sqlQ5: "C"
-      };
-
-      let score = 0;
-      let answered = 0;
-
-      for (let q in correct) {
-
-        const selected =
-          document.querySelector(
-            'input[name="' + q + '"]:checked'
-          );
-
-        if (selected) {
-          answered++;
-          if (selected.value === correct[q]) {
-            score++;
-          }
-        }
-
-      }
-
-      if (answered < 5) {
-        showToast("Please answer all 5 questions first.");
-        return;
-      }
-
-      const percentage = Math.round((score / 5) * 100);
-
-      localStorage.setItem("sqlAssignmentScore", percentage);
-      localStorage.setItem(
-        "sqlAssignmentPassed",
-        percentage >= 80 ? "true" : "false"
-      );
-
-      displayAssignmentResult(percentage);
-      updateCertificateUI(percentage >= 80);
-      updateMetrics(getEnrolledCourses());
-    }
-
-
-    /* =========================================================
-       DISPLAY RESULT
-       ========================================================= */
-
-    function displayAssignmentResult(percentage) {
-
-      const box =
-        document.getElementById("assignmentResult");
-
-      if (!box) return;
-
-      box.classList.remove("result-pass", "result-fail");
-
-      if (percentage >= 80) {
-        box.textContent =
-          "✅ Score: " + percentage +
-          "% — Passed! Certificate unlocked.";
-        box.classList.add("result-pass");
-      } else {
-        box.textContent =
-          "❌ Score: " + percentage +
-          "% — Minimum 80% required. Try again.";
-        box.classList.add("result-fail");
-      }
-    }
-
-
-    /* =========================================================
-       CERTIFICATE UI
-       ========================================================= */
-
-    function updateCertificateUI(isPassed) {
-
-      const btn =
-        document.getElementById("certificateBtn");
-
-      const hint =
-        document.getElementById("certHint");
-
-      if (!btn) return;
-
-      if (isPassed) {
-
-        btn.classList.remove("disabled");
-
-        btn.href =
-          "data:text/html,<html><head><title>Certificate</title></head><body style='font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;background:%23f5f7fc;margin:0;'><div style='text-align:center;padding:50px 60px;border:4px solid %233f3b8c;border-radius:24px;background:white;'><h1 style='color:%233f3b8c;margin:0 0 10px;'>Certificate of Completion</h1><p style='font-size:22px;font-weight:600;margin:10px 0;'>SQL Fundamentals</p><p style='font-size:15px;color:%23555;'>Successfully passed the SQL assignment with 80%+ score</p><p style='margin-top:40px;font-size:13px;color:%23888;'>OneUmmah Data Skills</p></div></body></html>";
-
-        if (hint) hint.textContent = "Certificate is ready!";
-
-      } else {
-
-        btn.classList.add("disabled");
-        btn.href = "#";
-
-        if (hint) hint.textContent = "Score 80% or more to unlock.";
-      }
-    }
-
-
-    /* =========================================================
-       CERTIFICATE CLICK GUARD
-       ========================================================= */
-
-    function handleCertificateDownload(e) {
-
-      const passed =
-        localStorage.getItem("sqlAssignmentPassed") === "true";
-
-      if (!passed) {
-        e.preventDefault();
-        showToast("Pehle assignment pass karo (80%+).");
-        return false;
-      }
-
-      return true;
-    }
-
-
-    /* =========================================================
-       RESTORE ASSIGNMENT STATE ON LOAD
-       ========================================================= */
-
-    function restoreAssignmentState() {
-
-      const savedScore =
-        localStorage.getItem("sqlAssignmentScore");
-
-      if (savedScore !== null) {
-
-        const percentage = parseInt(savedScore, 10);
-
-        displayAssignmentResult(percentage);
-        updateCertificateUI(percentage >= 80);
-
-      } else {
-
-        updateCertificateUI(false);
-
-      }
-    }
-
-
-    /* =========================================================
-       TOGGLE COURSE FOLDER / DAY FOLDER
+       TOGGLE COURSE FOLDER
        ========================================================= */
 
     function toggleCourseFolder(header) {
-      header.parentElement.classList.toggle("open");
+
+      const folder =
+        header.parentElement;
+
+      folder.classList.toggle("open");
+
     }
 
+
+    /* =========================================================
+       TOGGLE DAY FOLDER
+       ========================================================= */
+
     function toggleDayFolder(header) {
-      header.parentElement.classList.toggle("open");
+
+      const folder =
+        header.parentElement;
+
+      folder.classList.toggle("open");
+
     }
 
 
@@ -1512,12 +1107,17 @@
     function getCourseProgress(courseId) {
 
       if (courseId === "sql") {
+
         return parseInt(
-          localStorage.getItem("sqlDay1Progress") || "0"
+          localStorage.getItem(
+            "sqlDay1Progress"
+          ) || "0"
         );
+
       }
 
       return 0;
+
     }
 
 
@@ -1528,30 +1128,36 @@
     function updateMetrics(enrolled) {
 
       const active =
-        document.getElementById("metricActive");
+        document.getElementById(
+          "metricActive"
+        );
 
       const activeSub =
-        document.getElementById("metricActiveSub");
+        document.getElementById(
+          "metricActiveSub"
+        );
 
       const lessons =
-        document.getElementById("metricLessons");
-
-      const assignMetric =
-        document.getElementById("metricAssign");
-
-      const certMetric =
-        document.getElementById("metricCerts");
+        document.getElementById(
+          "metricLessons"
+        );
 
 
       if (active) {
-        active.textContent = enrolled.length;
+
+        active.textContent =
+          enrolled.length;
+
       }
 
+
       if (activeSub) {
+
         activeSub.textContent =
           enrolled.length === 0
             ? "Browse courses to enroll"
             : "Keep up your learning";
+
       }
 
 
@@ -1560,31 +1166,20 @@
         let completed = 0;
 
         if (
-          localStorage.getItem("sqlDay1Completed") === "true"
+          localStorage.getItem(
+            "sqlDay1Completed"
+          ) === "true"
         ) {
+
           completed = 1;
+
         }
 
-        lessons.textContent = completed;
+        lessons.textContent =
+          completed;
+
       }
 
-
-      if (assignMetric) {
-
-        const submitted =
-          localStorage.getItem("sqlAssignmentScore") !== null;
-
-        assignMetric.textContent = submitted ? 1 : 0;
-      }
-
-
-      if (certMetric) {
-
-        const passed =
-          localStorage.getItem("sqlAssignmentPassed") === "true";
-
-        certMetric.textContent = passed ? 1 : 0;
-      }
     }
 
 
@@ -1595,222 +1190,294 @@
     function setupSQLVideo() {
 
       const video =
-        document.getElementById("sqlVideo");
+        document.getElementById(
+          "sqlVideo"
+        );
 
       if (!video) return;
 
 
       const savedTime =
         parseFloat(
-          localStorage.getItem("sqlDay1VideoTime") || "0"
+          localStorage.getItem(
+            "sqlDay1VideoTime"
+          ) || "0"
         );
 
 
-      video.addEventListener("loadedmetadata", function() {
+      video.addEventListener(
+        "loadedmetadata",
+        function() {
 
-        if (
-          savedTime > 0 &&
-          savedTime < video.duration
-        ) {
-          video.currentTime = savedTime;
+          if (
+            savedTime > 0 &&
+            savedTime < video.duration
+          ) {
+
+            video.currentTime =
+              savedTime;
+
+          }
+
         }
+      );
 
-      });
+
+      video.addEventListener(
+        "timeupdate",
+        function() {
+
+          if (
+            video.duration &&
+            !isNaN(video.duration)
+          ) {
+
+            const percent =
+              Math.floor(
+                (video.currentTime /
+                video.duration) * 100
+              );
 
 
-      video.addEventListener("timeupdate", function() {
-
-        if (
-          video.duration &&
-          !isNaN(video.duration)
-        ) {
-
-          const percent =
-            Math.floor(
-              (video.currentTime / video.duration) * 100
+            localStorage.setItem(
+              "sqlDay1VideoTime",
+              video.currentTime
             );
 
+
+            localStorage.setItem(
+              "sqlDay1Progress",
+              percent
+            );
+
+
+            updateSQLVideoProgress(
+              percent
+            );
+
+          }
+
+        }
+      );
+
+
+      video.addEventListener(
+        "ended",
+        function() {
+
           localStorage.setItem(
-            "sqlDay1VideoTime",
-            video.currentTime
+            "sqlDay1Completed",
+            "true"
           );
 
           localStorage.setItem(
             "sqlDay1Progress",
-            percent
+            "100"
           );
 
-          updateSQLVideoProgress(percent);
+
+          updateSQLVideoProgress(
+            100
+          );
+
+
+          const status =
+            document.getElementById(
+              "sqlDay1Status"
+            );
+
+
+          if (status) {
+
+            status.textContent =
+              "✓ Completed";
+
+          }
+
+
+          updateMetrics(
+            getEnrolledCourses()
+          );
+
         }
+      );
 
-      });
-
-
-      video.addEventListener("ended", function() {
-
-        localStorage.setItem("sqlDay1Completed", "true");
-        localStorage.setItem("sqlDay1Progress", "100");
-
-        updateSQLVideoProgress(100);
-
-        const status =
-          document.getElementById("sqlDay1Status");
-
-        if (status) status.textContent = "✓ Completed";
-
-        updateMetrics(getEnrolledCourses());
-      });
     }
 
+
+    /* =========================================================
+       UPDATE VIDEO PROGRESS
+       ========================================================= */
 
     function updateSQLVideoProgress(percent) {
 
       const text =
-        document.getElementById("sqlProgressText");
+        document.getElementById(
+          "sqlProgressText"
+        );
 
       const fill =
-        document.getElementById("sqlProgressFill");
+        document.getElementById(
+          "sqlProgressFill"
+        );
 
-      if (text) text.textContent = percent + "%";
-      if (fill) fill.style.width = percent + "%";
+
+      if (text) {
+
+        text.textContent =
+          percent + "%";
+
+      }
+
+
+      if (fill) {
+
+        fill.style.width =
+          percent + "%";
+
+      }
+
     }
 
+
+    /* =========================================================
+       RESTORE VIDEO PROGRESS
+       ========================================================= */
 
     function restoreSQLProgress() {
 
       const progress =
         parseInt(
-          localStorage.getItem("sqlDay1Progress") || "0"
+          localStorage.getItem(
+            "sqlDay1Progress"
+          ) || "0"
         );
 
-      updateSQLVideoProgress(progress);
+
+      updateSQLVideoProgress(
+        progress
+      );
+
 
       const status =
-        document.getElementById("sqlDay1Status");
+        document.getElementById(
+          "sqlDay1Status"
+        );
+
 
       if (!status) return;
 
+
       if (
-        localStorage.getItem("sqlDay1Completed") === "true"
+        localStorage.getItem(
+          "sqlDay1Completed"
+        ) === "true"
       ) {
-        status.textContent = "✓ Completed";
+
+        status.textContent =
+          "✓ Completed";
+
       } else if (progress > 0) {
-        status.textContent = "In Progress";
+
+        status.textContent =
+          "In Progress";
+
       }
+
     }
 
 
     /* =========================================================
-       SIDEBAR HELPERS
+       SIDEBAR — MY COURSES
        ========================================================= */
 
     function scrollToMyCourses() {
 
       const section =
-        document.getElementById("myCoursesSection");
+        document.getElementById(
+          "myCoursesSection"
+        );
 
       if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+
+        section.scrollIntoView({
+          behavior: "smooth"
+        });
+
       }
+
     }
 
+
+    /* =========================================================
+       SIDEBAR — VIDEO PLAYER
+       ========================================================= */
 
     function openVideoPlayer() {
 
       const video =
-        document.getElementById("sqlVideo");
+        document.getElementById(
+          "sqlVideo"
+        );
 
       if (!video) {
+
         scrollToMyCourses();
+
         return;
+
       }
 
+
       const dayFolder =
-        video.closest(".day-folder");
+        video.closest(
+          ".day-folder"
+        );
+
 
       const courseFolder =
-        video.closest(".course-folder");
+        video.closest(
+          ".course-folder"
+        );
 
-      if (courseFolder) courseFolder.classList.add("open");
-      if (dayFolder) dayFolder.classList.add("open");
+
+      if (courseFolder) {
+
+        courseFolder.classList.add(
+          "open"
+        );
+
+      }
+
+
+      if (dayFolder) {
+
+        dayFolder.classList.add(
+          "open"
+        );
+
+      }
+
 
       video.scrollIntoView({
         behavior: "smooth",
         block: "center"
       });
-    }
 
-
-    function scrollToAssignment() {
-
-      const block =
-        document.getElementById("sqlAssignmentBlock");
-
-      if (block) {
-
-        const courseFolder =
-          block.closest(".course-folder");
-
-        if (courseFolder) courseFolder.classList.add("open");
-
-        block.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-      } else {
-        scrollToMyCourses();
-      }
-    }
-
-
-    function scrollToCertificate() {
-
-      const area =
-        document.getElementById("certificateArea");
-
-      if (area) {
-
-        const courseFolder =
-          area.closest(".course-folder");
-
-        if (courseFolder) courseFolder.classList.add("open");
-
-        area.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-      } else {
-        scrollToMyCourses();
-      }
-    }
-
-
-    function dashboardOverview() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
 
     /* =========================================================
-       TOAST
+       SIDEBAR — OVERVIEW
        ========================================================= */
 
-    function showToast(message) {
+    function dashboardOverview() {
 
-      const toast =
-        document.getElementById("toast");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
-      if (!toast) return;
-
-      toast.textContent = message;
-      toast.classList.add("show");
-
-      clearTimeout(window.toastTimer);
-
-      window.toastTimer = setTimeout(function() {
-        toast.classList.remove("show");
-      }, 2800);
     }
 
 
@@ -1818,21 +1485,18 @@
        INITIALIZE
        ========================================================= */
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener(
+      "DOMContentLoaded",
+      function() {
 
-      // Demo: agar koi course enroll nahi hai to SQL auto-enroll
-      if (getEnrolledCourses().length === 0) {
-        localStorage.setItem(
-          "oneUmmahEnrolledCourses",
-          JSON.stringify(["sql"])
-        );
+        renderMyCourses();
+
+        setupSQLVideo();
+
+        restoreSQLProgress();
+
       }
-
-      renderMyCourses();
-      setupSQLVideo();
-      restoreSQLProgress();
-      restoreAssignmentState();
-    });
+    );
 
   </script>
 
