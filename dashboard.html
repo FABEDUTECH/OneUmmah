@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,6 +121,15 @@
       margin-top: 14px;
     }
 
+    /* Course folders inside existing sidebar; preserve original theme */
+    .course-file-tree { display:none; margin:6px 0 14px 12px; padding:10px 8px; border-left:1px solid rgba(255,255,255,.28); font-size:13px; }
+    .course-file-tree.open { display:block; }
+    .course-file-tree .tree-row { display:flex; align-items:center; gap:8px; width:100%; padding:9px 8px; margin:2px 0; border:0; border-radius:7px; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; }
+    .course-file-tree .tree-row:hover { background:rgba(255,255,255,.13); }
+    .course-file-tree .tree-nested { padding-left:16px; }
+    .course-file-tree .tree-file { padding-left:30px; }
+    .course-file-tree .tree-assessment { margin-top:8px; }
+    .course-folder { display:none; }
     .hidden {
       display: none !important;
     }
@@ -185,7 +193,21 @@
 
       <a class="side-active">▦ Overview</a>
 
-      <a href="#myCoursesSection">▣ My Courses</a>
+      <a href="#myCoursesSection" id="myCoursesNav" onclick="toggleCourseTree(event)">▣ My Courses</a>
+      <div class="course-file-tree" id="courseFileTree" aria-label="Course files">
+        <button type="button" class="tree-row" onclick="toggleMasterSQLFolder()"><span id="masterFolderIcon">📁</span><strong>Master SQL</strong></button>
+        <div id="masterSQLFiles" class="hidden">
+          <button type="button" class="tree-row tree-nested" onclick="toggleDayOneFolder()"><span id="dayOneFolderIcon">📁</span>Day 1</button>
+          <div id="dayOneFiles" class="hidden">
+            <button type="button" class="tree-row tree-file" onclick="openSQLVideoFromTree()">🎬 SQL Introduction.mp4</button>
+          </div>
+          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 2','SQL Basics')">📁 Day 2</button>
+          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 3','SQL Queries')">📁 Day 3</button>
+          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 4','SQL Practice')">📁 Day 4</button>
+          <button type="button" class="tree-row tree-nested tree-assessment" onclick="openAssessmentFromTree()">📝 Assessment</button>
+          <button type="button" class="tree-row tree-nested" onclick="openCertificateFromTree()">🏅 Certificate</button>
+        </div>
+      </div>
 
       <a href="#videoSection">▶ Video Player</a>
 
@@ -277,6 +299,8 @@
         <p>
           Your enrolled SQL course content.
         </p>
+
+        <div id="lessonPlaceholder" class="assignment-box hidden"></div>
 
 
         <!-- COURSE FOLDERS -->
@@ -766,6 +790,53 @@
      ENROLLED COURSES
   ----------------------------------- */
 
+  function toggleCourseTree(event) {
+    if (event) event.preventDefault();
+    document.getElementById("courseFileTree").classList.toggle("open");
+    const coursesSection = document.getElementById("myCoursesSection");
+    if (coursesSection) coursesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function toggleMasterSQLFolder() {
+    const el = document.getElementById("masterSQLFiles");
+    el.classList.toggle("hidden");
+    document.getElementById("masterFolderIcon").textContent = el.classList.contains("hidden") ? "📁" : "📂";
+  }
+
+  function toggleDayOneFolder() {
+    const el = document.getElementById("dayOneFiles");
+    el.classList.toggle("hidden");
+    document.getElementById("dayOneFolderIcon").textContent = el.classList.contains("hidden") ? "📁" : "📂";
+  }
+
+  function openSQLVideoFromTree() {
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
+    openSQLVideo();
+  }
+
+  function showDayPlaceholder(day, title) {
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    const placeholder = document.getElementById("lessonPlaceholder");
+    placeholder.classList.remove("hidden");
+    placeholder.innerHTML = "<h3>" + day + " — " + title + "</h3><p>Lesson content will appear here when you add this lesson's file.</p>";
+    placeholder.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function openAssessmentFromTree() {
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
+    const section = document.getElementById("assignmentSection");
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function openCertificateFromTree() {
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    const section = document.getElementById("certificateSection");
+    section.classList.remove("hidden");
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function getEnrolledCourses() {
 
     try {
@@ -845,6 +916,7 @@
 
   function openSQLVideo() {
 
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
     const videoSection =
       document.getElementById("videoSection");
 
@@ -1178,4 +1250,3 @@
 
 </body>
 </html>
-```
