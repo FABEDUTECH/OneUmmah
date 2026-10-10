@@ -122,9 +122,10 @@
     }
 
     /* Course folders inside existing sidebar; preserve original theme */
-    .course-file-tree { display:none; margin:6px 0 14px 12px; padding:10px 8px; border-left:1px solid rgba(255,255,255,.28); font-size:13px; }
+    .sidebar { min-width: 245px; box-sizing: border-box; }
+    .course-file-tree { display:none; width:100%; max-width:100%; box-sizing:border-box; overflow:hidden; margin:6px 0 14px 0; padding:10px 6px; border-left:1px solid rgba(255,255,255,.28); font-size:13px; }
     .course-file-tree.open { display:block; }
-    .course-file-tree .tree-row { display:flex; align-items:center; gap:8px; width:100%; padding:9px 8px; margin:2px 0; border:0; border-radius:7px; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; }
+    .course-file-tree .tree-row { display:flex; align-items:center; gap:8px; width:100%; max-width:100%; box-sizing:border-box; padding:9px 8px; margin:2px 0; border:0; border-radius:7px; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; white-space:normal; overflow-wrap:anywhere; }
     .course-file-tree .tree-row:hover { background:rgba(255,255,255,.13); }
     .course-file-tree .tree-nested { padding-left:16px; }
     .course-file-tree .tree-file { padding-left:30px; }
@@ -211,11 +212,11 @@
 
       <a href="#videoSection">▶ Video Player</a>
 
-      <a href="#assignmentSection">✓ Assignments</a>
+      <a href="#assignmentSection" onclick="openAssessmentFromSidebar(event)">✓ Assignments</a>
 
       <a>◆ Projects</a>
 
-      <a href="#certificateSection">♜ Certificates</a>
+      <a href="#certificateSection" onclick="openCertificateFromSidebar(event)">♜ Certificates</a>
 
       <a href="payments.html">₹ Payments</a>
 
@@ -792,15 +793,40 @@
 
   function toggleCourseTree(event) {
     if (event) event.preventDefault();
-    document.getElementById("courseFileTree").classList.toggle("open");
-    const coursesSection = document.getElementById("myCoursesSection");
-    if (coursesSection) coursesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    const tree = document.getElementById("courseFileTree");
+    const opening = !tree.classList.contains("open");
+    tree.classList.toggle("open", opening);
+    if (!opening) {
+      document.getElementById("masterSQLFiles").classList.add("hidden");
+      document.getElementById("dayOneFiles").classList.add("hidden");
+      document.getElementById("masterFolderIcon").textContent = "📁";
+      document.getElementById("dayOneFolderIcon").textContent = "📁";
+    }
+  }
+
+  function closeCourseTree() {
+    document.getElementById("courseFileTree").classList.remove("open");
+    document.getElementById("masterSQLFiles").classList.add("hidden");
+    document.getElementById("dayOneFiles").classList.add("hidden");
+    document.getElementById("masterFolderIcon").textContent = "📁";
+    document.getElementById("dayOneFolderIcon").textContent = "📁";
+  }
+
+  function openAssessmentFromSidebar(event) {
+    if (event) event.preventDefault();
+    closeCourseTree();
+    openAssessmentFromTree();
   }
 
   function toggleMasterSQLFolder() {
     const el = document.getElementById("masterSQLFiles");
-    el.classList.toggle("hidden");
-    document.getElementById("masterFolderIcon").textContent = el.classList.contains("hidden") ? "📁" : "📂";
+    const opening = el.classList.contains("hidden");
+    el.classList.toggle("hidden", !opening);
+    document.getElementById("masterFolderIcon").textContent = opening ? "📂" : "📁";
+    if (!opening) {
+      document.getElementById("dayOneFiles").classList.add("hidden");
+      document.getElementById("dayOneFolderIcon").textContent = "📁";
+    }
   }
 
   function toggleDayOneFolder() {
@@ -812,11 +838,15 @@
   function openSQLVideoFromTree() {
     document.getElementById("sqlLearningArea").classList.remove("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.remove("hidden");
     openSQLVideo();
   }
 
   function showDayPlaceholder(day, title) {
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("videoSection").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("certificateSection").classList.add("hidden");
     const placeholder = document.getElementById("lessonPlaceholder");
     placeholder.classList.remove("hidden");
     placeholder.innerHTML = "<h3>" + day + " — " + title + "</h3><p>Lesson content will appear here when you add this lesson's file.</p>";
@@ -825,13 +855,19 @@
 
   function openAssessmentFromTree() {
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.remove("hidden");
     const section = document.getElementById("assignmentSection");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function openCertificateFromTree() {
+    closeCourseTree();
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("videoSection").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
     const section = document.getElementById("certificateSection");
     section.classList.remove("hidden");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -875,7 +911,7 @@
 
     if (enrolled.includes("sql")) {
 
-      sqlArea.classList.remove("hidden");
+      sqlArea.classList.add("hidden");
 
       list.innerHTML = `
         <div class="course-card">
@@ -883,7 +919,7 @@
           <p>SQL Workshop & Practical Learning</p>
           <button
             class="course-btn course-btn-alt"
-            onclick="openSQLVideo()">
+            onclick="openSQLVideoFromTree()">
             Continue Learning
           </button>
         </div>
@@ -916,7 +952,10 @@
 
   function openSQLVideo() {
 
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("certificateSection").classList.add("hidden");
     const videoSection =
       document.getElementById("videoSection");
 
