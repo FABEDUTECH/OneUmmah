@@ -127,7 +127,7 @@
     .course-file-tree.open { display:block; }
     .course-file-tree .tree-row { display:flex; align-items:center; gap:8px; width:100%; max-width:100%; box-sizing:border-box; padding:9px 8px; margin:2px 0; border:0; border-radius:7px; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; white-space:normal; overflow-wrap:anywhere; }
     .course-file-tree .tree-row:hover { background:rgba(255,255,255,.13); }
-    .course-file-tree .tree-nested { padding-left:16px; }
+    .course-file-tree .tree-nested { padding-left:8px; }
     .course-file-tree .tree-file { padding-left:30px; }
     .course-file-tree .tree-assessment { margin-top:8px; }
     .course-folder { display:none; }
@@ -196,18 +196,13 @@
 
       <a href="#myCoursesSection" id="myCoursesNav" onclick="toggleCourseTree(event)">▣ My Courses</a>
       <div class="course-file-tree" id="courseFileTree" aria-label="Course files">
-        <button type="button" class="tree-row" onclick="toggleMasterSQLFolder()"><span id="masterFolderIcon">📁</span><strong>Master SQL</strong></button>
-        <div id="masterSQLFiles" class="hidden">
-          <button type="button" class="tree-row tree-nested" onclick="toggleDayOneFolder()"><span id="dayOneFolderIcon">📁</span>Day 1</button>
-          <div id="dayOneFiles" class="hidden">
-            <button type="button" class="tree-row tree-file" onclick="openSQLVideoFromTree()">🎬 SQL Introduction.mp4</button>
-          </div>
-          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 2','SQL Basics')">📁 Day 2</button>
-          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 3','SQL Queries')">📁 Day 3</button>
-          <button type="button" class="tree-row tree-nested" onclick="showDayPlaceholder('Day 4','SQL Practice')">📁 Day 4</button>
-          <button type="button" class="tree-row tree-nested tree-assessment" onclick="openAssessmentFromTree()">📝 Assessment</button>
-          <button type="button" class="tree-row tree-nested" onclick="openCertificateFromTree()">🏅 Certificate</button>
+        <button type="button" class="tree-row" onclick="toggleDayOneFolder()"><span id="dayOneFolderIcon">📁</span>Day 1</button>
+        <div id="dayOneFiles" class="hidden">
+          <button type="button" class="tree-row tree-file" onclick="openSQLVideoFromTree()">🎬 SQL Introduction.mp4</button>
         </div>
+        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 2','SQL Basics')">📁 Day 2</button>
+        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 3','SQL Queries')">📁 Day 3</button>
+        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 4','SQL Practice')">📁 Day 4</button>
       </div>
 
       <a href="#videoSection">▶ Video Player</a>
@@ -797,18 +792,14 @@
     const opening = !tree.classList.contains("open");
     tree.classList.toggle("open", opening);
     if (!opening) {
-      document.getElementById("masterSQLFiles").classList.add("hidden");
       document.getElementById("dayOneFiles").classList.add("hidden");
-      document.getElementById("masterFolderIcon").textContent = "📁";
       document.getElementById("dayOneFolderIcon").textContent = "📁";
     }
   }
 
   function closeCourseTree() {
     document.getElementById("courseFileTree").classList.remove("open");
-    document.getElementById("masterSQLFiles").classList.add("hidden");
     document.getElementById("dayOneFiles").classList.add("hidden");
-    document.getElementById("masterFolderIcon").textContent = "📁";
     document.getElementById("dayOneFolderIcon").textContent = "📁";
   }
 
@@ -816,17 +807,6 @@
     if (event) event.preventDefault();
     closeCourseTree();
     openAssessmentFromTree();
-  }
-
-  function toggleMasterSQLFolder() {
-    const el = document.getElementById("masterSQLFiles");
-    const opening = el.classList.contains("hidden");
-    el.classList.toggle("hidden", !opening);
-    document.getElementById("masterFolderIcon").textContent = opening ? "📂" : "📁";
-    if (!opening) {
-      document.getElementById("dayOneFiles").classList.add("hidden");
-      document.getElementById("dayOneFolderIcon").textContent = "📁";
-    }
   }
 
   function toggleDayOneFolder() {
