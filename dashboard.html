@@ -205,11 +205,11 @@
         <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 4','SQL Practice')">📁 Day 4</button>
       </div>
 
-      <a href="#videoSection">▶ Video Player</a>
+      <a href="#videoSection" onclick="openVideoFromSidebar(event)">▶ Video Player</a>
 
       <a href="#assignmentSection" onclick="openAssessmentFromSidebar(event)">✓ Assignments</a>
 
-      <a>◆ Projects</a>
+      <a href="#projectsSection" onclick="openProjectsFromSidebar(event)">◆ Projects</a>
 
       <a href="#certificateSection" onclick="openCertificateFromSidebar(event)">♜ Certificates</a>
 
@@ -233,9 +233,6 @@
           </h3>
         </div>
 
-        <a class="btn btn-primary" href="courses.html">
-          Continue Learning
-        </a>
 
       </div>
 
@@ -273,7 +270,7 @@
 
 
       <!-- MY COURSES -->
-      <div class="my-courses" id="myCoursesSection">
+      <div class="my-courses hidden" id="myCoursesSection">
 
         <div class="dash-title">
           <h3>My Courses</h3>
@@ -717,6 +714,17 @@
         </div>
 
 
+        <!-- PROJECTS -->
+        <div id="projectsSection" class="assignment-box hidden">
+          <h3>◆ SQL Projects</h3>
+          <p>Your practical SQL project files will appear here.</p>
+          <div class="question">
+            <strong>Project 1: Student Database Management</strong>
+            <p>Practice creating tables, inserting records, and writing SELECT queries.</p>
+            <span class="muted">Project file will be added soon.</span>
+          </div>
+        </div>
+
         <!-- CERTIFICATE -->
         <div
           id="certificateSection"
@@ -827,6 +835,7 @@
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
     const placeholder = document.getElementById("lessonPlaceholder");
     placeholder.classList.remove("hidden");
     placeholder.innerHTML = "<h3>" + day + " — " + title + "</h3><p>Lesson content will appear here when you add this lesson's file.</p>";
@@ -838,6 +847,8 @@
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
     document.getElementById("assignmentSection").classList.remove("hidden");
+    document.getElementById("certificateSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
     const section = document.getElementById("assignmentSection");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -847,10 +858,41 @@
     document.getElementById("sqlLearningArea").classList.remove("hidden");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
     const section = document.getElementById("certificateSection");
     section.classList.remove("hidden");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function hideDashboardContentSections() {
+    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("videoSection").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("certificateSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
+  }
+
+  function openVideoFromSidebar(event) {
+    if (event) event.preventDefault();
+    closeCourseTree();
+    hideDashboardContentSections();
+    document.getElementById("videoSection").classList.remove("hidden");
+    document.getElementById("videoSection").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function openProjectsFromSidebar(event) {
+    if (event) event.preventDefault();
+    closeCourseTree();
+    hideDashboardContentSections();
+    document.getElementById("projectsSection").classList.remove("hidden");
+    document.getElementById("projectsSection").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function openCertificateFromSidebar(event) {
+    if (event) event.preventDefault();
+    openCertificateFromTree();
   }
 
   function getEnrolledCourses() {
@@ -889,39 +931,10 @@
     active.textContent = enrolled.length;
 
 
-    if (enrolled.includes("sql")) {
-
-      sqlArea.classList.add("hidden");
-
-      list.innerHTML = `
-        <div class="course-card">
-          <h3>Master SQL</h3>
-          <p>SQL Workshop & Practical Learning</p>
-          <button
-            class="course-btn course-btn-alt"
-            onclick="openSQLVideoFromTree()">
-            Continue Learning
-          </button>
-        </div>
-      `;
-
-    } else {
-
-      list.innerHTML = `
-        <div class="learning-box">
-          <p>
-            You have not enrolled in any course yet.
-          </p>
-
-          <a
-            class="btn btn-primary"
-            href="courses.html">
-            Browse Courses
-          </a>
-        </div>
-      `;
-
-    }
+    // Course cards are intentionally hidden on the dashboard start screen.
+    // Course lessons are opened from the sidebar file tree instead.
+    list.innerHTML = "";
+    sqlArea.classList.add("hidden");
 
   }
 
@@ -936,6 +949,7 @@
     document.getElementById("lessonPlaceholder").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
     const videoSection =
       document.getElementById("videoSection");
 
