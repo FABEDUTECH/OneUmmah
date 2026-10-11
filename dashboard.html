@@ -76,27 +76,26 @@
     }
 
     /* Clean assessment view: no large coloured/blue course container */
-    #sqlLearningArea.assessment-mode {
-      margin-top: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-    #sqlLearningArea.assessment-mode > h3,
-    #sqlLearningArea.assessment-mode > p {
-      display: none;
-    }
-    #sqlLearningArea.assessment-mode #assignmentSection {
-      margin-top: 0;
-      padding: 26px 28px;
-      border: 1px solid #e7eaf0;
-      border-radius: 14px;
+    /* Assignment is a separate white panel below the blue course container. */
+    #assignmentSection {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 18px;
       background: #ffffff;
-      box-shadow: 0 8px 28px rgba(15, 23, 42, .06);
+      border: 1px solid #e7ebf2;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
     }
-    #sqlLearningArea.assessment-mode .question {
+    #assignmentSection > h3 {
+      margin-top: 0;
+      color: var(--text, #172033);
+    }
+    #assignmentSection > p {
+      color: var(--muted, #64748b);
+      line-height: 1.65;
+    }
+    #assignmentSection .question {
       background: #fbfcfe;
       border: 1px solid #e8edf4;
     }
@@ -424,6 +423,45 @@
         </div>
 
 
+        <!-- PROJECTS -->
+        <div id="projectsSection" class="assignment-box hidden">
+          <h3>◆ SQL Projects</h3>
+          <p>Your practical SQL project files will appear here.</p>
+          <div class="question">
+            <strong>Project 1: Student Database Management</strong>
+            <p>Practice creating tables, inserting records, and writing SELECT queries.</p>
+            <span class="muted">Project file will be added soon.</span>
+          </div>
+        </div>
+
+        <!-- CERTIFICATE -->
+        <div
+          id="certificateSection"
+          class="assignment-box hidden">
+
+          <h3>♜ Certificate</h3>
+
+          <p>
+            Congratulations! You have successfully
+            passed the SQL Assignment.
+          </p>
+
+          <p>
+            Your score is 80% or above.
+          </p>
+
+          <a
+            href="ODS_WEB.html"
+            target="_blank"
+            class="certificate-btn">
+
+            Generate SQL Certificate
+          </a>
+
+        </div>
+
+      </div>
+
         <!-- ASSIGNMENT -->
         <div
           id="assignmentSection"
@@ -740,44 +778,6 @@
         </div>
 
 
-        <!-- PROJECTS -->
-        <div id="projectsSection" class="assignment-box hidden">
-          <h3>◆ SQL Projects</h3>
-          <p>Your practical SQL project files will appear here.</p>
-          <div class="question">
-            <strong>Project 1: Student Database Management</strong>
-            <p>Practice creating tables, inserting records, and writing SELECT queries.</p>
-            <span class="muted">Project file will be added soon.</span>
-          </div>
-        </div>
-
-        <!-- CERTIFICATE -->
-        <div
-          id="certificateSection"
-          class="assignment-box hidden">
-
-          <h3>♜ Certificate</h3>
-
-          <p>
-            Congratulations! You have successfully
-            passed the SQL Assignment.
-          </p>
-
-          <p>
-            Your score is 80% or above.
-          </p>
-
-          <a
-            href="ODS_WEB.html"
-            target="_blank"
-            class="certificate-btn">
-
-            Generate SQL Certificate
-          </a>
-
-        </div>
-
-      </div>
 
     </div>
 
@@ -825,9 +825,9 @@
     const tree = document.getElementById("courseFileTree");
     const opening = !tree.classList.contains("open");
     tree.classList.toggle("open", opening);
-    // Keep the white My Courses panel hidden on first load; show it only on click.
+    // My Courses opens only the sidebar day/file list; no separate course-card page.
     const coursesPanel = document.getElementById("myCoursesSection");
-    if (coursesPanel) coursesPanel.classList.toggle("hidden", !opening);
+    if (coursesPanel) coursesPanel.classList.add("hidden");
     if (opening) {
       const sqlArea = document.getElementById("sqlLearningArea");
       if (sqlArea) sqlArea.classList.add("hidden");
@@ -975,16 +975,9 @@
     active.textContent = enrolled.length;
 
 
-    // Course cards are intentionally hidden on the dashboard start screen.
-    // Course lessons are opened from the sidebar file tree instead.
-    list.innerHTML = `
-      <div class="course-folder" style="display:block; margin-top:12px;">
-        <div class="folder-title">📘 Master SQL</div>
-        <div class="day-folder">
-          <p style="margin:0 0 12px; color:var(--muted,#64748b);">SQL Workshop &amp; Practical Learning</p>
-          <button type="button" class="btn btn-primary" onclick="toggleCourseTree(event)">Continue Learning</button>
-        </div>
-      </div>`;
+    // No My Courses card or Continue Learning page: use the sidebar day/file list.
+    list.innerHTML = "";
+    document.getElementById("myCoursesSection").classList.add("hidden");
     sqlArea.classList.add("hidden");
 
   }
