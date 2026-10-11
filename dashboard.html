@@ -465,7 +465,7 @@
         <!-- ASSIGNMENT -->
         <div
           id="assignmentSection"
-          class="assignment-box">
+          class="assignment-box hidden">
 
           <h3>✓ SQL Assignment</h3>
 
@@ -824,14 +824,19 @@
     if (event) event.preventDefault();
     const tree = document.getElementById("courseFileTree");
     const opening = !tree.classList.contains("open");
+
+    // My Courses click shows ONLY the day/file list in the blue sidebar.
+    // Never show a separate My Courses card or Continue Learning card.
     tree.classList.toggle("open", opening);
-    // My Courses opens only the sidebar day/file list; no separate course-card page.
-    const coursesPanel = document.getElementById("myCoursesSection");
-    if (coursesPanel) coursesPanel.classList.add("hidden");
-    if (opening) {
-      const sqlArea = document.getElementById("sqlLearningArea");
-      if (sqlArea) sqlArea.classList.add("hidden");
-    } else {
+    document.getElementById("myCoursesSection").classList.add("hidden");
+    document.getElementById("sqlLearningArea").classList.add("hidden");
+    document.getElementById("videoSection").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+    document.getElementById("certificateSection").classList.add("hidden");
+    document.getElementById("projectsSection").classList.add("hidden");
+    document.getElementById("lessonPlaceholder").classList.add("hidden");
+
+    if (!opening) {
       document.getElementById("dayOneFiles").classList.add("hidden");
       document.getElementById("dayOneFolderIcon").textContent = "📁";
     }
