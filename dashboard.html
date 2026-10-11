@@ -71,8 +71,34 @@
       margin-top: 22px;
       padding: 22px;
       border-radius: 12px;
-      border: 1px solid rgba(0,0,0,.10);
-      background: rgba(0,0,0,.02);
+      border: 1px solid rgba(0,0,0,.08);
+      background: #ffffff;
+    }
+
+    /* Clean assessment view: no large coloured/blue course container */
+    #sqlLearningArea.assessment-mode {
+      margin-top: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    #sqlLearningArea.assessment-mode > h3,
+    #sqlLearningArea.assessment-mode > p {
+      display: none;
+    }
+    #sqlLearningArea.assessment-mode #assignmentSection {
+      margin-top: 0;
+      padding: 26px 28px;
+      border: 1px solid #e7eaf0;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, .06);
+    }
+    #sqlLearningArea.assessment-mode .question {
+      background: #fbfcfe;
+      border: 1px solid #e8edf4;
     }
 
     .question {
@@ -799,7 +825,13 @@
     const tree = document.getElementById("courseFileTree");
     const opening = !tree.classList.contains("open");
     tree.classList.toggle("open", opening);
-    if (!opening) {
+    // Keep the white My Courses panel hidden on first load; show it only on click.
+    const coursesPanel = document.getElementById("myCoursesSection");
+    if (coursesPanel) coursesPanel.classList.toggle("hidden", !opening);
+    if (opening) {
+      const sqlArea = document.getElementById("sqlLearningArea");
+      if (sqlArea) sqlArea.classList.add("hidden");
+    } else {
       document.getElementById("dayOneFiles").classList.add("hidden");
       document.getElementById("dayOneFolderIcon").textContent = "📁";
     }
@@ -832,6 +864,7 @@
 
   function showDayPlaceholder(day, title) {
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
@@ -843,7 +876,9 @@
   }
 
   function openAssessmentFromTree() {
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    const learningArea = document.getElementById("sqlLearningArea");
+    learningArea.classList.remove("hidden");
+    learningArea.classList.add("assessment-mode");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
     document.getElementById("assignmentSection").classList.remove("hidden");
@@ -856,6 +891,7 @@
   function openCertificateFromTree() {
     closeCourseTree();
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("projectsSection").classList.add("hidden");
@@ -866,7 +902,9 @@
   }
 
   function hideDashboardContentSections() {
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
+    const learningArea = document.getElementById("sqlLearningArea");
+    learningArea.classList.remove("hidden");
+    learningArea.classList.remove("assessment-mode");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
@@ -918,6 +956,12 @@
 
   function loadDashboardCourses() {
 
+    // Dashboard opens on the progress overview only.
+    document.getElementById("myCoursesSection").classList.add("hidden");
+    document.getElementById("courseFileTree").classList.remove("open");
+    document.getElementById("sqlLearningArea").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.add("hidden");
+
     const enrolled = getEnrolledCourses();
 
     const list = document.getElementById("myCoursesList");
@@ -933,7 +977,14 @@
 
     // Course cards are intentionally hidden on the dashboard start screen.
     // Course lessons are opened from the sidebar file tree instead.
-    list.innerHTML = "";
+    list.innerHTML = `
+      <div class="course-folder" style="display:block; margin-top:12px;">
+        <div class="folder-title">📘 Master SQL</div>
+        <div class="day-folder">
+          <p style="margin:0 0 12px; color:var(--muted,#64748b);">SQL Workshop &amp; Practical Learning</p>
+          <button type="button" class="btn btn-primary" onclick="toggleCourseTree(event)">Continue Learning</button>
+        </div>
+      </div>`;
     sqlArea.classList.add("hidden");
 
   }
@@ -946,6 +997,7 @@
   function openSQLVideo() {
 
     document.getElementById("sqlLearningArea").classList.remove("hidden");
+    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
