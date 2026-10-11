@@ -87,6 +87,22 @@
       padding: 24px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
     }
+
+    /* Keep assignment fully outside the dashboard box, directly above footer. */
+    #assignmentSection {
+      display: block;
+      width: min(100% - 40px, 1050px);
+      margin: 28px auto 36px;
+      background: #fff;
+      color: var(--text, #172033);
+      border: 1px solid #e7ebf2;
+      border-radius: 14px;
+      padding: 24px;
+      box-sizing: border-box;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+    #assignmentSection.hidden { display: none !important; }
+
     #assignmentSection > h3 {
       margin-top: 0;
       color: var(--text, #172033);
@@ -470,7 +486,14 @@
 
   </div>
 
-  <!-- ASSIGNMENT: separate white section below the dashboard/sidebar -->
+
+</section>
+
+</main>
+
+
+<!-- SQL ASSIGNMENT: standalone section above the footer, outside the dashboard box -->
+<!-- ASSIGNMENT: separate white section below the dashboard/sidebar -->
         <!-- ASSIGNMENT -->
         <div
           id="assignmentSection"
@@ -785,11 +808,6 @@
           </div>
 
         </div>
-
-</section>
-
-</main>
-
 
 <footer>
 
