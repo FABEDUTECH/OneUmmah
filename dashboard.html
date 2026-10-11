@@ -462,6 +462,15 @@
 
       </div>
 
+
+
+
+
+    </div>
+
+  </div>
+
+  <!-- ASSIGNMENT: separate white section below the dashboard/sidebar -->
         <!-- ASSIGNMENT -->
         <div
           id="assignmentSection"
@@ -777,12 +786,6 @@
 
         </div>
 
-
-
-    </div>
-
-  </div>
-
 </section>
 
 </main>
@@ -881,14 +884,14 @@
   }
 
   function openAssessmentFromTree() {
-    const learningArea = document.getElementById("sqlLearningArea");
-    learningArea.classList.remove("hidden");
-    learningArea.classList.add("assessment-mode");
+    // Keep the assignment outside the dashboard/sidebar container.
+    document.getElementById("sqlLearningArea").classList.add("hidden");
+    document.getElementById("myCoursesSection").classList.add("hidden");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.remove("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
     document.getElementById("projectsSection").classList.add("hidden");
+    document.getElementById("assignmentSection").classList.remove("hidden");
     const section = document.getElementById("assignmentSection");
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
