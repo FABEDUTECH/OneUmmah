@@ -884,7 +884,6 @@
   function openSQLVideoFromTree() {
     document.getElementById("sqlLearningArea").classList.remove("hidden");
     document.getElementById("lessonPlaceholder").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.remove("hidden");
     openSQLVideo();
   }
 
@@ -1013,7 +1012,58 @@
      OPEN SQL VIDEO
   ----------------------------------- */
 
-  function openSQLVideo() {
+  /*
+    COURSE ACCESS CHECK
+    Existing local enrollments are retained for current students.
+    For payment-based access, the student must log in through the
+    backend integration so oneummah_api_token is available.
+  */
+  const PAYMENT_API_BASE = "https://YOUR-RENDER-SERVICE.onrender.com";
+
+  function hasExistingSQLEnrollment() {
+    try {
+      const enrolled = JSON.parse(
+        localStorage.getItem("oneUmmahEnrolledCourses") || "[]"
+      );
+      return enrolled.some(function (course) {
+        const value = String(
+          typeof course === "string" ? course : (course.id || course.courseId || course.name || "")
+        ).toLowerCase().replace(/[^a-z]/g, "");
+        return ["sql", "mastersql", "sqlmaster"].includes(value);
+      });
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async function hasVerifiedSQLPurchase() {
+    const token = localStorage.getItem("oneummah_api_token");
+    if (!token) return false;
+
+    try {
+      const response = await fetch(PAYMENT_API_BASE + "/api/purchases", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      if (!response.ok) return false;
+      const data = await response.json();
+      return Array.isArray(data.purchases) &&
+        data.purchases.some(function (purchase) {
+          return String(purchase.courseId || purchase.course_id || "").toUpperCase() === "SQL";
+        });
+    } catch (error) {
+      console.error("Could not verify SQL purchase:", error);
+      return false;
+    }
+  }
+
+  async function openSQLVideo() {
+    const alreadyEnrolled = hasExistingSQLEnrollment();
+    const paidAndVerified = await hasVerifiedSQLPurchase();
+
+    if (!alreadyEnrolled && !paidAndVerified) {
+      alert("Master SQL is locked. Please enroll or complete payment for SQL first.");
+      return;
+    }
 
     document.getElementById("sqlLearningArea").classList.remove("hidden");
     document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
@@ -1021,16 +1071,14 @@
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
     document.getElementById("projectsSection").classList.add("hidden");
-    const videoSection =
-      document.getElementById("videoSection");
 
+    const videoSection = document.getElementById("videoSection");
     videoSection.classList.remove("hidden");
 
     videoSection.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
-
   }
 
 
