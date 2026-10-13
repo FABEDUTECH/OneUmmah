@@ -1,700 +1,253 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#151515">
-  <title>SQL Compiler — OneUmmah Data Skills</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Practice Lab | OneUmmah Data Skills</title>
+<link rel="stylesheet" href="styles.css">
 
-  <style>
-    :root {
-      --sql-gold: #d7b56d;
-      --sql-dark: #151515;
-      --sql-panel: #202020;
-      --sql-border: #3c3c3c;
-      --sql-text: #f5f5f5;
-      --sql-muted: #bcbcbc;
-    }
-
-    .sql-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 34px 22px 60px;
-    }
-
-    .sql-heading {
-      margin-bottom: 24px;
-    }
-
-    .sql-heading h1 {
-      margin: 8px 0;
-    }
-
-    .sql-heading p {
-      color: var(--sql-muted);
-      line-height: 1.7;
-      max-width: 760px;
-    }
-
-    .sql-notice {
-      padding: 13px 16px;
-      border: 1px solid #8e713b;
-      border-radius: 10px;
-      background: rgba(215,181,109,.08);
-      color: var(--sql-text);
-      line-height: 1.6;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .sql-workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 20px;
-      align-items: start;
-    }
-
-    .sql-panel {
-      min-width: 0;
-      overflow: hidden;
-      border: 1px solid var(--sql-border);
-      border-radius: 14px;
-      background: var(--sql-dark);
-      color: var(--sql-text);
-      box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    }
-
-    .sql-panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 15px 17px;
-      background: #222;
-      border-bottom: 1px solid var(--sql-border);
-    }
-
-    .sql-panel-header h2 {
-      font-size: 16px;
-      margin: 0;
-      color: var(--sql-gold);
-    }
-
-    .sql-badge {
-      color: var(--sql-gold);
-      border: 1px solid #75613a;
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .sql-toolbar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: 12px;
-      border-bottom: 1px solid var(--sql-border);
-    }
-
-    .sql-action {
-      border: 1px solid var(--sql-gold);
-      border-radius: 7px;
-      padding: 10px 14px;
-      background: var(--sql-gold);
-      color: #151515;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .sql-action:hover {
-      filter: brightness(1.08);
-    }
-
-    .sql-action.secondary {
-      background: transparent;
-      color: var(--sql-text);
-      border-color: #555;
-    }
-
-    .sql-action:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
-
-    .sql-editor-wrap {
-      position: relative;
-    }
-
-    #sqlEditor {
-      display: block;
-      width: 100%;
-      min-height: 310px;
-      resize: vertical;
-      padding: 18px;
-      box-sizing: border-box;
-      border: 0;
-      outline: none;
-      background: #101010;
-      color: #f3d58a;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 14px;
-      line-height: 1.75;
-      tab-size: 2;
-      white-space: pre;
-      overflow: auto;
-    }
-
-    #sqlEditor:focus {
-      box-shadow: inset 0 0 0 1px var(--sql-gold);
-    }
-
-    .sql-editor-footer {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 9px 14px;
-      background: #181818;
-      color: var(--sql-muted);
-      font-size: 11px;
-    }
-
-    .sql-output {
-      min-height: 310px;
-      max-height: 520px;
-      overflow: auto;
-      padding: 16px;
-      box-sizing: border-box;
-      background: #101010;
-    }
-
-    .sql-placeholder {
-      color: var(--sql-muted);
-      line-height: 1.8;
-      font-size: 13px;
-    }
-
-    .sql-status {
-      padding: 11px 15px;
-      border-top: 1px solid var(--sql-border);
-      color: var(--sql-muted);
-      font-size: 12px;
-      overflow-wrap: anywhere;
-    }
-
-    .sql-status.success {
-      color: #8bd5a5;
-    }
-
-    .sql-status.error {
-      color: #ff9a9a;
-    }
-
-    .sql-result-block {
-      margin-bottom: 22px;
-    }
-
-    .sql-result-title {
-      margin: 0 0 10px;
-      color: var(--sql-gold);
-      font-size: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    .sql-table-wrap {
-      max-width: 100%;
-      overflow: auto;
-    }
-
-    .sql-result-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .sql-result-table th,
-    .sql-result-table td {
-      padding: 10px 12px;
-      text-align: left;
-      border: 1px solid #393939;
-    }
-
-    .sql-result-table th {
-      background: #29251d;
-      color: var(--sql-gold);
-    }
-
-    .sql-result-table td {
-      color: var(--sql-text);
-    }
-
-    .sql-result-table tr:nth-child(even) td {
-      background: #1a1a1a;
-    }
-
-    .sql-help-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .sql-help-card {
-      border: 1px solid var(--sql-border);
-      border-radius: 12px;
-      padding: 17px;
-      background: var(--sql-panel);
-      color: var(--sql-text);
-    }
-
-    .sql-help-card h3 {
-      margin-top: 0;
-      color: var(--sql-gold);
-      font-size: 15px;
-    }
-
-    .sql-help-card p {
-      color: var(--sql-muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .sql-help-card code {
-      color: #f3d58a;
-    }
-
-    .sql-loading {
-      color: var(--sql-gold);
-    }
-
-    @media (max-width: 800px) {
-      .sql-workspace {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .sql-help-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      #sqlEditor,
-      .sql-output {
-        min-height: 250px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .sql-page {
-        padding: 24px 14px 40px;
-      }
-
-      .sql-panel-header {
-        padding: 13px;
-      }
-
-      #sqlEditor {
-        padding: 13px;
-        font-size: 12px;
-      }
-
-      .sql-action {
-        padding: 10px 11px;
-      }
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#f4f4f5;font-family:Arial,sans-serif}
+.lab{max-width:1200px;margin:35px auto;padding:20px}
+.hero{padding:26px;border:1px solid #5f4a1b;border-radius:18px;background:linear-gradient(135deg,#171b25,#101018)}
+.eyebrow{color:#e8bd58;font-size:12px;letter-spacing:2px;font-weight:bold}
+h1{margin:12px 0;font-size:clamp(27px,4vw,40px)}
+.gold{color:#e8bd58}
+.muted{color:#a7adbb;line-height:1.6}
+.workspace{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:20px}
+.panel{background:#111620;border:1px solid #2a303d;border-radius:16px;overflow:hidden;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;border-bottom:1px solid #2a303d}
+.panel-head h2{font-size:16px;margin:0}
+.tag{font-size:11px;color:#e8bd58;background:#302817;padding:6px 9px;border-radius:20px}
+textarea{display:block;width:100%;min-height:330px;resize:vertical;background:#0b0f17;color:#e9e9ed;border:0;padding:20px;font:14px/1.8 Consolas,monospace;outline:none}
+.actions{display:flex;gap:9px;flex-wrap:wrap;padding:14px;border-top:1px solid #2a303d}
+.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer}
+.run{background:#e8bd58;color:#17130a}
+.secondary{background:#252c39;color:#fff}
+.status{padding:13px 16px;color:#b7bdc9;font-size:13px;border-bottom:1px solid #2a303d}
+.output{padding:16px;min-height:330px;overflow:auto}
+.output table{width:100%;border-collapse:collapse;font-size:13px}
+.output th,.output td{padding:11px;text-align:left;border:1px solid #303746;white-space:nowrap}
+.output th{background:#302817;color:#f4d78d}
+.output tr:nth-child(even){background:#171e2a}
+.message{padding:15px;border-radius:10px;background:#172131;color:#dce3ee;line-height:1.7;overflow-wrap:anywhere}
+.error{background:#351b22;color:#ffb9c2}
+.success{color:#9ee6b0}
+.tip{padding:15px 18px;margin-top:18px;border:1px solid #2a303d;border-radius:12px;color:#a7adbb;font-size:13px;line-height:1.7}
+footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
+@media(max-width:760px){.workspace{grid-template-columns:1fr}.lab{padding:12px}.output,textarea{min-height:260px}}
+</style>
 </head>
 
 <body>
-
-<header class="navbar">
-  <a class="brand" href="index.html">
-    <span class="brand-mark">O</span>
-    OneUmmah Data Skills
-  </a>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="courses.html">Courses</a>
-    <a href="dashboard.html">Learning Dashboard</a>
-    <a href="payments.html">Payments</a>
-  </nav>
-
-  <div class="nav-actions">
-    <a class="btn btn-ghost" href="dashboard.html">← Dashboard</a>
-  </div>
-</header>
-
-<main class="sql-page">
-
-  <section class="sql-heading">
-    <span class="eyebrow">HANDS-ON PRACTICE</span>
-    <h1>SQL Compiler</h1>
-    <p>
-      Write SQL queries, execute them, view table results, and practise
-      database fundamentals in the OneUmmah Data Skills learning lab.
-    </p>
+<main class="lab">
+  <section class="hero">
+    <div class="eyebrow">ONEUMMAH DATA SKILLS</div>
+    <h1>SQL Practice <span class="gold">Lab</span></h1>
+    <p class="muted">Write SQL queries, execute them, and view your actual results in one interactive workspace.</p>
   </section>
 
-  <div class="sql-notice">
-    <strong>Practice environment:</strong>
-    This compiler uses SQLite in your browser. It is ideal for learning
-    SELECT, WHERE, JOIN, GROUP BY, INSERT, UPDATE and DELETE.
-    Snowflake-specific commands are not supported.
-  </div>
-
-  <section class="sql-workspace">
-
-    <!-- SQL EDITOR -->
-    <div class="sql-panel">
-      <div class="sql-panel-header">
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head">
         <h2>⌨ SQL Editor</h2>
-        <span class="sql-badge">SQLite</span>
+        <span class="tag">SQLite Engine</span>
       </div>
 
-      <div class="sql-toolbar">
-        <button type="button" class="sql-action" id="runSqlBtn">
-          ▶ Run SQL
-        </button>
-
-        <button type="button" class="sql-action secondary" id="resetSqlBtn">
-          Reset Database
-        </button>
-
-        <button type="button" class="sql-action secondary" id="clearSqlBtn">
-          Clear Editor
-        </button>
-      </div>
-
-      <div class="sql-editor-wrap">
-        <textarea
-          id="sqlEditor"
-          spellcheck="false"
-          aria-label="Write SQL query"
-          autocapitalize="off"
-          autocomplete="off"
-          autocorrect="off">SELECT * FROM students;</textarea>
-      </div>
-
-      <div class="sql-editor-footer">
-        <span>Tip: Ctrl + Enter to run</span>
-        <span id="sqlLineInfo">Ready</span>
-      </div>
-
-      <div id="sqlStatus" class="sql-status" role="status" aria-live="polite">
-        Loading SQL engine...
-      </div>
-    </div>
-
-    <!-- SQL OUTPUT -->
-    <div class="sql-panel">
-      <div class="sql-panel-header">
-        <h2>▤ Query Results</h2>
-        <span class="sql-badge" id="rowCountBadge">No results</span>
-      </div>
-
-      <div id="sqlOutput" class="sql-output" aria-live="polite">
-        <p class="sql-placeholder">
-          Your query results will appear here.<br><br>
-          Try running <code>SELECT * FROM students;</code>
-        </p>
-      </div>
-    </div>
-
-  </section>
-
-  <section class="sql-help-grid">
-    <article class="sql-help-card">
-      <h3>01. View Data</h3>
-      <p><code>SELECT * FROM students;</code></p>
-      <p>Retrieve all rows from the students table.</p>
-    </article>
-
-    <article class="sql-help-card">
-      <h3>02. Filter Rows</h3>
-      <p><code>SELECT name, marks FROM students WHERE marks &gt; 80;</code></p>
-      <p>Display students whose marks are greater than 80.</p>
-    </article>
-
-    <article class="sql-help-card">
-      <h3>03. Sort Results</h3>
-      <p><code>SELECT * FROM students ORDER BY marks DESC;</code></p>
-      <p>Sort students from highest marks to lowest.</p>
-    </article>
-  </section>
-
-</main>
-
-<footer>
-  <div class="brand">
-    <span class="brand-mark">O</span>
-    OneUmmah Data Skills
-  </div>
-  <span>© 2026 Technical Learning Platform</span>
-  <div>
-    <a href="courses.html">Courses</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="login.html">Login</a>
-  </div>
-</footer>
-
-<div id="toast" class="toast"></div>
-
-<script src="script.js"></script>
-
-<script>
-(() => {
-  "use strict";
-
-  const editor = document.getElementById("sqlEditor");
-  const output = document.getElementById("sqlOutput");
-  const status = document.getElementById("sqlStatus");
-  const lineInfo = document.getElementById("sqlLineInfo");
-  const rowCountBadge = document.getElementById("rowCountBadge");
-  const runButton = document.getElementById("runSqlBtn");
-  const resetButton = document.getElementById("resetSqlBtn");
-  const clearButton = document.getElementById("clearSqlBtn");
-
-  let database = null;
-  let engineReady = false;
-
-  const initialSQL = `CREATE TABLE students (
-  id INTEGER PRIMARY KEY,
-  name TEXT NOT NULL,
-  course TEXT NOT NULL,
-  marks INTEGER
+      <textarea id="sqlEditor" spellcheck="false">CREATE TABLE Employees (
+    EmployeeID INT,
+    EmployeeName VARCHAR(50),
+    Salary DECIMAL(10,2)
 );
 
-INSERT INTO students (name, course, marks) VALUES
-  ('Aisha', 'SQL', 90),
-  ('Sara', 'Python', 85),
-  ('Ali', 'SQL', 72),
-  ('Omar', 'Python', 95),
-  ('Fatima', 'SQL', 88);
+INSERT INTO Employees (EmployeeID, EmployeeName, Salary)
+VALUES (1, 'Rahul', 30000.00);
 
-SELECT * FROM students;`;
+INSERT INTO Employees (EmployeeID, EmployeeName, Salary)
+VALUES (2, 'Amit', 40000.00);
 
-  function setStatus(message, type = "") {
-    status.textContent = message;
-    status.className = "sql-status" + (type ? " " + type : "");
-  }
+INSERT INTO Employees (EmployeeID, EmployeeName, Salary)
+VALUES (3, 'Priya', 50000.00);
 
-  function showPlaceholder(message) {
-    output.replaceChildren();
-    const p = document.createElement("p");
-    p.className = "sql-placeholder";
-    p.textContent = message;
-    output.appendChild(p);
-    rowCountBadge.textContent = "No results";
-  }
+SELECT * FROM Employees;</textarea>
 
-  function displayResults(results) {
-    output.replaceChildren();
-    let totalRows = 0;
+      <div class="actions">
+        <button class="btn run" id="runBtn">▶ Run SQL</button>
+        <button class="btn secondary" id="exampleBtn">Load Example</button>
+        <button class="btn secondary" id="clearBtn">Clear</button>
+        <button class="btn secondary" id="resetBtn">Reset Database</button>
+      </div>
+    </div>
 
-    if (!results.length) {
-      showPlaceholder(
-        "Query executed successfully. No result table was returned."
-      );
-      rowCountBadge.textContent = "Executed";
-      return;
-    }
+    <div class="panel">
+      <div class="panel-head">
+        <h2>▤ Query Results</h2>
+        <span class="tag">Live Output</span>
+      </div>
+      <div class="status" id="status">Initializing SQL engine...</div>
+      <div class="output" id="output">
+        <div class="message">Your query results will appear here.</div>
+      </div>
+    </div>
+  </section>
 
-    results.forEach((result, index) => {
-      const block = document.createElement("div");
-      block.className = "sql-result-block";
+  <div class="tip">
+    <strong class="gold">Quick tips</strong><br>
+    • Multiple SQL statements ek saath run kar sakte hain.<br>
+    • Results panel query ke according automatically change hoga.<br>
+    • Ctrl + Enter press karke bhi query run kar sakte hain.<br>
+    • This lab uses SQLite in your browser. Data is temporary; reset or refresh karne par database dobara create karna pad sakta hai.
+  </div>
 
-      const title = document.createElement("h3");
-      title.className = "sql-result-title";
-      title.textContent = "Result " + (index + 1);
-      block.appendChild(title);
+  <footer>© OneUmmah Data Skills · Learn SQL by Practising</footer>
+</main>
 
-      if (!result.columns || result.columns.length === 0) {
-        const p = document.createElement("p");
-        p.className = "sql-placeholder";
-        p.textContent = "Statement executed.";
-        block.appendChild(p);
-        output.appendChild(block);
-        return;
-      }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script>
+let db = null;
+let SQL = null;
 
-      const wrap = document.createElement("div");
-      wrap.className = "sql-table-wrap";
+const editor = document.getElementById("sqlEditor");
+const output = document.getElementById("output");
+const statusBox = document.getElementById("status");
+const runBtn = document.getElementById("runBtn");
 
-      const table = document.createElement("table");
-      table.className = "sql-result-table";
+function showMessage(message, type = "") {
+  const box = document.createElement("div");
+  box.className = "message " + type;
+  box.textContent = message;
+  output.replaceChildren(box);
+}
 
-      const thead = document.createElement("thead");
-      const headRow = document.createElement("tr");
-
-      result.columns.forEach(column => {
-        const th = document.createElement("th");
-        th.textContent = String(column);
-        headRow.appendChild(th);
-      });
-
-      thead.appendChild(headRow);
-      table.appendChild(thead);
-
-      const tbody = document.createElement("tbody");
-
-      result.values.forEach(row => {
-        const tr = document.createElement("tr");
-
-        row.forEach(value => {
-          const td = document.createElement("td");
-          td.textContent = value === null ? "NULL" : String(value);
-          tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
-      });
-
-      table.appendChild(tbody);
-      wrap.appendChild(table);
-      block.appendChild(wrap);
-      output.appendChild(block);
-
-      totalRows += result.values.length;
-
-      const count = document.createElement("p");
-      count.className = "sql-placeholder";
-      count.textContent = result.values.length + " row(s) returned.";
-      block.appendChild(count);
+async function initializeDatabase() {
+  try {
+    SQL = await initSqlJs({
+      locateFile: file =>
+        "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/" + file
     });
+    db = new SQL.Database();
+    statusBox.textContent = "Ready · SQLite engine loaded";
+    showMessage("SQL engine ready. Click Run SQL to execute your query.");
+  } catch (error) {
+    statusBox.textContent = "Could not load SQL engine";
+    showMessage("SQL library load nahi hui. Internet connection check karke page refresh karein. Details: " + error.message, "error");
+  }
+}
 
-    rowCountBadge.textContent = totalRows + " row(s)";
+function renderTable(result) {
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+
+  result.columns.forEach(column => {
+    const th = document.createElement("th");
+    th.textContent = column;
+    headerRow.appendChild(th);
+  });
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  result.values.forEach(row => {
+    const tr = document.createElement("tr");
+    row.forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value === null ? "NULL" : String(value);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  return table;
+}
+
+function runSQL() {
+  if (!db) {
+    showMessage("SQL engine abhi ready nahi hai. Thodi der baad try karein.", "error");
+    return;
   }
 
-  async function initialiseEngine() {
-    try {
-      if (typeof initSqlJs !== "function") {
-        throw new Error("SQL library did not load. Check your internet connection.");
-      }
+  const query = editor.value.trim();
+  if (!query) {
+    showMessage("Please pehle SQL query likhein.", "error");
+    return;
+  }
 
-      const SQL = await initSqlJs({
-        locateFile: file =>
-          "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/" + file
+  try {
+    // SQLite executes multiple statements in the editor.
+    const results = db.exec(query);
+    output.replaceChildren();
+
+    if (results.length > 0) {
+      results.forEach((result, index) => {
+        const heading = document.createElement("p");
+        heading.className = "gold";
+        heading.textContent = "Result " + (index + 1) +
+          " · " + result.values.length + " row(s)";
+        output.appendChild(heading);
+        output.appendChild(renderTable(result));
       });
 
-      database = new SQL.Database();
-      database.run(initialSQL);
-
-      engineReady = true;
-      editor.value = "SELECT * FROM students;";
-      lineInfo.textContent = "SQL ready";
-      setStatus("SQL engine ready. Run your first query.", "success");
-    } catch (error) {
-      setStatus("Unable to load SQL engine: " + error.message, "error");
-      showPlaceholder(
-        "The SQL engine could not load. Check your internet connection and reload the page."
+      statusBox.innerHTML = '<span class="success">✓ Query executed successfully</span>';
+    } else {
+      const changes = db.getRowsModified();
+      showMessage(
+        "✓ Query executed successfully.\n\n" +
+        (changes > 0
+          ? changes + " row(s) affected."
+          : "Statement completed. No result table was returned."),
+        "success"
       );
+      statusBox.textContent = "Execution successful · No rows returned";
     }
+  } catch (error) {
+    statusBox.textContent = "Query error";
+    showMessage("SQL Error: " + error.message, "error");
   }
+}
 
-  function runSQL() {
-    if (!engineReady || !database) {
-      setStatus("SQL engine is still loading. Please wait.", "error");
-      return;
-    }
+runBtn.addEventListener("click", runSQL);
 
-    const query = editor.value.trim();
+document.getElementById("clearBtn").addEventListener("click", () => {
+  editor.value = "";
+  editor.focus();
+});
 
-    if (!query) {
-      setStatus("Please write a SQL query first.", "error");
-      return;
-    }
+document.getElementById("exampleBtn").addEventListener("click", () => {
+  editor.value = `CREATE TABLE Employees (
+    EmployeeID INT,
+    EmployeeName VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
 
-    runButton.disabled = true;
-    setStatus("Executing query...");
+INSERT INTO Employees VALUES (1, 'Rahul', 30000.00);
+INSERT INTO Employees VALUES (2, 'Amit', 40000.00);
+INSERT INTO Employees VALUES (3, 'Priya', 50000.00);
 
-    try {
-      const results = database.exec(query);
-      displayResults(results);
-      setStatus("Query executed successfully.", "success");
-    } catch (error) {
-      showPlaceholder("Correct the query and run it again.");
-      setStatus("SQL Error: " + error.message, "error");
-    } finally {
-      runButton.disabled = false;
-    }
+SELECT * FROM Employees;`;
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (!SQL) return;
+  db.close();
+  db = new SQL.Database();
+  statusBox.textContent = "Fresh database created";
+  showMessage("Database reset ho gaya. Ab apni CREATE TABLE query run karein.");
+});
+
+editor.addEventListener("keydown", event => {
+  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+    event.preventDefault();
+    runSQL();
   }
+});
 
-  function resetDatabase() {
-    if (!engineReady) {
-      setStatus("Please wait until the SQL engine is ready.", "error");
-      return;
-    }
-
-    try {
-      database.close();
-
-      const SQLPromise = initSqlJs({
-        locateFile: file =>
-          "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/" + file
-      });
-
-      SQLPromise.then(SQL => {
-        database = new SQL.Database();
-        database.run(initialSQL);
-        editor.value = "SELECT * FROM students;";
-        displayResults([]);
-        setStatus("Database reset. Sample students restored.", "success");
-      }).catch(error => {
-        database = null;
-        engineReady = false;
-        setStatus("Could not reset database: " + error.message, "error");
-      });
-    } catch (error) {
-      setStatus("Reset failed: " + error.message, "error");
-    }
-  }
-
-  runButton.addEventListener("click", runSQL);
-  resetButton.addEventListener("click", resetDatabase);
-
-  clearButton.addEventListener("click", () => {
-    editor.value = "";
-    editor.focus();
-    setStatus("Editor cleared. Write a new query.");
-    showPlaceholder("Write a query and click Run SQL.");
-  });
-
-  editor.addEventListener("input", () => {
-    const lines = editor.value.split("\n").length;
-    lineInfo.textContent = lines + " line(s)";
-  });
-
-  editor.addEventListener("keydown", event => {
-    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
-      event.preventDefault();
-      runSQL();
-    }
-
-    if (event.key === "Tab") {
-      event.preventDefault();
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
-
-      editor.setRangeText("  ", start, end, "end");
-    }
-  });
-
-  // sql.js runs locally in the browser after its library has loaded.
-  const library = document.createElement("script");
-  library.src =
-    "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js";
-  library.onload = initialiseEngine;
-  library.onerror = () => {
-    setStatus("Could not download the SQL library. Check your connection.", "error");
-  };
-  document.head.appendChild(library);
-})();
+initializeDatabase();
 </script>
-
 </body>
 </html>
+```
