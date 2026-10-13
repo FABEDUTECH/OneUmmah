@@ -1,94 +1,334 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SQL Practice Lab | OneUmmah Data Skills</title>
 <link rel="stylesheet" href="styles.css">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080b12;color:#f4f4f5;font-family:Arial,sans-serif}
-.lab{max-width:1200px;margin:35px auto;padding:20px}
-.hero{padding:26px;border:1px solid #5f4a1b;border-radius:18px;background:linear-gradient(135deg,#171b25,#101018)}
-.eyebrow{color:#e8bd58;font-size:12px;letter-spacing:2px;font-weight:bold}
-h1{margin:12px 0;font-size:clamp(27px,4vw,40px)}
-.gold{color:#e8bd58}
-.muted{color:#a7adbb;line-height:1.6}
-.workspace{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:20px}
-.panel{background:#111620;border:1px solid #2a303d;border-radius:16px;overflow:hidden;min-width:0}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;border-bottom:1px solid #2a303d}
-.panel-head h2{font-size:16px;margin:0}
-.tag{font-size:11px;color:#e8bd58;background:#302817;padding:6px 9px;border-radius:20px}
-textarea{display:block;width:100%;min-height:330px;resize:vertical;background:#0b0f17;color:#e9e9ed;border:0;padding:20px;font:14px/1.8 Consolas,monospace;outline:none}
-.actions{display:flex;gap:9px;flex-wrap:wrap;padding:14px;border-top:1px solid #2a303d}
-.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer}
-.run{background:#e8bd58;color:#17130a}
-.secondary{background:#252c39;color:#fff}
-.status{padding:13px 16px;color:#b7bdc9;font-size:13px;border-bottom:1px solid #2a303d}
-.output{padding:16px;min-height:330px;overflow:auto}
-.output table{width:100%;border-collapse:collapse;font-size:13px}
-.output th,.output td{padding:11px;text-align:left;border:1px solid #303746;white-space:nowrap}
-.output th{background:#302817;color:#f4d78d}
-.output tr:nth-child(even){background:#171e2a}
-.message{padding:15px;border-radius:10px;background:#172131;color:#dce3ee;line-height:1.7;overflow-wrap:anywhere}
-.error{background:#351b22;color:#ffb9c2}
-.success{color:#9ee6b0}
-.tip{padding:15px 18px;margin-top:18px;border:1px solid #2a303d;border-radius:12px;color:#a7adbb;font-size:13px;line-height:1.7}
-footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
-@media(max-width:760px){.workspace{grid-template-columns:1fr}.lab{padding:12px}.output,textarea{min-height:260px}}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080b12;
+  color: #f4f4f5;
+  font-family: Arial, sans-serif;
+}
+
+.lab {
+  max-width: 1200px;
+  margin: 35px auto;
+  padding: 20px;
+}
+
+.hero {
+  padding: 26px;
+  border: 1px solid #5f4a1b;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #171b25, #101018);
+}
+
+.eyebrow {
+  color: #e8bd58;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+h1 {
+  margin: 12px 0;
+  font-size: clamp(27px, 4vw, 40px);
+}
+
+.gold {
+  color: #e8bd58;
+}
+
+.muted {
+  color: #a7adbb;
+  line-height: 1.6;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.panel {
+  background: #111620;
+  border: 1px solid #2a303d;
+  border-radius: 16px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #2a303d;
+}
+
+.panel-head h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.tag {
+  font-size: 11px;
+  color: #e8bd58;
+  background: #302817;
+  padding: 6px 9px;
+  border-radius: 20px;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 330px;
+  resize: vertical;
+  background: #0b0f17;
+  color: #e9e9ed;
+  border: 0;
+  padding: 20px;
+  font: 14px/1.8 Consolas, monospace;
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #747e90;
+}
+
+textarea:focus {
+  box-shadow: inset 0 0 0 1px #6e5724;
+}
+
+.actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding: 14px;
+  border-top: 1px solid #2a303d;
+}
+
+.btn {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.run {
+  background: #e8bd58;
+  color: #17130a;
+}
+
+.secondary {
+  background: #252c39;
+  color: #fff;
+}
+
+.status {
+  padding: 13px 16px;
+  color: #b7bdc9;
+  font-size: 13px;
+  border-bottom: 1px solid #2a303d;
+}
+
+.output {
+  padding: 16px;
+  min-height: 330px;
+  overflow: auto;
+}
+
+.output table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.output th,
+.output td {
+  padding: 11px;
+  text-align: left;
+  border: 1px solid #303746;
+  white-space: nowrap;
+}
+
+.output th {
+  background: #302817;
+  color: #f4d78d;
+}
+
+.output tr:nth-child(even) {
+  background: #171e2a;
+}
+
+.message {
+  padding: 15px;
+  border-radius: 10px;
+  background: #172131;
+  color: #dce3ee;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  background: #351b22;
+  color: #ffb9c2;
+}
+
+.success {
+  color: #9ee6b0;
+}
+
+.tip {
+  padding: 15px 18px;
+  margin-top: 18px;
+  border: 1px solid #2a303d;
+  border-radius: 12px;
+  color: #a7adbb;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  color: #777f90;
+  padding: 28px 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .lab {
+    padding: 12px;
+  }
+
+  .output,
+  textarea {
+    min-height: 260px;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <main class="lab">
+
   <section class="hero">
     <div class="eyebrow">ONEUMMAH DATA SKILLS</div>
-    <h1>SQL Practice <span class="gold">Lab</span></h1>
-    <p class="muted">Write SQL queries, execute them, and view your actual results in one interactive workspace.</p>
+
+    <h1>
+      SQL Practice <span class="gold">Lab</span>
+    </h1>
+
+    <p class="muted">
+      Write your own SQL queries, execute them, and view your results
+      in this interactive SQL workspace.
+    </p>
   </section>
 
   <section class="workspace">
+
+    <!-- SQL EDITOR -->
     <div class="panel">
+
       <div class="panel-head">
         <h2>⌨ SQL Editor</h2>
         <span class="tag">SQLite Engine</span>
       </div>
 
-      
+      <!-- EMPTY EDITOR: NO QUERY PRELOADED -->
+      <textarea
+        id="sqlEditor"
+        spellcheck="false"
+        placeholder="-- Write your SQL query here..."
+        aria-label="SQL query editor"
+      ></textarea>
 
       <div class="actions">
-        <button class="btn run" id="runBtn">▶ Run SQL</button>
-        <button class="btn secondary" id="exampleBtn">Load Example</button>
-        <button class="btn secondary" id="clearBtn">Clear</button>
-        <button class="btn secondary" id="resetBtn">Reset Database</button>
+        <button class="btn run" id="runBtn">
+          ▶ Run SQL
+        </button>
+
+        <button class="btn secondary" id="exampleBtn">
+          Load Example
+        </button>
+
+        <button class="btn secondary" id="clearBtn">
+          Clear
+        </button>
+
+        <button class="btn secondary" id="resetBtn">
+          Reset Database
+        </button>
       </div>
+
     </div>
 
+    <!-- DYNAMIC QUERY RESULTS -->
     <div class="panel">
+
       <div class="panel-head">
         <h2>▤ Query Results</h2>
         <span class="tag">Live Output</span>
       </div>
-      <div class="status" id="status">Initializing SQL engine...</div>
-      <div class="output" id="output">
-        <div class="message">Your query results will appear here.</div>
+
+      <div class="status" id="status">
+        Loading SQL engine...
       </div>
+
+      <div class="output" id="output">
+        <div class="message">
+          Write a query in the editor and click Run SQL.
+          Your results will appear here.
+        </div>
+      </div>
+
     </div>
+
   </section>
 
   <div class="tip">
-    <strong class="gold">Quick tips</strong><br>
-    • Multiple SQL statements ek saath run kar sakte hain.<br>
-    • Results panel query ke according automatically change hoga.<br>
-    • Ctrl + Enter press karke bhi query run kar sakte hain.<br>
-    • This lab uses SQLite in your browser. Data is temporary; reset or refresh karne par database dobara create karna pad sakta hai.
+    <strong class="gold">Quick Tips</strong><br>
+    • Editor starts empty — type your own query.<br>
+    • Use Load Example if you want a sample query.<br>
+    • Results change according to your SQL query.<br>
+    • Press Ctrl + Enter to run your query.<br>
+    • This browser-based lab uses SQLite. MySQL and Snowflake-specific
+    commands may not work here.
   </div>
 
-  <footer>© OneUmmah Data Skills · Learn SQL by Practising</footer>
+  <footer>
+    © OneUmmah Data Skills · Learn SQL by Practising
+  </footer>
+
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+
 <script>
 let db = null;
 let SQL = null;
@@ -96,7 +336,6 @@ let SQL = null;
 const editor = document.getElementById("sqlEditor");
 const output = document.getElementById("output");
 const statusBox = document.getElementById("status");
-const runBtn = document.getElementById("runBtn");
 
 function showMessage(message, type = "") {
   const box = document.createElement("div");
@@ -111,12 +350,26 @@ async function initializeDatabase() {
       locateFile: file =>
         "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/" + file
     });
+
     db = new SQL.Database();
+
     statusBox.textContent = "Ready · SQLite engine loaded";
-    showMessage("SQL engine ready. Click Run SQL to execute your query.");
+
+    // Keep the editor empty when the page opens.
+    editor.value = "";
+
+    showMessage(
+      "SQL engine ready.\nWrite your query in the editor and click Run SQL."
+    );
+
   } catch (error) {
-    statusBox.textContent = "Could not load SQL engine";
-    showMessage("SQL library load nahi hui. Internet connection check karke page refresh karein. Details: " + error.message, "error");
+    statusBox.textContent = "SQL engine could not load";
+
+    showMessage(
+      "SQL library load nahi hui. Internet connection check karke page refresh karein.\n" +
+      error.message,
+      "error"
+    );
   }
 }
 
@@ -135,13 +388,16 @@ function renderTable(result) {
   table.appendChild(thead);
 
   const tbody = document.createElement("tbody");
+
   result.values.forEach(row => {
     const tr = document.createElement("tr");
+
     row.forEach(value => {
       const td = document.createElement("td");
       td.textContent = value === null ? "NULL" : String(value);
       tr.appendChild(td);
     });
+
     tbody.appendChild(tr);
   });
 
@@ -151,76 +407,119 @@ function renderTable(result) {
 
 function runSQL() {
   if (!db) {
-    showMessage("SQL engine abhi ready nahi hai. Thodi der baad try karein.", "error");
+    showMessage(
+      "SQL engine abhi ready nahi hai. Please thodi der baad try karein.",
+      "error"
+    );
     return;
   }
 
   const query = editor.value.trim();
+
   if (!query) {
-    showMessage("Please pehle SQL query likhein.", "error");
+    statusBox.textContent = "No query entered";
+    showMessage(
+      "Please editor mein apni SQL query type karein.",
+      "error"
+    );
+    editor.focus();
     return;
   }
 
   try {
-    // SQLite executes multiple statements in the editor.
     const results = db.exec(query);
+
     output.replaceChildren();
 
     if (results.length > 0) {
       results.forEach((result, index) => {
         const heading = document.createElement("p");
         heading.className = "gold";
-        heading.textContent = "Result " + (index + 1) +
+
+        heading.textContent =
+          "Result " + (index + 1) +
           " · " + result.values.length + " row(s)";
+
         output.appendChild(heading);
         output.appendChild(renderTable(result));
       });
 
-      statusBox.innerHTML = '<span class="success">✓ Query executed successfully</span>';
+      statusBox.innerHTML =
+        '<span class="success">✓ Query executed successfully</span>';
+
     } else {
       const changes = db.getRowsModified();
-      showMessage(
-        "✓ Query executed successfully.\n\n" +
-        (changes > 0
-          ? changes + " row(s) affected."
-          : "Statement completed. No result table was returned."),
-        "success"
-      );
-      statusBox.textContent = "Execution successful · No rows returned";
+
+      const message = changes > 0
+        ? "✓ Query executed successfully.\n" +
+          changes + " row(s) affected."
+        : "✓ Statement executed successfully.\nNo result table was returned.";
+
+      showMessage(message, "success");
+
+      statusBox.textContent =
+        "Execution successful · No result table returned";
     }
+
   } catch (error) {
     statusBox.textContent = "Query error";
-    showMessage("SQL Error: " + error.message, "error");
+
+    showMessage(
+      "SQL Error: " + error.message,
+      "error"
+    );
   }
 }
 
-runBtn.addEventListener("click", runSQL);
+document.getElementById("runBtn").addEventListener("click", runSQL);
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   editor.value = "";
   editor.focus();
+
+  output.replaceChildren();
+
+  statusBox.textContent = "Editor cleared";
+
+  showMessage(
+    "Editor clear ho gaya. Ab apni next SQL query type karein."
+  );
 });
 
 document.getElementById("exampleBtn").addEventListener("click", () => {
-  editor.value = `CREATE TABLE Employees (
-    EmployeeID INT,
-    EmployeeName VARCHAR(50),
-    Salary DECIMAL(10,2)
+  editor.value = `CREATE TABLE Students (
+    ID INT,
+    Name VARCHAR(50),
+    Marks INT
 );
 
-INSERT INTO Employees VALUES (1, 'Rahul', 30000.00);
-INSERT INTO Employees VALUES (2, 'Amit', 40000.00);
-INSERT INTO Employees VALUES (3, 'Priya', 50000.00);
+INSERT INTO Students VALUES
+(1, 'Rahul', 80),
+(2, 'Priya', 90),
+(3, 'Amit', 75);
 
-SELECT * FROM Employees;`;
+SELECT * FROM Students;`;
+
+  editor.focus();
+  statusBox.textContent = "Example loaded · Click Run SQL";
 });
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  if (!SQL) return;
+  if (!SQL) {
+    showMessage("SQL engine abhi ready nahi hai.", "error");
+    return;
+  }
+
   db.close();
   db = new SQL.Database();
+
+  editor.value = "";
+
   statusBox.textContent = "Fresh database created";
-  showMessage("Database reset ho gaya. Ab apni CREATE TABLE query run karein.");
+
+  showMessage(
+    "Database reset ho gaya.\nAb apni SQL query type karke run karein."
+  );
 });
 
 editor.addEventListener("keydown", event => {
@@ -232,6 +531,7 @@ editor.addEventListener("keydown", event => {
 
 initializeDatabase();
 </script>
+
 </body>
 </html>
-
+```
