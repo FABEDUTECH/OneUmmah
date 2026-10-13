@@ -6,6 +6,79 @@
   <title>Dashboard — OneUmmah Data Skills</title>
   <link rel="stylesheet" href="styles.css">
 
+  /* Professional compiler cards */
+  .compiler-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+  }
+  
+  .compiler-card {
+    padding: 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(232, 189, 88, 0.25);
+    background: linear-gradient(145deg, #171b25, #101018);
+    color: #f4f4f5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .compiler-card h3,
+  .compiler-card p {
+    margin: 0;
+  }
+  
+  .compiler-card p {
+    color: #a7adbb;
+    line-height: 1.7;
+  }
+  
+  .compiler-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 800;
+  }
+  
+  .sql-icon {
+    background: #302817;
+    color: #e8bd58;
+  }
+  
+  .python-icon {
+    background: #173528;
+    color: #7fe0a0;
+  }
+  
+  .compiler-status {
+    color: #9ee6b0;
+    font-size: 12px;
+    margin-top: auto;
+  }
+  
+  .compiler-card .btn {
+    margin-top: 5px;
+  }
+  
+  .compiler-empty {
+    grid-column: 1 / -1;
+    padding: 22px;
+    border: 1px dashed #8a7137;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 700px) {
+    .compiler-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   <style>
     /* Dashboard additions - existing theme preserved */
 
@@ -309,13 +382,48 @@
 
       </div>
 
-      <!-- SQL COMPILER LINK -->
-      <div class="learning-box" id="sqlCompilerCard">
-        <h3>⌨ SQL Practice Lab</h3>
-        <p>Write SQL queries, run them, and practise database questions.</p>
-        <a href="compiler.html" class="btn btn-primary">
-          Open SQL Compiler →
-        </a>
+      <!-- COMPILER WORKSPACE -->
+      <div class="learning-box" id="compilerWorkspace">
+        <span class="eyebrow">YOUR CODING TOOLS</span>
+        <h3>Practice & Build</h3>
+        <p class="muted">
+          Choose your enrolled course and practise directly in your browser.
+        </p>
+      
+        <div class="compiler-grid">
+      
+          <!-- SQL COMPILER -->
+          <div class="compiler-card hidden" id="sqlCompilerCard">
+            <div class="compiler-icon sql-icon">SQL</div>
+            <h3>SQL Practice Lab</h3>
+            <p>Write SQL queries, manage tables and view query results.</p>
+            <span class="compiler-status">✓ Course enrolled</span>
+            <a href="compiler.html" class="btn btn-primary">
+              Open SQL Compiler →
+            </a>
+          </div>
+      
+          <!-- PYTHON COMPILER -->
+          <div class="compiler-card hidden" id="pythonCompilerCard">
+            <div class="compiler-icon python-icon">Py</div>
+            <h3>Python Coding Lab</h3>
+            <p>Write Python programs, execute code and view output.</p>
+            <span class="compiler-status">✓ Course enrolled</span>
+            <a href="python-compiler.html" class="btn btn-primary">
+              Open Python Compiler →
+            </a>
+          </div>
+      
+          <!-- NO ENROLLMENT -->
+          <div id="noCompilerMessage" class="compiler-empty hidden">
+            <h3>Start Your Learning Journey</h3>
+            <p>Enroll in SQL or Python to unlock your coding workspace.</p>
+            <a href="courses.html" class="btn btn-primary">
+              Explore Courses →
+            </a>
+          </div>
+      
+        </div>
       </div>
 
       <!-- MY COURSES -->
@@ -966,30 +1074,44 @@
     if (event) event.preventDefault();
     openCertificateFromTree();
   }
-
+  
   function getEnrolledCourses() {
-
     try {
-
-      return JSON.parse(
-        localStorage.getItem("oneUmmahEnrolledCourses")
-      ) || [];
-
-    } catch (error) {
-
+      const user = currentUser();
+  
+      if (user && Array.isArray(user.enrolled)) {
+        return user.enrolled;
+      }
+  
       return [];
-
+    } catch (error) {
+      console.error("Could not load enrolled courses:", error);
+      return [];
     }
-
   }
-
 
   /* -----------------------------------
      SHOW ENROLLED COURSES
   ----------------------------------- */
 
   function loadDashboardCourses() {
-
+  // SHOW SQL AND PYTHON COMPILERS
+  
+  const compilerHub = document.getElementById("compilerHub");
+  const sqlCompilerCard = document.getElementById("sqlCompilerCard");
+  const pythonCompilerCard = document.getElementById("pythonCompilerCard");
+  
+  if (compilerHub) {
+    compilerHub.classList.remove("hidden");
+  }
+  
+  if (sqlCompilerCard) {
+    sqlCompilerCard.classList.remove("hidden");
+  }
+  
+  if (pythonCompilerCard) {
+    pythonCompilerCard.classList.remove("hidden");
+  }
     // Dashboard opens on the progress overview only.
     document.getElementById("myCoursesSection").classList.add("hidden");
     document.getElementById("courseFileTree").classList.remove("open");
@@ -1008,14 +1130,12 @@
 
     active.textContent = enrolled.length;
 
-
     // No My Courses card or Continue Learning page: use the sidebar day/file list.
     list.innerHTML = "";
     document.getElementById("myCoursesSection").classList.add("hidden");
     sqlArea.classList.add("hidden");
 
   }
-
 
   /* -----------------------------------
      OPEN SQL VIDEO
