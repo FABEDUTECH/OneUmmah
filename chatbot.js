@@ -1,6 +1,7 @@
 
 (() => {
-const API_URL = "https://oneummah-ai-chatbot.oneummahdataskills.workers.dev/";
+const API_URL = "oneummah-ai-chatbot.oneummahdataskills.workers.dev
+";
   if (document.getElementById("oum-chat-launcher")) return;
 
   const css = document.createElement("style");
