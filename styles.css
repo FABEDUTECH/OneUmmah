@@ -8,3 +8,23 @@
 .course-btn-alt.enrolled{background:#e9f9ef;border-color:#b9ecc9;color:#1c8b4c}
 .course-row.empty{border-top:none;color:#8a93a5;font-size:14px;padding:10px 0}
 .course-row a.course-open{margin-left:auto;font-weight:700;font-size:13px}
+
+/* Enrolled Student WhatsApp Support */
+.student-whatsapp-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.student-whatsapp-btn:hover {
+  background: #1eaf53;
+  color: #fff;
+}
+
