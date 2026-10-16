@@ -132,11 +132,16 @@ function handleLogout(){
 }
 
 /* ---------- UI rendering ---------- */
+
 function renderDashboard(){
   const user = currentUser();
   if(!user) return;
+
   const initial = user.name.trim().charAt(0).toUpperCase() || 'S';
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = val;
+  };
 
   set('dashAvatar', initial);
   set('dashName', user.name);
@@ -145,29 +150,50 @@ function renderDashboard(){
   set('navName', user.name.split(' ')[0]);
 
   const enrolled = user.enrolled || [];
+
   set('metricActive', enrolled.length);
   set('metricActiveSub', enrolled.length ? 'Keep it up' : 'Browse courses to enroll');
-  set('metricLessons', enrolled.reduce((sum,id) => sum + Math.round((COURSES[id]?.lessons || 0) * 0.35), 0));
+  set('metricLessons', enrolled.reduce((sum, id) => sum + Math.round((COURSES[id]?.lessons || 0) * 0.35), 0));
   set('metricAssign', enrolled.length * 3);
   set('metricCerts', (user.certificates || []).length);
   set('dashWelcome', enrolled.length ? 'Keep going — you\'re making progress.' : 'You haven\'t enrolled in a course yet.');
 
   const list = document.getElementById('myCoursesList');
   if(!list) return;
+
   list.innerHTML = '';
+
   if(!enrolled.length){
     list.innerHTML = '<div class="course-row empty">No courses yet — <a class="text-link" href="courses.html">explore the catalog</a> and enroll to get started.</div>';
     return;
   }
+
   enrolled.forEach(id => {
     const c = COURSES[id];
     if(!c) return;
-    const progress = 35; /* demo progress for a freshly enrolled course */
+
+    const progress = 35;
     const row = document.createElement('div');
     row.className = 'course-row';
-    row.innerHTML = `<div class="mini-icon ${c.mini}">${c.label}</div>
-      <div class="row-info"><b>${c.name}</b><small>${Math.round(c.lessons*progress/100)} of ${c.lessons} lessons</small>
-      <div class="progress"><div style="width:${progress}%"></div></div></div><strong>${progress}%</strong>`;
+
+    row.innerHTML = `
+      <div class="mini-icon ${c.mini}">${c.label}</div>
+      <div class="row-info">
+        <b>${c.name}</b>
+        <small>${Math.round(c.lessons * progress / 100)} of ${c.lessons} lessons</small>
+        <div class="progress">
+          <div style="width:${progress}%"></div>
+        </div>
+        <a class="student-whatsapp-btn"
+          href="https://wa.me/916360846480?text=${encodeURIComponent(`Hi, I am enrolled in ${c.name} at OneUmmah Data Skills. I need student support.`)}"
+          target="_blank"
+          rel="noopener noreferrer">
+          💬 Student Support on WhatsApp
+        </a>
+      </div>
+      <strong>${progress}%</strong>
+    `;
+
     list.appendChild(row);
   });
 }
