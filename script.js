@@ -150,6 +150,10 @@ function renderDashboard(){
   set('navName', user.name.split(' ')[0]);
 
   const enrolled = user.enrolled || [];
+  const supportBtn = document.getElementById('studentSupportBtn');
+  if (supportBtn) {
+    supportBtn.style.display = enrolled.length > 0 ? 'inline-block' : 'none';
+}
 
   set('metricActive', enrolled.length);
   set('metricActiveSub', enrolled.length ? 'Keep it up' : 'Browse courses to enroll');
