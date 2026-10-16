@@ -184,12 +184,7 @@ function renderDashboard(){
         <div class="progress">
           <div style="width:${progress}%"></div>
         </div>
-        <a class="student-whatsapp-btn"
-          href="https://wa.me/916360846480?text=${encodeURIComponent(`Hi, I am enrolled in ${c.name} at OneUmmah Data Skills. I need student support.`)}"
-          target="_blank"
-          rel="noopener noreferrer">
-          💬 Student Support on WhatsApp
-        </a>
+        
       </div>
       <strong>${progress}%</strong>
     `;
