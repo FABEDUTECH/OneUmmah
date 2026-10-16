@@ -964,8 +964,8 @@
     // My Courses click shows ONLY the day/file list in the blue sidebar.
     // Never show a separate My Courses card or Continue Learning card.
     tree.classList.toggle("open", opening);
-    document.getElementById("myCoursesSection").classList.add("hidden");
-    document.getElementById("sqlLearningArea").classList.add("hidden");
+    document.getElementById("myCoursesSection").classList.toggle("hidden", !opening);
+    if (opening) document.getElementById("myCoursesSection").scrollIntoView({ behavior: "smooth", block: "start" });    document.getElementById("sqlLearningArea").classList.add("hidden");
     document.getElementById("videoSection").classList.add("hidden");
     document.getElementById("assignmentSection").classList.add("hidden");
     document.getElementById("certificateSection").classList.add("hidden");
