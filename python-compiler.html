@@ -34,6 +34,31 @@ textarea:focus{box-shadow:inset 0 0 0 1px #7fe0a0}
 .success{color:#9ee6b0}
 .tip{padding:15px 18px;margin-top:18px;border:1px solid #2a303d;border-radius:12px;color:#a7adbb;font-size:13px;line-height:1.8}
 footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
+  
+.dashboard-back-wrap {
+  margin-bottom: 18px;
+}
+
+.dashboard-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  background: #252c39;
+  color: #e8bd58;
+  border: 1px solid #5f4a1b;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.dashboard-back-btn:hover {
+  background: #302817;
+  transform: translateY(-1px);
+}
+
 @media(max-width:760px){.workspace{grid-template-columns:1fr}.lab{padding:12px}.output,textarea{min-height:260px}}
 </style>
 </head>
@@ -44,14 +69,23 @@ footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
 <section class="hero">
   <div class="eyebrow">ONEUMMAH DATA SKILLS</div>
   <h1>Python Coding <span class="gold">Lab</span></h1>
-  <p class="muted">
-    Write Python programs, run your code and see the output
-    in your own interactive coding workspace.
-  </p>
-  <a href="dashboard.html" class="btn secondary">← Back to Dashboard</a>
+  
+<p class="muted">
+  Write Python programs, run your code and see the output
+  in your own interactive coding workspace.
+</p>
+
 </section>
 
+<div class="dashboard-back-wrap">
+  <a href="dashboard.html" class="dashboard-back-btn">
+    ← Back to Dashboard
+  </a>
+</div>
+
+
 <section class="workspace">
+
 
   <div class="panel">
     <div class="panel-head">
