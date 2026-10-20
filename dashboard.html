@@ -74,68 +74,6 @@
     border-radius: 12px;
   }
   
-    /* Student Progress Tracker */
-    .progress-tracker-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .progress-tracker-card {
-      padding: 18px;
-      border-radius: 12px;
-      border: 1px solid rgba(232, 189, 88, 0.25);
-      background: linear-gradient(145deg, #171b25, #101018);
-      color: #f4f4f5;
-    }
-
-    .progress-tracker-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .progress-tracker-card h4 {
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-
-    .progress-tracker-card p {
-      margin: 8px 0;
-      color: #a7adbb;
-      font-size: 13px;
-    }
-
-    .progress-tracker-percent {
-      color: #e8bd58;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .progress-tracker-bar {
-      height: 8px;
-      margin-top: 16px;
-      border-radius: 20px;
-      background: #303442;
-      overflow: hidden;
-    }
-
-    .progress-tracker-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #b88b2d, #f3d47b);
-      transition: width .35s ease;
-    }
-
-    @media (max-width: 700px) {
-      .progress-tracker-list {
-        grid-template-columns: 1fr;
-      }
-    }
-
   @media (max-width: 700px) {
     .compiler-grid {
       grid-template-columns: 1fr;
@@ -441,18 +379,6 @@
           <small>Earned</small>
         </div>
 
-      </div>
-
-      <!-- STUDENT PROGRESS TRACKER -->
-      <div class="learning-box" id="progressTracker">
-        <span class="eyebrow">YOUR LEARNING JOURNEY</span>
-        <h3>Student Progress Tracker</h3>
-        <p class="muted">
-          Har enrolled course ki progress yahan automatically dikhegi.
-        </p>
-        <div id="progressTrackerList">
-          <p>Loading your course progress...</p>
-        </div>
       </div>
 
       <!-- COMPILER WORKSPACE -->
