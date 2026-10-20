@@ -151,50 +151,7 @@ function renderDashboard(){
 
   const enrolled = user.enrolled || [];
   
-  // STUDENT PROGRESS TRACKER
-  const progressList = document.getElementById('progressTrackerList');
-
-  if (progressList) {
-    if (!enrolled.length) {
-      progressList.className = '';
-      progressList.innerHTML =
-        '<p>Abhi koi course enrolled nahi hai. Courses explore karke enroll karein.</p>';
-    } else {
-      progressList.className = 'progress-tracker-list';
-
-      progressList.innerHTML = enrolled.map(id => {
-        const course = COURSES[id];
-        if (!course) return '';
-
-        const completed =
-          user.courseProgress?.[id]?.completedLessons || [];
-
-        const total = course.lessons;
-        const count = Math.min(completed.length, total);
-        const percent = Math.round((count / total) * 100);
-
-        return `
-          <div class="progress-tracker-card">
-            <div class="progress-tracker-top">
-              <div>
-                <h4>${course.name}</h4>
-                <p>${count} of ${total} lessons completed</p>
-              </div>
-              <span class="progress-tracker-percent">${percent}%</span>
-            </div>
-            <div class="progress-tracker-bar"
-                 role="progressbar"
-                 aria-valuemin="0"
-                 aria-valuemax="100"
-                 aria-valuenow="${percent}">
-              <div class="progress-tracker-fill"
-                   style="width:${percent}%"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-  }
+  
 
   const supportBtn = document.getElementById('studentSupportBtn');
   if (supportBtn) {
