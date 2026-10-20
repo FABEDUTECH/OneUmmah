@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,36 +8,25 @@
 <link rel="stylesheet" href="styles.css">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080b12;color:#f4f4f5;font-family:Arial,sans-serif}
-.lab{max-width:1200px;margin:32px auto;padding:20px}
-.hero{padding:26px;border:1px solid #5f4a1b;border-radius:18px;background:linear-gradient(135deg,#171b25,#101018)}
-.eyebrow{color:#e8bd58;font-size:12px;letter-spacing:2px;font-weight:bold}
-h1{font-size:clamp(27px,4vw,40px);margin:12px 0}
-.gold{color:#e8bd58}
-.muted{color:#a7adbb;line-height:1.7}
-.workspace{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:20px}
-.panel{background:#111620;border:1px solid #2a303d;border-radius:16px;overflow:hidden;min-width:0}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;border-bottom:1px solid #2a303d}
-.panel-head h2{font-size:16px;margin:0}
-.tag{font-size:11px;color:#7fe0a0;background:#173528;padding:6px 9px;border-radius:20px}
-textarea{display:block;width:100%;min-height:330px;resize:vertical;background:#0b0f17;color:#e9e9ed;border:0;padding:20px;font:14px/1.8 Consolas,monospace;outline:none}
-textarea::placeholder{color:#747e90}
-textarea:focus{box-shadow:inset 0 0 0 1px #7fe0a0}
-.actions{display:flex;gap:9px;flex-wrap:wrap;padding:14px;border-top:1px solid #2a303d}
-.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
-.run{background:#7fe0a0;color:#102117}
-.secondary{background:#252c39;color:#fff}
-.status{padding:13px 16px;color:#b7bdc9;font-size:13px;border-bottom:1px solid #2a303d}
-.output{padding:16px;min-height:330px;overflow:auto}
-.message{padding:15px;border-radius:10px;background:#172131;color:#dce3ee;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
-.error{background:#351b22;color:#ffb9c2}
-.success{color:#9ee6b0}
-.tip{padding:15px 18px;margin-top:18px;border:1px solid #2a303d;border-radius:12px;color:#a7adbb;font-size:13px;line-height:1.8}
-footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
-  
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080b12;
+  color: #f4f4f5;
+  font-family: Arial, sans-serif;
+}
+
+.lab {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 20px;
+}
+
 .dashboard-back-wrap {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .dashboard-back-btn {
@@ -59,83 +49,275 @@ footer{text-align:center;color:#777f90;padding:28px 10px;font-size:12px}
   transform: translateY(-1px);
 }
 
-@media(max-width:760px){.workspace{grid-template-columns:1fr}.lab{padding:12px}.output,textarea{min-height:260px}}
+.hero {
+  padding: 26px;
+  border: 1px solid #5f4a1b;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #171b25, #101018);
+}
+
+.eyebrow {
+  color: #e8bd58;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(27px, 4vw, 40px);
+  margin: 12px 0;
+}
+
+.gold {
+  color: #e8bd58;
+}
+
+.muted {
+  color: #a7adbb;
+  line-height: 1.7;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.panel {
+  background: #111620;
+  border: 1px solid #2a303d;
+  border-radius: 16px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #2a303d;
+}
+
+.panel-head h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.tag {
+  font-size: 11px;
+  color: #7fe0a0;
+  background: #173528;
+  padding: 6px 9px;
+  border-radius: 20px;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 330px;
+  resize: vertical;
+  background: #0b0f17;
+  color: #e9e9ed;
+  border: 0;
+  padding: 20px;
+  font: 14px/1.8 Consolas, monospace;
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #747e90;
+}
+
+textarea:focus {
+  box-shadow: inset 0 0 0 1px #7fe0a0;
+}
+
+.actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding: 14px;
+  border-top: 1px solid #2a303d;
+}
+
+.btn {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.run {
+  background: #7fe0a0;
+  color: #102117;
+}
+
+.run:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.secondary {
+  background: #252c39;
+  color: #fff;
+}
+
+.status {
+  padding: 13px 16px;
+  color: #b7bdc9;
+  font-size: 13px;
+  border-bottom: 1px solid #2a303d;
+}
+
+.output {
+  padding: 16px;
+  min-height: 330px;
+  overflow: auto;
+}
+
+.message {
+  padding: 15px;
+  border-radius: 10px;
+  background: #172131;
+  color: #dce3ee;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  background: #351b22;
+  color: #ffb9c2;
+}
+
+.success {
+  color: #9ee6b0;
+}
+
+.tip {
+  padding: 15px 18px;
+  margin-top: 18px;
+  border: 1px solid #2a303d;
+  border-radius: 12px;
+  color: #a7adbb;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  color: #777f90;
+  padding: 28px 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .lab {
+    padding: 12px;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+
+  .output,
+  textarea {
+    min-height: 260px;
+  }
+}
 </style>
 </head>
 
 <body>
 <main class="lab">
 
-<section class="hero">
-  <div class="eyebrow">ONEUMMAH DATA SKILLS</div>
-  <h1>Python Coding <span class="gold">Lab</span></h1>
-  
-<p class="muted">
-  Write Python programs, run your code and see the output
-  in your own interactive coding workspace.
-</p>
-
-</section>
-
-<div class="dashboard-back-wrap">
-  <a href="dashboard.html" class="dashboard-back-btn">
-    ← Back to Dashboard
-  </a>
-</div>
-
-
-<section class="workspace">
-
-
-  <div class="panel">
-    <div class="panel-head">
-      <h2>⌨ Python Editor</h2>
-      <span class="tag">Python Runtime</span>
-    </div>
-
-    <textarea
-      id="pythonEditor"
-      spellcheck="false"
-      placeholder="# Write your Python code here..."
-      aria-label="Python code editor"
-    ></textarea>
-
-    <div class="actions">
-      <button class="btn run" id="runBtn">▶ Run Python</button>
-      <button class="btn secondary" id="exampleBtn">Load Example</button>
-      <button class="btn secondary" id="clearBtn">Clear</button>
-    </div>
+  <!-- Back button: above the hero card -->
+  <div class="dashboard-back-wrap">
+    <a href="dashboard.html" class="dashboard-back-btn">
+      ← Back to Dashboard
+    </a>
   </div>
 
-  <div class="panel">
-    <div class="panel-head">
-      <h2>▤ Program Output</h2>
-      <span class="tag">Live Output</span>
-    </div>
+  <!-- Hero card -->
+  <section class="hero">
+    <div class="eyebrow">ONEUMMAH DATA SKILLS</div>
+    <h1>Python Coding <span class="gold">Lab</span></h1>
+    <p class="muted">
+      Write Python programs, run your code and see the output
+      in your own interactive coding workspace.
+    </p>
+  </section>
 
-    <div class="status" id="status">Loading Python runtime...</div>
+  <!-- Editor and output -->
+  <section class="workspace">
 
-    <div class="output" id="output">
-      <div class="message">
-        Write Python code and click Run Python.
-        Your output will appear here.
+    <div class="panel">
+      <div class="panel-head">
+        <h2>⌨ Python Editor</h2>
+        <span class="tag">Python Runtime</span>
+      </div>
+
+      <textarea
+        id="pythonEditor"
+        spellcheck="false"
+        placeholder="# Write your Python code here..."
+        aria-label="Python code editor"
+      ></textarea>
+
+      <div class="actions">
+        <button class="btn run" id="runBtn" disabled>
+          ▶ Run Python
+        </button>
+        <button class="btn secondary" id="exampleBtn">
+          Load Example
+        </button>
+        <button class="btn secondary" id="clearBtn">
+          Clear
+        </button>
       </div>
     </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>▤ Program Output</h2>
+        <span class="tag">Live Output</span>
+      </div>
+
+      <div class="status" id="status">
+        Loading Python runtime...
+      </div>
+
+      <div class="output" id="output">
+        <div class="message">
+          Write Python code and click Run Python.
+          Your output will appear here.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="tip">
+    <strong class="gold">Quick Tips</strong><br>
+    • Editor starts empty.<br>
+    • Click Load Example to insert sample code.<br>
+    • Use print() to display output.<br>
+    • Press Ctrl + Enter to run your program.<br>
+    • First load needs an internet connection. Python runs inside
+    your browser using Pyodide.
   </div>
 
-</section>
-
-<div class="tip">
-  <strong class="gold">Quick Tips</strong><br>
-  • Editor starts empty.<br>
-  • Click Load Example to insert sample code.<br>
-  • Use print() to display output.<br>
-  • Press Ctrl + Enter to run your program.<br>
-  • First load needs an internet connection. Python runs inside
-  your browser using Pyodide.
-</div>
-
-<footer>© OneUmmah Data Skills · Learn by Practising</footer>
+  <footer>© OneUmmah Data Skills · Learn by Practising</footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
@@ -213,7 +395,10 @@ sys.stderr = io.StringIO()
       showOutput(stderr, "error");
       statusBox.textContent = "Program completed with messages";
     } else {
-      showOutput(stdout || "✓ Program executed successfully.\nNo output. Use print() to display a result.", "success");
+      showOutput(
+        stdout || "✓ Program executed successfully.\nNo output. Use print() to display a result.",
+        "success"
+      );
       statusBox.textContent = "✓ Execution successful";
     }
 
@@ -223,7 +408,7 @@ sys.stderr = io.StringIO()
 
   } finally {
     isRunning = false;
-    runBtn.disabled = false;
+    runBtn.disabled = !pyodide;
     runBtn.textContent = "▶ Run Python";
   }
 }
@@ -236,14 +421,17 @@ marks = 90
 
 print("Welcome to", name)
 print("Your marks:", marks)`;
+
   editor.focus();
-  statusBox.textContent = "Example loaded · Click Run Python";
+  statusBox.textContent = pyodide
+    ? "Example loaded · Click Run Python"
+    : "Example loaded · Python runtime is loading";
 });
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   editor.value = "";
   editor.focus();
-  statusBox.textContent = "Editor cleared";
+  statusBox.textContent = pyodide ? "Editor cleared" : "Editor cleared · Runtime loading";
   showOutput("Editor cleared. Type your next Python program.");
 });
 
@@ -254,10 +442,8 @@ editor.addEventListener("keydown", event => {
   }
 });
 
-runBtn.disabled = true;
 initializePython();
 </script>
 
 </body>
 </html>
-
