@@ -4,8 +4,309 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OneUmmah Data Skills | Build Your Future</title>
-  <meta name="description" content="Build practical skills in SQL, Python, Data Engineering, Snowflake, Azure and Java with OneUmmah Data Skills.">
+  <meta name="description" content="Learn SQL, Python, Data Engineering, Azure, Snowflake and Java through structured lessons, coding practice and practical projects with OneUmmah Data Skills.">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Additional homepage sections only */
+    .oum-extra-section {
+      padding: 75px 7%;
+      background: #fff;
+    }
+
+    .oum-extra-section.oum-extra-alt {
+      background: #f0f2f8;
+    }
+
+    .oum-extra-inner {
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .oum-extra-heading {
+      max-width: 760px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .oum-extra-heading h2 {
+      margin: 10px 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      color: #101828;
+    }
+
+    .oum-extra-heading p {
+      color: #69758a;
+      margin: 12px auto 0;
+      max-width: 680px;
+    }
+
+    .oum-extra-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #6568e8;
+    }
+
+    .oum-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .oum-feature-card {
+      padding: 25px;
+      background: #fff;
+      border: 1px solid #e2e6ee;
+      border-radius: 15px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .oum-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(25,35,60,.08);
+    }
+
+    .oum-feature-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 17px;
+      border-radius: 12px;
+      background: #f1f2ff;
+      color: #4f51dc;
+      font-size: 22px;
+    }
+
+    .oum-feature-card h3 {
+      margin: 0 0 9px;
+      font-size: 19px;
+      color: #142033;
+    }
+
+    .oum-feature-card p {
+      margin: 0;
+      color: #69758a;
+      font-size: 14px;
+    }
+
+    .oum-preview-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .oum-video-frame {
+      width: 100%;
+      overflow: hidden;
+      background: #12182b;
+      border-radius: 16px;
+      box-shadow: 0 18px 45px rgba(20,30,55,.14);
+    }
+
+    .oum-video-frame video {
+      display: block;
+      width: 100%;
+      max-height: 420px;
+      background: #12182b;
+    }
+
+    .oum-preview-copy h2 {
+      margin: 10px 0 15px;
+      color: #101828;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    .oum-preview-copy p {
+      color: #69758a;
+    }
+
+    .oum-preview-list {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0;
+    }
+
+    .oum-preview-list li {
+      margin: 12px 0;
+      color: #354156;
+    }
+
+    .oum-preview-list li::before {
+      content: "✓";
+      margin-right: 10px;
+      color: #4f51dc;
+      font-weight: 900;
+    }
+
+    .oum-roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .oum-roadmap-card {
+      position: relative;
+      padding: 25px;
+      background: #fff;
+      border: 1px solid #e1e5ed;
+      border-radius: 14px;
+    }
+
+    .oum-roadmap-number {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #5758e8;
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .oum-roadmap-card h3 {
+      margin: 0 0 10px;
+      color: #142033;
+    }
+
+    .oum-roadmap-card p {
+      margin: 0;
+      color: #69758a;
+      font-size: 14px;
+    }
+
+    .oum-roadmap-card small {
+      display: inline-block;
+      margin-top: 15px;
+      color: #5758e8;
+      font-weight: 800;
+    }
+
+    .oum-journey-banner {
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 15px;
+      background: #12182b;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .oum-journey-banner h3 {
+      margin: 0 0 6px;
+      font-size: 23px;
+    }
+
+    .oum-journey-banner p {
+      margin: 0;
+      color: #c4ccdc;
+    }
+
+    .oum-journey-banner .oum-button {
+      flex-shrink: 0;
+    }
+
+    .oum-faq-list {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .oum-faq-list details {
+      margin: 12px 0;
+      padding: 18px 20px;
+      background: #fff;
+      border: 1px solid #e2e6ee;
+      border-radius: 11px;
+    }
+
+    .oum-faq-list summary {
+      cursor: pointer;
+      font-weight: 750;
+      color: #142033;
+    }
+
+    .oum-faq-list details p {
+      margin: 12px 0 0;
+      color: #69758a;
+      font-size: 14px;
+    }
+
+    .oum-final-cta {
+      padding: 70px 7%;
+      background: #12182b;
+      color: #fff;
+      text-align: center;
+    }
+
+    .oum-final-cta h2 {
+      margin: 0 auto 15px;
+      max-width: 800px;
+      font-size: clamp(30px, 4.5vw, 46px);
+      line-height: 1.15;
+    }
+
+    .oum-final-cta p {
+      max-width: 680px;
+      margin: 0 auto 25px;
+      color: #c4ccdc;
+    }
+
+    .oum-final-cta .oum-hero-buttons {
+      margin-top: 24px;
+    }
+
+    .oum-home footer .brand-mark {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 850px) {
+      .oum-feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .oum-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .oum-roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .oum-extra-section {
+        padding: 55px 5%;
+      }
+
+      .oum-feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .oum-journey-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
+      }
+
+      .oum-journey-banner .oum-button {
+        width: 100%;
+      }
+
+      .oum-final-cta {
+        padding: 55px 5%;
+      }
+    }
+  </style>
 </head>
 
 <body class="oum-home">
@@ -39,10 +340,9 @@
 
 <main>
 
-  <!-- SCALER-INSPIRED HERO -->
+  <!-- HERO -->
 
   <section class="oum-scaler-hero">
-
     <div class="oum-hero-content">
 
       <div class="oum-program-label">
@@ -80,29 +380,22 @@
       <p class="oum-hero-note">
         Structured Learning &nbsp; • &nbsp; Practical Skills &nbsp; • &nbsp; Learn at Your Pace
       </p>
-
     </div>
 
     <div class="oum-hero-bottom">
       <span>Ready to start your learning journey?</span>
-
       <a href="courses.html">Explore our courses ↗</a>
-
       <span class="oum-bottom-divider">or</span>
-
       <a href="https://wa.me/916360846480?text=Hi%2C%20I%20want%20to%20know%20about%20OneUmmah%20Data%20Skills."
          target="_blank" rel="noopener noreferrer">
         Talk to us on WhatsApp ↗
       </a>
     </div>
-
   </section>
 
+  <!-- EXISTING COURSES -->
 
-  <!-- COURSES BELOW THE HERO -->
-
-  <section class="section oum-home-courses">
-
+  <section class="section oum-home-courses" id="courses">
     <div class="section-heading">
       <div>
         <span class="eyebrow">EXPLORE YOUR POSSIBILITIES</span>
@@ -171,14 +464,345 @@
     </div>
   </section>
 
+  <!-- LEARNING EXPERIENCE -->
+
+  <section class="oum-extra-section oum-extra-alt" id="learning-experience">
+    <div class="oum-extra-inner">
+
+      <div class="oum-extra-heading">
+        <span class="oum-extra-eyebrow">HOW YOU LEARN</span>
+        <h2>Learn concepts. Practise skills. Build projects.</h2>
+        <p>
+          Develop your technical knowledge through a structured learning
+          experience designed around lessons, practice and application.
+        </p>
+      </div>
+
+      <div class="oum-feature-grid">
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">▶</div>
+          <h3>Structured Lessons</h3>
+          <p>Follow course lessons in an organised sequence and learn concepts step by step.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">&lt;/&gt;</div>
+          <h3>Coding Practice</h3>
+          <p>Use available coding workspaces to practise technical concepts through code.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">✓</div>
+          <h3>Assignments</h3>
+          <p>Test your understanding with course-related exercises and assignments.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">▦</div>
+          <h3>Practical Projects</h3>
+          <p>Apply the concepts you learn to structured projects and practical tasks.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">◷</div>
+          <h3>Learn at Your Pace</h3>
+          <p>Review available lessons and continue learning according to your schedule.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">▤</div>
+          <h3>Learning Dashboard</h3>
+          <p>Access your student dashboard and the learning tools available for your enrolled courses.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SQL VIDEO PREVIEW -->
+
+  <section class="oum-extra-section" id="course-preview">
+    <div class="oum-extra-inner">
+
+      <div class="oum-preview-grid">
+
+        <div class="oum-video-frame">
+          <video controls preload="metadata" playsinline>
+            <source src="./sql-course.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+          </video>
+        </div>
+
+        <div class="oum-preview-copy">
+          <span class="oum-extra-eyebrow">COURSE PREVIEW</span>
+          <h2>Take a first look at Master SQL.</h2>
+
+          <p>
+            Start exploring SQL and discover how databases help organise,
+            retrieve and analyse information.
+          </p>
+
+          <ul class="oum-preview-list">
+            <li>Understand SQL fundamentals.</li>
+            <li>Explore queries and database concepts.</li>
+            <li>Build your knowledge step by step.</li>
+            <li>Continue with the complete course curriculum.</li>
+          </ul>
+
+          <a href="courses.html#sql" class="btn btn-primary btn-lg">
+            Explore Master SQL →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING ROADMAP -->
+
+  <section class="oum-extra-section oum-extra-alt" id="learning-roadmap">
+    <div class="oum-extra-inner">
+
+      <div class="oum-extra-heading">
+        <span class="oum-extra-eyebrow">YOUR LEARNING JOURNEY</span>
+        <h2>Build your skills step by step.</h2>
+        <p>
+          Use a structured path to build foundations, strengthen your
+          understanding and practise more advanced concepts.
+        </p>
+      </div>
+
+      <div class="oum-roadmap-grid">
+
+        <article class="oum-roadmap-card">
+          <div class="oum-roadmap-number">01</div>
+          <h3>Beginner</h3>
+          <p>Start with fundamental concepts, terminology, syntax and basic exercises.</p>
+          <small>BUILD YOUR FOUNDATION</small>
+        </article>
+
+        <article class="oum-roadmap-card">
+          <div class="oum-roadmap-number">02</div>
+          <h3>Intermediate</h3>
+          <p>Strengthen your skills with more complex queries, coding tasks and practical scenarios.</p>
+          <small>STRENGTHEN YOUR SKILLS</small>
+        </article>
+
+        <article class="oum-roadmap-card">
+          <div class="oum-roadmap-number">03</div>
+          <h3>Advanced</h3>
+          <p>Explore advanced concepts and apply your knowledge to larger technical problems.</p>
+          <small>APPLY WHAT YOU LEARN</small>
+        </article>
+
+      </div>
+
+      <div class="oum-journey-banner">
+        <div>
+          <h3>Ready to choose your learning path?</h3>
+          <p>Explore the courses available at OneUmmah Data Skills.</p>
+        </div>
+        <a href="courses.html" class="oum-button oum-button-white">
+          EXPLORE COURSES →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CODING LABS AND PROJECTS -->
+
+  <section class="oum-extra-section" id="coding-projects">
+    <div class="oum-extra-inner">
+
+      <div class="oum-extra-heading">
+        <span class="oum-extra-eyebrow">PRACTICE AND APPLY</span>
+        <h2>Turn learning into practical experience.</h2>
+        <p>
+          Strengthen your understanding by practising code and working
+          through structured exercises and projects.
+        </p>
+      </div>
+
+      <div class="oum-feature-grid">
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">SQL</div>
+          <h3>SQL Coding Lab</h3>
+          <p>Practise SQL queries in the SQL compiler available on your learning platform.</p>
+          <p style="margin-top:18px">
+            <a href="compiler.html" class="text-link">Open SQL Compiler →</a>
+          </p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">Py</div>
+          <h3>Python Coding Lab</h3>
+          <p>Explore Python coding practice using the available Python learning workspace.</p>
+          <p style="margin-top:18px">
+            <a href="python-compiler.html" class="text-link">Open Python Lab →</a>
+          </p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">▦</div>
+          <h3>Practical Assignments</h3>
+          <p>Use assignments to review concepts and check your understanding as you progress.</p>
+          <p style="margin-top:18px">
+            <a href="dashboard.html" class="text-link">Visit Dashboard →</a>
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ONEUMMAH -->
+
+  <section class="oum-extra-section oum-extra-alt" id="why-oneummah">
+    <div class="oum-extra-inner">
+
+      <div class="oum-extra-heading">
+        <span class="oum-extra-eyebrow">WHY ONEUMMAH DATA SKILLS</span>
+        <h2>A structured place to develop technical skills.</h2>
+        <p>
+          Explore technical topics through organised courses, learning
+          resources and practical learning activities.
+        </p>
+      </div>
+
+      <div class="oum-feature-grid">
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">01</div>
+          <h3>Multiple Technical Courses</h3>
+          <p>Explore SQL, Python, Azure Data Engineering, Snowflake &amp; dbt and Java.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">02</div>
+          <h3>Organised Learning</h3>
+          <p>Follow course content and learning activities in a structured format.</p>
+        </article>
+
+        <article class="oum-feature-card">
+          <div class="oum-feature-icon">03</div>
+          <h3>Practice-Oriented Content</h3>
+          <p>Build familiarity with technical concepts through coding and practical exercises.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="oum-extra-section" id="faqs">
+    <div class="oum-extra-inner">
+
+      <div class="oum-extra-heading">
+        <span class="oum-extra-eyebrow">FREQUENTLY ASKED QUESTIONS</span>
+        <h2>Got questions? Start here.</h2>
+        <p>Find answers to common questions about courses and learning on OneUmmah Data Skills.</p>
+      </div>
+
+      <div class="oum-faq-list">
+
+        <details>
+          <summary>Which courses are available?</summary>
+          <p>
+            The homepage currently lists Master SQL, Python for Data Engineering,
+            Azure Data Engineering, Snowflake &amp; dbt, and Java Development.
+            Visit the Courses page for available course details.
+          </p>
+        </details>
+
+        <details>
+          <summary>How can I start learning?</summary>
+          <p>
+            Open the Courses page, review the course information and follow
+            the available registration or enrollment process.
+          </p>
+        </details>
+
+        <details>
+          <summary>Can I watch course videos?</summary>
+          <p>
+            Video availability depends on the course content. This homepage
+            includes a preview of the existing SQL course video.
+          </p>
+        </details>
+
+        <details>
+          <summary>Where can I access my learning dashboard?</summary>
+          <p>
+            Use the Dashboard link in the navigation. Sign in with your account
+            if authentication is required.
+          </p>
+        </details>
+
+        <details>
+          <summary>How can I ask a question about a course?</summary>
+          <p>
+            Contact OneUmmah Data Skills through the WhatsApp enquiry link
+            provided on this homepage.
+          </p>
+        </details>
+
+        <details>
+          <summary>Will I be able to practise coding?</summary>
+          <p>
+            SQL and Python coding workspace links are provided on the homepage.
+            The available features depend on the respective lab pages.
+          </p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+
+  <section class="oum-final-cta">
+    <h2>Your next learning step starts here.</h2>
+    <p>
+      Explore technical courses, review learning resources and choose
+      the skills you want to develop.
+    </p>
+
+    <div class="oum-hero-buttons">
+      <a href="courses.html" class="oum-button oum-button-primary">
+        EXPLORE COURSES
+      </a>
+
+      <a href="register.html" class="oum-button oum-button-white">
+        CREATE YOUR ACCOUNT
+      </a>
+    </div>
+
+    <p style="margin-top:24px">
+      Have a question?
+      <a style="color:#fff;text-decoration:underline"
+         href="https://wa.me/916360846480?text=Hi%2C%20I%20want%20to%20know%20about%20OneUmmah%20Data%20Skills."
+         target="_blank" rel="noopener noreferrer">
+        Contact us on WhatsApp
+      </a>
+    </p>
+  </section>
+
 </main>
+
+<!-- FOOTER -->
 
 <footer>
   <div class="brand">
     <span class="brand-mark">O</span>
     OneUmmah Data Skills
   </div>
+
   <span>© 2026 OneUmmah Data Skills</span>
+
   <div>
     <a href="courses.html">Courses</a>
     <a href="dashboard.html">Dashboard</a>
