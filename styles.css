@@ -508,5 +508,651 @@
     grid-template-columns: 1fr;
   }
 }
+/* ==========================================
+   ONEUMMAH DATA SKILLS
+   PREMIUM SCALER-INSPIRED DESIGN UPDATE
+   ========================================== */
 
+.oum-home {
+  background: #ffffff;
+  color: #111827;
+  overflow-x: hidden;
+}
+
+.oum-home main {
+  width: 100%;
+}
+
+/* NAVIGATION */
+
+.oum-home .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 76px;
+  height: auto;
+  padding: 12px 5%;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #e7ebf3;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.035);
+}
+
+.oum-home .brand {
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.oum-home .brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3155e7, #753cf5);
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.23);
+}
+
+.oum-home .navbar nav {
+  gap: clamp(12px, 1.8vw, 27px);
+}
+
+.oum-home .navbar nav a {
+  position: relative;
+  font-size: 12px;
+  font-weight: 750;
+  transition: color 0.2s ease;
+}
+
+.oum-home .navbar nav a:hover {
+  color: #4f46e5;
+}
+
+.oum-home .oum-login,
+.oum-home .oum-nav-cta {
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.oum-home .oum-login:hover {
+  background: #eef2ff;
+}
+
+.oum-home .oum-nav-cta {
+  background: linear-gradient(135deg, #3155e7, #6344e9);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.2);
+}
+
+.oum-home .oum-nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(79, 70, 229, 0.28);
+}
+
+/* HERO SECTION */
+
+.oum-home .oum-scaler-hero {
+  min-height: 570px;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(115, 145, 255, 0.3),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(139, 92, 246, 0.32),
+      transparent 32%
+    ),
+    linear-gradient(125deg, #101b46 0%, #203a86 48%, #4835a8 100%);
+}
+
+.oum-home .oum-scaler-hero::before {
+  opacity: 0.25;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.oum-home .oum-hero-content {
+  max-width: 1160px;
+  padding: 82px 25px 65px;
+}
+
+.oum-home .oum-program-label {
+  display: inline-flex;
+  margin-bottom: 28px;
+  padding: 10px 17px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.oum-home .oum-hero-content h1 {
+  max-width: 1000px;
+  margin: 0 auto 24px;
+  font-size: clamp(43px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2.8px;
+  text-wrap: balance;
+}
+
+.oum-home .oum-hero-content h1 span {
+  background: linear-gradient(90deg, #ffffff, #c9d7ff, #e0c9ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.oum-home .oum-hero-bold {
+  max-width: 750px;
+  font-size: clamp(15px, 1.7vw, 19px);
+}
+
+.oum-home .oum-hero-description {
+  max-width: 750px;
+  color: #e0e7ff;
+  line-height: 1.85;
+}
+
+.oum-home .oum-hero-buttons {
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.oum-home .oum-button {
+  min-width: 205px;
+  min-height: 50px;
+  border-radius: 8px;
+  letter-spacing: 0.7px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oum-home .oum-button-primary {
+  background: linear-gradient(135deg, #5575ff, #7254ed);
+  border-color: transparent;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+.oum-home .oum-button-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.23);
+}
+
+.oum-home .oum-button-white {
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 8px;
+}
+
+.oum-home .oum-hero-note {
+  margin-top: 23px;
+  color: #dce5ff;
+}
+
+/* CONTACT STRIP */
+
+.oum-home .oum-hero-bottom {
+  min-height: 58px;
+  background: #0b1230;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 13px;
+}
+
+.oum-home .oum-hero-bottom a {
+  transition: color 0.2s ease;
+}
+
+.oum-home .oum-hero-bottom a:hover {
+  color: #bfcaff;
+}
+
+/* SHARED SECTION HEADINGS */
+
+.oum-home .section-heading h2,
+.oum-home .oum-extra-heading h2,
+.oum-home .oum-preview-copy h2 {
+  color: #111827;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.oum-home .eyebrow,
+.oum-home .oum-extra-eyebrow {
+  color: #5549df;
+}
+
+.oum-home .oum-extra-section {
+  padding: 82px 7%;
+}
+
+.oum-home .oum-extra-section.oum-extra-alt {
+  background: #f5f7ff;
+}
+
+.oum-home .oum-extra-heading {
+  margin-bottom: 42px;
+}
+
+.oum-home .oum-extra-heading h2 {
+  font-size: clamp(29px, 4vw, 43px);
+}
+
+.oum-home .oum-extra-heading p {
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* COURSE CARDS */
+
+.oum-home .oum-home-courses {
+  padding: 85px 7%;
+}
+
+.oum-home .course-grid {
+  gap: 24px;
+}
+
+.oum-home .course-card {
+  position: relative;
+  padding: 27px;
+  border: 1px solid #e4e8f2;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 5px 22px rgba(20, 35, 75, 0.035);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.oum-home .course-card:hover {
+  transform: translateY(-6px);
+  border-color: #c6ccff;
+  box-shadow: 0 18px 42px rgba(40, 50, 100, 0.1);
+}
+
+.oum-home .course-card.featured {
+  border-color: #bfc6ff;
+  background: linear-gradient(180deg, #ffffff, #f8f8ff);
+  box-shadow: 0 12px 35px rgba(79, 70, 229, 0.09);
+}
+
+.oum-home .course-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 13px;
+  font-size: 17px;
+}
+
+.oum-home .course-card h3 {
+  color: #151d32;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.oum-home .course-card p {
+  color: #69758a;
+  line-height: 1.8;
+}
+
+.oum-home .course-meta {
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.oum-home .course-btn {
+  min-height: 43px;
+  border-radius: 8px;
+  color: #3739c7;
+  border-color: #d9ddf8;
+  background: #f8f8ff;
+  transition: all 0.2s ease;
+}
+
+.oum-home .course-btn:hover {
+  color: #ffffff;
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+/* LEARNING FEATURE CARDS */
+
+.oum-home .oum-feature-grid {
+  gap: 22px;
+}
+
+.oum-home .oum-feature-card {
+  border: 1px solid #e3e7f1;
+  border-radius: 15px;
+  padding: 27px;
+  box-shadow: 0 5px 20px rgba(20, 35, 75, 0.025);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.oum-home .oum-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 17px 35px rgba(30, 40, 90, 0.08);
+}
+
+.oum-home .oum-feature-icon {
+  border-radius: 13px;
+  background: linear-gradient(135deg, #edf0ff, #f3eaff);
+  color: #4f46e5;
+}
+
+.oum-home .oum-feature-card h3 {
+  font-weight: 800;
+}
+
+.oum-home .oum-feature-card p {
+  line-height: 1.8;
+}
+
+/* VIDEO PREVIEW */
+
+.oum-home .oum-video-frame {
+  border: 1px solid #e0e5f0;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(20, 30, 65, 0.13);
+}
+
+.oum-home .oum-video-frame video {
+  width: 100%;
+  max-height: 440px;
+}
+
+.oum-home .oum-preview-copy h2 {
+  line-height: 1.2;
+}
+
+.oum-home .oum-preview-copy p {
+  line-height: 1.85;
+}
+
+.oum-home .oum-preview-list li {
+  line-height: 1.7;
+}
+
+.oum-home .oum-preview-copy .btn-primary {
+  border-radius: 8px;
+}
+
+/* ROADMAP */
+
+.oum-home .oum-roadmap-card {
+  border-radius: 15px;
+  border-color: #e2e7f1;
+  box-shadow: 0 5px 20px rgba(20, 35, 75, 0.025);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oum-home .oum-roadmap-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 32px rgba(20, 35, 75, 0.07);
+}
+
+.oum-home .oum-roadmap-number {
+  background: linear-gradient(135deg, #405eea, #7950e9);
+}
+
+.oum-home .oum-journey-banner {
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at right, #303e7a, transparent 55%),
+    #111a3a;
+}
+
+/* FAQ */
+
+.oum-home .oum-faq-list details {
+  border-radius: 12px;
+  border-color: #e1e6f0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oum-home .oum-faq-list details[open] {
+  border-color: #bfc6ff;
+  box-shadow: 0 7px 22px rgba(50, 60, 120, 0.05);
+}
+
+.oum-home .oum-faq-list summary {
+  line-height: 1.7;
+}
+
+.oum-home .oum-faq-list summary:hover {
+  color: #4f46e5;
+}
+
+/* FINAL CALL TO ACTION */
+
+.oum-home .oum-final-cta {
+  background:
+    radial-gradient(circle at 50% 0%, #303e83, transparent 60%),
+    #101832;
+}
+
+.oum-home .oum-final-cta h2 {
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.oum-home .oum-final-cta p {
+  line-height: 1.85;
+}
+
+/* FOOTER */
+
+.oum-home footer {
+  gap: 20px;
+  background: #090f24;
+  color: #c0c9dc;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.oum-home footer a {
+  transition: color 0.2s ease;
+}
+
+.oum-home footer a:hover {
+  color: #ffffff;
+}
+
+/* TABLET */
+
+@media (max-width: 950px) {
+  .oum-home .navbar {
+    padding: 12px 3%;
+  }
+
+  .oum-home .navbar nav {
+    gap: 12px;
+  }
+
+  .oum-home .navbar nav a {
+    font-size: 10px;
+  }
+
+  .oum-home .brand {
+    font-size: 15px;
+  }
+
+  .oum-home .oum-nav-cta {
+    padding: 11px 12px;
+  }
+
+  .oum-home .oum-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .oum-home .oum-roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .oum-home .oum-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .oum-home .navbar {
+    min-height: 66px;
+    padding: 10px 4%;
+    gap: 8px;
+  }
+
+  .oum-home .navbar nav {
+    display: none;
+  }
+
+  .oum-home .brand {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .oum-home .brand-mark {
+    width: 29px;
+    height: 29px;
+  }
+
+  .oum-home .nav-actions {
+    gap: 6px;
+  }
+
+  .oum-home .oum-login {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+
+  .oum-home .oum-nav-cta {
+    padding: 10px 9px;
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  .oum-home .oum-scaler-hero {
+    min-height: auto;
+  }
+
+  .oum-home .oum-hero-content {
+    padding: 55px 17px 42px;
+  }
+
+  .oum-home .oum-program-label {
+    gap: 7px;
+    padding: 9px 12px;
+    margin-bottom: 26px;
+    font-size: 9px;
+    letter-spacing: 0.4px;
+  }
+
+  .oum-home .oum-hero-content h1 {
+    font-size: clamp(36px, 9vw, 49px);
+    line-height: 1.15;
+    letter-spacing: -1.7px;
+  }
+
+  .oum-home .oum-hero-bold {
+    font-size: 14px;
+  }
+
+  .oum-home .oum-hero-description {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .oum-home .oum-hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    margin-top: 27px;
+  }
+
+  .oum-home .oum-button {
+    width: 100%;
+    max-width: 320px;
+    min-width: 0;
+  }
+
+  .oum-home .oum-hero-note {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  .oum-home .oum-hero-bottom {
+    gap: 9px;
+    padding: 16px 12px;
+    font-size: 11px;
+  }
+
+  .oum-home .oum-hero-bottom > span:first-child {
+    width: 100%;
+  }
+
+  .oum-home .oum-home-courses,
+  .oum-home .oum-extra-section {
+    padding: 55px 5%;
+  }
+
+  .oum-home .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+  }
+
+  .oum-home .section-heading h2,
+  .oum-home .oum-extra-heading h2,
+  .oum-home .oum-preview-copy h2 {
+    font-size: 30px;
+    letter-spacing: -1px;
+  }
+
+  .oum-home .course-grid,
+  .oum-home .oum-feature-grid,
+  .oum-home .oum-roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .oum-home .course-card {
+    padding: 23px;
+  }
+
+  .oum-home .oum-journey-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px;
+  }
+
+  .oum-home .oum-journey-banner .oum-button {
+    width: 100%;
+  }
+
+  .oum-home .oum-final-cta {
+    padding: 55px 5%;
+  }
+
+  .oum-home footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 5%;
+    gap: 16px;
+  }
+
+  .oum-home footer > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .oum-home footer a {
+    margin-left: 0;
+    margin-right: 14px;
+  }
+}
 
