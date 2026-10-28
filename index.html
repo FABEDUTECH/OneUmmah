@@ -1,137 +1,530 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OneUmmah Data Skills — Technical Learning Platform</title>
+
+  <title>OneUmmah Data Skills | Learn. Build. Grow.</title>
+
+  <meta name="description"
+        content="Learn SQL, Python, Azure, Snowflake and Java through structured learning paths, practical assignments and coding labs.">
+
   <link rel="stylesheet" href="styles.css">
-  
 </head>
+
 <body>
-  <header class="navbar">
-    <a class="brand" href="index.html"><span class="brand-mark">O</span> OneUmmah Data Skills</a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Learning Dashboard</a>
-      <a href="payments.html">Payments</a>
-    </nav>
-    <div class="nav-actions" id="guestActions">
-      <a class="btn btn-ghost" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Register</a>
-    </div>
-    <div class="nav-actions user-chip" id="authActions" style="display:none">
-      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
-      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
-    </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">PRACTICAL • PROJECT-BASED • CAREER-FOCUSED</span>
-        <h1>Build skills that<br><span>build your career.</span></h1>
-        <p>Learn SQL, Python, Data Engineering, Snowflake, Azure and Java through structured courses, hands-on assignments and real-world projects.</p>
-        <div class="hero-buttons">
-          <a class="btn btn-primary btn-lg" href="courses.html">Explore Courses →</a>
-          <a class="btn btn-outline btn-lg" href="register.html">Start Learning</a>
-        </div>
-        <div class="stats">
-          <div><strong>20+</strong><small>Courses</small></div>
-          <div><strong>100+</strong><small>Projects & Labs</small></div>
-          <div><strong>24/7</strong><small>Learning Access</small></div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="code-top"><i></i><i></i><i></i></div>
-        <div class="code">
-          <span class="purple">def</span> <span class="blue">build_career</span>():<br>
-          &nbsp;&nbsp;skills = [<span class="green">"SQL"</span>, <span class="green">"Python"</span>]<br>
-          &nbsp;&nbsp;skills += [<span class="green">"PySpark"</span>, <span class="green">"Cloud"</span>]<br>
-          &nbsp;&nbsp;<span class="purple">return</span> <span class="yellow">"Ready for industry"</span>
-        </div>
-        <div class="progress-card">
-          <span>Learning progress</span><strong>72%</strong>
-          <div class="progress"><div style="width:72%"></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <div><span class="eyebrow">LEARN & BUILD</span><h2>Popular Courses</h2></div>
-        <a href="courses.html" class="text-link">View all courses →</a>
-      </div>
-      <div class="course-grid">
-        <article class="course-card">
-          <div class="course-icon sql">SQL</div><span class="level">BEGINNER → ADVANCED</span>
-          <h3>Master SQL</h3><p>Queries, joins, CTEs, window functions, optimization and interview problems.</p>
-          <div class="course-meta"><span>48 Lessons</span><span>12 Projects</span></div>
-          <a class="course-btn" href="courses.html#sql">View Course</a>
-        </article>
-        <article class="course-card featured">
-          <div class="course-icon py">Py</div><span class="level">BEGINNER → ADVANCED</span>
-          <h3>Python for Data Engineering</h3><p>Python fundamentals, automation, APIs, data processing and production patterns.</p>
-          <div class="course-meta"><span>56 Lessons</span><span>15 Projects</span></div>
-          <a class="course-btn" href="courses.html#python">View Course</a>
-        </article>
-        <article class="course-card">
-          <div class="course-icon cloud">AZ</div><span class="level">ADVANCED</span>
-          <h3>Azure Data Engineering</h3><p>ADF, PySpark, Fabric, Delta Lake, pipelines, architecture and deployment.</p>
-          <div class="course-meta"><span>64 Lessons</span><span>18 Projects</span></div>
-          <a class="course-btn" href="courses.html#azure">View Course</a>
-        </article>
-      </div>
-    </section>
-
-  </main>
-
-  <style>
-  .oum-whatsapp-enquiry {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 25px;
-    background: #25D366;
-    color: #fff;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 15px;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
-    transition: transform 0.2s ease;
-  }
-
-  .oum-whatsapp-enquiry:hover {
-    background: #1eaf53;
-    color: #fff;
-    transform: translateY(-3px);
-  }
-</style>
-
-<div style="text-align:center; margin:28px 12px;">
-  <a
-    class="oum-whatsapp-enquiry"
-    href="https://wa.me/916360846480?text=Hi%2C%20I%20want%20to%20enquire%20about%20OneUmmah%20Data%20Skills%20courses."
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    💬 Enquire on WhatsApp
+<header class="navbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">O</span>
+    <span>OneUmmah <span class="brand-subtitle">Data Skills</span></span>
   </a>
-</div>
 
-  <footer>
-    <div class="brand"><span class="brand-mark">O</span> OneUmmah Data Skills</div>
-    <span>© 2026 Technical Learning Platform</span>
-    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
-  </footer>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="payments.html">Payments</a>
+  </nav>
 
-  <div id="toast" class="toast"></div>
-  <script src="script.js"></script>
+  <div class="nav-actions" id="guestActions">
+    <a class="btn btn-ghost" href="login.html">Login</a>
+    <a class="btn btn-primary" href="register.html">Get Started ↗</a>
+  </div>
+
+  <div class="nav-actions user-chip" id="authActions" style="display:none">
+    <a href="dashboard.html" class="user-pill">
+      <span class="user-pill-avatar" id="navAvatar">S</span>
+      <span id="navName">Student</span>
+    </a>
+    <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
 
 
-  
+<main>
+
+  <!-- HERO SECTION -->
+
+  <section class="modern-hero">
+
+    <div class="hero-copy">
+
+      <div class="hero-badge">
+        <span class="live-dot"></span>
+        PRACTICAL LEARNING. REAL SKILLS.
+      </div>
+
+      <h1>
+        Your next skill.<br>
+        Your next <span>opportunity.</span>
+      </h1>
+
+      <p>
+        Build job-ready technical skills with structured courses,
+        hands-on coding practice, practical assignments and
+        real-world projects.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-primary btn-lg" href="courses.html">
+          Explore Learning Paths <span>→</span>
+        </a>
+
+        <a class="btn btn-outline btn-lg" href="register.html">
+          Create Free Account
+        </a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-item">
+          <span class="trust-icon">01</span>
+          <div>
+            <strong>Learn step by step</strong>
+            <small>Beginner-friendly paths</small>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">02</span>
+          <div>
+            <strong>Practice your skills</strong>
+            <small>Projects and coding labs</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+      <div class="visual-glow"></div>
+
+      <div class="floating-label label-top">
+        <span class="floating-icon">✦</span>
+        Learn by building
+      </div>
+
+      <div class="code-window">
+
+        <div class="window-header">
+          <div class="window-dots">
+            <i></i><i></i><i></i>
+          </div>
+          <span>data_pipeline.py</span>
+          <span class="window-status">● Ready</span>
+        </div>
+
+        <div class="code-content">
+          <div><span class="line-number">01</span>
+            <span class="code-purple">def</span>
+            <span class="code-blue">build_skills</span>():</div>
+
+          <div><span class="line-number">02</span>
+            &nbsp;&nbsp;skills = [</div>
+
+          <div><span class="line-number">03</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-green">"SQL"</span>,</div>
+
+          <div><span class="line-number">04</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-green">"Python"</span>,</div>
+
+          <div><span class="line-number">05</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-green">"Data Engineering"</span></div>
+
+          <div><span class="line-number">06</span>
+            &nbsp;&nbsp;]</div>
+
+          <div><span class="line-number">07</span>
+            <span class="code-purple">return</span>
+            <span class="code-yellow">skills</span></div>
+
+          <div class="code-output">
+            <span>✓</span> Ready to keep learning
+          </div>
+        </div>
+
+        <div class="learning-card">
+          <div class="learning-card-top">
+            <div>
+              <small>YOUR LEARNING JOURNEY</small>
+              <strong>Start with one skill</strong>
+            </div>
+            <span class="learning-symbol">↗</span>
+          </div>
+
+          <div class="journey-steps">
+            <span class="journey-step active">Learn</span>
+            <span class="journey-line"></span>
+            <span class="journey-step">Practice</span>
+            <span class="journey-line"></span>
+            <span class="journey-step">Build</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="floating-label label-bottom">
+        <span class="success-icon">✓</span>
+        Progress at your own pace
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LEARNING BENEFITS -->
+
+  <section class="benefit-strip">
+
+    <div class="benefit-item">
+      <span class="benefit-number">01</span>
+      <div>
+        <strong>Structured learning</strong>
+        <p>Follow an organized learning path.</p>
+      </div>
+    </div>
+
+    <div class="benefit-item">
+      <span class="benefit-number">02</span>
+      <div>
+        <strong>Hands-on practice</strong>
+        <p>Learn by working through examples.</p>
+      </div>
+    </div>
+
+    <div class="benefit-item">
+      <span class="benefit-number">03</span>
+      <div>
+        <strong>Track your journey</strong>
+        <p>Continue learning from your dashboard.</p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- COURSES -->
+
+  <section class="section modern-courses">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">CHOOSE YOUR DIRECTION</span>
+        <h2>Skills that move you forward.</h2>
+        <p class="section-description">
+          Explore technical learning paths designed to help you
+          strengthen your knowledge and build practical skills.
+        </p>
+      </div>
+
+      <a href="courses.html" class="text-link">
+        Explore all courses →
+      </a>
+    </div>
+
+
+    <div class="course-grid modern-course-grid">
+
+      <article class="course-card modern-course-card">
+        <div class="course-card-top">
+          <div class="course-icon sql">SQL</div>
+          <span class="course-category">DATABASE</span>
+        </div>
+
+        <span class="level">BEGINNER → ADVANCED</span>
+
+        <h3>Master SQL</h3>
+
+        <p>
+          Learn queries, joins, CTEs, window functions,
+          data analysis and interview-focused SQL practice.
+        </p>
+
+        <div class="course-meta">
+          <span>◷ 48 Lessons</span>
+          <span>◇ 12 Projects</span>
+        </div>
+
+        <a class="course-btn" href="courses.html#sql">
+          Explore SQL <span>→</span>
+        </a>
+      </article>
+
+
+      <article class="course-card modern-course-card featured">
+        <div class="course-card-top">
+          <div class="course-icon py">Py</div>
+          <span class="course-category">PROGRAMMING</span>
+        </div>
+
+        <span class="level">BEGINNER → ADVANCED</span>
+
+        <h3>Python for Data Engineering</h3>
+
+        <p>
+          Explore Python fundamentals, automation, APIs,
+          data processing and engineering workflows.
+        </p>
+
+        <div class="course-meta">
+          <span>◷ 56 Lessons</span>
+          <span>◇ 15 Projects</span>
+        </div>
+
+        <a class="course-btn" href="courses.html#python">
+          Explore Python <span>→</span>
+        </a>
+      </article>
+
+
+      <article class="course-card modern-course-card">
+        <div class="course-card-top">
+          <div class="course-icon cloud">AZ</div>
+          <span class="course-category">CLOUD</span>
+        </div>
+
+        <span class="level">ADVANCED</span>
+
+        <h3>Azure Data Engineering</h3>
+
+        <p>
+          Understand data pipelines, cloud services,
+          PySpark, data processing and architecture concepts.
+        </p>
+
+        <div class="course-meta">
+          <span>◷ 64 Lessons</span>
+          <span>◇ 18 Projects</span>
+        </div>
+
+        <a class="course-btn" href="courses.html#azure">
+          Explore Azure <span>→</span>
+        </a>
+      </article>
+
+
+      <article class="course-card modern-course-card">
+        <div class="course-card-top">
+          <div class="course-icon snow">SF</div>
+          <span class="course-category">DATA PLATFORM</span>
+        </div>
+
+        <span class="level">DATA ENGINEERING</span>
+
+        <h3>Snowflake &amp; dbt</h3>
+
+        <p>
+          Explore cloud data warehousing, data transformations
+          and modern analytics engineering concepts.
+        </p>
+
+        <div class="course-meta">
+          <span>◷ 42 Lessons</span>
+          <span>◇ 10 Projects</span>
+        </div>
+
+        <a class="course-btn" href="courses.html#snowflake">
+          Explore Snowflake <span>→</span>
+        </a>
+      </article>
+
+
+      <article class="course-card modern-course-card">
+        <div class="course-card-top">
+          <div class="course-icon java">J</div>
+          <span class="course-category">DEVELOPMENT</span>
+        </div>
+
+        <span class="level">PROGRAMMING</span>
+
+        <h3>Java Development</h3>
+
+        <p>
+          Build a foundation in Java programming, object-oriented
+          concepts and practical application development.
+        </p>
+
+        <div class="course-meta">
+          <span>◷ 52 Lessons</span>
+          <span>◇ 11 Projects</span>
+        </div>
+
+        <a class="course-btn" href="courses.html#java">
+          Explore Java <span>→</span>
+        </a>
+      </article>
+
+
+      <article class="course-card modern-cta-card">
+        <div class="cta-decoration">✳</div>
+
+        <span class="level">YOUR JOURNEY STARTS HERE</span>
+
+        <h3>Not sure where to begin?</h3>
+
+        <p>
+          Explore the available courses and choose a learning path
+          that matches your current skills and goals.
+        </p>
+
+        <a class="btn btn-primary btn-lg" href="courses.html">
+          Find Your Learning Path →
+        </a>
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+
+  <section class="section learning-section">
+
+    <div class="learning-intro">
+      <span class="eyebrow">A CLEAR PATH FORWARD</span>
+
+      <h2>Learn it.<br><span>Practice it.</span><br>Build with it.</h2>
+
+      <p>
+        Develop your technical knowledge through a simple,
+        organized learning experience.
+      </p>
+
+      <a href="courses.html" class="btn btn-primary btn-lg">
+        Start Exploring →
+      </a>
+    </div>
+
+
+    <div class="learning-steps">
+
+      <article class="learning-step">
+        <span class="step-number">01</span>
+        <div class="step-content">
+          <span class="step-icon">◎</span>
+          <h3>Choose a course</h3>
+          <p>
+            Select a learning path based on your interests
+            and the skills you want to develop.
+          </p>
+        </div>
+      </article>
+
+      <article class="learning-step">
+        <span class="step-number">02</span>
+        <div class="step-content">
+          <span class="step-icon">⌘</span>
+          <h3>Learn and practice</h3>
+          <p>
+            Study the lessons, work through examples
+            and strengthen your understanding.
+          </p>
+        </div>
+      </article>
+
+      <article class="learning-step">
+        <span class="step-number">03</span>
+        <div class="step-content">
+          <span class="step-icon">↗</span>
+          <h3>Build your skills</h3>
+          <p>
+            Apply what you learn through available assignments,
+            projects and practical exercises.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- STUDENT CTA -->
+
+  <section class="section final-cta-section">
+
+    <div class="final-cta">
+      <div class="cta-orb"></div>
+
+      <span class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
+
+      <h2>Make learning your<br>next big advantage.</h2>
+
+      <p>
+        Start building technical skills one lesson at a time.
+        Your learning journey begins with a single step.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-light btn-lg" href="courses.html">
+          Browse Courses →
+        </a>
+
+        <a class="btn btn-cta-outline btn-lg" href="register.html">
+          Join OneUmmah
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- WHATSAPP ENQUIRY -->
+
+  <section class="enquiry-section">
+    <div>
+      <span class="eyebrow">HAVE A QUESTION?</span>
+      <h2>Let's help you get started.</h2>
+      <p>
+        Contact us on WhatsApp for general course enquiries.
+      </p>
+    </div>
+
+    <a
+      class="oum-whatsapp-enquiry"
+      href="https://wa.me/916360846480?text=Hi%2C%20I%20want%20to%20enquire%20about%20OneUmmah%20Data%20Skills%20courses."
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span>◉</span> Enquire on WhatsApp →
+    </a>
+  </section>
+
+</main>
+
+
+<footer class="modern-footer">
+
+  <a class="brand footer-brand" href="index.html">
+    <span class="brand-mark">O</span>
+    <span>OneUmmah <span class="brand-subtitle">Data Skills</span></span>
+  </a>
+
+  <p>Learn practical skills. Build your future.</p>
+
+  <div class="footer-links">
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+  </div>
+
+  <span class="copyright">
+    © 2026 OneUmmah Data Skills
+  </span>
+
+</footer>
+
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
 <script src="chatbot.js"></script>
+
 </body>
 </html>
+```
