@@ -5,7 +5,311 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses — OneUmmah Data Skills</title>
   <link rel="stylesheet" href="styles.css">
-  
+  <style>
+    /* Courses page theme: coordinated with the blue-and-white homepage.
+       Existing shared styles and JavaScript functions are preserved. */
+    :root {
+      --course-blue: #0755e9;
+      --course-blue-dark: #05265f;
+      --course-ink: #10213d;
+      --course-muted: #5d6b82;
+      --course-border: #e1e8f3;
+      --course-surface: #f5f8ff;
+    }
+    body {
+      background: #f5f8ff;
+      color: var(--course-ink);
+    }
+    .navbar {
+      background: rgba(255,255,255,.97);
+      border-bottom: 1px solid #e8edf6;
+      box-shadow: 0 4px 20px rgba(14,40,90,.05);
+    }
+    .navbar nav a {
+      font-weight: 700;
+      transition: color .2s ease;
+    }
+    .navbar nav a:hover { color: var(--course-blue); }
+    main { min-height: 65vh; }
+    .section {
+      padding: 62px 5.5%;
+    }
+    .section-heading {
+      max-width: 1180px;
+      margin: 0 auto 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--course-blue);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+    }
+    .section-heading h2,
+    #course-details h2 {
+      color: var(--course-ink);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+      margin: 10px 0 0;
+    }
+    .course-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .course-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      padding: 26px;
+      border: 1px solid var(--course-border);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(15,39,83,.055);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      overflow: hidden;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+      border-color: #b8ceff;
+      box-shadow: 0 18px 38px rgba(15,65,160,.12);
+    }
+    .course-card.featured {
+      border: 1.5px solid #8db2ff;
+      background: linear-gradient(180deg, #f1f6ff 0%, #fff 58%);
+    }
+    .course-card.featured::before {
+      content: "POPULAR LEARNING PATH";
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 8px 12px;
+      background: #e5eeff;
+      color: #0648c8;
+      font-size: .61rem;
+      font-weight: 900;
+      letter-spacing: .07em;
+      border-bottom-left-radius: 12px;
+    }
+    .course-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: 900;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #0755e9, #08a6df);
+      box-shadow: 0 8px 18px rgba(7,85,233,.18);
+    }
+    .course-icon.py { background: linear-gradient(135deg,#1367df,#12a9d6); }
+    .course-icon.cloud { background: linear-gradient(135deg,#1763d8,#55a8ff); }
+    .course-icon.snow { background: linear-gradient(135deg,#0878a9,#28b9d4); }
+    .course-icon.java { background: linear-gradient(135deg,#174aab,#e05c38); }
+    .level {
+      display: inline-block;
+      color: #2457a9;
+      background: #edf4ff;
+      border: 1px solid #dce8ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      margin-bottom: 12px;
+    }
+    .course-card h3 {
+      color: var(--course-ink);
+      font-size: 1.27rem;
+      line-height: 1.3;
+      margin: 0 0 10px;
+      letter-spacing: -.025em;
+    }
+    .course-card p {
+      color: var(--course-muted);
+      line-height: 1.7;
+      font-size: .94rem;
+      margin: 0 0 20px;
+    }
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: auto 0 20px;
+      width: 100%;
+    }
+    .course-meta span {
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: #f1f5fb;
+      color: #344661;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .course-btn {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 9px;
+      border: 1px solid var(--course-blue);
+      border-radius: 9px;
+      padding: 12px 16px;
+      background: var(--course-blue);
+      color: #fff;
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .course-btn:hover {
+      background: #0644bd;
+      box-shadow: 0 7px 16px rgba(7,85,233,.18);
+      transform: translateY(-1px);
+    }
+    .course-btn.course-btn-alt {
+      color: var(--course-blue);
+      background: #fff;
+      border-color: #c7d8ff;
+    }
+    .course-btn.course-btn-alt:hover {
+      background: #edf4ff;
+      border-color: var(--course-blue);
+    }
+    #course-details {
+      background: linear-gradient(135deg,#eef5ff 0%,#f8fbff 60%,#eafaff 100%);
+      border-top: 1px solid #e2ebfa;
+      border-bottom: 1px solid #e2ebfa;
+    }
+    .detail-layout {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr .92fr;
+      align-items: center;
+      gap: 48px;
+    }
+    #course-details p {
+      color: var(--course-muted);
+      line-height: 1.8;
+    }
+    .check-list {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 13px;
+    }
+    .check-list li {
+      color: #293d5b;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      line-height: 1.55;
+    }
+    .check-list li::before {
+      content: "✓";
+      flex: 0 0 23px;
+      width: 23px;
+      height: 23px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #dceaff;
+      color: var(--course-blue);
+      font-weight: 900;
+      font-size: .8rem;
+    }
+    .lesson-panel {
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #dce6f5;
+      border-radius: 18px;
+      box-shadow: 0 14px 36px rgba(15,39,83,.08);
+    }
+    .lesson-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 8px 4px 18px;
+      border-bottom: 1px solid #e8edf5;
+      color: var(--course-ink);
+      font-size: .9rem;
+    }
+    .lesson-head b {
+      color: var(--course-blue);
+      font-size: .75rem;
+      white-space: nowrap;
+    }
+    .lesson {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 15px 12px;
+      margin-top: 8px;
+      border-radius: 10px;
+      color: #344661;
+      font-size: .88rem;
+    }
+    .lesson > span {
+      color: var(--course-blue);
+      font-weight: 900;
+    }
+    .lesson small {
+      margin-left: auto;
+      color: #7a879b;
+      font-size: .75rem;
+    }
+    .lesson.active {
+      background: #edf4ff;
+      color: #0648c8;
+      font-weight: 800;
+    }
+    footer {
+      background: #061e4d;
+      color: #fff;
+      padding: 25px 5.5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    footer .brand { color: #fff; }
+    footer a {
+      color: #fff;
+      margin-left: 16px;
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+    .toast { z-index: 9999; }
+    @media (max-width: 950px) {
+      .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-layout { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 650px) {
+      .section { padding: 42px 5%; }
+      .section-heading { margin-bottom: 22px; }
+      .course-grid { grid-template-columns: 1fr; gap: 16px; }
+      .course-card { padding: 22px; }
+      .course-card.featured::before { font-size: .55rem; }
+      .lesson-head { flex-direction: column; gap: 6px; }
+      footer { align-items: flex-start; flex-direction: column; }
+      footer a { margin: 0 14px 0 0; }
+    }
+  </style>
 </head>
 <body>
   <header class="navbar">
@@ -29,7 +333,7 @@
   <main>
     <section class="section">
       <div class="section-heading">
-        <div><span class="eyebrow">LEARN & BUILD</span><h2>Explore Courses</h2></div>
+        <div><span class="eyebrow">LEARN &amp; BUILD</span><h2>Explore Courses</h2></div>
       </div>
       <div class="course-grid">
         <article class="course-card" id="sql">
@@ -55,7 +359,7 @@
         </article>
         <article class="course-card" id="snowflake">
           <div class="course-icon snow">SF</div><span class="level">INTERMEDIATE → ADVANCED</span>
-          <h3>Snowflake & dbt</h3><p>Modern data warehouse design, ELT, dbt models, testing and Data Vault concepts.</p>
+          <h3>Snowflake &amp; dbt</h3><p>Modern data warehouse design, ELT, dbt models, testing and Data Vault concepts.</p>
           <div class="course-meta"><span>42 Lessons</span><span>10 Projects</span></div>
           <button class="course-btn" onclick="openCourse('snowflake')">View Curriculum</button>
           <button class="course-btn course-btn-alt" data-course="snowflake" onclick="handleEnroll('snowflake')">Enroll</button>
@@ -65,7 +369,7 @@
           <h3>Java Development</h3><p>Core Java, OOP, collections, APIs and practical application development.</p>
           <div class="course-meta"><span>52 Lessons</span><span>11 Projects</span></div>
           <button class="course-btn" onclick="openCourse('java')">View Curriculum</button>
-          <button class="course-btn course-btn-alt" data-course="java" onclick="handleEnroll('java')">Enroll</button>        
+          <button class="course-btn course-btn-alt" data-course="java" onclick="handleEnroll('java')">Enroll</button>
         </article>
       </div>
     </section>
@@ -92,7 +396,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -103,9 +406,6 @@
 
   <div id="toast" class="toast"></div>
   <script src="script.js"></script>
-
-
-
-<script src="chatbot.js"></script>
+  <script src="chatbot.js"></script>
 </body>
 </html>
