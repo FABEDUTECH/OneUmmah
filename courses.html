@@ -104,41 +104,7 @@
   <div id="toast" class="toast"></div>
   <script src="script.js"></script>
 
-<script>
 
-  function enrollSQL() {
-
-    let enrolledCourses = [];
-
-    try {
-      enrolledCourses =
-        JSON.parse(
-          localStorage.getItem("oneUmmahEnrolledCourses")
-        ) || [];
-    } catch (error) {
-      enrolledCourses = [];
-    }
-
-    /* SQL ko enrolled courses mein save karo */
-
-    if (!enrolledCourses.includes("sql")) {
-      enrolledCourses.push("sql");
-    }
-
-    localStorage.setItem(
-      "oneUmmahEnrolledCourses",
-      JSON.stringify(enrolledCourses)
-    );
-
-    /* Existing enrollment system bhi run karo */
-
-    if (typeof handleEnroll === "function") {
-      handleEnroll("sql");
-    }
-
-  }
-
-</script>
 
 <script src="chatbot.js"></script>
 </body>
