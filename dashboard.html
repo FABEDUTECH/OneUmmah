@@ -1103,44 +1103,86 @@
   ----------------------------------- */
 
   function loadDashboardCourses() {
-  // SHOW SQL AND PYTHON COMPILERS
-  
-  const compilerHub = document.getElementById("compilerHub");
+
+  // Keep the dashboard's existing layout and hide learning sections initially.
+  const myCoursesSection = document.getElementById("myCoursesSection");
+  const courseFileTree = document.getElementById("courseFileTree");
+  const sqlLearningArea = document.getElementById("sqlLearningArea");
+  const assignmentSection = document.getElementById("assignmentSection");
+
+  if (myCoursesSection) {
+    myCoursesSection.classList.add("hidden");
+  }
+
+  if (courseFileTree) {
+    courseFileTree.classList.remove("open");
+  }
+
+  if (sqlLearningArea) {
+    sqlLearningArea.classList.add("hidden");
+  }
+
+  if (assignmentSection) {
+    assignmentSection.classList.add("hidden");
+  }
+
+  // Get the courses enrolled by the currently logged-in student.
+  const enrolled = getEnrolledCourses();
+
+  // Compiler cards.
+  const compilerWorkspace = document.getElementById("compilerWorkspace");
   const sqlCompilerCard = document.getElementById("sqlCompilerCard");
   const pythonCompilerCard = document.getElementById("pythonCompilerCard");
-  
-  if (compilerHub) {
-    compilerHub.classList.remove("hidden");
+  const noCompilerMessage = document.getElementById("noCompilerMessage");
+
+  // Future-ready mapping for additional compilers.
+  const compilerMap = {
+    sql: sqlCompilerCard,
+    python: pythonCompilerCard,
+
+    // Add these cards when their compiler pages are created:
+    // azure: document.getElementById("azureCompilerCard"),
+    // snowflake: document.getElementById("snowflakeCompilerCard"),
+    // java: document.getElementById("javaCompilerCard")
+  };
+
+  let hasAvailableCompiler = false;
+
+  // Hide every compiler card first.
+  Object.values(compilerMap).forEach(function(card) {
+    if (card) {
+      card.classList.add("hidden");
+    }
+  });
+
+  // Show only compiler cards belonging to enrolled courses.
+  enrolled.forEach(function(courseId) {
+    const card = compilerMap[courseId];
+
+    if (card) {
+      card.classList.remove("hidden");
+      hasAvailableCompiler = true;
+    }
+  });
+
+  // Show the empty-state message when no available compiler is unlocked.
+  if (noCompilerMessage) {
+    noCompilerMessage.classList.toggle("hidden", hasAvailableCompiler);
   }
-  
-  if (sqlCompilerCard) {
-    sqlCompilerCard.classList.remove("hidden");
+
+  // Keep the workspace visible so students can see their unlocked tools
+  // or the message inviting them to enroll.
+  if (compilerWorkspace) {
+    compilerWorkspace.classList.remove("hidden");
   }
-  
-  if (pythonCompilerCard) {
-    pythonCompilerCard.classList.remove("hidden");
-  }
-    // Dashboard opens on the progress overview only.
-    document.getElementById("myCoursesSection").classList.add("hidden");
-    document.getElementById("courseFileTree").classList.remove("open");
-    document.getElementById("sqlLearningArea").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
 
-    const enrolled = getEnrolledCourses();
+  // Update the active course metric.
+  const active = document.getElementById("metricActive");
 
-    const list = document.getElementById("myCoursesList");
-
-    const sqlArea =
-      document.getElementById("sqlLearningArea");
-
-    const active =
-      document.getElementById("metricActive");
-
+  if (active) {
     active.textContent = enrolled.length;
+  }
 
-    // No My Courses card or Continue Learning page: use the sidebar day/file list.
-    document.getElementById("myCoursesSection").classList.add("hidden");
-    sqlArea.classList.add("hidden");
 
   }
 
