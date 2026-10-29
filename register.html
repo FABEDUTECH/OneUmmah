@@ -1,55 +1,159 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register — OneUmmah Data Skills</title>
-  <link rel="stylesheet" href="styles.css">
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | OneUmmah Data Skills</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f8ff;color:#172033}
+.navbar{height:76px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 7%;box-shadow:0 2px 15px #14213d0c}
+.brand{font-size:21px;font-weight:800;color:#155eef;text-decoration:none}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{color:#344054;text-decoration:none;font-size:14px;font-weight:600}
+.nav-links .login{background:#155eef;color:white;padding:12px 20px;border-radius:8px}
+.main{max-width:1120px;min-height:calc(100vh - 140px);margin:auto;padding:45px 25px;display:grid;grid-template-columns:1fr 460px;gap:65px;align-items:center}
+.left h1{font-size:44px;line-height:1.15;letter-spacing:-1.5px;margin:0 0 20px}
+.left h1 span{color:#155eef}
+.left p{font-size:17px;line-height:1.8;color:#667085;max-width:480px}
+.points{margin-top:30px;display:grid;gap:17px}
+.point{display:flex;align-items:center;gap:13px;color:#344054;font-weight:600}
+.tick{width:30px;height:30px;background:#e5efff;color:#155eef;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.art{margin-top:35px;background:linear-gradient(135deg,#155eef,#638fff);padding:25px;border-radius:20px;color:white;max-width:470px;box-shadow:0 20px 45px #155eef26}
+.art .big{font-size:29px;font-weight:800;margin:12px 0}
+.art p{color:#eef4ff;font-size:14px;margin:0}
+.card{background:#fff;border:1px solid #e7ebf3;border-radius:20px;padding:34px;box-shadow:0 18px 55px #172b4d0c}
+.card h2{font-size:28px;margin:0 0 8px}
+.sub{color:#667085;font-size:14px;margin-bottom:22px;line-height:1.6}
+label{display:block;font-size:13px;font-weight:700;margin:15px 0 8px}
+input{width:100%;padding:13px;border:1px solid #d0d5dd;border-radius:9px;font-size:14px;outline:none;background:#fff}
+input:focus{border-color:#155eef;box-shadow:0 0 0 3px #155eef18}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:65px}
+.show{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:none;color:#155eef;cursor:pointer;font-weight:700}
+.submit{width:100%;border:0;border-radius:9px;background:#155eef;color:white;padding:15px;font-size:15px;font-weight:700;cursor:pointer;margin-top:22px}
+.submit:hover{background:#104bc4}
+.bottom{text-align:center;font-size:14px;color:#667085;margin-top:20px}
+.bottom a{color:#155eef;text-decoration:none;font-weight:700}
+.error{display:none;background:#fff0f0;color:#b42318;padding:11px;border-radius:8px;font-size:13px;margin-top:14px;line-height:1.5}
+footer{text-align:center;padding:22px;color:#667085;font-size:13px}
+@media(max-width:850px){.main{grid-template-columns:1fr;gap:30px;padding:35px 20px}.left{text-align:center}.left p{margin-left:auto;margin-right:auto}.points{display:inline-grid;text-align:left}.art{margin-left:auto;margin-right:auto}.card{width:100%;max-width:480px;margin:auto}.left h1{font-size:36px}}
+@media(max-width:480px){.navbar{padding:0 5%;height:68px}.brand{font-size:17px}.nav-links{gap:12px}.nav-links a{font-size:12px}.nav-links a:first-child{display:none}.nav-links .login{padding:10px 12px}.main{padding:28px 15px}.left h1{font-size:32px}.card{padding:25px 20px}.card h2{font-size:25px}}
+</style>
 </head>
 <body>
-  <header class="navbar">
-    <a class="brand" href="index.html"><span class="brand-mark">O</span> OneUmmah Data Skills</a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Learning Dashboard</a>
-      <a href="payments.html">Payments</a>
-    </nav>
-    <div class="nav-actions" id="guestActions">
-      <a class="btn btn-ghost" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Register</a>
-    </div>
-    <div class="nav-actions user-chip" id="authActions" style="display:none">
-      <a href="dashboard.html" class="user-pill"><span class="user-pill-avatar" id="navAvatar">K</span><span id="navName">Student</span></a>
-      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
-    </div>
-  </header>
 
-  <main>
-    <section class="auth-section alt">
-      <div class="auth-card">
-        <span class="eyebrow">START LEARNING</span><h2>Create your account</h2><p>Join the technical learning platform.</p>
-        <div class="form-error" id="registerError"></div>
-        <input id="regName" placeholder="Full name">
-        <input type="email" id="regEmail" placeholder="Email address">
-        <input type="password" id="regPassword" placeholder="Create password">
-        <button class="btn btn-primary btn-wide" onclick="handleRegister()">Create Account</button>
-        <small>Already registered? <a href="login.html">Login</a></small>
-      </div>
-    </section>
+<header class="navbar">
+<a class="brand" href="index.html">OneUmmah Data Skills</a>
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="courses.html">Courses</a>
+<a class="login" href="login.html">Sign In</a>
+</nav>
+</header>
 
-  </main>
+<main class="main">
+<section class="left">
+<h1>Start your journey.<br><span>Build your future.</span></h1>
+<p>Create your OneUmmah Data Skills account and take the next step toward learning practical, career-focused technical skills.</p>
 
-  <footer>
-    <div class="brand"><span class="brand-mark">O</span> OneUmmah Data Skills</div>
-    <span>© 2026 Technical Learning Platform</span>
-    <div><a href="courses.html">Courses</a> <a href="dashboard.html">Dashboard</a> <a href="login.html">Login</a></div>
-  </footer>
+<div class="points">
+<div class="point"><span class="tick">✓</span> Start learning technical skills</div>
+<div class="point"><span class="tick">✓</span> Keep track of your learning</div>
+<div class="point"><span class="tick">✓</span> Access your student dashboard</div>
+</div>
 
-  <div id="toast" class="toast"></div>
-  <script src="script.js"></script>
+<div class="art">
+<div>YOUR FUTURE STARTS HERE</div>
+<div class="big">Learn something new.</div>
+<p>Small steps today. Better opportunities tomorrow.</p>
+</div>
+</section>
 
-<script src="chatbot.js"></script>
+<section class="card">
+<h2>Create your account</h2>
+<div class="sub">Join OneUmmah Data Skills to begin learning.</div>
+
+<form id="registerForm" onsubmit="return validateRegistration(event)">
+<label for="regName">Full name</label>
+<input id="regName" type="text" placeholder="Enter your full name" autocomplete="name" required>
+
+<label for="regEmail">Email address</label>
+<input id="regEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+
+<label for="regPassword">Password</label>
+<div class="password-wrap">
+<input id="regPassword" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="new-password" required>
+<button class="show" type="button" onclick="togglePassword('regPassword',this)">Show</button>
+</div>
+
+<label for="confirmPassword">Confirm password</label>
+<div class="password-wrap">
+<input id="confirmPassword" type="password" placeholder="Re-enter your password" minlength="6" autocomplete="new-password" required>
+<button class="show" type="button" onclick="togglePassword('confirmPassword',this)">Show</button>
+</div>
+
+<div id="registerError" class="error" role="alert"></div>
+<button class="submit" type="submit">Create Account →</button>
+</form>
+
+<div class="bottom">Already have an account? <a href="login.html">Sign in</a></div>
+</section>
+</main>
+
+<footer>© 2026 OneUmmah Data Skills · Learn skills. Build your future.</footer>
+
+<script src="script.js"></script>
+<script>
+function togglePassword(id,button){
+ const input=document.getElementById(id);
+ if(input.type==="password"){input.type="text";button.textContent="Hide";}
+ else{input.type="password";button.textContent="Show";}
+}
+
+function validateRegistration(event){
+ event.preventDefault();
+
+ const name=document.getElementById("regName").value.trim();
+ const email=document.getElementById("regEmail").value.trim();
+ const password=document.getElementById("regPassword").value;
+ const confirmPassword=document.getElementById("confirmPassword").value;
+ const error=document.getElementById("registerError");
+
+ error.style.display="none";
+ error.textContent="";
+
+ if(!name||!email||!password){
+   error.textContent="Please complete all required fields.";
+   error.style.display="block";
+   return false;
+ }
+
+ if(password.length<6){
+   error.textContent="Password must contain at least 6 characters.";
+   error.style.display="block";
+   return false;
+ }
+
+ if(password!==confirmPassword){
+   error.textContent="Passwords do not match. Please try again.";
+   error.style.display="block";
+   return false;
+ }
+
+ if(typeof handleRegister==="function"){
+   handleRegister();
+ }else{
+   error.textContent="Registration system did not load. Please refresh the page and try again.";
+   error.style.display="block";
+ }
+
+ return false;
+}
+</script>
 </body>
 </html>
+```
