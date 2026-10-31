@@ -1,157 +1,217 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Account | OneUmmah Data Skills</title>
-<link rel="stylesheet" href="styles.css">
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f8ff;color:#172033}
-.navbar{height:76px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 7%;box-shadow:0 2px 15px #14213d0c}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7ff;color:#172033}
+.navbar{height:76px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 7%;box-shadow:0 2px 12px #14213d0c}
 .brand{font-size:21px;font-weight:800;color:#155eef;text-decoration:none}
-.nav-links{display:flex;gap:25px;align-items:center}
-.nav-links a{color:#344054;text-decoration:none;font-size:14px;font-weight:600}
-.nav-links .login{background:#155eef;color:white;padding:12px 20px;border-radius:8px}
-.main{max-width:1120px;min-height:calc(100vh - 140px);margin:auto;padding:45px 25px;display:grid;grid-template-columns:1fr 460px;gap:65px;align-items:center}
-.left h1{font-size:44px;line-height:1.15;letter-spacing:-1.5px;margin:0 0 20px}
-.left h1 span{color:#155eef}
-.left p{font-size:17px;line-height:1.8;color:#667085;max-width:480px}
-.points{margin-top:30px;display:grid;gap:17px}
-.point{display:flex;align-items:center;gap:13px;color:#344054;font-weight:600}
-.tick{width:30px;height:30px;background:#e5efff;color:#155eef;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
-.art{margin-top:35px;background:linear-gradient(135deg,#155eef,#638fff);padding:25px;border-radius:20px;color:white;max-width:470px;box-shadow:0 20px 45px #155eef26}
-.art .big{font-size:29px;font-weight:800;margin:12px 0}
-.art p{color:#eef4ff;font-size:14px;margin:0}
-.card{background:#fff;border:1px solid #e7ebf3;border-radius:20px;padding:34px;box-shadow:0 18px 55px #172b4d0c}
-.card h2{font-size:28px;margin:0 0 8px}
-.sub{color:#667085;font-size:14px;margin-bottom:22px;line-height:1.6}
-label{display:block;font-size:13px;font-weight:700;margin:15px 0 8px}
-input{width:100%;padding:13px;border:1px solid #d0d5dd;border-radius:9px;font-size:14px;outline:none;background:#fff}
-input:focus{border-color:#155eef;box-shadow:0 0 0 3px #155eef18}
-.password-wrap{position:relative}
-.password-wrap input{padding-right:65px}
-.show{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:none;color:#155eef;cursor:pointer;font-weight:700}
-.submit{width:100%;border:0;border-radius:9px;background:#155eef;color:white;padding:15px;font-size:15px;font-weight:700;cursor:pointer;margin-top:22px}
+.navlinks{display:flex;align-items:center;gap:25px}
+.navlinks a{font-size:14px;color:#344054;text-decoration:none;font-weight:600}
+.navlinks .blue{background:#155eef;color:#fff;padding:12px 18px;border-radius:8px}
+.main{max-width:1100px;min-height:calc(100vh - 130px);margin:auto;padding:38px 24px;display:grid;grid-template-columns:1fr 440px;gap:65px;align-items:center}
+.intro h1{font-size:44px;line-height:1.15;letter-spacing:-1px;margin:0 0 20px}
+.intro h1 span{color:#155eef}
+.intro p{color:#667085;font-size:16px;line-height:1.8;max-width:480px}
+.points{display:grid;gap:17px;margin:28px 0}
+.point{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600}
+.tick{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#e5efff;color:#155eef;flex-shrink:0}
+.banner{background:linear-gradient(120deg,#075be8,#478dff);color:white;padding:25px;border-radius:18px;max-width:440px;margin-top:28px;box-shadow:0 15px 35px #155eef20}
+.banner strong{display:block;font-size:28px;margin:12px 0}
+.banner small{font-size:13px}
+.card{background:white;border:1px solid #e3e9f5;border-radius:20px;padding:32px;box-shadow:0 18px 50px #172b4d0c}
+.card h2{font-size:27px;margin:0 0 8px}
+.subtitle{font-size:14px;color:#667085;line-height:1.6;margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}
+input{width:100%;height:44px;padding:12px;border:1px solid #ccd5e3;border-radius:8px;font-size:14px;outline:none;background:white}
+input:focus{border-color:#155eef;box-shadow:0 0 0 3px #155eef16}
+.password{position:relative}
+.password input{padding-right:65px}
+.show{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#155eef;font-weight:bold;cursor:pointer}
+.submit{width:100%;margin-top:21px;padding:14px;background:#155eef;color:white;border:0;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
 .submit:hover{background:#104bc4}
-.bottom{text-align:center;font-size:14px;color:#667085;margin-top:20px}
+.submit:disabled{opacity:.65;cursor:wait}
+.message{display:none;margin-top:14px;padding:12px;border-radius:8px;font-size:13px;line-height:1.5;background:#fff0f0;color:#b42318}
+.bottom{text-align:center;margin-top:20px;font-size:13px;color:#667085;line-height:1.8}
 .bottom a{color:#155eef;text-decoration:none;font-weight:700}
-.error{display:none;background:#fff0f0;color:#b42318;padding:11px;border-radius:8px;font-size:13px;margin-top:14px;line-height:1.5}
-footer{text-align:center;padding:22px;color:#667085;font-size:13px}
-@media(max-width:850px){.main{grid-template-columns:1fr;gap:30px;padding:35px 20px}.left{text-align:center}.left p{margin-left:auto;margin-right:auto}.points{display:inline-grid;text-align:left}.art{margin-left:auto;margin-right:auto}.card{width:100%;max-width:480px;margin:auto}.left h1{font-size:36px}}
-@media(max-width:480px){.navbar{padding:0 5%;height:68px}.brand{font-size:17px}.nav-links{gap:12px}.nav-links a{font-size:12px}.nav-links a:first-child{display:none}.nav-links .login{padding:10px 12px}.main{padding:28px 15px}.left h1{font-size:32px}.card{padding:25px 20px}.card h2{font-size:25px}}
+footer{text-align:center;padding:18px;color:#667085;font-size:12px}
+@media(max-width:800px){.main{grid-template-columns:1fr;gap:25px;padding:28px 18px}.intro{text-align:center}.intro h1{font-size:36px}.intro p{margin:auto}.points{text-align:left;display:inline-grid}.banner{margin:25px auto}.card{width:100%;max-width:460px;margin:auto}}
+@media(max-width:480px){.navbar{padding:0 15px;height:66px}.brand{font-size:16px}.navlinks{gap:12px}.navlinks a{font-size:12px}.navlinks .blue{padding:10px}.card{padding:24px 20px}.intro h1{font-size:31px}}
 </style>
 </head>
-<body>
 
+<body>
 <header class="navbar">
-<a class="brand" href="index.html">OneUmmah Data Skills</a>
-<nav class="nav-links">
-<a href="index.html">Home</a>
-<a href="courses.html">Courses</a>
-<a class="login" href="login.html">Sign In</a>
-</nav>
+  <a class="brand" href="index.html">OneUmmah Data Skills</a>
+  <nav class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a class="blue" href="login.html">Sign In</a>
+  </nav>
 </header>
 
 <main class="main">
-<section class="left">
-<h1>Start your journey.<br><span>Build your future.</span></h1>
-<p>Create your OneUmmah Data Skills account and take the next step toward learning practical, career-focused technical skills.</p>
+  <section class="intro">
+    <h1>Start your journey.<br><span>Build your future.</span></h1>
+    <p>Create your OneUmmah Data Skills account and take the next step toward learning practical, career-focused technical skills.</p>
 
-<div class="points">
-<div class="point"><span class="tick">✓</span> Start learning technical skills</div>
-<div class="point"><span class="tick">✓</span> Keep track of your learning</div>
-<div class="point"><span class="tick">✓</span> Access your student dashboard</div>
-</div>
+    <div class="points">
+      <div class="point"><span class="tick">✓</span> Start learning technical skills</div>
+      <div class="point"><span class="tick">✓</span> Track your learning journey</div>
+      <div class="point"><span class="tick">✓</span> Access your student dashboard</div>
+    </div>
 
-<div class="art">
-<div>YOUR FUTURE STARTS HERE</div>
-<div class="big">Learn something new.</div>
-<p>Small steps today. Better opportunities tomorrow.</p>
-</div>
-</section>
+    <div class="banner">
+      <small>YOUR FUTURE STARTS HERE</small>
+      <strong>Learn something new.</strong>
+      <small>Small steps today. Better opportunities tomorrow.</small>
+    </div>
+  </section>
 
-<section class="card">
-<h2>Create your account</h2>
-<div class="sub">Join OneUmmah Data Skills to begin learning.</div>
+  <section class="card">
+    <h2>Create your account</h2>
+    <div class="subtitle">Enter your details to get started.</div>
 
-<form id="registerForm" onsubmit="return validateRegistration(event)">
-<label for="regName">Full name</label>
-<input id="regName" type="text" placeholder="Enter your full name" autocomplete="name" required>
+    <form id="registerForm" autocomplete="off">
+      <label for="regName">Full name</label>
+      <input id="regName" name="regName" type="text"
+        placeholder="Enter your full name" autocomplete="off" required>
 
-<label for="regEmail">Email address</label>
-<input id="regEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+      <label for="regEmail">Email address</label>
+      <input id="regEmail" name="regEmail" type="email"
+        placeholder="Enter your email" autocomplete="off" required>
 
-<label for="regPassword">Password</label>
-<div class="password-wrap">
-<input id="regPassword" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="new-password" required>
-<button class="show" type="button" onclick="togglePassword('regPassword',this)">Show</button>
-</div>
+      <label for="regPassword">Password</label>
+      <div class="password">
+        <input id="regPassword" name="regPassword" type="password"
+          placeholder="At least 6 characters" minlength="6"
+          autocomplete="new-password" required>
+        <button class="show" type="button" id="toggleRegisterPassword">Show</button>
+      </div>
 
-<label for="confirmPassword">Confirm password</label>
-<div class="password-wrap">
-<input id="confirmPassword" type="password" placeholder="Re-enter your password" minlength="6" autocomplete="new-password" required>
-<button class="show" type="button" onclick="togglePassword('confirmPassword',this)">Show</button>
-</div>
+      <label for="confirmPassword">Confirm password</label>
+      <div class="password">
+        <input id="confirmPassword" name="confirmPassword" type="password"
+          placeholder="Re-enter your password" minlength="6"
+          autocomplete="new-password" required>
+        <button class="show" type="button" id="toggleConfirmPassword">Show</button>
+      </div>
 
-<div id="registerError" class="error" role="alert" style="display:none"></div><button class="submit" type="submit">Create Account →</button>
-</form>
+      <div id="registerError" class="message" role="alert"></div>
+      <button class="submit" id="registerButton" type="submit">Create Account →</button>
+    </form>
 
-<div class="bottom">Already have an account? <a href="login.html">Sign in</a></div>
-</section>
+    <div class="bottom">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+  </section>
 </main>
 
 <footer>© 2026 OneUmmah Data Skills · Learn skills. Build your future.</footer>
-<div id="toast" style="display:none"></div>
+
 <script src="script.js"></script>
 <script>
-function togglePassword(id,button){
- const input=document.getElementById(id);
- if(input.type==="password"){input.type="text";button.textContent="Hide";}
- else{input.type="password";button.textContent="Show";}
-}
+(function(){
+  const form = document.getElementById('registerForm');
+  const nameInput = document.getElementById('regName');
+  const emailInput = document.getElementById('regEmail');
+  const passwordInput = document.getElementById('regPassword');
+  const confirmInput = document.getElementById('confirmPassword');
+  const errorBox = document.getElementById('registerError');
+  const submitButton = document.getElementById('registerButton');
 
-function validateRegistration(event){
- event.preventDefault();
+  function connectToggle(buttonId, input){
+    document.getElementById(buttonId).addEventListener('click', function(){
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      this.textContent = show ? 'Hide' : 'Show';
+    });
+  }
 
- const name=document.getElementById("regName").value.trim();
- const email=document.getElementById("regEmail").value.trim();
- const password=document.getElementById("regPassword").value;
- const confirmPassword=document.getElementById("confirmPassword").value;
- const error=document.getElementById("registerError");
+  connectToggle('toggleRegisterPassword', passwordInput);
+  connectToggle('toggleConfirmPassword', confirmInput);
 
- error.style.display="none";
- error.textContent="";
+  function hashPassword(password){
+    let hash = 0;
+    for(let i=0;i<password.length;i++){
+      hash = (Math.imul(31,hash) + password.charCodeAt(i)) | 0;
+    }
+    return String(hash);
+  }
 
- if(!name||!email||!password){
-   error.textContent="Please complete all required fields.";
-   error.style.display="block";
-   return false;
- }
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
 
- if(password.length<6){
-   error.textContent="Password must contain at least 6 characters.";
-   error.style.display="block";
-   return false;
- }
+    errorBox.style.display = 'none';
+    errorBox.textContent = '';
 
- if(password!==confirmPassword){
-   error.textContent="Passwords do not match. Please try again.";
-   error.style.display="block";
-   return false;
- }
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    const confirmPassword = confirmInput.value;
 
- if(typeof handleRegister==="function"){
-   handleRegister();
- }else{
-   error.textContent="Registration system did not load. Please refresh the page and try again.";
-   error.style.display="block";
- }
+    if(!name || !email || !password || !confirmPassword){
+      errorBox.textContent = 'Please complete all fields.';
+      errorBox.style.display = 'block';
+      return;
+    }
 
- return false;
-}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      errorBox.textContent = 'Please enter a valid email address.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    if(password.length < 6){
+      errorBox.textContent = 'Password must contain at least 6 characters.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    if(password !== confirmPassword){
+      errorBox.textContent = 'Passwords do not match.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    try {
+      const users = JSON.parse(localStorage.getItem('dfa_users') || '{}');
+
+      if(users[email]){
+        errorBox.textContent = 'This email is already registered. Please sign in instead.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      users[email] = {
+        name: name,
+        email: email,
+        passwordHash: hashPassword(password),
+        enrolled: [],
+        certificates: [],
+        joined: new Date().toISOString()
+      };
+
+      localStorage.setItem('dfa_users', JSON.stringify(users));
+      localStorage.setItem('dfa_session', email);
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Account created! Opening dashboard...';
+
+      window.location.href = 'dashboard.html';
+
+    } catch(error) {
+      errorBox.textContent = 'Could not save your account in this browser. Please enable local storage and try again.';
+      errorBox.style.display = 'block';
+    }
+  });
+})();
 </script>
 </body>
 </html>
-
+```
