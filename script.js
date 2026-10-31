@@ -1,4 +1,3 @@
-```javascript
 /* =====================================================
    ONEUMMAH DATA SKILLS
    Complete Frontend JavaScript
@@ -613,4 +612,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   console.log('OneUmmah Data Skills JavaScript loaded successfully.');
 });
-```
+
