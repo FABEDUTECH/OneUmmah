@@ -1156,3 +1156,957 @@
   }
 }
 
+/* =====================================================
+   ONEUMMAH DATA SKILLS
+   PREMIUM SCALER-INSPIRED STUDENT DASHBOARD
+   Dashboard page only — existing pages protected
+===================================================== */
+
+.oum-dashboard {
+  --dash-primary: #3155e7;
+  --dash-primary-dark: #2442c5;
+  --dash-purple: #7048e8;
+  --dash-text: #182238;
+  --dash-muted: #718096;
+  --dash-border: #e5eaf3;
+  --dash-soft: #f5f7ff;
+  background: #f6f8fc;
+  color: var(--dash-text);
+  min-height: 100vh;
+}
+
+.oum-dashboard a {
+  text-decoration: none;
+}
+
+/* ---------- TOP NAVIGATION ---------- */
+
+.oum-dashboard .navbar {
+  min-height: 72px;
+  height: auto;
+  padding: 12px 4%;
+  display: flex;
+  gap: 22px;
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid var(--dash-border);
+  box-shadow: 0 3px 16px rgba(24,34,56,.035);
+}
+
+.oum-dashboard .brand {
+  flex-shrink: 0;
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: -.45px;
+  color: #17213a;
+}
+
+.oum-dashboard .brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#3155e7,#7048e8);
+  box-shadow: 0 5px 13px rgba(49,85,231,.2);
+}
+
+.oum-dashboard .navbar nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px,1.8vw,26px);
+}
+
+.oum-dashboard .navbar nav a {
+  color: #647086;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color .2s ease;
+}
+
+.oum-dashboard .navbar nav a:hover,
+.oum-dashboard .navbar nav a[href="dashboard.html"] {
+  color: var(--dash-primary);
+}
+
+.oum-dashboard .nav-actions {
+  align-items: center;
+  gap: 9px;
+}
+
+.oum-dashboard .btn {
+  border-radius: 9px;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.oum-dashboard .btn-primary {
+  background: linear-gradient(135deg,#3155e7,#624be8);
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(49,85,231,.17);
+}
+
+.oum-dashboard .btn-primary:hover {
+  background: var(--dash-primary-dark);
+  transform: translateY(-1px);
+}
+
+.oum-dashboard .btn-ghost {
+  background: #f2f5fb;
+  color: #34415a;
+}
+
+.oum-dashboard .user-pill {
+  background: #f4f6ff;
+  color: #26345b;
+  border: 1px solid #e4e8ff;
+}
+
+.oum-dashboard .user-pill-avatar {
+  background: linear-gradient(135deg,#3155e7,#7048e8);
+}
+
+/* ---------- DASHBOARD PAGE WIDTH ---------- */
+
+.oum-dashboard main {
+  width: 100%;
+}
+
+.oum-dashboard .section {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 35px 4% 55px;
+}
+
+.oum-dashboard .section-heading {
+  margin-bottom: 25px;
+}
+
+.oum-dashboard .section-heading .eyebrow {
+  color: var(--dash-primary);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+}
+
+.oum-dashboard .section-heading h2 {
+  color: #17213a;
+  font-size: clamp(28px,3vw,36px);
+  font-weight: 850;
+  letter-spacing: -1.2px;
+  margin: 5px 0 0;
+}
+
+/* ---------- MAIN DASHBOARD LAYOUT ---------- */
+
+.oum-dashboard .dashboard {
+  display: grid;
+  grid-template-columns: 245px minmax(0,1fr);
+  align-items: stretch;
+  gap: 0;
+  min-height: 680px;
+  overflow: hidden;
+  border: 1px solid #e4e9f2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(28,43,77,.055);
+}
+
+/* ---------- LEFT SIDEBAR ---------- */
+
+.oum-dashboard .sidebar {
+  min-width: 0;
+  padding: 23px 15px;
+  background: #fff;
+  color: #69758a;
+  border-right: 1px solid #e9edf5;
+}
+
+.oum-dashboard .student {
+  gap: 12px;
+  padding: 5px 5px 23px;
+  margin-bottom: 17px;
+  border-bottom: 1px solid #edf0f6;
+  color: #182238;
+}
+
+.oum-dashboard .avatar {
+  flex-shrink: 0;
+  width: 43px;
+  height: 43px;
+  border-radius: 13px;
+  background: linear-gradient(135deg,#3155e7,#7048e8);
+  font-size: 17px;
+  box-shadow: 0 5px 13px rgba(49,85,231,.16);
+}
+
+.oum-dashboard .student b {
+  display: block;
+  max-width: 150px;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.oum-dashboard .student small {
+  display: block;
+  max-width: 155px;
+  overflow-wrap: anywhere;
+  margin-top: 3px;
+  color: #8a95a8;
+  font-size: 10px;
+}
+
+.oum-dashboard .sidebar > a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 13px;
+  margin: 5px 0;
+  border-radius: 9px;
+  color: #68758a;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.oum-dashboard .sidebar > a:hover {
+  background: #f3f5ff;
+  color: var(--dash-primary);
+}
+
+.oum-dashboard .sidebar > a.side-active {
+  background: linear-gradient(100deg,#eaf0ff,#f1edff);
+  color: #3155d8;
+  box-shadow: inset 3px 0 #3155e7;
+}
+
+.oum-dashboard .course-file-tree {
+  padding: 7px 4px;
+  margin: 4px 0 12px 7px;
+  border-left: 2px solid #e0e7ff;
+  color: #69758a;
+  font-size: 12px;
+}
+
+.oum-dashboard .course-file-tree .tree-row {
+  padding: 10px 8px;
+  border-radius: 7px;
+  color: #637087;
+  font-size: 11px;
+}
+
+.oum-dashboard .course-file-tree .tree-row:hover {
+  background: #f2f5ff;
+  color: var(--dash-primary);
+}
+
+/* ---------- MAIN CONTENT ---------- */
+
+.oum-dashboard .dash-main {
+  min-width: 0;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(230,235,255,.4),transparent 30%),
+    #fff;
+}
+
+.oum-dashboard .welcome {
+  align-items: center;
+  gap: 15px;
+  padding: 23px 25px;
+  border: 1px solid #e5e9ff;
+  border-radius: 14px;
+  background: linear-gradient(110deg,#f3f6ff,#f9f7ff);
+}
+
+.oum-dashboard .welcome .eyebrow {
+  color: #5a55db;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+}
+
+.oum-dashboard .welcome h3 {
+  margin: 7px 0 0;
+  color: #17213a;
+  font-size: clamp(18px,2.2vw,25px);
+  font-weight: 850;
+  line-height: 1.35;
+  letter-spacing: -.55px;
+}
+
+/* ---------- METRIC CARDS ---------- */
+
+.oum-dashboard .metric-grid {
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 13px;
+  margin: 21px 0 25px;
+}
+
+.oum-dashboard .metric {
+  position: relative;
+  min-width: 0;
+  padding: 18px 16px;
+  overflow: hidden;
+  border: 1px solid #e5eaf3;
+  border-radius: 12px;
+  background: #fff;
+  transition: transform .2s ease,box-shadow .2s ease;
+}
+
+.oum-dashboard .metric:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(30,45,90,.07);
+}
+
+.oum-dashboard .metric span {
+  color: #768198;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.oum-dashboard .metric strong {
+  color: #1b2850;
+  font-size: clamp(23px,2.4vw,32px);
+  font-weight: 850;
+  letter-spacing: -.8px;
+  margin: 7px 0 4px;
+}
+
+.oum-dashboard .metric small {
+  color: #8b95a8;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* ---------- CODING WORKSPACE ---------- */
+
+.oum-dashboard .learning-box {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #e5eaf3;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(30,45,80,.025);
+}
+
+.oum-dashboard .learning-box > .eyebrow {
+  color: #5754dd;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+}
+
+.oum-dashboard .learning-box > h3 {
+  margin: 7px 0;
+  color: #17213a;
+  font-size: 22px;
+  font-weight: 850;
+  letter-spacing: -.5px;
+}
+
+.oum-dashboard .learning-box > p {
+  color: #7a8599;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.oum-dashboard .compiler-grid {
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+  margin-top: 21px;
+}
+
+.oum-dashboard .compiler-card {
+  min-width: 0;
+  padding: 22px;
+  gap: 12px;
+  border: 1px solid #e1e7f5;
+  border-radius: 13px;
+  background: linear-gradient(145deg,#fff,#f7f8ff);
+  color: #17213a;
+  transition: transform .2s ease,box-shadow .2s ease;
+}
+
+.oum-dashboard .compiler-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(40,55,100,.09);
+}
+
+.oum-dashboard .compiler-card h3 {
+  color: #1c2944;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.oum-dashboard .compiler-card p {
+  color: #728097;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.oum-dashboard .compiler-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.oum-dashboard .sql-icon {
+  background: #eaf0ff;
+  color: #3155d8;
+}
+
+.oum-dashboard .python-icon {
+  background: #e7f8ef;
+  color: #168450;
+}
+
+.oum-dashboard .compiler-status {
+  color: #168450;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.oum-dashboard .compiler-card .btn {
+  width: 100%;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.oum-dashboard .compiler-empty {
+  border: 1px dashed #cbd5ed;
+  border-radius: 12px;
+  background: #f8faff;
+  color: #26334d;
+}
+
+.oum-dashboard .compiler-empty h3 {
+  margin-top: 0;
+  font-size: 17px;
+}
+
+.oum-dashboard .compiler-empty p {
+  color: #778399;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* ---------- MY COURSES ---------- */
+
+.oum-dashboard .my-courses {
+  margin-top: 24px;
+  padding: 23px;
+  border: 1px solid #e5eaf3;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.oum-dashboard .dash-title {
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.oum-dashboard .dash-title h3 {
+  color: #192541;
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.oum-dashboard .text-link {
+  color: #4358dc;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.oum-dashboard .course-row {
+  min-width: 0;
+  gap: 13px;
+  padding: 17px 0;
+  border-top: 1px solid #edf0f6;
+}
+
+.oum-dashboard .mini-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  font-size: 12px;
+}
+
+.oum-dashboard .row-info {
+  min-width: 0;
+}
+
+.oum-dashboard .row-info b {
+  color: #26334d;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.oum-dashboard .row-info small {
+  margin-top: 4px;
+  color: #8791a3;
+  font-size: 10px;
+}
+
+.oum-dashboard .row-info .progress {
+  width: 100%;
+  max-width: 340px;
+  height: 6px;
+  margin-top: 10px;
+  background: #e9edf7;
+}
+
+.oum-dashboard .row-info .progress > div {
+  background: linear-gradient(90deg,#3155e7,#7953ec);
+}
+
+.oum-dashboard .course-row > strong {
+  color: #4255d6;
+  font-size: 12px;
+}
+
+/* ---------- SQL LEARNING CONTENT ---------- */
+
+.oum-dashboard #sqlLearningArea {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #e2e8f5;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.oum-dashboard #sqlLearningArea > h3 {
+  color: #1b2850;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.oum-dashboard #sqlLearningArea > p {
+  color: #78849a;
+  font-size: 13px;
+}
+
+.oum-dashboard .course-folder {
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid #e3e8f2;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.oum-dashboard .folder-title {
+  padding: 16px 18px;
+  background: #f3f6ff;
+  color: #273b7a;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.oum-dashboard .day-folder {
+  padding: 16px 18px;
+  border-top: 1px solid #e9edf5;
+}
+
+.oum-dashboard .day-title {
+  color: #25334d;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.oum-dashboard .lesson-name {
+  color: #5d6980;
+  font-size: 12px;
+}
+
+.oum-dashboard .video-area {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #e3e8f3;
+  border-radius: 12px;
+  background: #f9faff;
+}
+
+.oum-dashboard .video-area h3 {
+  color: #1c2944;
+  font-size: 18px;
+}
+
+.oum-dashboard .video-area video {
+  width: 100%;
+  max-width: 900px;
+  background: #101828;
+  border-radius: 10px;
+}
+
+.oum-dashboard #videoProgressText {
+  color: #4358dc;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* ---------- ASSIGNMENTS AND PROJECTS ---------- */
+
+.oum-dashboard .assignment-box {
+  padding: 23px;
+  border: 1px solid #e4e9f3;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.oum-dashboard .assignment-box h3 {
+  color: #1b2850;
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.oum-dashboard .assignment-box p {
+  color: #748097;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.oum-dashboard .question {
+  padding: 18px;
+  margin: 15px 0;
+  border: 1px solid #e4e9f3;
+  border-radius: 10px;
+  background: #fafbff;
+}
+
+.oum-dashboard .question strong {
+  display: block;
+  color: #25334d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.oum-dashboard .question label {
+  display: block;
+  padding: 9px 11px;
+  margin: 8px 0;
+  border: 1px solid #e7ebf3;
+  border-radius: 8px;
+  background: #fff;
+  color: #59667d;
+  font-size: 12px;
+  line-height: 1.7;
+  transition: border-color .2s ease,background .2s ease;
+}
+
+.oum-dashboard .question label:hover {
+  border-color: #b9c5ff;
+  background: #f5f7ff;
+}
+
+.oum-dashboard .question input {
+  accent-color: #4358dc;
+  margin-right: 7px;
+}
+
+.oum-dashboard #assignmentSection {
+  width: min(100% - 8%,1200px);
+  margin: 30px auto 45px;
+  padding: 28px;
+  border: 1px solid #e3e8f2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgba(25,40,75,.05);
+}
+
+.oum-dashboard #assignmentSection > h3 {
+  color: #1a2744;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.oum-dashboard #assignmentSection > p {
+  color: #738097;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.oum-dashboard .result-box {
+  padding: 20px;
+  border-radius: 11px;
+}
+
+.oum-dashboard .pass-box {
+  border: 1px solid #b9e8cb;
+  background: #f0fbf4;
+  color: #166534;
+}
+
+.oum-dashboard .fail-box {
+  border: 1px solid #f2c7c7;
+  background: #fff5f5;
+  color: #a32929;
+}
+
+.oum-dashboard .certificate-btn {
+  border-radius: 9px;
+  background: linear-gradient(135deg,#3155e7,#7048e8);
+  box-shadow: 0 7px 18px rgba(49,85,231,.17);
+}
+
+/* ---------- STUDENT SUPPORT ---------- */
+
+.oum-dashboard #studentSupportBtn {
+  box-shadow: 0 5px 14px rgba(37,211,102,.16);
+  transition: transform .2s ease;
+}
+
+.oum-dashboard #studentSupportBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ---------- FOOTER ---------- */
+
+.oum-dashboard footer {
+  gap: 18px;
+  background: #101a35;
+  color: #bdc7dc;
+  border-top: 1px solid #e7ebf2;
+}
+
+.oum-dashboard footer .brand {
+  color: #fff;
+}
+
+.oum-dashboard footer .brand-mark {
+  background: linear-gradient(135deg,#3155e7,#7048e8);
+}
+
+.oum-dashboard footer a:hover {
+  color: #fff;
+}
+
+/* ---------- TOAST ---------- */
+
+.oum-dashboard .toast {
+  background: #182442;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 12px 30px rgba(15,25,50,.2);
+}
+
+/* ---------- RESPONSIVE TABLET ---------- */
+
+@media (max-width: 1100px) {
+  .oum-dashboard .navbar {
+    padding-left: 3%;
+    padding-right: 3%;
+    gap: 12px;
+  }
+
+  .oum-dashboard .brand {
+    font-size: 14px;
+  }
+
+  .oum-dashboard .navbar nav {
+    gap: 11px;
+  }
+
+  .oum-dashboard .navbar nav a {
+    font-size: 10px;
+  }
+
+  .oum-dashboard .dashboard {
+    grid-template-columns: 215px minmax(0,1fr);
+  }
+
+  .oum-dashboard .dash-main {
+    padding: 21px;
+  }
+
+  .oum-dashboard .metric-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+/* ---------- RESPONSIVE MOBILE ---------- */
+
+@media (max-width: 760px) {
+  .oum-dashboard .navbar {
+    min-height: 66px;
+    padding: 10px 4%;
+    flex-wrap: wrap;
+  }
+
+  .oum-dashboard .navbar nav {
+    display: none;
+  }
+
+  .oum-dashboard .brand {
+    font-size: 13px;
+  }
+
+  .oum-dashboard .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .oum-dashboard .nav-actions {
+    gap: 6px;
+  }
+
+  .oum-dashboard .user-pill {
+    max-width: 135px;
+    font-size: 11px;
+  }
+
+  .oum-dashboard .user-pill #navName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .oum-dashboard .nav-actions .btn {
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+
+  .oum-dashboard .section {
+    padding: 25px 4% 38px;
+  }
+
+  .oum-dashboard .section-heading {
+    margin-bottom: 18px;
+  }
+
+  .oum-dashboard .section-heading h2 {
+    font-size: 28px;
+  }
+
+  .oum-dashboard .dashboard {
+    grid-template-columns: minmax(0,1fr);
+    border-radius: 14px;
+  }
+
+  .oum-dashboard .sidebar {
+    display: block;
+    padding: 14px;
+    border-right: 0;
+    border-bottom: 1px solid #e5eaf3;
+  }
+
+  .oum-dashboard .student {
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+  }
+
+  .oum-dashboard .sidebar > a {
+    display: inline-flex;
+    width: auto;
+    max-width: 100%;
+    padding: 10px 12px;
+    margin: 3px 2px;
+    font-size: 11px;
+  }
+
+  .oum-dashboard .course-file-tree {
+    max-height: 260px;
+    overflow-y: auto;
+  }
+
+  .oum-dashboard .dash-main {
+    padding: 15px;
+  }
+
+  .oum-dashboard .welcome {
+    padding: 18px;
+  }
+
+  .oum-dashboard .welcome h3 {
+    font-size: 20px;
+  }
+
+  .oum-dashboard .metric-grid {
+    gap: 10px;
+    margin: 15px 0 19px;
+  }
+
+  .oum-dashboard .metric {
+    padding: 14px 12px;
+  }
+
+  .oum-dashboard .metric strong {
+    font-size: 25px;
+  }
+
+  .oum-dashboard .metric span {
+    font-size: 10px;
+  }
+
+  .oum-dashboard .learning-box,
+  .oum-dashboard .my-courses,
+  .oum-dashboard #sqlLearningArea {
+    padding: 17px;
+    margin-top: 17px;
+  }
+
+  .oum-dashboard .compiler-grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  .oum-dashboard .compiler-card {
+    padding: 19px;
+  }
+
+  .oum-dashboard .course-row {
+    flex-wrap: wrap;
+  }
+
+  .oum-dashboard .row-info {
+    flex: 1 1 calc(100% - 65px);
+  }
+
+  .oum-dashboard .row-info .progress {
+    max-width: none;
+  }
+
+  .oum-dashboard #assignmentSection {
+    width: 92%;
+    margin: 22px auto 32px;
+    padding: 18px;
+  }
+
+  .oum-dashboard .question {
+    padding: 13px;
+  }
+
+  .oum-dashboard footer {
+    padding: 25px 5%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .oum-dashboard footer > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .oum-dashboard footer a {
+    margin: 0 12px 0 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .oum-dashboard .brand {
+    font-size: 11px;
+  }
+
+  .oum-dashboard .user-pill {
+    max-width: 105px;
+  }
+
+  .oum-dashboard .metric-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .oum-dashboard .metric strong {
+    font-size: 22px;
+  }
+
+  .oum-dashboard .section-heading h2 {
+    font-size: 25px;
+  }
+}
