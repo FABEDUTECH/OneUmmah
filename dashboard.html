@@ -1,259 +1,831 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — OneUmmah Data Skills</title>
-  <link rel="stylesheet" href="styles.css">
-  
-  <style>
-     /* Professional compiler cards */
-  .compiler-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-    margin-top: 20px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Dashboard — OneUmmah Data Skills</title>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="scaler-theme.css">
+
+<style>
+/* =========================================
+   ONEUMMAH DASHBOARD — SCALER INSPIRED THEME
+   All styles scoped to this page
+========================================= */
+
+.oum-dashboard {
+  --sd-blue:#2463eb;
+  --sd-blue-dark:#174ac0;
+  --sd-navy:#101b35;
+  --sd-text:#17233d;
+  --sd-muted:#69758b;
+  --sd-border:#e7ebf2;
+  --sd-bg:#f5f7fb;
+  --sd-white:#ffffff;
+  background:var(--sd-bg);
+  color:var(--sd-text);
+  font-family:'Plus Jakarta Sans',Inter,Arial,sans-serif;
+}
+
+.oum-dashboard * {box-sizing:border-box}
+
+.oum-dashboard a {text-decoration:none}
+
+.oum-dashboard .navbar {
+  min-height:76px;
+  padding:12px 5%;
+  background:#fff;
+  border-bottom:1px solid var(--sd-border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.oum-dashboard .brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--sd-navy);
+  font-weight:800;
+  font-size:19px;
+  white-space:nowrap;
+}
+
+.oum-dashboard .brand-mark {
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#3478ff,#174ac0);
+  color:#fff;
+  border-radius:11px;
+  font-weight:900;
+}
+
+.oum-dashboard .navbar nav {
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.oum-dashboard .navbar nav a {
+  color:#526078;
+  font-size:13px;
+  font-weight:650;
+  transition:.2s;
+}
+
+.oum-dashboard .navbar nav a:hover,
+.oum-dashboard .navbar nav a[href="dashboard.html"] {
+  color:var(--sd-blue);
+}
+
+.oum-dashboard .nav-actions {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.oum-dashboard .btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:11px 18px;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:750;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.oum-dashboard .btn-primary {
+  background:var(--sd-blue);
+  color:#fff;
+  border-color:var(--sd-blue);
+}
+
+.oum-dashboard .btn-primary:hover {
+  background:var(--sd-blue-dark);
+  transform:translateY(-1px);
+}
+
+.oum-dashboard .btn-ghost {
+  background:#fff;
+  color:var(--sd-navy);
+  border-color:var(--sd-border);
+}
+
+.oum-dashboard .btn-ghost:hover {
+  border-color:var(--sd-blue);
+  color:var(--sd-blue);
+}
+
+.oum-dashboard .user-pill {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:var(--sd-navy);
+  font-size:13px;
+  font-weight:700;
+}
+
+.oum-dashboard .user-pill-avatar {
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#eaf1ff;
+  color:var(--sd-blue);
+  font-weight:800;
+}
+
+.oum-dashboard main {
+  min-height:70vh;
+}
+
+.oum-dashboard .section {
+  max-width:1440px;
+  margin:auto;
+  padding:38px 5% 65px;
+}
+
+.oum-dashboard .section-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.oum-dashboard .eyebrow {
+  display:inline-block;
+  color:var(--sd-blue);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:1.5px;
+  margin-bottom:9px;
+}
+
+.oum-dashboard .section-heading h2 {
+  margin:0;
+  color:var(--sd-navy);
+  font-size:32px;
+  letter-spacing:-1.1px;
+}
+
+.oum-dashboard .dashboard {
+  display:grid;
+  grid-template-columns:255px minmax(0,1fr);
+  gap:24px;
+  align-items:start;
+}
+
+/* SIDEBAR */
+
+.oum-dashboard .sidebar {
+  min-width:0;
+  padding:20px 14px;
+  background:#fff;
+  border:1px solid var(--sd-border);
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(20,35,65,.035);
+  position:sticky;
+  top:96px;
+}
+
+.oum-dashboard .student {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:7px 7px 20px;
+  margin-bottom:14px;
+  border-bottom:1px solid var(--sd-border);
+}
+
+.oum-dashboard .avatar {
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:#eaf1ff;
+  color:var(--sd-blue);
+  font-size:19px;
+  font-weight:850;
+  flex-shrink:0;
+}
+
+.oum-dashboard .student b {
+  display:block;
+  color:var(--sd-navy);
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+
+.oum-dashboard .student small {
+  display:block;
+  margin-top:5px;
+  color:var(--sd-muted);
+  font-size:11px;
+  overflow-wrap:anywhere;
+}
+
+.oum-dashboard .sidebar > a {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 13px;
+  margin:4px 0;
+  border-radius:9px;
+  color:#536078;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.oum-dashboard .sidebar > a:hover,
+.oum-dashboard .sidebar > a.side-active {
+  background:#edf3ff;
+  color:var(--sd-blue);
+}
+
+.oum-dashboard .course-file-tree {
+  display:none;
+  margin:5px 0 12px 10px;
+  padding:7px;
+  border-left:2px solid #dce7ff;
+  font-size:12px;
+}
+
+.oum-dashboard .course-file-tree.open {display:block}
+
+.oum-dashboard .course-file-tree .tree-row {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  padding:10px;
+  margin:2px 0;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#526078;
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
+  overflow-wrap:anywhere;
+}
+
+.oum-dashboard .course-file-tree .tree-row:hover {
+  background:#edf3ff;
+  color:var(--sd-blue);
+}
+
+.oum-dashboard .tree-file {padding-left:25px!important}
+.oum-dashboard .hidden {display:none!important}
+
+/* MAIN CONTENT */
+
+.oum-dashboard .dash-main {
+  min-width:0;
+}
+
+.oum-dashboard .welcome {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:27px 30px;
+  margin-bottom:20px;
+  border-radius:15px;
+  background:linear-gradient(115deg,#10234b,#2056b8);
+  color:#fff;
+  overflow:hidden;
+  position:relative;
+}
+
+.oum-dashboard .welcome:after {
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:-65px;
+  top:-120px;
+  border:35px solid rgba(255,255,255,.07);
+  border-radius:50%;
+}
+
+.oum-dashboard .welcome .eyebrow {
+  color:#bcd2ff;
+}
+
+.oum-dashboard .welcome h3 {
+  position:relative;
+  z-index:1;
+  max-width:620px;
+  margin:4px 0 0;
+  color:#fff;
+  font-size:23px;
+  line-height:1.4;
+  letter-spacing:-.5px;
+}
+
+.oum-dashboard .metric-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.oum-dashboard .metric {
+  padding:19px;
+  background:#fff;
+  border:1px solid var(--sd-border);
+  border-radius:13px;
+  box-shadow:0 4px 16px rgba(20,35,65,.025);
+}
+
+.oum-dashboard .metric span {
+  display:block;
+  color:var(--sd-muted);
+  font-size:12px;
+  font-weight:650;
+}
+
+.oum-dashboard .metric strong {
+  display:block;
+  margin:10px 0 5px;
+  color:var(--sd-navy);
+  font-size:29px;
+  letter-spacing:-1px;
+}
+
+.oum-dashboard .metric small {
+  color:#7b879b;
+  font-size:11px;
+}
+
+/* WORKSPACE & COURSE CARDS */
+
+.oum-dashboard .learning-box,
+.oum-dashboard .my-courses {
+  margin-top:20px;
+  padding:25px;
+  border:1px solid var(--sd-border);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 4px 18px rgba(20,35,65,.025);
+}
+
+.oum-dashboard .learning-box h3,
+.oum-dashboard .my-courses h3 {
+  margin:5px 0 10px;
+  color:var(--sd-navy);
+  font-size:20px;
+  letter-spacing:-.4px;
+}
+
+.oum-dashboard .learning-box p {
+  color:var(--sd-muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.oum-dashboard .muted {
+  color:var(--sd-muted);
+}
+
+.oum-dashboard .compiler-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.oum-dashboard .compiler-card {
+  min-width:0;
+  padding:21px;
+  border:1px solid var(--sd-border);
+  border-radius:12px;
+  background:#fbfcff;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.oum-dashboard .compiler-card h3,
+.oum-dashboard .compiler-card p {margin:0}
+
+.oum-dashboard .compiler-card h3 {
+  font-size:16px;
+}
+
+.oum-dashboard .compiler-card p {
+  font-size:12px;
+}
+
+.oum-dashboard .compiler-icon {
+  width:47px;
+  height:47px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:#eaf1ff;
+  color:var(--sd-blue);
+  font-size:14px;
+  font-weight:850;
+}
+
+.oum-dashboard .python-icon {
+  background:#fff3df;
+  color:#a66a0b;
+}
+
+.oum-dashboard .compiler-status {
+  color:#23845a;
+  font-size:11px;
+  font-weight:700;
+  margin-top:auto;
+}
+
+.oum-dashboard .compiler-empty {
+  grid-column:1/-1;
+  padding:22px;
+  border:1px dashed #cbd7ea;
+  border-radius:12px;
+  background:#fafcff;
+}
+
+.oum-dashboard .dash-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.oum-dashboard .dash-title h3 {margin:0}
+
+.oum-dashboard .text-link {
+  color:var(--sd-blue);
+  font-size:12px;
+  font-weight:750;
+}
+
+.oum-dashboard .course-row {
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:16px;
+  margin:10px 0;
+  border:1px solid var(--sd-border);
+  border-radius:11px;
+  background:#fff;
+}
+
+.oum-dashboard .mini-icon {
+  width:43px;
+  height:43px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#eaf1ff;
+  color:var(--sd-blue);
+  font-size:12px;
+  font-weight:850;
+}
+
+.oum-dashboard .mini-icon.py,
+.oum-dashboard .mini-icon.java {background:#fff3df;color:#a66a0b}
+
+.oum-dashboard .mini-icon.cloud,
+.oum-dashboard .mini-icon.snow {background:#e9f8f4;color:#167b69}
+
+.oum-dashboard .row-info {
+  min-width:0;
+  flex:1;
+}
+
+.oum-dashboard .row-info b {
+  display:block;
+  color:var(--sd-navy);
+  font-size:13px;
+}
+
+.oum-dashboard .row-info small {
+  display:block;
+  margin-top:5px;
+  color:var(--sd-muted);
+  font-size:11px;
+}
+
+.oum-dashboard .progress {
+  height:6px;
+  margin-top:9px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#e9edf5;
+}
+
+.oum-dashboard .progress div {
+  height:100%;
+  border-radius:20px;
+  background:var(--sd-blue);
+}
+
+.oum-dashboard .course-row > strong {
+  color:var(--sd-blue);
+  font-size:12px;
+}
+
+/* LESSONS */
+
+.oum-dashboard .course-folder {
+  display:none;
+  margin-top:18px;
+  border:1px solid var(--sd-border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.oum-dashboard .folder-title {
+  padding:16px;
+  background:#f5f8ff;
+  color:var(--sd-navy);
+  font-weight:800;
+}
+
+.oum-dashboard .day-folder {
+  padding:16px;
+  border-top:1px solid var(--sd-border);
+}
+
+.oum-dashboard .day-title {
+  color:var(--sd-navy);
+  font-weight:750;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.oum-dashboard .lesson-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.oum-dashboard .lesson-name {
+  color:var(--sd-text);
+  font-size:13px;
+  font-weight:650;
+}
+
+.oum-dashboard .assignment-box {
+  margin-top:20px;
+  padding:23px;
+  border:1px solid var(--sd-border);
+  border-radius:13px;
+  background:#fff;
+}
+
+.oum-dashboard .assignment-box h3 {
+  margin-top:0;
+  color:var(--sd-navy);
+}
+
+.oum-dashboard .assignment-box p {
+  color:var(--sd-muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.oum-dashboard .video-area {
+  margin-top:22px;
+}
+
+.oum-dashboard .video-area video {
+  display:block;
+  width:100%;
+  max-width:850px;
+  border-radius:12px;
+  background:#101827;
+}
+
+.oum-dashboard #videoProgressText {
+  color:var(--sd-blue);
+  font-size:12px;
+  font-weight:700;
+}
+
+.oum-dashboard .question {
+  margin:16px 0;
+  padding:17px;
+  border:1px solid var(--sd-border);
+  border-radius:10px;
+  background:#fbfcff;
+}
+
+.oum-dashboard .question strong {
+  display:block;
+  color:var(--sd-navy);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.oum-dashboard .question label {
+  display:block;
+  margin:11px 0;
+  color:#536078;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.oum-dashboard .question input {
+  accent-color:var(--sd-blue);
+  margin-right:7px;
+}
+
+.oum-dashboard #assignmentSection {
+  display:block;
+  width:min(100% - 40px,1050px);
+  margin:28px auto 36px;
+  padding:25px;
+  border:1px solid var(--sd-border);
+  border-radius:14px;
+  background:#fff;
+  color:var(--sd-text);
+  box-shadow:0 5px 20px rgba(20,35,65,.035);
+}
+
+.oum-dashboard #assignmentSection.hidden {display:none!important}
+
+.oum-dashboard .result-box {
+  display:none;
+  margin-top:20px;
+  padding:18px;
+  border-radius:10px;
+}
+
+.oum-dashboard .pass-box {
+  border:1px solid #9bd7b7;
+  background:#effaf4;
+}
+
+.oum-dashboard .fail-box {
+  border:1px solid #efb1b1;
+  background:#fff3f3;
+}
+
+.oum-dashboard .certificate-btn {
+  display:inline-flex;
+  margin-top:12px;
+  padding:12px 19px;
+  border-radius:9px;
+  background:var(--sd-blue);
+  color:#fff;
+  font-size:13px;
+  font-weight:750;
+}
+
+.oum-dashboard .retry-btn {margin-top:12px}
+
+.oum-dashboard #studentSupportBtn {
+  display:inline-block;
+  margin:16px 0;
+  padding:12px 19px;
+  border-radius:9px;
+  background:#16885b!important;
+  color:#fff!important;
+  font-size:12px;
+  font-weight:750;
+}
+
+/* FOOTER & TOAST */
+
+.oum-dashboard footer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:18px;
+  padding:25px 5%;
+  background:#fff;
+  border-top:1px solid var(--sd-border);
+  color:var(--sd-muted);
+  font-size:12px;
+}
+
+.oum-dashboard footer .brand {
+  font-size:15px;
+}
+
+.oum-dashboard footer .brand-mark {
+  width:30px;
+  height:30px;
+  font-size:14px;
+}
+
+.oum-dashboard footer a {
+  margin-left:15px;
+  color:#536078;
+  font-weight:650;
+}
+
+.oum-dashboard footer a:hover {color:var(--sd-blue)}
+
+.oum-dashboard .toast {
+  display:none;
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:999;
+  padding:13px 20px;
+  border-radius:10px;
+  background:#14213d;
+  color:#fff;
+  font-size:13px;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px) {
+  .oum-dashboard .navbar nav {gap:14px}
+  .oum-dashboard .dashboard {grid-template-columns:220px minmax(0,1fr)}
+  .oum-dashboard .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:760px) {
+  .oum-dashboard .navbar {
+    position:relative;
+    flex-wrap:wrap;
+    padding:13px 5%;
+    gap:12px;
   }
-  
-  .compiler-card {
-    padding: 22px;
-    border-radius: 14px;
-    border: 1px solid rgba(232, 189, 88, 0.25);
-    background: linear-gradient(145deg, #171b25, #101018);
-    color: #f4f4f5;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+
+  .oum-dashboard .navbar nav {
+    order:3;
+    width:100%;
+    overflow-x:auto;
+    padding:8px 0 3px;
+    gap:20px;
   }
-  
-  .compiler-card h3,
-  .compiler-card p {
-    margin: 0;
+
+  .oum-dashboard .navbar nav a {white-space:nowrap}
+
+  .oum-dashboard .brand {font-size:16px}
+
+  .oum-dashboard .nav-actions {margin-left:auto}
+
+  .oum-dashboard .dashboard {grid-template-columns:1fr}
+
+  .oum-dashboard .sidebar {
+    position:relative;
+    top:auto;
   }
-  
-  .compiler-card p {
-    color: #a7adbb;
-    line-height: 1.7;
-  }
-  
-  .compiler-icon {
-    width: 52px;
-    height: 52px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 800;
-  }
-  
-  .sql-icon {
-    background: #302817;
-    color: #e8bd58;
-  }
-  
-  .python-icon {
-    background: #173528;
-    color: #7fe0a0;
-  }
-  
-  .compiler-status {
-    color: #9ee6b0;
-    font-size: 12px;
-    margin-top: auto;
-  }
-  
-  .compiler-card .btn {
-    margin-top: 5px;
-  }
-  
-  .compiler-empty {
-    grid-column: 1 / -1;
-    padding: 22px;
-    border: 1px dashed #8a7137;
-    border-radius: 12px;
-  }
-  
-  @media (max-width: 700px) {
-    .compiler-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-    /* Dashboard additions - existing theme preserved */
 
-    .learning-box {
-      margin-top: 24px;
-      padding: 24px;
-      border-radius: 14px;
-      background: var(--card, #ffffff);
-      border: 1px solid rgba(0,0,0,.08);
-    }
+  .oum-dashboard .section {padding:28px 4% 45px}
 
-    .learning-box h3 {
-      margin-top: 0;
-    }
+  .oum-dashboard .section-heading h2 {font-size:27px}
 
-    .course-folder {
-      margin-top: 18px;
-      border: 1px solid rgba(0,0,0,.10);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+  .oum-dashboard .welcome {padding:22px}
 
-    .folder-title {
-      padding: 16px 18px;
-      font-weight: 700;
-      background: rgba(0,0,0,.03);
-    }
+  .oum-dashboard .welcome h3 {font-size:19px}
+}
 
-    .day-folder {
-      border-top: 1px solid rgba(0,0,0,.08);
-      padding: 15px 18px;
-    }
-
-    .day-title {
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .lesson-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 10px 0;
-    }
-
-    .lesson-name {
-      font-weight: 600;
-    }
-
-    .video-area {
-      margin-top: 20px;
-    }
-
-    .video-area video {
-      width: 100%;
-      max-width: 850px;
-      border-radius: 12px;
-      display: block;
-    }
-
-    .assignment-box {
-      margin-top: 22px;
-      padding: 22px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,.08);
-      background: #ffffff;
-    }
-
-    /* Clean assessment view: no large coloured/blue course container */
-    /* Assignment is a separate white panel below the blue course container. */
-    #assignmentSection {
-      width: 100%;
-      box-sizing: border-box;
-      margin-top: 18px;
-      background: #ffffff;
-      border: 1px solid #e7ebf2;
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-    }
-
-    /* Keep assignment fully outside the dashboard box, directly above footer. */
-    #assignmentSection {
-      display: block;
-      width: min(100% - 40px, 1050px);
-      margin: 28px auto 36px;
-      background: #fff;
-      color: var(--text, #172033);
-      border: 1px solid #e7ebf2;
-      border-radius: 14px;
-      padding: 24px;
-      box-sizing: border-box;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-    }
-    #assignmentSection.hidden { display: none !important; }
-
-    #assignmentSection > h3 {
-      margin-top: 0;
-      color: var(--text, #172033);
-    }
-    #assignmentSection > p {
-      color: var(--muted, #64748b);
-      line-height: 1.65;
-    }
-    #assignmentSection .question {
-      background: #fbfcfe;
-      border: 1px solid #e8edf4;
-    }
-
-    .question {
-      margin: 18px 0;
-      padding: 15px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.08);
-    }
-
-    .question label {
-      display: block;
-      margin: 8px 0;
-      cursor: pointer;
-    }
-
-    .result-box {
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 10px;
-      display: none;
-    }
-
-    .pass-box {
-      border: 1px solid #3a8f5b;
-      background: rgba(58,143,91,.08);
-    }
-
-    .fail-box {
-      border: 1px solid #b84a4a;
-      background: rgba(184,74,74,.08);
-    }
-
-    .certificate-btn {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      background: #111;
-      color: #fff;
-    }
-
-    .retry-btn {
-      margin-top: 14px;
-    }
-
-    /* Course folders inside existing sidebar; preserve original theme */
-    .sidebar { min-width: 245px; box-sizing: border-box; }
-    .course-file-tree { display:none; width:100%; max-width:100%; box-sizing:border-box; overflow:hidden; margin:6px 0 14px 0; padding:10px 6px; border-left:1px solid rgba(255,255,255,.28); font-size:13px; }
-    .course-file-tree.open { display:block; }
-    .course-file-tree .tree-row { display:flex; align-items:center; gap:8px; width:100%; max-width:100%; box-sizing:border-box; padding:9px 8px; margin:2px 0; border:0; border-radius:7px; background:transparent; color:inherit; text-align:left; font:inherit; cursor:pointer; white-space:normal; overflow-wrap:anywhere; }
-    .course-file-tree .tree-row:hover { background:rgba(255,255,255,.13); }
-    .course-file-tree .tree-nested { padding-left:8px; }
-    .course-file-tree .tree-file { padding-left:30px; }
-    .course-file-tree .tree-assessment { margin-top:8px; }
-    .course-folder { display:none; }
-    .hidden {
-      display: none !important;
-    }
-  </style>
+@media(max-width:520px) {
+  .oum-dashboard .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .oum-dashboard .metric {padding:14px}
+  .oum-dashboard .metric strong {font-size:24px}
+  .oum-dashboard .compiler-grid {grid-template-columns:1fr}
+  .oum-dashboard .learning-box,
+  .oum-dashboard .my-courses {padding:18px}
+  .oum-dashboard .course-row {padding:12px;gap:10px}
+  .oum-dashboard .row-info b {font-size:12px}
+  .oum-dashboard .lesson-row {align-items:flex-start;flex-direction:column}
+  .oum-dashboard #assignmentSection {width:92%;padding:17px}
+  .oum-dashboard footer {flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 
 <body class="oum-dashboard">
+
 <header class="navbar">
   <a class="brand" href="index.html">
-    <span class="brand-mark">O</span> OneUmmah Data Skills
+    <span class="brand-mark">O</span>
+    OneUmmah Data Skills
   </a>
 
   <nav>
@@ -277,9 +849,7 @@
   </div>
 </header>
 
-
 <main>
-
 <section class="section">
 
   <div class="section-heading">
@@ -289,7 +859,6 @@
     </div>
   </div>
 
-
   <div class="dashboard">
 
     <!-- SIDEBAR -->
@@ -297,7 +866,6 @@
 
       <div class="student">
         <div class="avatar" id="dashAvatar">K</div>
-
         <div>
           <b id="dashName">Student</b>
           <small id="dashEmail">Learning Account</small>
@@ -306,48 +874,56 @@
 
       <a class="side-active">▦ Overview</a>
 
-      <a href="#myCoursesSection" id="myCoursesNav" onclick="toggleCourseTree(event)">▣ My Courses</a>
+      <a href="#myCoursesSection" id="myCoursesNav"
+         onclick="toggleCourseTree(event)">▣ My Courses</a>
+
       <div class="course-file-tree" id="courseFileTree" aria-label="Course files">
-        <button type="button" class="tree-row" onclick="toggleDayOneFolder()"><span id="dayOneFolderIcon">📁</span>Day 1</button>
+
+        <button type="button" class="tree-row" onclick="toggleDayOneFolder()">
+          <span id="dayOneFolderIcon">📁</span> Day 1
+        </button>
+
         <div id="dayOneFiles" class="hidden">
-          <button type="button" class="tree-row tree-file" onclick="openSQLVideoFromTree()">🎬 SQL Introduction.mp4</button>
+          <button type="button" class="tree-row tree-file"
+                  onclick="openSQLVideoFromTree()">
+            🎬 SQL Introduction.mp4
+          </button>
         </div>
-        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 2','SQL Basics')">📁 Day 2</button>
-        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 3','SQL Queries')">📁 Day 3</button>
-        <button type="button" class="tree-row" onclick="showDayPlaceholder('Day 4','SQL Practice')">📁 Day 4</button>
+
+        <button type="button" class="tree-row"
+                onclick="showDayPlaceholder('Day 2','SQL Basics')">
+          📁 Day 2
+        </button>
+
+        <button type="button" class="tree-row"
+                onclick="showDayPlaceholder('Day 3','SQL Queries')">
+          📁 Day 3
+        </button>
+
+        <button type="button" class="tree-row"
+                onclick="showDayPlaceholder('Day 4','SQL Practice')">
+          📁 Day 4
+        </button>
       </div>
 
       <a href="#videoSection" onclick="openVideoFromSidebar(event)">▶ Video Player</a>
-
       <a href="#assignmentSection" onclick="openAssessmentFromSidebar(event)">✓ Assignments</a>
-
       <a href="#projectsSection" onclick="openProjectsFromSidebar(event)">◆ Projects</a>
-
       <a href="#certificateSection" onclick="openCertificateFromSidebar(event)">♜ Certificates</a>
-
       <a href="payments.html">₹ Payments</a>
-
       <a>⚙ Profile</a>
 
     </aside>
-
 
     <!-- MAIN DASHBOARD -->
     <div class="dash-main">
 
       <div class="welcome">
-
         <div>
           <span class="eyebrow">YOUR PROGRESS</span>
-
-          <h3 id="dashWelcome">
-            Keep going — you're making progress.
-          </h3>
+          <h3 id="dashWelcome">Keep going — you're making progress.</h3>
         </div>
-
-
       </div>
-
 
       <!-- METRICS -->
       <div class="metric-grid">
@@ -355,9 +931,7 @@
         <div class="metric">
           <span>Active Courses</span>
           <strong id="metricActive">0</strong>
-          <small id="metricActiveSub">
-            Browse courses to enroll
-          </small>
+          <small id="metricActiveSub">Browse courses to enroll</small>
         </div>
 
         <div class="metric">
@@ -387,10 +961,9 @@
         <p class="muted">
           Choose your enrolled course and practise directly in your browser.
         </p>
-      
+
         <div class="compiler-grid">
-      
-          <!-- SQL COMPILER -->
+
           <div class="compiler-card hidden" id="sqlCompilerCard">
             <div class="compiler-icon sql-icon">SQL</div>
             <h3>SQL Practice Lab</h3>
@@ -400,8 +973,7 @@
               Open SQL Compiler →
             </a>
           </div>
-      
-          <!-- PYTHON COMPILER -->
+
           <div class="compiler-card hidden" id="pythonCompilerCard">
             <div class="compiler-icon python-icon">Py</div>
             <h3>Python Coding Lab</h3>
@@ -411,161 +983,89 @@
               Open Python Compiler →
             </a>
           </div>
-      
-          <!-- NO ENROLLMENT -->
+
           <div id="noCompilerMessage" class="compiler-empty hidden">
             <h3>Start Your Learning Journey</h3>
             <p>Enroll in SQL or Python to unlock your coding workspace.</p>
-            <a href="courses.html" class="btn btn-primary">
-              Explore Courses →
-            </a>
+            <a href="courses.html" class="btn btn-primary">Explore Courses →</a>
           </div>
-      
+
         </div>
       </div>
 
       <!-- MY COURSES -->
       <div class="my-courses hidden" id="myCoursesSection">
-
         <div class="dash-title">
           <h3>My Courses</h3>
-          <a class="text-link" href="courses.html">
-            Browse more →
-          </a>
+          <a class="text-link" href="courses.html">Browse more →</a>
         </div>
 
         <div id="myCoursesList"></div>
-        
+
         <a id="studentSupportBtn"
            href="https://wa.me/916360846480?text=Hi%2C%20I%20am%20an%20enrolled%20student%20at%20OneUmmah%20Data%20Skills.%20I%20need%20student%20support."
            target="_blank"
-           rel="noopener noreferrer"
-           style="display:none; margin:16px 0; padding:12px 20px; background:#25D366; color:white; border-radius:25px; text-decoration:none; font-weight:bold;">
-           💬 Student Support on WhatsApp
+           rel="noopener noreferrer">
+          💬 Student Support on WhatsApp
         </a>
-
-
       </div>
-
 
       <!-- SQL LEARNING AREA -->
       <div id="sqlLearningArea" class="learning-box hidden">
 
         <h3>Master SQL</h3>
-
-        <p>
-          Your enrolled SQL course content.
-        </p>
+        <p>Your enrolled SQL course content.</p>
 
         <div id="lessonPlaceholder" class="assignment-box hidden"></div>
 
-
-        <!-- COURSE FOLDERS -->
         <div class="course-folder">
 
-          <div class="folder-title">
-            📁 Master SQL
-          </div>
+          <div class="folder-title">📁 Master SQL</div>
 
-
-          <!-- DAY 1 -->
           <div class="day-folder">
-
-            <div class="day-title">
-              📂 Day 1
-            </div>
-
+            <div class="day-title">📂 Day 1</div>
             <div class="lesson-row">
-
-              <div class="lesson-name">
-                🎬 SQL Introduction
-              </div>
-
-              <button
-                class="btn btn-primary"
-                onclick="openSQLVideo()">
+              <div class="lesson-name">🎬 SQL Introduction</div>
+              <button class="btn btn-primary" onclick="openSQLVideo()">
                 Start Learning
               </button>
-
             </div>
-
           </div>
 
-
-          <!-- DAY 2 -->
           <div class="day-folder">
-
-            <div class="day-title">
-              📂 Day 2
-            </div>
-
-            <div class="lesson-name">
-              SQL Basics
-            </div>
-
+            <div class="day-title">📂 Day 2</div>
+            <div class="lesson-name">SQL Basics</div>
           </div>
 
-
-          <!-- DAY 3 -->
           <div class="day-folder">
-
-            <div class="day-title">
-              📂 Day 3
-            </div>
-
-            <div class="lesson-name">
-              SQL Queries
-            </div>
-
+            <div class="day-title">📂 Day 3</div>
+            <div class="lesson-name">SQL Queries</div>
           </div>
 
-
-          <!-- DAY 4 -->
           <div class="day-folder">
-
-            <div class="day-title">
-              📂 Day 4
-            </div>
-
-            <div class="lesson-name">
-              SQL Practice
-            </div>
-
+            <div class="day-title">📂 Day 4</div>
+            <div class="lesson-name">SQL Practice</div>
           </div>
 
         </div>
 
-
         <!-- VIDEO PLAYER -->
-        <div
-          id="videoSection"
-          class="video-area hidden">
-
+        <div id="videoSection" class="video-area hidden">
           <h3>SQL Introduction</h3>
 
-          <video
-            id="sqlVideo"
-            controls
-            preload="metadata">
-
-            <source
-              src="./sql-course.mp4"
-              type="video/mp4">
-
+          <video id="sqlVideo" controls preload="metadata">
+            <source src="./sql-course.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
           </video>
 
-          <p id="videoProgressText">
-            Progress: 0%
-          </p>
-
+          <p id="videoProgressText">Progress: 0%</p>
         </div>
-
 
         <!-- PROJECTS -->
         <div id="projectsSection" class="assignment-box hidden">
           <h3>◆ SQL Projects</h3>
           <p>Your practical SQL project files will appear here.</p>
+
           <div class="question">
             <strong>Project 1: Student Database Management</strong>
             <p>Practice creating tables, inserting records, and writing SELECT queries.</p>
@@ -574,587 +1074,334 @@
         </div>
 
         <!-- CERTIFICATE -->
-        <div
-          id="certificateSection"
-          class="assignment-box hidden">
-
+        <div id="certificateSection" class="assignment-box hidden">
           <h3>♜ Certificate</h3>
+          <p>Congratulations! You have successfully passed the SQL Assignment.</p>
+          <p>Your score is 80% or above.</p>
 
-          <p>
-            Congratulations! You have successfully
-            passed the SQL Assignment.
-          </p>
-
-          <p>
-            Your score is 80% or above.
-          </p>
-
-          <a
-            href="ODS_WEB.html"
-            target="_blank"
-            class="certificate-btn">
-
+          <a href="ODS_WEB.html" target="_blank" class="certificate-btn">
             Generate SQL Certificate
           </a>
-
         </div>
 
       </div>
 
-
-
-
-
     </div>
-
   </div>
-
-
 </section>
-
 </main>
 
-
-<!-- SQL ASSIGNMENT: standalone section above the footer, outside the dashboard box -->
-<!-- ASSIGNMENT: separate white section below the dashboard/sidebar -->
-        <!-- ASSIGNMENT -->
-        <div
-          id="assignmentSection"
-          class="assignment-box hidden">
-
-          <h3>✓ SQL Assignment</h3>
-
-          <p>
-            Complete all 10 questions.
-            You need <strong>80% or above</strong>
-            to pass and unlock the certificate.
-          </p>
-
-
-          <form id="sqlAssignmentForm">
-
-
-            <!-- Q1 -->
-            <div class="question">
-
-              <strong>1. Which SQL command is used to retrieve data?</strong>
-
-              <label>
-                <input type="radio" name="q1" value="A">
-                INSERT
-              </label>
-
-              <label>
-                <input type="radio" name="q1" value="B">
-                SELECT
-              </label>
-
-              <label>
-                <input type="radio" name="q1" value="C">
-                DELETE
-              </label>
-
-              <label>
-                <input type="radio" name="q1" value="D">
-                UPDATE
-              </label>
-
-            </div>
-
-
-            <!-- Q2 -->
-            <div class="question">
-
-              <strong>2. Which clause is used to filter rows?</strong>
-
-              <label>
-                <input type="radio" name="q2" value="A">
-                ORDER BY
-              </label>
-
-              <label>
-                <input type="radio" name="q2" value="B">
-                GROUP BY
-              </label>
-
-              <label>
-                <input type="radio" name="q2" value="C">
-                WHERE
-              </label>
-
-              <label>
-                <input type="radio" name="q2" value="D">
-                JOIN
-              </label>
-
-            </div>
-
-
-            <!-- Q3 -->
-            <div class="question">
-
-              <strong>3. Which clause sorts SQL results?</strong>
-
-              <label>
-                <input type="radio" name="q3" value="A">
-                ORDER BY
-              </label>
-
-              <label>
-                <input type="radio" name="q3" value="B">
-                WHERE
-              </label>
-
-              <label>
-                <input type="radio" name="q3" value="C">
-                INSERT
-              </label>
-
-              <label>
-                <input type="radio" name="q3" value="D">
-                DELETE
-              </label>
-
-            </div>
-
-
-            <!-- Q4 -->
-            <div class="question">
-
-              <strong>4. Which clause groups rows?</strong>
-
-              <label>
-                <input type="radio" name="q4" value="A">
-                WHERE
-              </label>
-
-              <label>
-                <input type="radio" name="q4" value="B">
-                GROUP BY
-              </label>
-
-              <label>
-                <input type="radio" name="q4" value="C">
-                ORDER BY
-              </label>
-
-              <label>
-                <input type="radio" name="q4" value="D">
-                SELECT
-              </label>
-
-            </div>
-
-
-            <!-- Q5 -->
-            <div class="question">
-
-              <strong>5. Which SQL operation combines data from tables?</strong>
-
-              <label>
-                <input type="radio" name="q5" value="A">
-                JOIN
-              </label>
-
-              <label>
-                <input type="radio" name="q5" value="B">
-                DELETE
-              </label>
-
-              <label>
-                <input type="radio" name="q5" value="C">
-                UPDATE
-              </label>
-
-              <label>
-                <input type="radio" name="q5" value="D">
-                DROP
-              </label>
-
-            </div>
-
-
-            <!-- Q6 -->
-            <div class="question">
-
-              <strong>6. Which function counts rows?</strong>
-
-              <label>
-                <input type="radio" name="q6" value="A">
-                SUM()
-              </label>
-
-              <label>
-                <input type="radio" name="q6" value="B">
-                COUNT()
-              </label>
-
-              <label>
-                <input type="radio" name="q6" value="C">
-                AVG()
-              </label>
-
-              <label>
-                <input type="radio" name="q6" value="D">
-                MAX()
-              </label>
-
-            </div>
-
-
-            <!-- Q7 -->
-            <div class="question">
-
-              <strong>7. Which keyword removes duplicate values?</strong>
-
-              <label>
-                <input type="radio" name="q7" value="A">
-                UNIQUE
-              </label>
-
-              <label>
-                <input type="radio" name="q7" value="B">
-                DISTINCT
-              </label>
-
-              <label>
-                <input type="radio" name="q7" value="C">
-                DIFFERENT
-              </label>
-
-              <label>
-                <input type="radio" name="q7" value="D">
-                REMOVE
-              </label>
-
-            </div>
-
-
-            <!-- Q8 -->
-            <div class="question">
-
-              <strong>8. Which command adds new rows?</strong>
-
-              <label>
-                <input type="radio" name="q8" value="A">
-                UPDATE
-              </label>
-
-              <label>
-                <input type="radio" name="q8" value="B">
-                INSERT
-              </label>
-
-              <label>
-                <input type="radio" name="q8" value="C">
-                SELECT
-              </label>
-
-              <label>
-                <input type="radio" name="q8" value="D">
-                ALTER
-              </label>
-
-            </div>
-
-
-            <!-- Q9 -->
-            <div class="question">
-
-              <strong>9. Which command changes existing data?</strong>
-
-              <label>
-                <input type="radio" name="q9" value="A">
-                UPDATE
-              </label>
-
-              <label>
-                <input type="radio" name="q9" value="B">
-                SELECT
-              </label>
-
-              <label>
-                <input type="radio" name="q9" value="C">
-                CREATE
-              </label>
-
-              <label>
-                <input type="radio" name="q9" value="D">
-                INSERT
-              </label>
-
-            </div>
-
-
-            <!-- Q10 -->
-            <div class="question">
-
-              <strong>10. Which command removes rows?</strong>
-
-              <label>
-                <input type="radio" name="q10" value="A">
-                DELETE
-              </label>
-
-              <label>
-                <input type="radio" name="q10" value="B">
-                SELECT
-              </label>
-
-              <label>
-                <input type="radio" name="q10" value="C">
-                INSERT
-              </label>
-
-              <label>
-                <input type="radio" name="q10" value="D">
-                UPDATE
-              </label>
-
-            </div>
-
-
-            <button
-              type="submit"
-              class="btn btn-primary">
-              Submit Assignment
-            </button>
-
-          </form>
-
-
-          <!-- RESULT -->
-          <div
-            id="assignmentResult"
-            class="result-box">
-
-          </div>
-
-        </div>
+<!-- SQL ASSIGNMENT -->
+<div id="assignmentSection" class="assignment-box hidden">
+
+  <h3>✓ SQL Assignment</h3>
+
+  <p>
+    Complete all 10 questions.
+    You need <strong>80% or above</strong>
+    to pass and unlock the certificate.
+  </p>
+
+  <form id="sqlAssignmentForm">
+
+    <div class="question">
+      <strong>1. Which SQL command is used to retrieve data?</strong>
+      <label><input type="radio" name="q1" value="A"> INSERT</label>
+      <label><input type="radio" name="q1" value="B"> SELECT</label>
+      <label><input type="radio" name="q1" value="C"> DELETE</label>
+      <label><input type="radio" name="q1" value="D"> UPDATE</label>
+    </div>
+
+    <div class="question">
+      <strong>2. Which clause is used to filter rows?</strong>
+      <label><input type="radio" name="q2" value="A"> ORDER BY</label>
+      <label><input type="radio" name="q2" value="B"> GROUP BY</label>
+      <label><input type="radio" name="q2" value="C"> WHERE</label>
+      <label><input type="radio" name="q2" value="D"> JOIN</label>
+    </div>
+
+    <div class="question">
+      <strong>3. Which clause sorts SQL results?</strong>
+      <label><input type="radio" name="q3" value="A"> ORDER BY</label>
+      <label><input type="radio" name="q3" value="B"> WHERE</label>
+      <label><input type="radio" name="q3" value="C"> INSERT</label>
+      <label><input type="radio" name="q3" value="D"> DELETE</label>
+    </div>
+
+    <div class="question">
+      <strong>4. Which clause groups rows?</strong>
+      <label><input type="radio" name="q4" value="A"> WHERE</label>
+      <label><input type="radio" name="q4" value="B"> GROUP BY</label>
+      <label><input type="radio" name="q4" value="C"> ORDER BY</label>
+      <label><input type="radio" name="q4" value="D"> SELECT</label>
+    </div>
+
+    <div class="question">
+      <strong>5. Which SQL operation combines data from tables?</strong>
+      <label><input type="radio" name="q5" value="A"> JOIN</label>
+      <label><input type="radio" name="q5" value="B"> DELETE</label>
+      <label><input type="radio" name="q5" value="C"> UPDATE</label>
+      <label><input type="radio" name="q5" value="D"> DROP</label>
+    </div>
+
+    <div class="question">
+      <strong>6. Which function counts rows?</strong>
+      <label><input type="radio" name="q6" value="A"> SUM()</label>
+      <label><input type="radio" name="q6" value="B"> COUNT()</label>
+      <label><input type="radio" name="q6" value="C"> AVG()</label>
+      <label><input type="radio" name="q6" value="D"> MAX()</label>
+    </div>
+
+    <div class="question">
+      <strong>7. Which keyword removes duplicate values?</strong>
+      <label><input type="radio" name="q7" value="A"> UNIQUE</label>
+      <label><input type="radio" name="q7" value="B"> DISTINCT</label>
+      <label><input type="radio" name="q7" value="C"> DIFFERENT</label>
+      <label><input type="radio" name="q7" value="D"> REMOVE</label>
+    </div>
+
+    <div class="question">
+      <strong>8. Which command adds new rows?</strong>
+      <label><input type="radio" name="q8" value="A"> UPDATE</label>
+      <label><input type="radio" name="q8" value="B"> INSERT</label>
+      <label><input type="radio" name="q8" value="C"> SELECT</label>
+      <label><input type="radio" name="q8" value="D"> ALTER</label>
+    </div>
+
+    <div class="question">
+      <strong>9. Which command changes existing data?</strong>
+      <label><input type="radio" name="q9" value="A"> UPDATE</label>
+      <label><input type="radio" name="q9" value="B"> SELECT</label>
+      <label><input type="radio" name="q9" value="C"> CREATE</label>
+      <label><input type="radio" name="q9" value="D"> INSERT</label>
+    </div>
+
+    <div class="question">
+      <strong>10. Which command removes rows?</strong>
+      <label><input type="radio" name="q10" value="A"> DELETE</label>
+      <label><input type="radio" name="q10" value="B"> SELECT</label>
+      <label><input type="radio" name="q10" value="C"> INSERT</label>
+      <label><input type="radio" name="q10" value="D"> UPDATE</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Submit Assignment
+    </button>
+
+  </form>
+
+  <div id="assignmentResult" class="result-box"></div>
+</div>
 
 <footer>
-
   <div class="brand">
     <span class="brand-mark">O</span>
     OneUmmah Data Skills
   </div>
 
-  <span>
-    © 2026 Technical Learning Platform
-  </span>
+  <span>© 2026 Technical Learning Platform</span>
 
   <div>
     <a href="courses.html">Courses</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="login.html">Login</a>
   </div>
-
 </footer>
-
 
 <div id="toast" class="toast"></div>
 
-
 <script src="script.js"></script>
 
-
 <script>
+/* -----------------------------------
+   ENROLLED COURSES
+----------------------------------- */
 
-  /* -----------------------------------
-     ENROLLED COURSES
-  ----------------------------------- */
+function toggleCourseTree(event) {
+  if (event) event.preventDefault();
 
-  function toggleCourseTree(event) {
-    if (event) event.preventDefault();
-    const tree = document.getElementById("courseFileTree");
-    const opening = !tree.classList.contains("open");
+  const tree = document.getElementById("courseFileTree");
+  const opening = !tree.classList.contains("open");
 
-    // My Courses click shows ONLY the day/file list in the blue sidebar.
-    // Never show a separate My Courses card or Continue Learning card.
-    tree.classList.toggle("open", opening);
-    document.getElementById("myCoursesSection").classList.toggle("hidden", !opening);
-    if (opening) document.getElementById("myCoursesSection").scrollIntoView({ behavior: "smooth", block: "start" });    document.getElementById("sqlLearningArea").classList.add("hidden");
-    document.getElementById("videoSection").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
-    document.getElementById("certificateSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
+  tree.classList.toggle("open", opening);
 
-    if (!opening) {
-      document.getElementById("dayOneFiles").classList.add("hidden");
-      document.getElementById("dayOneFolderIcon").textContent = "📁";
-    }
+  document.getElementById("myCoursesSection")
+    .classList.toggle("hidden", !opening);
+
+  if (opening) {
+    document.getElementById("myCoursesSection")
+      .scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  function closeCourseTree() {
-    document.getElementById("courseFileTree").classList.remove("open");
+  document.getElementById("sqlLearningArea").classList.add("hidden");
+  document.getElementById("videoSection").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.add("hidden");
+  document.getElementById("certificateSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+
+  if (!opening) {
     document.getElementById("dayOneFiles").classList.add("hidden");
     document.getElementById("dayOneFolderIcon").textContent = "📁";
   }
+}
 
-  function openAssessmentFromSidebar(event) {
-    if (event) event.preventDefault();
-    closeCourseTree();
-    openAssessmentFromTree();
-  }
+function closeCourseTree() {
+  document.getElementById("courseFileTree").classList.remove("open");
+  document.getElementById("dayOneFiles").classList.add("hidden");
+  document.getElementById("dayOneFolderIcon").textContent = "📁";
+}
 
-  function toggleDayOneFolder() {
-    const el = document.getElementById("dayOneFiles");
-    el.classList.toggle("hidden");
-    document.getElementById("dayOneFolderIcon").textContent = el.classList.contains("hidden") ? "📁" : "📂";
-  }
+function openAssessmentFromSidebar(event) {
+  if (event) event.preventDefault();
+  closeCourseTree();
+  openAssessmentFromTree();
+}
 
-  function openSQLVideoFromTree() {
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.remove("hidden");
-    openSQLVideo();
-  }
+function toggleDayOneFolder() {
+  const el = document.getElementById("dayOneFiles");
+  el.classList.toggle("hidden");
+  document.getElementById("dayOneFolderIcon").textContent =
+    el.classList.contains("hidden") ? "📁" : "📂";
+}
 
-  function showDayPlaceholder(day, title) {
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
-    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-    document.getElementById("videoSection").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
-    document.getElementById("certificateSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    const placeholder = document.getElementById("lessonPlaceholder");
-    placeholder.classList.remove("hidden");
-    placeholder.innerHTML = "<h3>" + day + " — " + title + "</h3><p>Lesson content will appear here when you add this lesson's file.</p>";
-    placeholder.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+function openSQLVideoFromTree() {
+  document.getElementById("sqlLearningArea").classList.remove("hidden");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.remove("hidden");
+  openSQLVideo();
+}
 
-  function openAssessmentFromTree() {
-    // Keep the assignment outside the dashboard/sidebar container.
-    document.getElementById("sqlLearningArea").classList.add("hidden");
-    document.getElementById("myCoursesSection").classList.add("hidden");
-    document.getElementById("videoSection").classList.add("hidden");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
-    document.getElementById("certificateSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.remove("hidden");
-    const section = document.getElementById("assignmentSection");
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+function showDayPlaceholder(day, title) {
+  document.getElementById("sqlLearningArea").classList.remove("hidden");
+  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
+  document.getElementById("videoSection").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.add("hidden");
+  document.getElementById("certificateSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
 
-  function openCertificateFromTree() {
-    closeCourseTree();
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
-    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-    document.getElementById("videoSection").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
-    const section = document.getElementById("certificateSection");
-    section.classList.remove("hidden");
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  const placeholder = document.getElementById("lessonPlaceholder");
+  placeholder.classList.remove("hidden");
+  placeholder.innerHTML =
+    "<h3>" + day + " — " + title + "</h3>" +
+    "<p>Lesson content will appear here when you add this lesson's file.</p>";
 
-  function hideDashboardContentSections() {
-    const learningArea = document.getElementById("sqlLearningArea");
-    learningArea.classList.remove("hidden");
-    learningArea.classList.remove("assessment-mode");
-    document.getElementById("videoSection").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
-    document.getElementById("certificateSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
-  }
+  placeholder.scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-  function openVideoFromSidebar(event) {
-    if (event) event.preventDefault();
-    closeCourseTree();
-    hideDashboardContentSections();
-    document.getElementById("videoSection").classList.remove("hidden");
-    document.getElementById("videoSection").scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+function openAssessmentFromTree() {
+  document.getElementById("sqlLearningArea").classList.add("hidden");
+  document.getElementById("myCoursesSection").classList.add("hidden");
+  document.getElementById("videoSection").classList.add("hidden");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+  document.getElementById("certificateSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.remove("hidden");
 
-  function openProjectsFromSidebar(event) {
-    if (event) event.preventDefault();
-    closeCourseTree();
-    hideDashboardContentSections();
-    document.getElementById("projectsSection").classList.remove("hidden");
-    document.getElementById("projectsSection").scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  document.getElementById("assignmentSection")
+    .scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-  function openCertificateFromSidebar(event) {
-    if (event) event.preventDefault();
-    openCertificateFromTree();
-  }
-  
-  function getEnrolledCourses() {
-    try {
-      const user = currentUser();
-  
-      if (user && Array.isArray(user.enrolled)) {
-        return user.enrolled;
-      }
-  
-      return [];
-    } catch (error) {
-      console.error("Could not load enrolled courses:", error);
-      return [];
+function openCertificateFromTree() {
+  closeCourseTree();
+
+  document.getElementById("sqlLearningArea").classList.remove("hidden");
+  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
+  document.getElementById("videoSection").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+
+  const section = document.getElementById("certificateSection");
+  section.classList.remove("hidden");
+  section.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function hideDashboardContentSections() {
+  const learningArea = document.getElementById("sqlLearningArea");
+  learningArea.classList.remove("hidden");
+  learningArea.classList.remove("assessment-mode");
+
+  document.getElementById("videoSection").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.add("hidden");
+  document.getElementById("certificateSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+}
+
+function openVideoFromSidebar(event) {
+  if (event) event.preventDefault();
+  closeCourseTree();
+  hideDashboardContentSections();
+
+  document.getElementById("videoSection").classList.remove("hidden");
+  document.getElementById("videoSection")
+    .scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function openProjectsFromSidebar(event) {
+  if (event) event.preventDefault();
+  closeCourseTree();
+  hideDashboardContentSections();
+
+  document.getElementById("projectsSection").classList.remove("hidden");
+  document.getElementById("projectsSection")
+    .scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function openCertificateFromSidebar(event) {
+  if (event) event.preventDefault();
+  openCertificateFromTree();
+}
+
+function getEnrolledCourses() {
+  try {
+    const user = currentUser();
+
+    if (user && Array.isArray(user.enrolled)) {
+      return user.enrolled;
     }
+
+    return [];
+  } catch (error) {
+    console.error("Could not load enrolled courses:", error);
+    return [];
   }
+}
 
-  /* -----------------------------------
-     SHOW ENROLLED COURSES
-  ----------------------------------- */
+/* -----------------------------------
+   SHOW ENROLLED COURSES
+----------------------------------- */
 
-  function loadDashboardCourses() {
-
-  // Keep the dashboard's existing layout and hide learning sections initially.
+function loadDashboardCourses() {
   const myCoursesSection = document.getElementById("myCoursesSection");
   const courseFileTree = document.getElementById("courseFileTree");
   const sqlLearningArea = document.getElementById("sqlLearningArea");
   const assignmentSection = document.getElementById("assignmentSection");
 
-  if (myCoursesSection) {
-    myCoursesSection.classList.add("hidden");
-  }
+  if (myCoursesSection) myCoursesSection.classList.add("hidden");
+  if (courseFileTree) courseFileTree.classList.remove("open");
+  if (sqlLearningArea) sqlLearningArea.classList.add("hidden");
+  if (assignmentSection) assignmentSection.classList.add("hidden");
 
-  if (courseFileTree) {
-    courseFileTree.classList.remove("open");
-  }
-
-  if (sqlLearningArea) {
-    sqlLearningArea.classList.add("hidden");
-  }
-
-  if (assignmentSection) {
-    assignmentSection.classList.add("hidden");
-  }
-
-  // Get the courses enrolled by the currently logged-in student.
   const enrolled = getEnrolledCourses();
 
-  // Compiler cards.
   const compilerWorkspace = document.getElementById("compilerWorkspace");
   const sqlCompilerCard = document.getElementById("sqlCompilerCard");
   const pythonCompilerCard = document.getElementById("pythonCompilerCard");
   const noCompilerMessage = document.getElementById("noCompilerMessage");
 
-  // Future-ready mapping for additional compilers.
   const compilerMap = {
-    sql: sqlCompilerCard,
-    python: pythonCompilerCard,
-
-    // Add these cards when their compiler pages are created:
-    // azure: document.getElementById("azureCompilerCard"),
-    // snowflake: document.getElementById("snowflakeCompilerCard"),
-    // java: document.getElementById("javaCompilerCard")
+    sql:sqlCompilerCard,
+    python:pythonCompilerCard
   };
 
   let hasAvailableCompiler = false;
 
-  // Hide every compiler card first.
   Object.values(compilerMap).forEach(function(card) {
-    if (card) {
-      card.classList.add("hidden");
-    }
+    if (card) card.classList.add("hidden");
   });
 
-  // Show only compiler cards belonging to enrolled courses.
   enrolled.forEach(function(courseId) {
     const card = compilerMap[courseId];
 
@@ -1164,370 +1411,182 @@
     }
   });
 
-  // Show the empty-state message when no available compiler is unlocked.
   if (noCompilerMessage) {
-    noCompilerMessage.classList.toggle("hidden", hasAvailableCompiler);
+    noCompilerMessage.classList.toggle("hidden",hasAvailableCompiler);
   }
 
-  // Keep the workspace visible so students can see their unlocked tools
-  // or the message inviting them to enroll.
   if (compilerWorkspace) {
     compilerWorkspace.classList.remove("hidden");
   }
 
-  // Update the active course metric.
   const active = document.getElementById("metricActive");
+  if (active) active.textContent = enrolled.length;
+}
 
-  if (active) {
-    active.textContent = enrolled.length;
-  }
+/* -----------------------------------
+   OPEN SQL VIDEO
+----------------------------------- */
 
+function openSQLVideo() {
+  document.getElementById("sqlLearningArea").classList.remove("hidden");
+  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
+  document.getElementById("lessonPlaceholder").classList.add("hidden");
+  document.getElementById("assignmentSection").classList.add("hidden");
+  document.getElementById("certificateSection").classList.add("hidden");
+  document.getElementById("projectsSection").classList.add("hidden");
 
-  }
+  const videoSection = document.getElementById("videoSection");
+  videoSection.classList.remove("hidden");
+  videoSection.scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-  /* -----------------------------------
-     OPEN SQL VIDEO
-  ----------------------------------- */
+/* -----------------------------------
+   VIDEO PROGRESS
+----------------------------------- */
 
-  function openSQLVideo() {
+const sqlVideo = document.getElementById("sqlVideo");
 
-    document.getElementById("sqlLearningArea").classList.remove("hidden");
-    document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-    document.getElementById("lessonPlaceholder").classList.add("hidden");
-    document.getElementById("assignmentSection").classList.add("hidden");
-    document.getElementById("certificateSection").classList.add("hidden");
-    document.getElementById("projectsSection").classList.add("hidden");
-    const videoSection =
-      document.getElementById("videoSection");
+if (sqlVideo) {
+  const savedTime = parseFloat(localStorage.getItem("sqlDay1VideoTime")) || 0;
 
-    videoSection.classList.remove("hidden");
-
-    videoSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }
-
-
-  /* -----------------------------------
-     VIDEO PROGRESS
-  ----------------------------------- */
-
-  const sqlVideo =
-    document.getElementById("sqlVideo");
-
-  if (sqlVideo) {
-
-    const savedTime =
-      parseFloat(
-        localStorage.getItem("sqlDay1VideoTime")
-      ) || 0;
-
-    if (savedTime > 0) {
-      sqlVideo.currentTime = savedTime;
-    }
-
-
-    sqlVideo.addEventListener("timeupdate", function () {
-
-      if (sqlVideo.duration) {
-
-        const percent =
-          Math.round(
-            (sqlVideo.currentTime /
-            sqlVideo.duration) * 100
-          );
-
-        localStorage.setItem(
-          "sqlDay1VideoTime",
-          sqlVideo.currentTime
-        );
-
-        localStorage.setItem(
-          "sqlDay1Progress",
-          percent
-        );
-
-        document.getElementById(
-          "videoProgressText"
-        ).textContent =
-          "Progress: " + percent + "%";
-
+  if (savedTime > 0) {
+    sqlVideo.addEventListener("loadedmetadata",function() {
+      if (savedTime < sqlVideo.duration) {
+        sqlVideo.currentTime = savedTime;
       }
-
-    });
-
-
-    sqlVideo.addEventListener("ended", function () {
-
-      localStorage.setItem(
-        "sqlDay1Completed",
-        "true"
-      );
-
-      document.getElementById(
-        "metricLessons"
-      ).textContent = "1";
-
-    });
-
+    },{once:true});
   }
 
+  sqlVideo.addEventListener("timeupdate",function() {
+    if (sqlVideo.duration) {
+      const percent = Math.round(
+        (sqlVideo.currentTime / sqlVideo.duration) * 100
+      );
 
-  /* -----------------------------------
-     SQL ASSIGNMENT
-  ----------------------------------- */
+      localStorage.setItem("sqlDay1VideoTime",sqlVideo.currentTime);
+      localStorage.setItem("sqlDay1Progress",percent);
 
-  const assignmentForm =
-    document.getElementById("sqlAssignmentForm");
+      document.getElementById("videoProgressText").textContent =
+        "Progress: " + percent + "%";
+    }
+  });
 
+  sqlVideo.addEventListener("ended",function() {
+    localStorage.setItem("sqlDay1Completed","true");
+    document.getElementById("metricLessons").textContent = "1";
+  });
+}
 
-  if (assignmentForm) {
+/* -----------------------------------
+   SQL ASSIGNMENT
+----------------------------------- */
 
-    assignmentForm.addEventListener(
-      "submit",
-      function(event) {
+const assignmentForm = document.getElementById("sqlAssignmentForm");
 
-        event.preventDefault();
+if (assignmentForm) {
+  assignmentForm.addEventListener("submit",function(event) {
+    event.preventDefault();
 
+    const answers = {
+      q1:"B",q2:"C",q3:"A",q4:"B",q5:"A",
+      q6:"B",q7:"B",q8:"B",q9:"A",q10:"A"
+    };
 
-        const answers = {
+    let score = 0;
 
-          q1: "B",
-          q2: "C",
-          q3: "A",
-          q4: "B",
-          q5: "A",
-          q6: "B",
-          q7: "B",
-          q8: "B",
-          q9: "A",
-          q10: "A"
+    for (let i=1;i<=10;i++) {
+      const selected = document.querySelector(
+        'input[name="q' + i + '"]:checked'
+      );
 
-        };
-
-
-        let score = 0;
-
-
-        for (
-          let i = 1;
-          i <= 10;
-          i++
-        ) {
-
-          const selected =
-            document.querySelector(
-              'input[name="q' + i + '"]:checked'
-            );
-
-
-          if (
-            selected &&
-            selected.value === answers["q" + i]
-          ) {
-
-            score++;
-
-          }
-
-        }
-
-
-        const percentage =
-          score * 10;
-
-
-        const result =
-          document.getElementById(
-            "assignmentResult"
-          );
-
-
-        result.style.display = "block";
-
-
-        if (percentage >= 80) {
-
-          result.className =
-            "result-box pass-box";
-
-
-          result.innerHTML = `
-            <h3>🎉 Congratulations! You Passed</h3>
-
-            <p>
-              Your Score:
-              <strong>${score}/10 (${percentage}%)</strong>
-            </p>
-
-            <p>
-              You have achieved the required
-              80% passing score.
-            </p>
-          `;
-
-
-          document
-            .getElementById("certificateSection")
-            .classList.remove("hidden");
-
-
-          localStorage.setItem(
-            "sqlAssignmentPassed",
-            "true"
-          );
-
-          localStorage.setItem(
-            "sqlAssignmentScore",
-            percentage
-          );
-
-
-          document.getElementById(
-            "metricAssign"
-          ).textContent = "1";
-
-
-          document.getElementById(
-            "metricCerts"
-          ).textContent = "1";
-
-
-          document
-            .getElementById("certificateSection")
-            .scrollIntoView({
-              behavior: "smooth"
-            });
-
-
-        } else {
-
-          result.className =
-            "result-box fail-box";
-
-
-          result.innerHTML = `
-            <h3>❌ Not Passed</h3>
-
-            <p>
-              Your Score:
-              <strong>${score}/10 (${percentage}%)</strong>
-            </p>
-
-            <p>
-              You need at least 80% to pass.
-              Please try the assignment again.
-            </p>
-
-            <button
-              type="button"
-              class="btn btn-primary retry-btn"
-              onclick="retryAssignment()">
-              Retry Assignment
-            </button>
-          `;
-
-
-          document
-            .getElementById("certificateSection")
-            .classList.add("hidden");
-
-        }
-
+      if (selected && selected.value === answers["q" + i]) {
+        score++;
       }
-    );
-
-  }
-
-
-  /* -----------------------------------
-     RETRY ASSIGNMENT
-  ----------------------------------- */
-
-  function retryAssignment() {
-
-    document
-      .getElementById("sqlAssignmentForm")
-      .reset();
-
-    const result =
-      document.getElementById(
-        "assignmentResult"
-      );
-
-    result.style.display = "none";
-
-    result.innerHTML = "";
-
-    document
-      .getElementById("assignmentSection")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
-
-
-  /* -----------------------------------
-     LOAD SAVED RESULT
-  ----------------------------------- */
-
-  function loadSavedAssignment() {
-
-    const passed =
-      localStorage.getItem(
-        "sqlAssignmentPassed"
-      );
-
-    const score =
-      localStorage.getItem(
-        "sqlAssignmentScore"
-      );
-
-
-    if (passed === "true") {
-
-      const certificate =
-        document.getElementById(
-          "certificateSection"
-        );
-
-      certificate.classList.remove("hidden");
-
-
-      document.getElementById(
-        "metricAssign"
-      ).textContent = "1";
-
-
-      document.getElementById(
-        "metricCerts"
-      ).textContent = "1";
-
     }
 
-  }
+    const percentage = score * 10;
+    const result = document.getElementById("assignmentResult");
 
+    result.style.display = "block";
 
-  /* -----------------------------------
-     INITIAL LOAD
-  ----------------------------------- */
+    if (percentage >= 80) {
+      result.className = "result-box pass-box";
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+      result.innerHTML = `
+        <h3>🎉 Congratulations! You Passed</h3>
+        <p>Your Score: <strong>${score}/10 (${percentage}%)</strong></p>
+        <p>You have achieved the required 80% passing score.</p>
+      `;
 
-      loadDashboardCourses();
+      document.getElementById("certificateSection").classList.remove("hidden");
 
-      loadSavedAssignment();
+      localStorage.setItem("sqlAssignmentPassed","true");
+      localStorage.setItem("sqlAssignmentScore",percentage);
 
+      document.getElementById("metricAssign").textContent = "1";
+      document.getElementById("metricCerts").textContent = "1";
+
+      document.getElementById("certificateSection")
+        .scrollIntoView({behavior:"smooth"});
+
+    } else {
+      result.className = "result-box fail-box";
+
+      result.innerHTML = `
+        <h3>❌ Not Passed</h3>
+        <p>Your Score: <strong>${score}/10 (${percentage}%)</strong></p>
+        <p>You need at least 80% to pass. Please try again.</p>
+        <button type="button" class="btn btn-primary retry-btn"
+          onclick="retryAssignment()">Retry Assignment</button>
+      `;
+
+      document.getElementById("certificateSection").classList.add("hidden");
     }
-  );
+  });
+}
 
+/* -----------------------------------
+   RETRY ASSIGNMENT
+----------------------------------- */
+
+function retryAssignment() {
+  document.getElementById("sqlAssignmentForm").reset();
+
+  const result = document.getElementById("assignmentResult");
+  result.style.display = "none";
+  result.innerHTML = "";
+
+  document.getElementById("assignmentSection")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+/* -----------------------------------
+   LOAD SAVED RESULT
+----------------------------------- */
+
+function loadSavedAssignment() {
+  const passed = localStorage.getItem("sqlAssignmentPassed");
+
+  if (passed === "true") {
+    const certificate = document.getElementById("certificateSection");
+    certificate.classList.remove("hidden");
+
+    document.getElementById("metricAssign").textContent = "1";
+    document.getElementById("metricCerts").textContent = "1";
+  }
+}
+
+/* -----------------------------------
+   INITIAL LOAD
+----------------------------------- */
+
+document.addEventListener("DOMContentLoaded",function() {
+  loadDashboardCourses();
+  loadSavedAssignment();
+});
 </script>
 
 <script src="chatbot.js"></script>
+
 </body>
 </html>
