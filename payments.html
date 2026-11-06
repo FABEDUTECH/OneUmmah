@@ -1,470 +1,457 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7f8fc">
-  <title>Payments — OneUmmah Data Skills</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f9fc">
+<title>Payments — OneUmmah Data Skills</title>
+<link rel="stylesheet" href="styles.css">
 
-  <style>
-    /* Payments page theme — scoped to this page */
-    .payment-page {
-      min-height: calc(100vh - 80px);
-      padding: 48px 24px 64px;
-      background:
-        radial-gradient(ellipse at 10% 5%, rgba(100, 91, 255, .09), transparent 36%),
-        radial-gradient(ellipse at 90% 15%, rgba(54, 145, 255, .08), transparent 34%),
-        #f7f8fc;
-      color: #20243a;
-    }
+<style>
+/* SCALER-INSPIRED PAYMENTS DESIGN */
+.oum-payments {
+  min-height: calc(100vh - 80px);
+  padding: 48px 24px 65px;
+  background: #f7f9fc;
+  color: #17243b;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+}
 
-    .payment-container {
-      width: min(1100px, 100%);
-      margin: 0 auto;
-    }
+.oum-payments * { box-sizing: border-box; }
 
-    .payment-heading {
-      margin-bottom: 32px;
-    }
+.payment-container {
+  width: min(1120px, 100%);
+  margin: auto;
+}
 
-    .payment-heading .eyebrow {
-      display: inline-block;
-      color: #635bdb;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
+.payment-heading { margin-bottom: 34px; }
 
-    .payment-heading h1 {
-      color: #171b2e;
-      font-size: clamp(30px, 4vw, 42px);
-      line-height: 1.2;
-      letter-spacing: -1.2px;
-      margin: 0 0 12px;
-    }
+.payment-heading .eyebrow {
+  display: inline-block;
+  color: #1769e0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  margin-bottom: 12px;
+}
 
-    .payment-heading p {
-      max-width: 650px;
-      color: #70768a;
-      font-size: 15px;
-      line-height: 1.8;
-      margin: 0;
-    }
+.payment-heading h1 {
+  color: #12213b;
+  font-size: clamp(30px, 4vw, 43px);
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  margin: 0 0 12px;
+}
 
-    .payment-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
-      gap: 24px;
-      align-items: start;
-    }
+.payment-heading p {
+  max-width: 650px;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
 
-    .payment-panel {
-      background: #fff;
-      border: 1px solid #e8eaf3;
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: 0 12px 36px rgba(35, 42, 80, .06);
-    }
+.payment-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, .85fr);
+  gap: 25px;
+  align-items: start;
+}
 
-    .payment-panel-heading {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-bottom: 22px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid #eef0f6;
-    }
+.payment-panel {
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 8px 28px rgba(22, 43, 77, .045);
+}
 
-    .payment-icon {
-      width: 52px;
-      height: 52px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #eeeaff, #e5f1ff);
-      color: #635bdb;
-      font-size: 25px;
-    }
+.payment-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 23px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #edf0f5;
+}
 
-    .payment-panel-heading h2 {
-      margin: 0 0 5px;
-      font-size: 20px;
-      color: #20243a;
-    }
+.payment-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #eaf2ff;
+  color: #1769e0;
+  font-size: 24px;
+}
 
-    .payment-panel-heading p {
-      margin: 0;
-      color: #81869a;
-      font-size: 13px;
-    }
+.payment-panel-heading h2 {
+  margin: 0 0 5px;
+  color: #17243b;
+  font-size: 19px;
+}
 
-    .payment-course-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: #7771db;
-      margin-bottom: 10px;
-    }
+.payment-panel-heading p {
+  margin: 0;
+  color: #8290a5;
+  font-size: 13px;
+}
 
-    .payment-course-title {
-      color: #20243a;
-      font-size: 24px;
-      line-height: 1.35;
-      margin: 0 0 10px;
-    }
+.payment-course-label {
+  color: #1769e0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
 
-    .payment-course-description {
-      color: #74798c;
-      font-size: 14px;
-      line-height: 1.8;
-      margin: 0 0 24px;
-    }
+.payment-course-title {
+  color: #17243b;
+  font-size: 25px;
+  line-height: 1.35;
+  margin: 0 0 12px;
+  letter-spacing: -.5px;
+}
 
-    .payment-feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 14px;
-    }
+.payment-course-description {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.85;
+  margin: 0 0 26px;
+}
 
-    .payment-feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: #41465c;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+.payment-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 17px;
+}
 
-    .payment-check {
-      display: grid;
-      place-items: center;
-      width: 21px;
-      height: 21px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: #e9f9f0;
-      color: #16834a;
-      font-size: 12px;
-      font-weight: 800;
-    }
+.payment-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #40516a;
+  font-size: 14px;
+  line-height: 1.65;
+}
 
-    .payment-summary {
-      position: relative;
-      overflow: hidden;
-    }
+.payment-check {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf3ff;
+  color: #1769e0;
+  font-size: 12px;
+  font-weight: 800;
+}
 
-    .payment-summary::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #7568ed, #4c9bfa);
-    }
+.payment-summary {
+  position: relative;
+  overflow: hidden;
+}
 
-    .payment-summary h2 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      color: #20243a;
-    }
+.payment-summary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #1769e0;
+}
 
-    .payment-summary-subtitle {
-      margin: 0 0 25px;
-      color: #82879a;
-      font-size: 13px;
-      line-height: 1.7;
-    }
+.payment-summary h2 {
+  margin: 0 0 8px;
+  color: #17243b;
+  font-size: 21px;
+}
 
-    .payment-price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 0;
-      border-bottom: 1px solid #eef0f6;
-      color: #73788b;
-      font-size: 14px;
-    }
+.payment-summary-subtitle {
+  margin: 0 0 25px;
+  color: #8290a5;
+  font-size: 13px;
+  line-height: 1.7;
+}
 
-    .payment-price-row strong {
-      color: #272b40;
-      font-weight: 700;
-    }
+.payment-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 0;
+  border-bottom: 1px solid #edf0f5;
+  color: #64748b;
+  font-size: 13px;
+}
 
-    .payment-total {
-      padding: 22px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+.payment-price-row strong {
+  color: #253750;
+  font-weight: 700;
+  text-align: right;
+}
 
-    .payment-total span {
-      color: #565b70;
-      font-size: 14px;
-      font-weight: 700;
-    }
+.payment-total {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
 
-    .payment-total strong {
-      color: #252943;
-      font-size: 32px;
-      letter-spacing: -1px;
-    }
+.payment-total span {
+  color: #40516a;
+  font-size: 14px;
+  font-weight: 700;
+}
 
-    .payment-action {
-      width: 100%;
-      min-height: 52px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 13px;
-      background: linear-gradient(110deg, #695fe5, #4d8df4);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 9px 22px rgba(92, 103, 224, .23);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
+.payment-total strong {
+  color: #12213b;
+  font-size: 31px;
+  letter-spacing: -1px;
+}
 
-    .payment-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 13px 26px rgba(92, 103, 224, .3);
-    }
+.payment-action {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: #1769e0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 7px 18px rgba(23, 105, 224, .18);
+  transition: .2s ease;
+}
 
-    .payment-action:focus-visible {
-      outline: 3px solid rgba(99, 91, 219, .35);
-      outline-offset: 3px;
-    }
+.payment-action:hover {
+  background: #1057c3;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(23, 105, 224, .23);
+}
 
-    .payment-secure-note {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 7px;
-      margin: 16px 0 0;
-      color: #858a9d;
-      font-size: 12px;
-      text-align: center;
-      line-height: 1.6;
-    }
+.payment-action:focus-visible {
+  outline: 3px solid rgba(23, 105, 224, .25);
+  outline-offset: 3px;
+}
 
-    .payment-help {
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 13px;
-      background: #f6f7fc;
-      color: #73788b;
-      font-size: 12px;
-      line-height: 1.8;
-    }
+.payment-secure-note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin: 16px 0 0;
+  color: #8290a5;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.6;
+}
 
-    .payment-help strong {
-      display: block;
-      color: #41465b;
-      font-size: 13px;
-      margin-bottom: 3px;
-    }
+.payment-help {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 11px;
+  background: #f5f8fd;
+  border: 1px solid #e9eef6;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.8;
+}
 
-    .payment-bottom-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px 24px;
-      margin-top: 26px;
-      color: #73788b;
-      font-size: 12px;
-      text-align: center;
-    }
+.payment-help strong {
+  display: block;
+  color: #253750;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
 
-    .payment-bottom-note span {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-    }
+.payment-bottom-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 25px;
+  margin-top: 28px;
+  color: #74839a;
+  font-size: 12px;
+  text-align: center;
+}
 
-    .payment-bottom-note b {
-      color: #625cce;
-    }
+.payment-bottom-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
 
-    @media (max-width: 760px) {
-      .payment-page {
-        padding: 32px 16px 44px;
-      }
+.payment-bottom-note b { color: #1769e0; }
 
-      .payment-layout {
-        grid-template-columns: 1fr;
-      }
+@media(max-width:760px) {
+  .oum-payments { padding: 32px 16px 45px; }
 
-      .payment-panel {
-        padding: 22px;
-        border-radius: 18px;
-      }
+  .payment-layout { grid-template-columns: 1fr; }
 
-      .payment-heading {
-        margin-bottom: 24px;
-      }
+  .payment-panel {
+    padding: 23px;
+    border-radius: 15px;
+  }
 
-      .payment-course-title {
-        font-size: 21px;
-      }
+  .payment-heading { margin-bottom: 25px; }
 
-      .payment-total strong {
-        font-size: 29px;
-      }
-    }
+  .payment-course-title { font-size: 22px; }
+}
 
-    @media (max-width: 480px) {
-      .payment-heading h1 {
-        font-size: 30px;
-      }
+@media(max-width:480px) {
+  .payment-heading h1 { font-size: 30px; }
 
-      .payment-panel {
-        padding: 19px;
-      }
+  .payment-panel { padding: 19px; }
 
-      .payment-panel-heading h2,
-      .payment-summary h2 {
-        font-size: 18px;
-      }
+  .payment-total strong { font-size: 28px; }
 
-      .payment-icon {
-        width: 46px;
-        height: 46px;
-      }
-    }
-  </style>
+  .payment-bottom-note { gap: 12px; }
+}
+</style>
 </head>
 
 <body>
-  <header class="navbar">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">O</span> OneUmmah Data Skills
+
+<header class="navbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">O</span> OneUmmah Data Skills
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Learning Dashboard</a>
+    <a href="payments.html">Payments</a>
+  </nav>
+
+  <div class="nav-actions" id="guestActions">
+    <a class="btn btn-ghost" href="login.html">Login</a>
+    <a class="btn btn-primary" href="register.html">Register</a>
+  </div>
+
+  <div class="nav-actions user-chip" id="authActions" style="display:none">
+    <a href="dashboard.html" class="user-pill">
+      <span class="user-pill-avatar" id="navAvatar">K</span>
+      <span id="navName">Student</span>
     </a>
+    <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+  </div>
+</header>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Learning Dashboard</a>
-      <a href="payments.html">Payments</a>
-    </nav>
+<main class="oum-payments">
+  <div class="payment-container">
 
-    <div class="nav-actions" id="guestActions">
-      <a class="btn btn-ghost" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Register</a>
+    <div class="payment-heading">
+      <span class="eyebrow">ONEUMMAH DATA SKILLS</span>
+      <h1>Payments &amp; Checkout</h1>
+      <p>Review your course order and continue to checkout. Your learning journey starts here.</p>
     </div>
 
-    <div class="nav-actions user-chip" id="authActions" style="display:none">
-      <a href="dashboard.html" class="user-pill">
-        <span class="user-pill-avatar" id="navAvatar">K</span>
-        <span id="navName">Student</span>
-      </a>
-      <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+    <div class="payment-layout">
+
+      <section class="payment-panel" aria-labelledby="course-details-title">
+
+        <div class="payment-panel-heading">
+          <div class="payment-icon" aria-hidden="true">▤</div>
+          <div>
+            <h2 id="course-details-title">Your Course</h2>
+            <p>Order details and learning benefits</p>
+          </div>
+        </div>
+
+        <div class="payment-course-label">FEATURED LEARNING PROGRAM</div>
+
+        <h2 class="payment-course-title">Azure Data Engineering</h2>
+
+        <p class="payment-course-description">
+          Build your data engineering skills with a structured learning experience designed to help you learn, practise and grow.
+        </p>
+
+        <ul class="payment-feature-list">
+          <li><span class="payment-check">✓</span><span>Full course access</span></li>
+          <li><span class="payment-check">✓</span><span>Practical projects and assignments</span></li>
+          <li><span class="payment-check">✓</span><span>Structured learning experience</span></li>
+          <li><span class="payment-check">✓</span><span>Course certificate, subject to course requirements</span></li>
+        </ul>
+
+      </section>
+
+      <aside class="payment-panel payment-summary" aria-labelledby="order-summary-title">
+
+        <h2 id="order-summary-title">Order Summary</h2>
+        <p class="payment-summary-subtitle">Please review your order before proceeding.</p>
+
+        <div class="payment-price-row">
+          <span>Course</span>
+          <strong>Azure Data Engineering</strong>
+        </div>
+
+        <div class="payment-price-row">
+          <span>Course access</span>
+          <strong>Full course</strong>
+        </div>
+
+        <div class="payment-total">
+          <span>Total Amount</span>
+          <strong>₹4,999</strong>
+        </div>
+
+        <button class="payment-action" type="button" onclick="handlePay()">
+          <span aria-hidden="true">🔒</span>
+          Pay Securely
+        </button>
+
+        <p class="payment-secure-note">
+          <span aria-hidden="true">🛡️</span>
+          Continue using the configured payment process.
+        </p>
+
+        <div class="payment-help">
+          <strong>Need help with your payment?</strong>
+          If you experience an issue, please contact OneUmmah Data Skills support before trying again.
+        </div>
+
+      </aside>
     </div>
-  </header>
 
-  <main class="payment-page">
-    <div class="payment-container">
-
-      <div class="payment-heading">
-        <span class="eyebrow">ONEUMMAH DATA SKILLS</span>
-        <h1>Payments &amp; Checkout</h1>
-        <p>Review your course order and continue to secure checkout. Your learning journey starts here.</p>
-      </div>
-
-      <div class="payment-layout">
-
-        <section class="payment-panel" aria-labelledby="course-details-title">
-          <div class="payment-panel-heading">
-            <div class="payment-icon" aria-hidden="true">▤</div>
-            <div>
-              <h2 id="course-details-title">Your Course</h2>
-              <p>Order details and learning benefits</p>
-            </div>
-          </div>
-
-          <div class="payment-course-label">FEATURED LEARNING PROGRAM</div>
-          <h2 class="payment-course-title">Azure Data Engineering</h2>
-          <p class="payment-course-description">
-            Build your data engineering skills with a structured learning experience designed to help you learn, practise and grow.
-          </p>
-
-          <ul class="payment-feature-list">
-            <li><span class="payment-check">✓</span><span>Full course access</span></li>
-            <li><span class="payment-check">✓</span><span>Practical projects and assignments</span></li>
-            <li><span class="payment-check">✓</span><span>Structured learning experience</span></li>
-            <li><span class="payment-check">✓</span><span>Course certificate, subject to course requirements</span></li>
-          </ul>
-        </section>
-
-        <aside class="payment-panel payment-summary" aria-labelledby="order-summary-title">
-          <h2 id="order-summary-title">Order Summary</h2>
-          <p class="payment-summary-subtitle">Please review your order before proceeding.</p>
-
-          <div class="payment-price-row">
-            <span>Course</span>
-            <strong>Azure Data Engineering</strong>
-          </div>
-
-          <div class="payment-price-row">
-            <span>Course access</span>
-            <strong>Full course</strong>
-          </div>
-
-          <div class="payment-total">
-            <span>Total Amount</span>
-            <strong>₹4,999</strong>
-          </div>
-
-          <button class="payment-action" type="button" onclick="handlePay()">
-            <span aria-hidden="true">🔒</span>
-            Pay Securely
-          </button>
-
-          <p class="payment-secure-note">
-            <span aria-hidden="true">🛡️</span>
-            Continue using the configured payment process.
-          </p>
-
-          <div class="payment-help">
-            <strong>Need help with your payment?</strong>
-            If you experience an issue, please contact OneUmmah Data Skills support before trying again.
-          </div>
-        </aside>
-
-      </div>
-
-      <div class="payment-bottom-note">
-        <span>✓ <b>Clear order summary</b></span>
-        <span>✓ Responsive checkout page</span>
-        <span>✓ OneUmmah Data Skills</span>
-      </div>
-
+    <div class="payment-bottom-note">
+      <span>✓ <b>Clear order summary</b></span>
+      <span>✓ Responsive checkout page</span>
+      <span>✓ OneUmmah Data Skills</span>
     </div>
-  </main>
 
-  <footer>
-    <div class="brand"><span class="brand-mark">O</span> OneUmmah Data Skills</div>
-    <span>© 2026 Technical Learning Platform</span>
-    <div>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Login</a>
-    </div>
-  </footer>
+  </div>
+</main>
 
-  <div id="toast" class="toast"></div>
+<footer>
+  <div class="brand"><span class="brand-mark">O</span> OneUmmah Data Skills</div>
+  <span>© 2026 Technical Learning Platform</span>
+  <div>
+    <a href="courses.html">Courses</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
-  <script src="chatbot.js"></script>
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+<script src="chatbot.js"></script>
+
 </body>
 </html>
+```
