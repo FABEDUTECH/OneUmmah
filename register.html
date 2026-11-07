@@ -159,7 +159,7 @@
       localStorage.setItem('dfa_session', email);
       submitButton.disabled = true;
       submitButton.textContent = 'Account created! Opening dashboard...';
-      window.location.href = 'dashboard.html';
+      (function(){var n='dashboard.html';try{var v=sessionStorage.getItem('oum_next');sessionStorage.removeItem('oum_next');if(v&&/^[a-z0-9-]+\.html(\?[\w=&-]*)?$/i.test(v))n=v}catch(x){}window.location.href=n})();
     } catch(error) {
       errorBox.textContent = 'Could not save your account in this browser. Please enable local storage and try again.';
       errorBox.style.display = 'block';
