@@ -82,7 +82,7 @@ if(!email||!password){errorBox.textContent='Please enter your email and password
 if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errorBox.textContent='Please enter a valid email address.';errorBox.style.display='block';return;}
 try{const users=JSON.parse(localStorage.getItem('dfa_users')||'{}'),user=users[email];
 if(!user||user.passwordHash!==hashPassword(password)){errorBox.textContent='Incorrect email or password. If you have not registered, create an account first.';errorBox.style.display='block';return;}
-localStorage.setItem('dfa_session',email);submitButton.disabled=true;submitButton.textContent='Signing in...';window.location.href='dashboard.html';
+localStorage.setItem('dfa_session',email);submitButton.disabled=true;submitButton.textContent='Signing in...';(function(){var n='dashboard.html';try{var v=sessionStorage.getItem('oum_next');sessionStorage.removeItem('oum_next');if(v&&/^[a-z0-9-]+\.html(\?[\w=&-]*)?$/i.test(v))n=v}catch(x){}window.location.href=n})();
 }catch(error){errorBox.textContent='Your browser could not access account storage. Please enable local storage and try again.';errorBox.style.display='block';}
 });
 })();
