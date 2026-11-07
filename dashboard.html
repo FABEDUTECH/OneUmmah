@@ -1,1592 +1,496 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Learning Dashboard — OneUmmah Data Skills</title>
-
-<link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="scaler-theme.css">
-
+<title>Learning Dashboard | OneUmmah Data Skills</title>
+<!-- Only students who have paid can open this page -->
+<script src="scaler-access.js" data-guard="paid"></script>
 <style>
-/* =========================================
-   ONEUMMAH DASHBOARD — SCALER INSPIRED THEME
-   All styles scoped to this page
-========================================= */
-
-.oum-dashboard {
-  --sd-blue:#2463eb;
-  --sd-blue-dark:#174ac0;
-  --sd-navy:#101b35;
-  --sd-text:#17233d;
-  --sd-muted:#69758b;
-  --sd-border:#e7ebf2;
-  --sd-bg:#f5f7fb;
-  --sd-white:#ffffff;
-  background:var(--sd-bg);
-  color:var(--sd-text);
-  font-family:'Plus Jakarta Sans',Inter,Arial,sans-serif;
-}
-
-.oum-dashboard * {box-sizing:border-box}
-
-.oum-dashboard a {text-decoration:none}
-
-.oum-dashboard .navbar {
-  min-height:76px;
-  padding:12px 5%;
-  background:#fff;
-  border-bottom:1px solid var(--sd-border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.oum-dashboard .brand {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--sd-navy);
-  font-weight:800;
-  font-size:19px;
-  white-space:nowrap;
-}
-
-.oum-dashboard .brand-mark {
-  width:38px;
-  height:38px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#3478ff,#174ac0);
-  color:#fff;
-  border-radius:11px;
-  font-weight:900;
-}
-
-.oum-dashboard .navbar nav {
-  display:flex;
-  align-items:center;
-  gap:27px;
-}
-
-.oum-dashboard .navbar nav a {
-  color:#526078;
-  font-size:13px;
-  font-weight:650;
-  transition:.2s;
-}
-
-.oum-dashboard .navbar nav a:hover,
-.oum-dashboard .navbar nav a[href="dashboard.html"] {
-  color:var(--sd-blue);
-}
-
-.oum-dashboard .nav-actions {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.oum-dashboard .btn {
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  padding:11px 18px;
-  border-radius:9px;
-  font-size:13px;
-  font-weight:750;
-  border:1px solid transparent;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.oum-dashboard .btn-primary {
-  background:var(--sd-blue);
-  color:#fff;
-  border-color:var(--sd-blue);
-}
-
-.oum-dashboard .btn-primary:hover {
-  background:var(--sd-blue-dark);
-  transform:translateY(-1px);
-}
-
-.oum-dashboard .btn-ghost {
-  background:#fff;
-  color:var(--sd-navy);
-  border-color:var(--sd-border);
-}
-
-.oum-dashboard .btn-ghost:hover {
-  border-color:var(--sd-blue);
-  color:var(--sd-blue);
-}
-
-.oum-dashboard .user-pill {
-  display:flex;
-  align-items:center;
-  gap:9px;
-  color:var(--sd-navy);
-  font-size:13px;
-  font-weight:700;
-}
-
-.oum-dashboard .user-pill-avatar {
-  width:34px;
-  height:34px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:#eaf1ff;
-  color:var(--sd-blue);
-  font-weight:800;
-}
-
-.oum-dashboard main {
-  min-height:70vh;
-}
-
-.oum-dashboard .section {
-  max-width:1440px;
-  margin:auto;
-  padding:38px 5% 65px;
-}
-
-.oum-dashboard .section-heading {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:25px;
-}
-
-.oum-dashboard .eyebrow {
-  display:inline-block;
-  color:var(--sd-blue);
-  font-size:11px;
-  font-weight:850;
-  letter-spacing:1.5px;
-  margin-bottom:9px;
-}
-
-.oum-dashboard .section-heading h2 {
-  margin:0;
-  color:var(--sd-navy);
-  font-size:32px;
-  letter-spacing:-1.1px;
-}
-
-.oum-dashboard .dashboard {
-  display:grid;
-  grid-template-columns:255px minmax(0,1fr);
-  gap:24px;
-  align-items:start;
-}
-
-/* SIDEBAR */
-
-.oum-dashboard .sidebar {
-  min-width:0;
-  padding:20px 14px;
-  background:#fff;
-  border:1px solid var(--sd-border);
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(20,35,65,.035);
-  position:sticky;
-  top:96px;
-}
-
-.oum-dashboard .student {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:7px 7px 20px;
-  margin-bottom:14px;
-  border-bottom:1px solid var(--sd-border);
-}
-
-.oum-dashboard .avatar {
-  width:43px;
-  height:43px;
-  display:grid;
-  place-items:center;
-  border-radius:13px;
-  background:#eaf1ff;
-  color:var(--sd-blue);
-  font-size:19px;
-  font-weight:850;
-  flex-shrink:0;
-}
-
-.oum-dashboard .student b {
-  display:block;
-  color:var(--sd-navy);
-  font-size:13px;
-  overflow-wrap:anywhere;
-}
-
-.oum-dashboard .student small {
-  display:block;
-  margin-top:5px;
-  color:var(--sd-muted);
-  font-size:11px;
-  overflow-wrap:anywhere;
-}
-
-.oum-dashboard .sidebar > a {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 13px;
-  margin:4px 0;
-  border-radius:9px;
-  color:#536078;
-  font-size:13px;
-  font-weight:650;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.oum-dashboard .sidebar > a:hover,
-.oum-dashboard .sidebar > a.side-active {
-  background:#edf3ff;
-  color:var(--sd-blue);
-}
-
-.oum-dashboard .course-file-tree {
-  display:none;
-  margin:5px 0 12px 10px;
-  padding:7px;
-  border-left:2px solid #dce7ff;
-  font-size:12px;
-}
-
-.oum-dashboard .course-file-tree.open {display:block}
-
-.oum-dashboard .course-file-tree .tree-row {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  width:100%;
-  padding:10px;
-  margin:2px 0;
-  border:0;
-  border-radius:7px;
-  background:transparent;
-  color:#526078;
-  text-align:left;
-  font:inherit;
-  cursor:pointer;
-  overflow-wrap:anywhere;
-}
-
-.oum-dashboard .course-file-tree .tree-row:hover {
-  background:#edf3ff;
-  color:var(--sd-blue);
-}
-
-.oum-dashboard .tree-file {padding-left:25px!important}
-.oum-dashboard .hidden {display:none!important}
-
-/* MAIN CONTENT */
-
-.oum-dashboard .dash-main {
-  min-width:0;
-}
-
-.oum-dashboard .welcome {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:27px 30px;
-  margin-bottom:20px;
-  border-radius:15px;
-  background:linear-gradient(115deg,#10234b,#2056b8);
-  color:#fff;
-  overflow:hidden;
-  position:relative;
-}
-
-.oum-dashboard .welcome:after {
-  content:"";
-  position:absolute;
-  width:230px;
-  height:230px;
-  right:-65px;
-  top:-120px;
-  border:35px solid rgba(255,255,255,.07);
-  border-radius:50%;
-}
-
-.oum-dashboard .welcome .eyebrow {
-  color:#bcd2ff;
-}
-
-.oum-dashboard .welcome h3 {
-  position:relative;
-  z-index:1;
-  max-width:620px;
-  margin:4px 0 0;
-  color:#fff;
-  font-size:23px;
-  line-height:1.4;
-  letter-spacing:-.5px;
-}
-
-.oum-dashboard .metric-grid {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:14px;
-  margin-bottom:22px;
-}
-
-.oum-dashboard .metric {
-  padding:19px;
-  background:#fff;
-  border:1px solid var(--sd-border);
-  border-radius:13px;
-  box-shadow:0 4px 16px rgba(20,35,65,.025);
-}
-
-.oum-dashboard .metric span {
-  display:block;
-  color:var(--sd-muted);
-  font-size:12px;
-  font-weight:650;
-}
-
-.oum-dashboard .metric strong {
-  display:block;
-  margin:10px 0 5px;
-  color:var(--sd-navy);
-  font-size:29px;
-  letter-spacing:-1px;
-}
-
-.oum-dashboard .metric small {
-  color:#7b879b;
-  font-size:11px;
-}
-
-/* WORKSPACE & COURSE CARDS */
-
-.oum-dashboard .learning-box,
-.oum-dashboard .my-courses {
-  margin-top:20px;
-  padding:25px;
-  border:1px solid var(--sd-border);
-  border-radius:14px;
-  background:#fff;
-  box-shadow:0 4px 18px rgba(20,35,65,.025);
-}
-
-.oum-dashboard .learning-box h3,
-.oum-dashboard .my-courses h3 {
-  margin:5px 0 10px;
-  color:var(--sd-navy);
-  font-size:20px;
-  letter-spacing:-.4px;
-}
-
-.oum-dashboard .learning-box p {
-  color:var(--sd-muted);
-  font-size:13px;
-  line-height:1.7;
-}
-
-.oum-dashboard .muted {
-  color:var(--sd-muted);
-}
-
-.oum-dashboard .compiler-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-  margin-top:20px;
-}
-
-.oum-dashboard .compiler-card {
-  min-width:0;
-  padding:21px;
-  border:1px solid var(--sd-border);
-  border-radius:12px;
-  background:#fbfcff;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:12px;
-}
-
-.oum-dashboard .compiler-card h3,
-.oum-dashboard .compiler-card p {margin:0}
-
-.oum-dashboard .compiler-card h3 {
-  font-size:16px;
-}
-
-.oum-dashboard .compiler-card p {
-  font-size:12px;
-}
-
-.oum-dashboard .compiler-icon {
-  width:47px;
-  height:47px;
-  display:grid;
-  place-items:center;
-  border-radius:11px;
-  background:#eaf1ff;
-  color:var(--sd-blue);
-  font-size:14px;
-  font-weight:850;
-}
-
-.oum-dashboard .python-icon {
-  background:#fff3df;
-  color:#a66a0b;
-}
-
-.oum-dashboard .compiler-status {
-  color:#23845a;
-  font-size:11px;
-  font-weight:700;
-  margin-top:auto;
-}
-
-.oum-dashboard .compiler-empty {
-  grid-column:1/-1;
-  padding:22px;
-  border:1px dashed #cbd7ea;
-  border-radius:12px;
-  background:#fafcff;
-}
-
-.oum-dashboard .dash-title {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:18px;
-}
-
-.oum-dashboard .dash-title h3 {margin:0}
-
-.oum-dashboard .text-link {
-  color:var(--sd-blue);
-  font-size:12px;
-  font-weight:750;
-}
-
-.oum-dashboard .course-row {
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:16px;
-  margin:10px 0;
-  border:1px solid var(--sd-border);
-  border-radius:11px;
-  background:#fff;
-}
-
-.oum-dashboard .mini-icon {
-  width:43px;
-  height:43px;
-  flex-shrink:0;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:#eaf1ff;
-  color:var(--sd-blue);
-  font-size:12px;
-  font-weight:850;
-}
-
-.oum-dashboard .mini-icon.py,
-.oum-dashboard .mini-icon.java {background:#fff3df;color:#a66a0b}
-
-.oum-dashboard .mini-icon.cloud,
-.oum-dashboard .mini-icon.snow {background:#e9f8f4;color:#167b69}
-
-.oum-dashboard .row-info {
-  min-width:0;
-  flex:1;
-}
-
-.oum-dashboard .row-info b {
-  display:block;
-  color:var(--sd-navy);
-  font-size:13px;
-}
-
-.oum-dashboard .row-info small {
-  display:block;
-  margin-top:5px;
-  color:var(--sd-muted);
-  font-size:11px;
-}
-
-.oum-dashboard .progress {
-  height:6px;
-  margin-top:9px;
-  overflow:hidden;
-  border-radius:20px;
-  background:#e9edf5;
-}
-
-.oum-dashboard .progress div {
-  height:100%;
-  border-radius:20px;
-  background:var(--sd-blue);
-}
-
-.oum-dashboard .course-row > strong {
-  color:var(--sd-blue);
-  font-size:12px;
-}
-
-/* LESSONS */
-
-.oum-dashboard .course-folder {
-  display:none;
-  margin-top:18px;
-  border:1px solid var(--sd-border);
-  border-radius:12px;
-  overflow:hidden;
-}
-
-.oum-dashboard .folder-title {
-  padding:16px;
-  background:#f5f8ff;
-  color:var(--sd-navy);
-  font-weight:800;
-}
-
-.oum-dashboard .day-folder {
-  padding:16px;
-  border-top:1px solid var(--sd-border);
-}
-
-.oum-dashboard .day-title {
-  color:var(--sd-navy);
-  font-weight:750;
-  font-size:13px;
-  margin-bottom:10px;
-}
-
-.oum-dashboard .lesson-row {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.oum-dashboard .lesson-name {
-  color:var(--sd-text);
-  font-size:13px;
-  font-weight:650;
-}
-
-.oum-dashboard .assignment-box {
-  margin-top:20px;
-  padding:23px;
-  border:1px solid var(--sd-border);
-  border-radius:13px;
-  background:#fff;
-}
-
-.oum-dashboard .assignment-box h3 {
-  margin-top:0;
-  color:var(--sd-navy);
-}
-
-.oum-dashboard .assignment-box p {
-  color:var(--sd-muted);
-  font-size:13px;
-  line-height:1.7;
-}
-
-.oum-dashboard .video-area {
-  margin-top:22px;
-}
-
-.oum-dashboard .video-area video {
-  display:block;
-  width:100%;
-  max-width:850px;
-  border-radius:12px;
-  background:#101827;
-}
-
-.oum-dashboard #videoProgressText {
-  color:var(--sd-blue);
-  font-size:12px;
-  font-weight:700;
-}
-
-.oum-dashboard .question {
-  margin:16px 0;
-  padding:17px;
-  border:1px solid var(--sd-border);
-  border-radius:10px;
-  background:#fbfcff;
-}
-
-.oum-dashboard .question strong {
-  display:block;
-  color:var(--sd-navy);
-  font-size:13px;
-  line-height:1.6;
-}
-
-.oum-dashboard .question label {
-  display:block;
-  margin:11px 0;
-  color:#536078;
-  font-size:13px;
-  cursor:pointer;
-}
-
-.oum-dashboard .question input {
-  accent-color:var(--sd-blue);
-  margin-right:7px;
-}
-
-.oum-dashboard #assignmentSection {
-  display:block;
-  width:min(100% - 40px,1050px);
-  margin:28px auto 36px;
-  padding:25px;
-  border:1px solid var(--sd-border);
-  border-radius:14px;
-  background:#fff;
-  color:var(--sd-text);
-  box-shadow:0 5px 20px rgba(20,35,65,.035);
-}
-
-.oum-dashboard #assignmentSection.hidden {display:none!important}
-
-.oum-dashboard .result-box {
-  display:none;
-  margin-top:20px;
-  padding:18px;
-  border-radius:10px;
-}
-
-.oum-dashboard .pass-box {
-  border:1px solid #9bd7b7;
-  background:#effaf4;
-}
-
-.oum-dashboard .fail-box {
-  border:1px solid #efb1b1;
-  background:#fff3f3;
-}
-
-.oum-dashboard .certificate-btn {
-  display:inline-flex;
-  margin-top:12px;
-  padding:12px 19px;
-  border-radius:9px;
-  background:var(--sd-blue);
-  color:#fff;
-  font-size:13px;
-  font-weight:750;
-}
-
-.oum-dashboard .retry-btn {margin-top:12px}
-
-.oum-dashboard #studentSupportBtn {
-  display:inline-block;
-  margin:16px 0;
-  padding:12px 19px;
-  border-radius:9px;
-  background:#16885b!important;
-  color:#fff!important;
-  font-size:12px;
-  font-weight:750;
-}
-
-/* FOOTER & TOAST */
-
-.oum-dashboard footer {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:18px;
-  padding:25px 5%;
-  background:#fff;
-  border-top:1px solid var(--sd-border);
-  color:var(--sd-muted);
-  font-size:12px;
-}
-
-.oum-dashboard footer .brand {
-  font-size:15px;
-}
-
-.oum-dashboard footer .brand-mark {
-  width:30px;
-  height:30px;
-  font-size:14px;
-}
-
-.oum-dashboard footer a {
-  margin-left:15px;
-  color:#536078;
-  font-weight:650;
-}
-
-.oum-dashboard footer a:hover {color:var(--sd-blue)}
-
-.oum-dashboard .toast {
-  display:none;
-  position:fixed;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:999;
-  padding:13px 20px;
-  border-radius:10px;
-  background:#14213d;
-  color:#fff;
-  font-size:13px;
-  box-shadow:0 8px 25px rgba(0,0,0,.15);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1050px) {
-  .oum-dashboard .navbar nav {gap:14px}
-  .oum-dashboard .dashboard {grid-template-columns:220px minmax(0,1fr)}
-  .oum-dashboard .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-
-@media(max-width:760px) {
-  .oum-dashboard .navbar {
-    position:relative;
-    flex-wrap:wrap;
-    padding:13px 5%;
-    gap:12px;
-  }
-
-  .oum-dashboard .navbar nav {
-    order:3;
-    width:100%;
-    overflow-x:auto;
-    padding:8px 0 3px;
-    gap:20px;
-  }
-
-  .oum-dashboard .navbar nav a {white-space:nowrap}
-
-  .oum-dashboard .brand {font-size:16px}
-
-  .oum-dashboard .nav-actions {margin-left:auto}
-
-  .oum-dashboard .dashboard {grid-template-columns:1fr}
-
-  .oum-dashboard .sidebar {
-    position:relative;
-    top:auto;
-  }
-
-  .oum-dashboard .section {padding:28px 4% 45px}
-
-  .oum-dashboard .section-heading h2 {font-size:27px}
-
-  .oum-dashboard .welcome {padding:22px}
-
-  .oum-dashboard .welcome h3 {font-size:19px}
-}
-
-@media(max-width:520px) {
-  .oum-dashboard .metric-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .oum-dashboard .metric {padding:14px}
-  .oum-dashboard .metric strong {font-size:24px}
-  .oum-dashboard .compiler-grid {grid-template-columns:1fr}
-  .oum-dashboard .learning-box,
-  .oum-dashboard .my-courses {padding:18px}
-  .oum-dashboard .course-row {padding:12px;gap:10px}
-  .oum-dashboard .row-info b {font-size:12px}
-  .oum-dashboard .lesson-row {align-items:flex-start;flex-direction:column}
-  .oum-dashboard #assignmentSection {width:92%;padding:17px}
-  .oum-dashboard footer {flex-direction:column;align-items:flex-start}
+.hidden{display:none!important}
+.dash-hero{padding:52px 0 84px}
+.dash-hero h1{margin:18px auto 10px}
+.dash-layout{display:grid;grid-template-columns:262px minmax(0,1fr);gap:28px;align-items:start;margin-top:-44px;padding-bottom:70px;position:relative}
+.dash h2,.dash h3{text-align:left}
+
+/* Sidebar */
+.sidebar{background:#fff;border:1px solid var(--line);padding:18px 14px;position:sticky;top:86px;box-shadow:0 12px 30px rgba(0,26,79,.08)}
+.student{display:flex;gap:12px;align-items:center;padding:4px 6px 18px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+.avatar{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;background:var(--blue);color:#fff;font:600 19px var(--display)}
+.student b{display:block;font-size:14px;overflow-wrap:anywhere}
+.student small{display:block;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px;margin:3px 0;font-size:14px;font-weight:500;color:#222;cursor:pointer;border-left:3px solid transparent}
+.nav-item .ic{width:18px;text-align:center}
+.nav-item:hover{background:var(--soft);color:var(--blue)}
+.nav-item.side-active{background:#eaf1ff;border-left-color:var(--blue);color:var(--blue);font-weight:600}
+.nav-item.locked{color:#8a8f98}
+.course-file-tree{display:none;margin:2px 0 10px 12px;padding-left:8px;border-left:2px solid #dbe6ff}
+.course-file-tree.open{display:block}
+.tree-row{display:flex;align-items:center;gap:8px;width:100%;padding:9px 8px;border:0;background:none;font:inherit;font-size:13px;text-align:left;cursor:pointer;color:#333}
+.tree-row:hover{background:var(--soft);color:var(--blue)}
+.tree-file{padding-left:24px}
+
+/* Main */
+.dash-main{min-width:0;display:grid;gap:22px}
+.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.metric{background:#fff;border:1px solid var(--line);padding:20px;box-shadow:0 12px 30px rgba(0,26,79,.08)}
+.metric span{display:block;color:var(--muted);font-size:13px;font-weight:500}
+.metric strong{display:block;font:500 40px/1.1 var(--display);margin:8px 0 4px}
+.metric small{color:var(--muted);font-size:12px}
+.panel{background:#fff;border:1px solid var(--line);padding:28px}
+.panel h3{font-size:23px;margin:6px 0 8px}
+.panel>p,.muted{color:var(--muted);font-size:15px}
+.compiler-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}
+.compiler-card{border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:var(--soft)}
+.compiler-card h3{font-size:19px;margin:0}
+.compiler-card p{margin:0;color:var(--muted);font-size:14px}
+.compiler-icon{display:grid;place-items:center;width:46px;height:46px;background:#eaf1ff;color:var(--blue);font:600 14px var(--display)}
+.python-icon{background:#fff3df;color:#a66a0b}
+.compiler-status{color:#1c7a45;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.compiler-empty{grid-column:1/-1;border:1px dashed #c3cde0;padding:24px;background:var(--soft)}
+.compiler-empty h3{margin:0 0 6px}
+.compiler-empty .btn{margin-top:14px}
+.dash-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.dash-title h3{margin:0}
+.text-link{color:var(--blue);font-weight:600;font-size:14px}
+.course-row{display:flex;align-items:center;gap:14px;padding:16px;margin:10px 0;border:1px solid var(--line)}
+.course-row.empty{border:0;padding:6px 0;color:var(--muted)}
+.mini-icon{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;background:#eaf1ff;color:var(--blue);font:600 13px var(--display)}
+.mini-icon.py,.mini-icon.java{background:#fff3df;color:#a66a0b}
+.mini-icon.cloud,.mini-icon.snow{background:#e6f7f4;color:#167b69}
+.row-info{flex:1;min-width:0}
+.row-info b{display:block;font-size:15px}
+.row-info small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.progress{height:6px;background:#e8eef9;margin-top:9px}
+.progress>div{height:100%;background:var(--blue)}
+.course-row>strong{color:var(--blue);font-size:13px}
+#studentSupportBtn{display:inline-block;margin-top:14px;padding:13px 22px;background:#16885b;color:#fff;font:600 13px var(--font);letter-spacing:.09em;text-transform:uppercase;border-radius:2px}
+
+/* Lessons */
+.day-folder{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--line);margin-top:10px}
+.day-folder.lock{background:var(--soft);color:#7b8190}
+.day-title{font:500 17px var(--display)}
+.lesson-name{color:var(--muted);font-size:14px;margin-top:2px}
+.chip{display:inline-block;margin-left:8px;padding:3px 8px;font:600 11px var(--font);letter-spacing:.07em;text-transform:uppercase;background:#eaf1ff;color:var(--blue)}
+.chip.done{background:#e9f9ef;color:#1c7a45}
+.chip.lock{background:#eee;color:#777}
+.video-area video{display:block;width:100%;max-width:880px;background:#000;margin-top:14px}
+#videoProgressText{color:var(--blue);font-size:13px;font-weight:600;margin-top:10px}
+.question{margin:16px 0;padding:18px;border:1px solid var(--line);background:var(--soft)}
+.question strong{display:block;font-size:15px;line-height:1.6}
+.question label{display:block;margin:10px 0;font-size:15px;cursor:pointer}
+.question input{accent-color:var(--blue);margin-right:8px}
+.result-box{display:none;margin-top:20px;padding:20px;border:1px solid var(--line)}
+.pass-box{border-color:#9bd7b7;background:#effaf4}
+.fail-box{border-color:#efb1b1;background:#fff3f3}
+.result-box h3{margin:0 0 8px}
+.certificate-btn{display:inline-block;margin-top:14px}
+.retry-btn{margin-top:12px}
+
+@media(max-width:960px){
+  .dash-layout{grid-template-columns:1fr;margin-top:-34px}
+  .sidebar{position:static}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .compiler-grid{grid-template-columns:1fr}
+  .panel{padding:20px}
+  .day-folder,.course-row{flex-wrap:wrap}
 }
 </style>
 </head>
 
-<body class="oum-dashboard">
-
-<header class="navbar">
-  <a class="brand" href="index.html">
-    <span class="brand-mark">O</span>
-    OneUmmah Data Skills
-  </a>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="courses.html">Courses</a>
-    <a href="dashboard.html">Learning Dashboard</a>
-    <a href="payments.html">Payments</a>
-  </nav>
-
-  <div class="nav-actions" id="guestActions">
-    <a class="btn btn-ghost" href="login.html">Login</a>
-    <a class="btn btn-primary" href="register.html">Register</a>
-  </div>
-
-  <div class="nav-actions user-chip" id="authActions" style="display:none">
-    <a href="dashboard.html" class="user-pill">
-      <span class="user-pill-avatar" id="navAvatar">K</span>
-      <span id="navName">Student</span>
-    </a>
-    <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+<body class="dash">
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><i>O</i>OneUmmah</a>
+    <nav class="links" id="links" aria-label="Main">
+      <div class="dd" id="dd">
+        <button type="button" aria-expanded="false">Courses ⌄</button>
+        <div class="dd-menu">
+          <a href="courses.html#sql">Master SQL</a>
+          <a href="courses.html#python">Python for Data Engineering</a>
+          <a href="courses.html#azure">Azure Data Engineering</a>
+          <a href="courses.html#snowflake">Snowflake &amp; dbt</a>
+          <a href="courses.html#java">Java Development</a>
+        </div>
+      </div>
+      <a href="courses.html">Learning Paths</a>
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+      <a href="payments.html">Payments</a>
+      <a class="m-only" href="login.html">Login</a>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-guest" id="guestActions">
+        <a class="btn outline sm hide-m" href="login.html">Login</a>
+        <a class="btn sm hide-m" href="register.html">Register</a>
+      </span>
+      <span class="nav-user" id="authActions" style="display:none">
+        <a href="dashboard.html" class="user-pill"><span class="av" id="navAvatar">S</span><span id="navName">Student</span></a>
+        <button class="btn outline sm" type="button" onclick="handleLogout()">Logout</button>
+      </span>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
   </div>
 </header>
 
 <main>
-<section class="section">
-
-  <div class="section-heading">
-    <div>
-      <span class="eyebrow">STUDENT AREA</span>
-      <h2>Learning Dashboard</h2>
-    </div>
-  </div>
-
-  <div class="dashboard">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <div class="student">
-        <div class="avatar" id="dashAvatar">K</div>
-        <div>
-          <b id="dashName">Student</b>
-          <small id="dashEmail">Learning Account</small>
-        </div>
-      </div>
-
-      <a class="side-active">▦ Overview</a>
-
-      <a href="#myCoursesSection" id="myCoursesNav"
-         onclick="toggleCourseTree(event)">▣ My Courses</a>
-
-      <div class="course-file-tree" id="courseFileTree" aria-label="Course files">
-
-        <button type="button" class="tree-row" onclick="toggleDayOneFolder()">
-          <span id="dayOneFolderIcon">📁</span> Day 1
-        </button>
-
-        <div id="dayOneFiles" class="hidden">
-          <button type="button" class="tree-row tree-file"
-                  onclick="openSQLVideoFromTree()">
-            🎬 SQL Introduction.mp4
-          </button>
-        </div>
-
-        <button type="button" class="tree-row"
-                onclick="showDayPlaceholder('Day 2','SQL Basics')">
-          📁 Day 2
-        </button>
-
-        <button type="button" class="tree-row"
-                onclick="showDayPlaceholder('Day 3','SQL Queries')">
-          📁 Day 3
-        </button>
-
-        <button type="button" class="tree-row"
-                onclick="showDayPlaceholder('Day 4','SQL Practice')">
-          📁 Day 4
-        </button>
-      </div>
-
-      <a href="#videoSection" onclick="openVideoFromSidebar(event)">▶ Video Player</a>
-      <a href="#assignmentSection" onclick="openAssessmentFromSidebar(event)">✓ Assignments</a>
-      <a href="#projectsSection" onclick="openProjectsFromSidebar(event)">◆ Projects</a>
-      <a href="#certificateSection" onclick="openCertificateFromSidebar(event)">♜ Certificates</a>
-      <a href="payments.html">₹ Payments</a>
-      <a>⚙ Profile</a>
-
-    </aside>
-
-    <!-- MAIN DASHBOARD -->
-    <div class="dash-main">
-
-      <div class="welcome">
-        <div>
-          <span class="eyebrow">YOUR PROGRESS</span>
-          <h3 id="dashWelcome">Keep going — you're making progress.</h3>
-        </div>
-      </div>
-
-      <!-- METRICS -->
-      <div class="metric-grid">
-
-        <div class="metric">
-          <span>Active Courses</span>
-          <strong id="metricActive">0</strong>
-          <small id="metricActiveSub">Browse courses to enroll</small>
-        </div>
-
-        <div class="metric">
-          <span>Lessons Completed</span>
-          <strong id="metricLessons">0</strong>
-          <small>Across all courses</small>
-        </div>
-
-        <div class="metric">
-          <span>Assignments</span>
-          <strong id="metricAssign">0</strong>
-          <small>Submitted</small>
-        </div>
-
-        <div class="metric">
-          <span>Certificates</span>
-          <strong id="metricCerts">0</strong>
-          <small>Earned</small>
-        </div>
-
-      </div>
-
-      <!-- COMPILER WORKSPACE -->
-      <div class="learning-box" id="compilerWorkspace">
-        <span class="eyebrow">YOUR CODING TOOLS</span>
-        <h3>Practice & Build</h3>
-        <p class="muted">
-          Choose your enrolled course and practise directly in your browser.
-        </p>
-
-        <div class="compiler-grid">
-
-          <div class="compiler-card hidden" id="sqlCompilerCard">
-            <div class="compiler-icon sql-icon">SQL</div>
-            <h3>SQL Practice Lab</h3>
-            <p>Write SQL queries, manage tables and view query results.</p>
-            <span class="compiler-status">✓ Course enrolled</span>
-            <a href="compiler.html" class="btn btn-primary">
-              Open SQL Compiler →
-            </a>
-          </div>
-
-          <div class="compiler-card hidden" id="pythonCompilerCard">
-            <div class="compiler-icon python-icon">Py</div>
-            <h3>Python Coding Lab</h3>
-            <p>Write Python programs, execute code and view output.</p>
-            <span class="compiler-status">✓ Course enrolled</span>
-            <a href="python-compiler.html" class="btn btn-primary">
-              Open Python Compiler →
-            </a>
-          </div>
-
-          <div id="noCompilerMessage" class="compiler-empty hidden">
-            <h3>Start Your Learning Journey</h3>
-            <p>Enroll in SQL or Python to unlock your coding workspace.</p>
-            <a href="courses.html" class="btn btn-primary">Explore Courses →</a>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- MY COURSES -->
-      <div class="my-courses hidden" id="myCoursesSection">
-        <div class="dash-title">
-          <h3>My Courses</h3>
-          <a class="text-link" href="courses.html">Browse more →</a>
-        </div>
-
-        <div id="myCoursesList"></div>
-
-        <a id="studentSupportBtn"
-           href="https://wa.me/916360846480?text=Hi%2C%20I%20am%20an%20enrolled%20student%20at%20OneUmmah%20Data%20Skills.%20I%20need%20student%20support."
-           target="_blank"
-           rel="noopener noreferrer">
-          💬 Student Support on WhatsApp
-        </a>
-      </div>
-
-      <!-- SQL LEARNING AREA -->
-      <div id="sqlLearningArea" class="learning-box hidden">
-
-        <h3>Master SQL</h3>
-        <p>Your enrolled SQL course content.</p>
-
-        <div id="lessonPlaceholder" class="assignment-box hidden"></div>
-
-        <div class="course-folder">
-
-          <div class="folder-title">📁 Master SQL</div>
-
-          <div class="day-folder">
-            <div class="day-title">📂 Day 1</div>
-            <div class="lesson-row">
-              <div class="lesson-name">🎬 SQL Introduction</div>
-              <button class="btn btn-primary" onclick="openSQLVideo()">
-                Start Learning
-              </button>
-            </div>
-          </div>
-
-          <div class="day-folder">
-            <div class="day-title">📂 Day 2</div>
-            <div class="lesson-name">SQL Basics</div>
-          </div>
-
-          <div class="day-folder">
-            <div class="day-title">📂 Day 3</div>
-            <div class="lesson-name">SQL Queries</div>
-          </div>
-
-          <div class="day-folder">
-            <div class="day-title">📂 Day 4</div>
-            <div class="lesson-name">SQL Practice</div>
-          </div>
-
-        </div>
-
-        <!-- VIDEO PLAYER -->
-        <div id="videoSection" class="video-area hidden">
-          <h3>SQL Introduction</h3>
-
-          <video id="sqlVideo" controls preload="metadata">
-            <source src="./sql-course.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-          </video>
-
-          <p id="videoProgressText">Progress: 0%</p>
-        </div>
-
-        <!-- PROJECTS -->
-        <div id="projectsSection" class="assignment-box hidden">
-          <h3>◆ SQL Projects</h3>
-          <p>Your practical SQL project files will appear here.</p>
-
-          <div class="question">
-            <strong>Project 1: Student Database Management</strong>
-            <p>Practice creating tables, inserting records, and writing SELECT queries.</p>
-            <span class="muted">Project file will be added soon.</span>
-          </div>
-        </div>
-
-        <!-- CERTIFICATE -->
-        <div id="certificateSection" class="assignment-box hidden">
-          <h3>♜ Certificate</h3>
-          <p>Congratulations! You have successfully passed the SQL Assignment.</p>
-          <p>Your score is 80% or above.</p>
-
-          <a href="ODS_WEB.html" target="_blank" class="certificate-btn">
-            Generate SQL Certificate
-          </a>
-        </div>
-
-      </div>
-
-    </div>
+<section class="page-hero dash-hero">
+  <div class="wrap">
+    <div class="eyebrow"><span>‹</span><span>OneUmmah Data Skills</span><span>|</span><span>Student Area</span><span>›</span></div>
+    <h1>Learning Dashboard</h1>
+    <p id="dashWelcome">Keep going — you are making progress.</p>
   </div>
 </section>
+
+<div class="wrap dash-layout" id="top">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="student">
+      <div class="avatar" id="dashAvatar">S</div>
+      <div><b id="dashName">Student</b><small id="dashEmail">Learning Account</small></div>
+    </div>
+
+    <a class="nav-item side-active" href="#top" onclick="goOverview(event)"><span class="ic">▦</span> Overview</a>
+
+    <div id="sqlSidebar">
+      <a class="nav-item" href="#myCoursesSection" id="myCoursesNav" onclick="toggleCourseTree(event)"><span class="ic">▣</span> My Courses</a>
+
+      <div class="course-file-tree" id="courseFileTree" aria-label="Course files">
+        <button type="button" class="tree-row" onclick="toggleDayOneFolder()"><span id="dayOneFolderIcon">📁</span> Day 1</button>
+        <div id="dayOneFiles" class="hidden">
+          <button type="button" class="tree-row tree-file" onclick="openSQLVideoFromTree()">🎬 SQL Introduction.mp4</button>
+        </div>
+        <button type="button" class="tree-row" data-day="1" data-label="Day 2" onclick="showDayPlaceholder('Day 2','SQL Basics',1)">📁 Day 2</button>
+        <button type="button" class="tree-row" data-day="2" data-label="Day 3" onclick="showDayPlaceholder('Day 3','SQL Queries',2)">📁 Day 3</button>
+        <button type="button" class="tree-row" data-day="3" data-label="Day 4" onclick="showDayPlaceholder('Day 4','SQL Practice',3)">📁 Day 4</button>
+      </div>
+
+      <a class="nav-item" href="#videoSection" onclick="openVideoFromSidebar(event)"><span class="ic">▶</span> Video Player</a>
+      <a class="nav-item" data-need="day1" data-ic="✓" href="#assignmentSection" onclick="openAssessmentFromSidebar(event)"><span class="ic">✓</span> Assignments</a>
+      <a class="nav-item" data-need="day1" data-ic="◆" href="#projectsSection" onclick="openProjectsFromSidebar(event)"><span class="ic">◆</span> Projects</a>
+      <a class="nav-item" data-need="pass" data-ic="♜" href="#certificateSection" onclick="openCertificateFromSidebar(event)"><span class="ic">♜</span> Certificates</a>
+    </div>
+
+    <a class="nav-item" href="payments.html"><span class="ic">₹</span> Payments</a>
+    <a class="nav-item" onclick="say('Profile page is coming soon.')"><span class="ic">⚙</span> Profile</a>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="dash-main">
+
+    <div class="metric-grid">
+      <div class="metric"><span>Active Courses</span><strong id="metricActive">0</strong><small id="metricActiveSub">Browse courses to enroll</small></div>
+      <div class="metric"><span>Lessons Completed</span><strong id="metricLessons">0</strong><small>Across all courses</small></div>
+      <div class="metric"><span>Assignments</span><strong id="metricAssign">0</strong><small>Passed</small></div>
+      <div class="metric"><span>Certificates</span><strong id="metricCerts">0</strong><small>Earned</small></div>
+    </div>
+
+    <!-- COMPILERS -->
+    <div class="panel" id="compilerWorkspace">
+      <span class="tag">Your coding tools</span>
+      <h3>Practice &amp; Build</h3>
+      <p class="muted">Choose your enrolled course and practise directly in your browser.</p>
+      <div class="compiler-grid">
+        <div class="compiler-card hidden" id="sqlCompilerCard">
+          <div class="compiler-icon">SQL</div>
+          <h3>SQL Practice Lab</h3>
+          <p>Write SQL queries, manage tables and view query results.</p>
+          <span class="compiler-status">✓ Course enrolled</span>
+          <a href="compiler.html" class="btn sm">Open SQL Compiler →</a>
+        </div>
+        <div class="compiler-card hidden" id="pythonCompilerCard">
+          <div class="compiler-icon python-icon">Py</div>
+          <h3>Python Coding Lab</h3>
+          <p>Write Python programs, execute code and view output.</p>
+          <span class="compiler-status">✓ Course enrolled</span>
+          <a href="python-compiler.html" class="btn sm">Open Python Compiler →</a>
+        </div>
+        <div id="noCompilerMessage" class="compiler-empty hidden">
+          <h3>Start Your Learning Journey</h3>
+          <p class="muted">Enroll in SQL or Python to unlock your coding workspace.</p>
+          <a href="courses.html" class="btn sm">Explore Courses →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY COURSES -->
+    <div class="panel hidden" id="myCoursesSection">
+      <div class="dash-title"><h3>My Courses</h3><a class="text-link" href="courses.html">Browse more →</a></div>
+      <div id="myCoursesList"></div>
+      <a id="studentSupportBtn" href="https://wa.me/916360846480?text=Hi%2C%20I%20am%20an%20enrolled%20student%20at%20OneUmmah%20Data%20Skills.%20I%20need%20student%20support." target="_blank" rel="noopener noreferrer">💬 Student Support on WhatsApp</a>
+    </div>
+
+    <!-- SQL LEARNING AREA -->
+    <div id="sqlLearningArea" class="panel hidden">
+      <span class="tag">Course content</span>
+      <h3>Master SQL</h3>
+      <p>Complete each lesson to unlock the next one.</p>
+
+      <div id="lessonList"></div>
+      <div id="lessonPlaceholder" class="question hidden"></div>
+
+      <div id="videoSection" class="video-area hidden">
+        <h3 style="margin-top:26px">Day 1: SQL Introduction</h3>
+        <video id="sqlVideo" controls preload="metadata">
+          <source src="./sql-course.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <p id="videoProgressText">Progress: 0%</p>
+      </div>
+
+      <div id="projectsSection" class="question hidden">
+        <h3>◆ SQL Projects</h3>
+        <p class="muted">Your practical SQL project files will appear here.</p>
+        <div class="question" style="background:#fff">
+          <strong>Project 1: Student Database Management</strong>
+          <p class="muted">Practice creating tables, inserting records, and writing SELECT queries.</p>
+          <span class="muted">Project file will be added soon.</span>
+        </div>
+      </div>
+
+      <div id="certificateSection" class="question hidden">
+        <h3>♜ Certificate</h3>
+        <p class="muted">Congratulations! You have successfully passed the SQL Assignment (score 80% or above).</p>
+        <a href="ODS_WEB.html" target="_blank" class="btn certificate-btn">Generate SQL Certificate</a>
+      </div>
+    </div>
+
+    <!-- SQL ASSIGNMENT -->
+    <div id="assignmentSection" class="panel hidden">
+      <h3>✓ SQL Assignment</h3>
+      <p>Complete all 10 questions. You need <strong>80% or above</strong> to pass and unlock the certificate.</p>
+
+      <form id="sqlAssignmentForm">
+        <div class="question"><strong>1. Which SQL command is used to retrieve data?</strong>
+          <label><input type="radio" name="q1" value="A"> INSERT</label><label><input type="radio" name="q1" value="B"> SELECT</label><label><input type="radio" name="q1" value="C"> DELETE</label><label><input type="radio" name="q1" value="D"> UPDATE</label></div>
+        <div class="question"><strong>2. Which clause is used to filter rows?</strong>
+          <label><input type="radio" name="q2" value="A"> ORDER BY</label><label><input type="radio" name="q2" value="B"> GROUP BY</label><label><input type="radio" name="q2" value="C"> WHERE</label><label><input type="radio" name="q2" value="D"> JOIN</label></div>
+        <div class="question"><strong>3. Which clause sorts SQL results?</strong>
+          <label><input type="radio" name="q3" value="A"> ORDER BY</label><label><input type="radio" name="q3" value="B"> WHERE</label><label><input type="radio" name="q3" value="C"> INSERT</label><label><input type="radio" name="q3" value="D"> DELETE</label></div>
+        <div class="question"><strong>4. Which clause groups rows?</strong>
+          <label><input type="radio" name="q4" value="A"> WHERE</label><label><input type="radio" name="q4" value="B"> GROUP BY</label><label><input type="radio" name="q4" value="C"> ORDER BY</label><label><input type="radio" name="q4" value="D"> SELECT</label></div>
+        <div class="question"><strong>5. Which SQL operation combines data from tables?</strong>
+          <label><input type="radio" name="q5" value="A"> JOIN</label><label><input type="radio" name="q5" value="B"> DELETE</label><label><input type="radio" name="q5" value="C"> UPDATE</label><label><input type="radio" name="q5" value="D"> DROP</label></div>
+        <div class="question"><strong>6. Which function counts rows?</strong>
+          <label><input type="radio" name="q6" value="A"> SUM()</label><label><input type="radio" name="q6" value="B"> COUNT()</label><label><input type="radio" name="q6" value="C"> AVG()</label><label><input type="radio" name="q6" value="D"> MAX()</label></div>
+        <div class="question"><strong>7. Which keyword removes duplicate values?</strong>
+          <label><input type="radio" name="q7" value="A"> UNIQUE</label><label><input type="radio" name="q7" value="B"> DISTINCT</label><label><input type="radio" name="q7" value="C"> DIFFERENT</label><label><input type="radio" name="q7" value="D"> REMOVE</label></div>
+        <div class="question"><strong>8. Which command adds new rows?</strong>
+          <label><input type="radio" name="q8" value="A"> UPDATE</label><label><input type="radio" name="q8" value="B"> INSERT</label><label><input type="radio" name="q8" value="C"> SELECT</label><label><input type="radio" name="q8" value="D"> ALTER</label></div>
+        <div class="question"><strong>9. Which command changes existing data?</strong>
+          <label><input type="radio" name="q9" value="A"> UPDATE</label><label><input type="radio" name="q9" value="B"> SELECT</label><label><input type="radio" name="q9" value="C"> CREATE</label><label><input type="radio" name="q9" value="D"> INSERT</label></div>
+        <div class="question"><strong>10. Which command removes rows?</strong>
+          <label><input type="radio" name="q10" value="A"> DELETE</label><label><input type="radio" name="q10" value="B"> SELECT</label><label><input type="radio" name="q10" value="C"> INSERT</label><label><input type="radio" name="q10" value="D"> UPDATE</label></div>
+        <button type="submit" class="btn">Submit Assignment</button>
+      </form>
+      <div id="assignmentResult" class="result-box"></div>
+    </div>
+
+  </div>
+</div>
 </main>
 
-<!-- SQL ASSIGNMENT -->
-<div id="assignmentSection" class="assignment-box hidden">
-
-  <h3>✓ SQL Assignment</h3>
-
-  <p>
-    Complete all 10 questions.
-    You need <strong>80% or above</strong>
-    to pass and unlock the certificate.
-  </p>
-
-  <form id="sqlAssignmentForm">
-
-    <div class="question">
-      <strong>1. Which SQL command is used to retrieve data?</strong>
-      <label><input type="radio" name="q1" value="A"> INSERT</label>
-      <label><input type="radio" name="q1" value="B"> SELECT</label>
-      <label><input type="radio" name="q1" value="C"> DELETE</label>
-      <label><input type="radio" name="q1" value="D"> UPDATE</label>
-    </div>
-
-    <div class="question">
-      <strong>2. Which clause is used to filter rows?</strong>
-      <label><input type="radio" name="q2" value="A"> ORDER BY</label>
-      <label><input type="radio" name="q2" value="B"> GROUP BY</label>
-      <label><input type="radio" name="q2" value="C"> WHERE</label>
-      <label><input type="radio" name="q2" value="D"> JOIN</label>
-    </div>
-
-    <div class="question">
-      <strong>3. Which clause sorts SQL results?</strong>
-      <label><input type="radio" name="q3" value="A"> ORDER BY</label>
-      <label><input type="radio" name="q3" value="B"> WHERE</label>
-      <label><input type="radio" name="q3" value="C"> INSERT</label>
-      <label><input type="radio" name="q3" value="D"> DELETE</label>
-    </div>
-
-    <div class="question">
-      <strong>4. Which clause groups rows?</strong>
-      <label><input type="radio" name="q4" value="A"> WHERE</label>
-      <label><input type="radio" name="q4" value="B"> GROUP BY</label>
-      <label><input type="radio" name="q4" value="C"> ORDER BY</label>
-      <label><input type="radio" name="q4" value="D"> SELECT</label>
-    </div>
-
-    <div class="question">
-      <strong>5. Which SQL operation combines data from tables?</strong>
-      <label><input type="radio" name="q5" value="A"> JOIN</label>
-      <label><input type="radio" name="q5" value="B"> DELETE</label>
-      <label><input type="radio" name="q5" value="C"> UPDATE</label>
-      <label><input type="radio" name="q5" value="D"> DROP</label>
-    </div>
-
-    <div class="question">
-      <strong>6. Which function counts rows?</strong>
-      <label><input type="radio" name="q6" value="A"> SUM()</label>
-      <label><input type="radio" name="q6" value="B"> COUNT()</label>
-      <label><input type="radio" name="q6" value="C"> AVG()</label>
-      <label><input type="radio" name="q6" value="D"> MAX()</label>
-    </div>
-
-    <div class="question">
-      <strong>7. Which keyword removes duplicate values?</strong>
-      <label><input type="radio" name="q7" value="A"> UNIQUE</label>
-      <label><input type="radio" name="q7" value="B"> DISTINCT</label>
-      <label><input type="radio" name="q7" value="C"> DIFFERENT</label>
-      <label><input type="radio" name="q7" value="D"> REMOVE</label>
-    </div>
-
-    <div class="question">
-      <strong>8. Which command adds new rows?</strong>
-      <label><input type="radio" name="q8" value="A"> UPDATE</label>
-      <label><input type="radio" name="q8" value="B"> INSERT</label>
-      <label><input type="radio" name="q8" value="C"> SELECT</label>
-      <label><input type="radio" name="q8" value="D"> ALTER</label>
-    </div>
-
-    <div class="question">
-      <strong>9. Which command changes existing data?</strong>
-      <label><input type="radio" name="q9" value="A"> UPDATE</label>
-      <label><input type="radio" name="q9" value="B"> SELECT</label>
-      <label><input type="radio" name="q9" value="C"> CREATE</label>
-      <label><input type="radio" name="q9" value="D"> INSERT</label>
-    </div>
-
-    <div class="question">
-      <strong>10. Which command removes rows?</strong>
-      <label><input type="radio" name="q10" value="A"> DELETE</label>
-      <label><input type="radio" name="q10" value="B"> SELECT</label>
-      <label><input type="radio" name="q10" value="C"> INSERT</label>
-      <label><input type="radio" name="q10" value="D"> UPDATE</label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-      Submit Assignment
-    </button>
-
-  </form>
-
-  <div id="assignmentResult" class="result-box"></div>
-</div>
-
 <footer>
-  <div class="brand">
-    <span class="brand-mark">O</span>
-    OneUmmah Data Skills
-  </div>
-
-  <span>© 2026 Technical Learning Platform</span>
-
-  <div>
-    <a href="courses.html">Courses</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="login.html">Login</a>
+  <div class="wrap foot">
+    <div><a class="logo" href="index.html"><i>O</i>OneUmmah</a><p style="margin-top:8px">© 2026 OneUmmah Data Skills</p></div>
+    <nav aria-label="Footer"><a href="courses.html">Courses</a><a href="dashboard.html">Dashboard</a><a href="login.html">Login</a></nav>
   </div>
 </footer>
-
 <div id="toast" class="toast"></div>
 
 <script src="script.js"></script>
-
+<script src="scaler-common.js"></script>
 <script>
-/* -----------------------------------
-   ENROLLED COURSES
------------------------------------ */
+(function(){
+  var COURSE_ID="sql";
+  var LESSONS=[
+    {day:"Day 1",title:"SQL Introduction"},
+    {day:"Day 2",title:"SQL Basics"},
+    {day:"Day 3",title:"SQL Queries"},
+    {day:"Day 4",title:"SQL Practice"}
+  ];
+  function byId(i){return document.getElementById(i)}
+  function say(m){if(typeof toast==="function")toast(m)}
+  window.say=say;
 
-function toggleCourseTree(event) {
-  if (event) event.preventDefault();
+  function sqlPaid(){return OUM.hasPaid(COURSE_ID)}
+  function doneList(){return OUM.done(COURSE_ID)}
+  function day1Done(){return doneList().indexOf(0)>-1}
+  function passed(){return localStorage.getItem("sqlAssignmentPassed")==="true"}
+  var PANELS=["videoSection","assignmentSection","certificateSection","projectsSection","lessonPlaceholder"];
+  function hidePanels(){PANELS.forEach(function(i){byId(i).classList.add("hidden")})}
+  function scrollTo(i){byId(i).scrollIntoView({behavior:"smooth",block:"start"})}
+  function showLearning(){byId("sqlLearningArea").classList.remove("hidden")}
 
-  const tree = document.getElementById("courseFileTree");
-  const opening = !tree.classList.contains("open");
-
-  tree.classList.toggle("open", opening);
-
-  document.getElementById("myCoursesSection")
-    .classList.toggle("hidden", !opening);
-
-  if (opening) {
-    document.getElementById("myCoursesSection")
-      .scrollIntoView({behavior:"smooth",block:"start"});
+  /* ---------- locks (lessons open one by one) ---------- */
+  function refreshLocks(){
+    document.querySelectorAll("[data-need]").forEach(function(a){
+      var need=a.getAttribute("data-need"),locked=need==="day1"?!day1Done():!passed();
+      a.classList.toggle("locked",locked);
+      a.querySelector(".ic").textContent=locked?"🔒":a.getAttribute("data-ic");
+    });
+    document.querySelectorAll("[data-day]").forEach(function(b){
+      var locked=!OUM.isUnlocked(COURSE_ID,+b.getAttribute("data-day"));
+      b.textContent=(locked?"🔒 ":"📁 ")+b.getAttribute("data-label");
+    });
+    var box=byId("lessonList");box.innerHTML="";
+    LESSONS.forEach(function(l,i){
+      var open=OUM.isUnlocked(COURSE_ID,i),done=doneList().indexOf(i)>-1;
+      var row=document.createElement("div");row.className="day-folder"+(open?"":" lock");
+      var left=document.createElement("div"),t=document.createElement("div"),n=document.createElement("div"),chip=document.createElement("span");
+      t.className="day-title";t.textContent=l.day;
+      chip.className="chip"+(done?" done":(open?"":" lock"));
+      chip.textContent=done?"Completed":(open?"Open":"Locked");
+      t.appendChild(chip);
+      n.className="lesson-name";n.textContent=(i===0?"🎬 ":"")+l.title;
+      left.appendChild(t);left.appendChild(n);
+      var b=document.createElement("button");b.type="button";b.className="btn sm"+(open?"":" outline");
+      b.textContent=open?(i===0?(done?"Watch again":"Start Learning"):"Open"):"🔒 Locked";
+      b.onclick=function(){i===0?openSQLVideo():showDayPlaceholder(l.day,l.title,i)};
+      row.appendChild(left);row.appendChild(b);box.appendChild(row);
+    });
+    byId("metricLessons").textContent=sqlPaid()?doneList().length:0;
+    byId("metricAssign").textContent=passed()?1:0;
+    byId("metricCerts").textContent=passed()?1:0;
   }
-
-  document.getElementById("sqlLearningArea").classList.add("hidden");
-  document.getElementById("videoSection").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.add("hidden");
-  document.getElementById("certificateSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-
-  if (!opening) {
-    document.getElementById("dayOneFiles").classList.add("hidden");
-    document.getElementById("dayOneFolderIcon").textContent = "📁";
+  function completeLesson(index,msg){
+    var was=doneList().indexOf(index)>-1;
+    OUM.markDone(COURSE_ID,index);refreshLocks();
+    if(!was&&msg)say(msg);
   }
-}
+  window.completeLesson=completeLesson; /* call completeLesson(1) when Day 2 is finished, and so on */
 
-function closeCourseTree() {
-  document.getElementById("courseFileTree").classList.remove("open");
-  document.getElementById("dayOneFiles").classList.add("hidden");
-  document.getElementById("dayOneFolderIcon").textContent = "📁";
-}
-
-function openAssessmentFromSidebar(event) {
-  if (event) event.preventDefault();
-  closeCourseTree();
-  openAssessmentFromTree();
-}
-
-function toggleDayOneFolder() {
-  const el = document.getElementById("dayOneFiles");
-  el.classList.toggle("hidden");
-  document.getElementById("dayOneFolderIcon").textContent =
-    el.classList.contains("hidden") ? "📁" : "📂";
-}
-
-function openSQLVideoFromTree() {
-  document.getElementById("sqlLearningArea").classList.remove("hidden");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.remove("hidden");
-  openSQLVideo();
-}
-
-function showDayPlaceholder(day, title) {
-  document.getElementById("sqlLearningArea").classList.remove("hidden");
-  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-  document.getElementById("videoSection").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.add("hidden");
-  document.getElementById("certificateSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-
-  const placeholder = document.getElementById("lessonPlaceholder");
-  placeholder.classList.remove("hidden");
-  placeholder.innerHTML =
-    "<h3>" + day + " — " + title + "</h3>" +
-    "<p>Lesson content will appear here when you add this lesson's file.</p>";
-
-  placeholder.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function openAssessmentFromTree() {
-  document.getElementById("sqlLearningArea").classList.add("hidden");
-  document.getElementById("myCoursesSection").classList.add("hidden");
-  document.getElementById("videoSection").classList.add("hidden");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-  document.getElementById("certificateSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.remove("hidden");
-
-  document.getElementById("assignmentSection")
-    .scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function openCertificateFromTree() {
-  closeCourseTree();
-
-  document.getElementById("sqlLearningArea").classList.remove("hidden");
-  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-  document.getElementById("videoSection").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-
-  const section = document.getElementById("certificateSection");
-  section.classList.remove("hidden");
-  section.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function hideDashboardContentSections() {
-  const learningArea = document.getElementById("sqlLearningArea");
-  learningArea.classList.remove("hidden");
-  learningArea.classList.remove("assessment-mode");
-
-  document.getElementById("videoSection").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.add("hidden");
-  document.getElementById("certificateSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-}
-
-function openVideoFromSidebar(event) {
-  if (event) event.preventDefault();
-  closeCourseTree();
-  hideDashboardContentSections();
-
-  document.getElementById("videoSection").classList.remove("hidden");
-  document.getElementById("videoSection")
-    .scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function openProjectsFromSidebar(event) {
-  if (event) event.preventDefault();
-  closeCourseTree();
-  hideDashboardContentSections();
-
-  document.getElementById("projectsSection").classList.remove("hidden");
-  document.getElementById("projectsSection")
-    .scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function openCertificateFromSidebar(event) {
-  if (event) event.preventDefault();
-  openCertificateFromTree();
-}
-
-function getEnrolledCourses() {
-  try {
-    const user = currentUser();
-
-    if (user && Array.isArray(user.enrolled)) {
-      return user.enrolled;
-    }
-
-    return [];
-  } catch (error) {
-    console.error("Could not load enrolled courses:", error);
-    return [];
+  /* ---------- sidebar actions ---------- */
+  window.goOverview=function(e){
+    if(e)e.preventDefault();
+    closeTree();byId("sqlLearningArea").classList.add("hidden");byId("myCoursesSection").classList.add("hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+  function closeTree(){
+    byId("courseFileTree").classList.remove("open");
+    byId("dayOneFiles").classList.add("hidden");byId("dayOneFolderIcon").textContent="📁";
   }
-}
-
-/* -----------------------------------
-   SHOW ENROLLED COURSES
------------------------------------ */
-
-function loadDashboardCourses() {
-  const myCoursesSection = document.getElementById("myCoursesSection");
-  const courseFileTree = document.getElementById("courseFileTree");
-  const sqlLearningArea = document.getElementById("sqlLearningArea");
-  const assignmentSection = document.getElementById("assignmentSection");
-
-  if (myCoursesSection) myCoursesSection.classList.add("hidden");
-  if (courseFileTree) courseFileTree.classList.remove("open");
-  if (sqlLearningArea) sqlLearningArea.classList.add("hidden");
-  if (assignmentSection) assignmentSection.classList.add("hidden");
-
-  const enrolled = getEnrolledCourses();
-
-  const compilerWorkspace = document.getElementById("compilerWorkspace");
-  const sqlCompilerCard = document.getElementById("sqlCompilerCard");
-  const pythonCompilerCard = document.getElementById("pythonCompilerCard");
-  const noCompilerMessage = document.getElementById("noCompilerMessage");
-
-  const compilerMap = {
-    sql:sqlCompilerCard,
-    python:pythonCompilerCard
+  window.toggleCourseTree=function(e){
+    if(e)e.preventDefault();
+    var tree=byId("courseFileTree"),opening=!tree.classList.contains("open");
+    tree.classList.toggle("open",opening);
+    byId("myCoursesSection").classList.toggle("hidden",!opening);
+    byId("sqlLearningArea").classList.add("hidden");hidePanels();
+    if(opening)scrollTo("myCoursesSection");else closeTree();
+  };
+  window.toggleDayOneFolder=function(){
+    var el=byId("dayOneFiles");el.classList.toggle("hidden");
+    byId("dayOneFolderIcon").textContent=el.classList.contains("hidden")?"📁":"📂";
+  };
+  function openSQLVideo(){
+    showLearning();hidePanels();
+    byId("videoSection").classList.remove("hidden");scrollTo("videoSection");
+  }
+  window.openSQLVideo=openSQLVideo;
+  window.openSQLVideoFromTree=openSQLVideo;
+  window.openVideoFromSidebar=function(e){if(e)e.preventDefault();closeTree();openSQLVideo()};
+  window.showDayPlaceholder=function(day,title,index){
+    if(typeof index==="number"&&!OUM.isUnlocked(COURSE_ID,index)){say("🔒 Complete the previous lesson to unlock "+day+".");return}
+    showLearning();hidePanels();
+    var p=byId("lessonPlaceholder");p.classList.remove("hidden");
+    p.innerHTML="";
+    var h=document.createElement("h3"),t=document.createElement("p");
+    h.textContent=day+" — "+title;t.className="muted";
+    t.textContent="Lesson content will appear here when you add this lesson's file.";
+    p.appendChild(h);p.appendChild(t);scrollTo("lessonPlaceholder");
+  };
+  window.openAssessmentFromSidebar=function(e){
+    if(e)e.preventDefault();
+    if(!day1Done()){say("🔒 Finish the Day 1 video to unlock the assignment.");return}
+    closeTree();byId("sqlLearningArea").classList.add("hidden");byId("myCoursesSection").classList.add("hidden");hidePanels();
+    byId("assignmentSection").classList.remove("hidden");scrollTo("assignmentSection");
+  };
+  window.openProjectsFromSidebar=function(e){
+    if(e)e.preventDefault();
+    if(!day1Done()){say("🔒 Finish the Day 1 video to unlock projects.");return}
+    closeTree();showLearning();hidePanels();
+    byId("projectsSection").classList.remove("hidden");scrollTo("projectsSection");
+  };
+  window.openCertificateFromSidebar=function(e){
+    if(e)e.preventDefault();
+    if(!passed()){say("🔒 Pass the assignment with 80% or above to unlock your certificate.");return}
+    closeTree();showLearning();hidePanels();
+    byId("certificateSection").classList.remove("hidden");scrollTo("certificateSection");
   };
 
-  let hasAvailableCompiler = false;
-
-  Object.values(compilerMap).forEach(function(card) {
-    if (card) card.classList.add("hidden");
-  });
-
-  enrolled.forEach(function(courseId) {
-    const card = compilerMap[courseId];
-
-    if (card) {
-      card.classList.remove("hidden");
-      hasAvailableCompiler = true;
-    }
-  });
-
-  if (noCompilerMessage) {
-    noCompilerMessage.classList.toggle("hidden",hasAvailableCompiler);
+  /* ---------- compilers + my courses ---------- */
+  function loadDashboardCourses(){
+    byId("myCoursesSection").classList.add("hidden");
+    byId("courseFileTree").classList.remove("open");
+    byId("sqlLearningArea").classList.add("hidden");
+    byId("assignmentSection").classList.add("hidden");
+    var u=OUM.user(),enrolled=(u&&Array.isArray(u.enrolled))?u.enrolled:[];
+    var map={sql:byId("sqlCompilerCard"),python:byId("pythonCompilerCard")},any=false;
+    Object.keys(map).forEach(function(k){map[k].classList.add("hidden")});
+    enrolled.forEach(function(id){if(map[id]){map[id].classList.remove("hidden");any=true}});
+    byId("noCompilerMessage").classList.toggle("hidden",any);
+    byId("metricActive").textContent=enrolled.length;
+    if(!sqlPaid())byId("sqlSidebar").classList.add("hidden");
   }
 
-  if (compilerWorkspace) {
-    compilerWorkspace.classList.remove("hidden");
+  /* ---------- video progress ---------- */
+  var video=byId("sqlVideo");
+  if(video){
+    var saved=parseFloat(localStorage.getItem("sqlDay1VideoTime"))||0;
+    if(saved>0)video.addEventListener("loadedmetadata",function(){if(saved<video.duration)video.currentTime=saved},{once:true});
+    video.addEventListener("timeupdate",function(){
+      if(!video.duration)return;
+      var pc=Math.round(video.currentTime/video.duration*100);
+      localStorage.setItem("sqlDay1VideoTime",video.currentTime);
+      localStorage.setItem("sqlDay1Progress",pc);
+      byId("videoProgressText").textContent="Progress: "+pc+"%";
+    });
+    video.addEventListener("ended",function(){
+      localStorage.setItem("sqlDay1Completed","true");
+      completeLesson(0,"✅ Day 1 completed! Day 2 and the assignment are now unlocked.");
+    });
   }
 
-  const active = document.getElementById("metricActive");
-  if (active) active.textContent = enrolled.length;
-}
-
-/* -----------------------------------
-   OPEN SQL VIDEO
------------------------------------ */
-
-function openSQLVideo() {
-  document.getElementById("sqlLearningArea").classList.remove("hidden");
-  document.getElementById("sqlLearningArea").classList.remove("assessment-mode");
-  document.getElementById("lessonPlaceholder").classList.add("hidden");
-  document.getElementById("assignmentSection").classList.add("hidden");
-  document.getElementById("certificateSection").classList.add("hidden");
-  document.getElementById("projectsSection").classList.add("hidden");
-
-  const videoSection = document.getElementById("videoSection");
-  videoSection.classList.remove("hidden");
-  videoSection.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-/* -----------------------------------
-   VIDEO PROGRESS
------------------------------------ */
-
-const sqlVideo = document.getElementById("sqlVideo");
-
-if (sqlVideo) {
-  const savedTime = parseFloat(localStorage.getItem("sqlDay1VideoTime")) || 0;
-
-  if (savedTime > 0) {
-    sqlVideo.addEventListener("loadedmetadata",function() {
-      if (savedTime < sqlVideo.duration) {
-        sqlVideo.currentTime = savedTime;
-      }
-    },{once:true});
-  }
-
-  sqlVideo.addEventListener("timeupdate",function() {
-    if (sqlVideo.duration) {
-      const percent = Math.round(
-        (sqlVideo.currentTime / sqlVideo.duration) * 100
-      );
-
-      localStorage.setItem("sqlDay1VideoTime",sqlVideo.currentTime);
-      localStorage.setItem("sqlDay1Progress",percent);
-
-      document.getElementById("videoProgressText").textContent =
-        "Progress: " + percent + "%";
+  /* ---------- assignment ---------- */
+  var ANSWERS={q1:"B",q2:"C",q3:"A",q4:"B",q5:"A",q6:"B",q7:"B",q8:"B",q9:"A",q10:"A"};
+  var form=byId("sqlAssignmentForm");
+  if(form)form.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var score=0;
+    for(var i=1;i<=10;i++){
+      var s=document.querySelector('input[name="q'+i+'"]:checked');
+      if(s&&s.value===ANSWERS["q"+i])score++;
+    }
+    var pc=score*10,r=byId("assignmentResult");r.style.display="block";
+    if(pc>=80){
+      r.className="result-box pass-box";
+      r.innerHTML="<h3>🎉 Congratulations! You Passed</h3><p>Your Score: <strong>"+score+"/10 ("+pc+"%)</strong></p><p>You have achieved the required 80% passing score. Your certificate is unlocked.</p>";
+      localStorage.setItem("sqlAssignmentPassed","true");localStorage.setItem("sqlAssignmentScore",pc);
+      refreshLocks();
+    }else{
+      r.className="result-box fail-box";
+      r.innerHTML="<h3>❌ Not Passed</h3><p>Your Score: <strong>"+score+"/10 ("+pc+"%)</strong></p><p>You need at least 80% to pass. Please try again.</p><button type=\"button\" class=\"btn retry-btn\" onclick=\"retryAssignment()\">Retry Assignment</button>";
     }
   });
+  window.retryAssignment=function(){
+    form.reset();var r=byId("assignmentResult");r.style.display="none";r.innerHTML="";scrollTo("assignmentSection");
+  };
 
-  sqlVideo.addEventListener("ended",function() {
-    localStorage.setItem("sqlDay1Completed","true");
-    document.getElementById("metricLessons").textContent = "1";
+  /* ---------- start ---------- */
+  document.addEventListener("DOMContentLoaded",function(){
+    if(localStorage.getItem("sqlDay1Completed")==="true"&&OUM.user()&&!day1Done())OUM.markDone(COURSE_ID,0);
+    loadDashboardCourses();
+    refreshLocks();
   });
-}
-
-/* -----------------------------------
-   SQL ASSIGNMENT
------------------------------------ */
-
-const assignmentForm = document.getElementById("sqlAssignmentForm");
-
-if (assignmentForm) {
-  assignmentForm.addEventListener("submit",function(event) {
-    event.preventDefault();
-
-    const answers = {
-      q1:"B",q2:"C",q3:"A",q4:"B",q5:"A",
-      q6:"B",q7:"B",q8:"B",q9:"A",q10:"A"
-    };
-
-    let score = 0;
-
-    for (let i=1;i<=10;i++) {
-      const selected = document.querySelector(
-        'input[name="q' + i + '"]:checked'
-      );
-
-      if (selected && selected.value === answers["q" + i]) {
-        score++;
-      }
-    }
-
-    const percentage = score * 10;
-    const result = document.getElementById("assignmentResult");
-
-    result.style.display = "block";
-
-    if (percentage >= 80) {
-      result.className = "result-box pass-box";
-
-      result.innerHTML = `
-        <h3>🎉 Congratulations! You Passed</h3>
-        <p>Your Score: <strong>${score}/10 (${percentage}%)</strong></p>
-        <p>You have achieved the required 80% passing score.</p>
-      `;
-
-      document.getElementById("certificateSection").classList.remove("hidden");
-
-      localStorage.setItem("sqlAssignmentPassed","true");
-      localStorage.setItem("sqlAssignmentScore",percentage);
-
-      document.getElementById("metricAssign").textContent = "1";
-      document.getElementById("metricCerts").textContent = "1";
-
-      document.getElementById("certificateSection")
-        .scrollIntoView({behavior:"smooth"});
-
-    } else {
-      result.className = "result-box fail-box";
-
-      result.innerHTML = `
-        <h3>❌ Not Passed</h3>
-        <p>Your Score: <strong>${score}/10 (${percentage}%)</strong></p>
-        <p>You need at least 80% to pass. Please try again.</p>
-        <button type="button" class="btn btn-primary retry-btn"
-          onclick="retryAssignment()">Retry Assignment</button>
-      `;
-
-      document.getElementById("certificateSection").classList.add("hidden");
-    }
-  });
-}
-
-/* -----------------------------------
-   RETRY ASSIGNMENT
------------------------------------ */
-
-function retryAssignment() {
-  document.getElementById("sqlAssignmentForm").reset();
-
-  const result = document.getElementById("assignmentResult");
-  result.style.display = "none";
-  result.innerHTML = "";
-
-  document.getElementById("assignmentSection")
-    .scrollIntoView({behavior:"smooth"});
-}
-
-/* -----------------------------------
-   LOAD SAVED RESULT
------------------------------------ */
-
-function loadSavedAssignment() {
-  const passed = localStorage.getItem("sqlAssignmentPassed");
-
-  if (passed === "true") {
-    const certificate = document.getElementById("certificateSection");
-    certificate.classList.remove("hidden");
-
-    document.getElementById("metricAssign").textContent = "1";
-    document.getElementById("metricCerts").textContent = "1";
-  }
-}
-
-/* -----------------------------------
-   INITIAL LOAD
------------------------------------ */
-
-document.addEventListener("DOMContentLoaded",function() {
-  loadDashboardCourses();
-  loadSavedAssignment();
-});
+})();
 </script>
-
 <script src="chatbot.js"></script>
-
 </body>
 </html>
