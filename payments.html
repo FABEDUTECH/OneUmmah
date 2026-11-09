@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="scaler-theme.css">
+<link rel="stylesheet" href="scaler-theme.css?v=4">
 <title>Enroll | OneUmmah Data Skills</title>
 <script>
 /* Must be logged in: otherwise open login, then come back here */
@@ -68,14 +68,19 @@ if(!u){sessionStorage.setItem('oum_next','payments.html'+location.search);locati
 <script src="script.js"></script>
 <script>
 (function(){
+  /* ===== TEST MODE =====
+     true  = a "Unlock without payment (test)" button is shown, so you can check the whole design and flow.
+     false = only the real Razorpay payment flow. SET THIS TO false BEFORE GOING LIVE. */
+  var TEST_MODE=true;
+
   /* ===== EDIT HERE: price and Razorpay payment link for each course =====
-     link:"" means "payment link not added yet" (the page shows a WhatsApp button instead). */
+     link:"" means "payment link not added yet". */
   var PRICES={
-    sql:{name:"Master SQL",badge:"SQL",price:99,link:"https://razorpay.com/payment-button/pl_NqCHRBZKYYHdBC/view/?utm_source=payment_button&utm_medium=button&utm_campaign=payment_button"},
-    python:{name:"Python for Data Engineering",badge:"Py",price:null,link:""},
-    azure:{name:"Azure Data Engineering",badge:"AZ",price:null,link:""},
-    snowflake:{name:"Snowflake &amp; dbt",badge:"SF",price:null,link:""},
-    java:{name:"Java Development",badge:"J",price:null,link:""}
+    sql:{name:"Master SQL",badge:"SQL",level:"Beginner → Advanced",desc:"Queries, joins, CTEs, window functions and interview problems.",price:99,link:"https://razorpay.com/payment-button/pl_NqCHRBZKYYHdBC/view/?utm_source=payment_button&utm_medium=button&utm_campaign=payment_button"},
+    python:{name:"Python for Data Engineering",badge:"Py",level:"Beginner → Advanced",desc:"Python fundamentals, automation, APIs and data processing.",price:null,link:""},
+    azure:{name:"Azure Data Engineering",badge:"AZ",level:"Advanced",desc:"ADF, PySpark, Fabric, Delta Lake, pipelines and deployment.",price:null,link:""},
+    snowflake:{name:"Snowflake &amp; dbt",badge:"SF",level:"Intermediate → Advanced",desc:"Warehouse design, ELT, dbt models, testing and Data Vault.",price:null,link:""},
+    java:{name:"Java Development",badge:"J",level:"Beginner → Advanced",desc:"Core Java, OOP, collections, APIs and application development.",price:null,link:""}
   };
   var WA="916360846480";
   var root=document.getElementById("payRoot");
@@ -87,17 +92,18 @@ if(!u){sessionStorage.setItem('oum_next','payments.html'+location.search);locati
   function rupees(p){return p==null?"Price on request":"\u20b9"+p}
 
   var u=me();
-  if(!c){ // course picker
-    var h='<h2>Choose a course</h2><p class="sub">Select the course you want to enroll in.</p><div class="grid pick">';
+  if(!c){ /* course picker */
+    var h='<h2>Choose a course</h2><p class="sub">Select the course you want to enroll in.</p><div class="grid courses pick">';
     Object.keys(PRICES).forEach(function(k){
       var p=PRICES[k],owned=u&&(u.paid||[]).indexOf(k)>-1;
-      h+='<article class="card"><span class="badge">'+p.badge+'</span><h3>'+p.name+'</h3><p>'+rupees(p.price)+'</p>'+
-         '<a class="btn'+(owned?' outline':'')+'" href="'+(owned?'dashboard.html':'payments.html?course='+k)+'">'+(owned?'Open course':'Enroll')+'</a></article>';
+      h+='<article class="card"><span class="badge">'+p.badge+'</span><span class="tag">'+p.level+'</span><h3>'+p.name+'</h3><p>'+p.desc+'</p>'+
+         '<div class="price-big'+(p.price==null?' small':'')+'">'+rupees(p.price)+'</div>'+
+         '<a class="btn'+(owned?' outline':'')+'" href="'+(owned?'dashboard.html':'payments.html?course='+k)+'">'+(owned?'Open course':'Enroll now \u2192')+'</a></article>';
     });
     root.innerHTML=h+'</div>';
     return;
   }
-  if(u&&(u.paid||[]).indexOf(id)>-1){ // already paid
+  if(u&&(u.paid||[]).indexOf(id)>-1){ /* already paid */
     root.innerHTML='<div class="card done-card"><span class="badge">\u2713</span><h3>You are enrolled in '+c.name+'</h3>'+
       '<p>Your videos, coding labs and dashboard are unlocked.</p><a class="btn" href="dashboard.html">Go to dashboard</a></div>';
     return;
@@ -112,32 +118,40 @@ if(!u){sessionStorage.setItem('oum_next','payments.html'+location.search);locati
       '<button class="btn full" id="unlock" type="button">Unlock my course</button>'
     : '<p class="pay-note">The payment link for this course is not live yet. Talk to us and we will enroll you.</p>'+
       '<a class="btn full" target="_blank" rel="noopener noreferrer" href="https://wa.me/'+WA+'?text='+encodeURIComponent("Hi, I want to enroll in "+plain+" at OneUmmah Data Skills.")+'">Enroll on WhatsApp</a>';
+  var testBlock=TEST_MODE
+    ? '<div class="or">test mode</div><button class="btn outline full" id="testUnlock" type="button">Unlock without payment (test)</button>'+
+      '<p class="pay-note">Test mode is ON. Set TEST_MODE to false in payments.html before going live.</p>'
+    : '';
 
   root.innerHTML='<div class="pay-grid">'+
     '<div class="pay-info"><span class="tag">Enrollment</span><h2>'+c.name+'</h2>'+
-    '<p>Structured video lessons, a coding lab, assignments and a completion certificate.</p>'+
+    '<p>'+c.desc+' Includes video lessons, a coding lab, assignments and a completion certificate.</p>'+
     '<ol class="steps-list"><li>Pay securely with Razorpay.</li><li>Copy the payment ID (starts with pay_) from the receipt.</li><li>Paste it here. Your student area unlocks, one lesson at a time.</li></ol></div>'+
     '<div class="pay-card"><h3>Order summary</h3>'+
     '<div class="sum"><span>'+c.name+'</span><span>'+rupees(c.price)+'</span></div>'+
-    '<div class="sum total"><span>Total</span><b>'+rupees(c.price)+'</b></div>'+payBlock+'</div></div>';
+    '<div class="sum total"><span>Total</span><b>'+rupees(c.price)+'</b></div>'+payBlock+testBlock+'</div></div>';
 
-  var btn=document.getElementById("unlock");
-  if(btn)btn.onclick=function(){
-    var v=document.getElementById("payId").value.trim(),err=document.getElementById("payErr");
-    if(!/^pay_[A-Za-z0-9]{10,}$/.test(v)){err.textContent="Enter the payment ID from your Razorpay receipt (it starts with pay_).";return}
-    err.textContent="";
-    /* DEMO: access is unlocked on trust. Replace with server-side payment verification (Firebase + Razorpay webhook) before going live. */
+  /* DEMO: access is granted on trust. Replace with server-side payment verification (Firebase + Razorpay webhook) before going live. */
+  function grant(paymentId){
     var all=users(),cur=me();if(!cur)return;
     cur.paid=cur.paid||[];cur.enrolled=cur.enrolled||[];cur.payments=cur.payments||[];
     if(cur.paid.indexOf(id)<0)cur.paid.push(id);
     if(cur.enrolled.indexOf(id)<0)cur.enrolled.push(id);
-    cur.payments.push({course:id,paymentId:v,at:new Date().toISOString()});
+    cur.payments.push({course:id,paymentId:paymentId,at:new Date().toISOString()});
     all[cur.email]=cur;localStorage.setItem("dfa_users",JSON.stringify(all));
     location.href="dashboard.html";
+  }
+  var btn=document.getElementById("unlock");
+  if(btn)btn.onclick=function(){
+    var v=document.getElementById("payId").value.trim(),err=document.getElementById("payErr");
+    if(!/^pay_[A-Za-z0-9]{10,}$/.test(v)){err.textContent="Enter the payment ID from your Razorpay receipt (it starts with pay_).";return}
+    err.textContent="";grant(v);
   };
+  var tb=document.getElementById("testUnlock");
+  if(tb)tb.onclick=function(){grant("TEST-MODE")};
 })();
 </script>
-<script src="scaler-common.js"></script>
-<script src="chatbot.js"></script>
+<script src="scaler-common.js?v=4"></script>
+<script src="chatbot.js?v=4"></script>
 </body>
 </html>
