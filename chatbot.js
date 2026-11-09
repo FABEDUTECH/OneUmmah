@@ -1,44 +1,51 @@
-
 (() => {
   const API_URL = "https://oneummah-ai-chatbot.oneummahdataskills.workers.dev";
 
   if (document.getElementById("oum-chat-launcher")) return;
 
+  /* Scaler-style look: blue + navy, square corners, Plus Jakarta Sans.
+     Sits above the navy "Request a Call" bar (54px) and below the login drawer. */
   const css = document.createElement("style");
   css.textContent = `
     #oum-chat-launcher {
       position: fixed;
       right: 22px;
-      bottom: 22px;
-      z-index: 99999;
-      width: 60px;
-      height: 60px;
+      bottom: 74px;
+      z-index: 80;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: #171717;
-      color: #e8bd58;
-      border: 2px solid #e8bd58;
-      font-size: 27px;
+      background: #0443e0;
+      color: #fff;
+      border: 0;
+      font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 5px 25px #0006;
+      box-shadow: 0 8px 24px rgba(4, 67, 224, .4);
+      transition: background .2s, transform .2s;
+    }
+
+    #oum-chat-launcher:hover {
+      background: #0334b3;
+      transform: translateY(-2px);
     }
 
     #oum-chat-panel {
       display: none;
       position: fixed;
       right: 20px;
-      bottom: 94px;
-      z-index: 99999;
-      width: min(360px, calc(100vw - 32px));
-      height: 480px;
-      max-height: 70vh;
-      background: #111;
-      color: #fff;
-      border: 1px solid #e8bd58;
-      border-radius: 16px;
+      bottom: 142px;
+      z-index: 80;
+      width: min(380px, calc(100vw - 32px));
+      height: 500px;
+      max-height: calc(100vh - 170px);
+      background: #fff;
+      color: #000;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
       overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       flex-direction: column;
-      box-shadow: 0 8px 35px #0007;
+      box-shadow: 0 18px 50px rgba(0, 26, 79, .28);
     }
 
     #oum-chat-panel.open {
@@ -46,59 +53,66 @@
     }
 
     .oum-head {
-      padding: 15px;
-      background: #211c10;
-      border-bottom: 1px solid #665127;
+      padding: 16px 18px;
+      background: #001a4f;
+      color: #fff;
     }
 
     .oum-head strong {
-      color: #e8bd58;
-      font-size: 16px;
+      color: #fff;
+      font-family: 'Clash Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: .01em;
     }
 
     .oum-head small {
       display: block;
-      margin-top: 5px;
-      color: #ccc;
+      margin-top: 4px;
+      color: #b9c8ee;
+      font-size: 12px;
     }
 
     #oum-chat-close {
       float: right;
       background: none;
       border: 0;
-      color: white;
-      font-size: 24px;
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
       cursor: pointer;
     }
 
     #oum-chat-log {
       flex: 1;
       overflow-y: auto;
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      background: #fafafa;
     }
 
     .oum-bubble {
-      padding: 10px 12px;
-      border-radius: 12px;
+      padding: 11px 13px;
+      border-radius: 2px;
       max-width: 88%;
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 14px;
+      line-height: 1.55;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
     .oum-bot {
-      background: #29251b;
-      border: 1px solid #4b3c1d;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      color: #111;
       align-self: flex-start;
     }
 
     .oum-user {
-      background: #e8bd58;
-      color: #171717;
+      background: #0443e0;
+      color: #fff;
       align-self: flex-end;
     }
 
@@ -106,43 +120,69 @@
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      padding: 8px;
+      padding: 10px 12px;
+      background: #fafafa;
+      border-top: 1px solid #e5e5e5;
     }
 
     .oum-shortcuts button {
-      background: #1b1b1b;
-      color: #e8bd58;
-      border: 1px solid #8c7035;
-      border-radius: 15px;
-      padding: 7px;
-      font-size: 11px;
+      background: #fff;
+      color: #0443e0;
+      border: 1px solid #0443e0;
+      border-radius: 2px;
+      padding: 7px 10px;
+      font: 600 11px 'Plus Jakarta Sans', system-ui, sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
       cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .oum-shortcuts button:hover {
+      background: #0443e0;
+      color: #fff;
     }
 
     #oum-chat-form {
       display: flex;
-      gap: 7px;
-      padding: 10px;
-      border-top: 1px solid #443921;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid #e5e5e5;
+      background: #fff;
     }
 
     #oum-chat-input {
       min-width: 0;
       flex: 1;
-      background: #202020;
-      color: white;
-      border: 1px solid #5b4a2b;
-      border-radius: 8px;
-      padding: 10px;
+      background: #fff;
+      color: #000;
+      border: 1px solid #cfcfcf;
+      border-radius: 2px;
+      padding: 0 12px;
+      height: 40px;
+      font: 14px 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    #oum-chat-input:focus {
+      border-color: #0443e0;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(4, 67, 224, .12);
     }
 
     #oum-chat-send {
-      background: #e8bd58;
-      color: #171717;
+      background: #0443e0;
+      color: #fff;
       border: 0;
-      border-radius: 8px;
-      padding: 0 13px;
+      border-radius: 2px;
+      padding: 0 16px;
+      font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       cursor: pointer;
+    }
+
+    #oum-chat-send:hover {
+      background: #0334b3;
     }
 
     #oum-chat-send:disabled {
@@ -151,9 +191,14 @@
     }
 
     @media (max-width: 480px) {
+      #oum-chat-launcher {
+        right: 14px;
+        bottom: 70px;
+      }
+
       #oum-chat-panel {
         right: 8px;
-        bottom: 86px;
+        bottom: 134px;
         width: calc(100vw - 16px);
       }
     }
