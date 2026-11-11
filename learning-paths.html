@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scaler-theme.css?v=4">
+<title>SQL Learning Path | OneUmmah Data Skills</title>
+<script src="scaler-access.js?v=4"></script>
+<style>
+.lt-tabs{background:var(--navy)}
+.lt-tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+.lt-tabs a{padding:13px 18px;font:600 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:#cfd8f3;white-space:nowrap;cursor:pointer}
+.lt-tabs a:hover{background:#0d2a6b;color:#fff}
+.lt-tabs a.on{background:var(--blue);color:#fff}
+.lt-layout{display:grid;grid-template-columns:260px minmax(0,1fr) 270px;gap:32px;align-items:start;padding-top:28px;padding-bottom:70px}
+.lt-side{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto;background:var(--soft);border:1px solid var(--line)}
+.lt-sidehead{padding:16px 18px 8px;font:600 12px var(--font);letter-spacing:.12em;color:var(--muted)}
+.lt-side a{display:flex;justify-content:space-between;gap:8px;padding:10px 18px;font-size:15px;color:#111;border-left:3px solid transparent;cursor:pointer}
+.lt-side a:hover{background:#eef3fd}
+.lt-side a.on{background:#e3ebfb;border-left-color:var(--blue);font-weight:700}
+.lt-side a .d{color:#1c7a45;font-size:13px}
+.lt-main{min-width:0}
+.lt-main h1{font:400 clamp(32px,4vw,48px)/1.15 var(--display);margin-bottom:18px}
+.lt-main h2{text-align:left}
+.lt-nav{display:flex;justify-content:space-between;gap:12px;margin:0 0 26px}
+.lt-main p{margin:0 0 16px;font-size:17px;color:#222;line-height:1.75}
+.lt-cards{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);margin:8px 0 28px}
+.lt-cards>div{padding:30px}
+.lt-cards>div+div{background:#eaf3ff}
+.lt-cards h2{font-size:28px;margin-bottom:12px}
+.lt-cards .btn{margin-top:6px}
+.lt-ex-box{background:#f1f4f9;border:1px solid var(--line);padding:22px;margin:22px 0}
+.lt-ex-box h3{font:500 24px var(--display);margin-bottom:12px}
+.code{background:#fff;border-left:4px solid var(--blue);padding:14px 16px;font:15px/1.7 Consolas,"Courier New",monospace;white-space:pre-wrap;overflow-x:auto;margin-bottom:16px}
+.kw{color:#0443e0;font-weight:600}.str{color:#a31515}
+.lt-try{display:none;margin-top:18px}
+.lt-try.open{display:block}
+.lt-try textarea{display:block;width:100%;min-height:150px;resize:vertical;background:#0b1730;color:#e6edf7;border:0;padding:16px;font:14px/1.7 Consolas,"Courier New",monospace;outline:none}
+.lt-try .acts{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.lt-out{background:#fff;border:1px solid var(--line);padding:14px;min-height:60px;overflow:auto;font-size:14px}
+.lt-out table{width:100%;border-collapse:collapse}
+.lt-out th,.lt-out td{padding:8px 10px;text-align:left;border:1px solid var(--line);white-space:nowrap}
+.lt-out th{background:#eaf1ff}
+.lt-out .ok{color:#166534;font-weight:600}.lt-out .bad{color:#b42318}
+.lt-exercise{background:#14233f;color:#fff;padding:30px;margin:30px 0}
+.lt-exercise h3{color:#fff;font:500 28px var(--display);text-align:center;margin-bottom:14px}
+.lt-exercise .q{text-align:center;font-weight:700;margin-bottom:16px}
+.lt-exercise label{display:block;max-width:440px;margin:8px auto;padding:12px 14px;background:rgba(255,255,255,.08);cursor:pointer}
+.lt-exercise label:hover{background:rgba(255,255,255,.16)}
+.lt-exercise input{accent-color:#4d8bff;margin-right:8px}
+.lt-exercise .fb{text-align:center;margin-top:14px;font-weight:700;min-height:22px}
+.lt-exercise .btn{display:block;margin:16px auto 0}
+.lt-right{position:sticky;top:84px}
+.lt-pcard{border:1px solid var(--line);padding:22px;margin-bottom:16px;background:#fff}
+.lt-pcard h3{font:500 20px var(--display);margin-bottom:10px}
+.lt-bar{height:8px;background:#e8eef9;margin:10px 0}
+.lt-bar div{height:100%;background:var(--blue)}
+.lt-pcard .btn{display:block;text-align:center;margin-top:10px}
+.lt-lock{background:var(--hero-deep);color:#fff;padding:56px 36px;text-align:center}
+.lt-lock .eyebrow{justify-content:center}
+.lt-lock h2{color:#fff;text-align:center;font:400 clamp(30px,4vw,46px)/1.15 var(--display);margin:22px 0 14px}
+.lt-lock p{color:#fff;max-width:560px;margin:0 auto 20px}
+.lt-lock ul{list-style:none;display:inline-grid;gap:10px;text-align:left;margin:6px 0 28px;font-weight:600}
+.lt-lock li::before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#fff;color:var(--blue);font-size:12px;margin-right:10px}
+.lt-lock .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.lt-lock .btn{background:#fff;color:var(--blue);border-color:#fff}
+.lt-lock .btn.outline{background:transparent;color:#fff;border-color:#fff}
+.lt-select{display:none;width:100%;height:44px;margin-bottom:18px;border:1px solid #cfcfcf;padding:0 12px;font:inherit;background:#fff}
+@media(max-width:1180px){.lt-layout{grid-template-columns:240px minmax(0,1fr)}.lt-right{display:none}}
+@media(max-width:860px){.lt-layout{grid-template-columns:1fr}.lt-side{display:none}.lt-select{display:block}.lt-cards{grid-template-columns:1fr}.lt-lock{padding:40px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><i>O</i>OneUmmah</a>
+    <nav class="links" id="links" aria-label="Main">
+      <div class="dd" id="dd">
+        <button type="button" aria-expanded="false">Courses ⌄</button>
+        <div class="dd-menu">
+          <a href="courses.html#sql">Master SQL</a>
+          <a href="courses.html#python">Python for Data Engineering</a>
+          <a href="courses.html#azure">Azure Data Engineering</a>
+          <a href="courses.html#snowflake">Snowflake &amp; dbt</a>
+          <a href="courses.html#java">Java Development</a>
+        </div>
+      </div>
+      <a href="learning-paths.html" aria-current="page">Learning Paths</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="payments.html">Payments</a>
+      <a class="m-only" href="login.html">Login</a>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-guest" id="guestActions">
+        <a class="btn outline sm hide-m" href="login.html">Login</a>
+        <a class="btn sm hide-m" href="register.html">Register</a>
+      </span>
+      <span class="nav-user" id="authActions" style="display:none">
+        <a href="dashboard.html" class="user-pill"><span class="av" id="navAvatar">S</span><span id="navName">Student</span></a>
+        <button class="btn outline sm" type="button" onclick="handleLogout()">Logout</button>
+      </span>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="lt-tabs"><div class="wrap">
+  <a class="on">SQL</a><a data-soon="Python">Python</a><a data-soon="Azure">Azure</a><a data-soon="Snowflake">Snowflake</a><a data-soon="Java">Java</a>
+</div></div>
+
+<main class="wrap lt-layout">
+  <aside class="lt-side"><div class="lt-sidehead">SQL TUTORIAL</div><nav id="chList" aria-label="SQL chapters"></nav></aside>
+  <article class="lt-main" id="ltMain"></article>
+  <aside class="lt-right" id="ltRight"></aside>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><a class="logo" href="index.html"><i>O</i>OneUmmah</a><p style="margin-top:8px">© 2026 OneUmmah Data Skills</p></div>
+    <nav aria-label="Footer"><a href="courses.html">Courses</a><a href="dashboard.html">Dashboard</a><a href="login.html">Login</a></nav>
+  </div>
+</footer>
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+<script src="scaler-common.js?v=4"></script>
+<script>
+(function(){
+  function byId(i){return document.getElementById(i)}
+  function say(m){if(typeof toast==="function")toast(m)}
+  var PATH="sqlpath";
+  var paid=OUM.hasPaid("sql");
+
+  /* ---------- sample data used by "Try it Yourself" ---------- */
+  var SEED="CREATE TABLE Customers(CustomerID INTEGER PRIMARY KEY, CustomerName TEXT, ContactName TEXT, City TEXT, Country TEXT);"+
+  "INSERT INTO Customers VALUES (1,'Zenith Traders','Amir Khan','Bengaluru','India'),(2,'Blue Orchid Cafe','Sara Ali','Dubai','UAE'),(3,'Crescent Books','Imran Sheikh','Hyderabad','India'),(4,'Delta Electronics','Hana Yusuf','Riyadh','Saudi Arabia'),(5,'Evergreen Foods','Rahul Mehta','Mumbai','India'),(6,'Falcon Logistics','Omar Hassan','Dubai','UAE'),(7,'Garden Fresh',NULL,'Chennai','India'),(8,'Harbor Textiles','Layla Noor','Doha','Qatar');"+
+  "CREATE TABLE Orders(OrderID INTEGER PRIMARY KEY, CustomerID INTEGER, OrderDate TEXT, Amount INTEGER);"+
+  "INSERT INTO Orders VALUES (101,1,'2026-01-05',1200),(102,2,'2026-01-09',450),(103,1,'2026-02-11',800),(104,3,'2026-02-14',300),(105,5,'2026-03-02',950),(106,2,'2026-03-18',600),(107,4,'2026-04-01',1500),(108,6,'2026-04-10',700),(109,1,'2026-05-07',250),(110,3,'2026-05-20',500);";
+
+  /* ---------- chapters ---------- */
+  var CH=[
+   {id:"home",t:"SQL HOME"},
+   {id:"intro",t:"SQL Intro",p:["SQL (Structured Query Language) is the standard language for working with relational databases. You use it to store, read, change and remove data.","A relational database keeps its data in tables made of rows and columns. SQL is how you talk to those tables, and the same ideas work in MySQL, PostgreSQL, SQL Server and SQLite."],ex:"SELECT * FROM Customers;",q:["What does SQL stand for?",["Structured Query Language","Simple Question List","Stored Query Logic"],0]},
+   {id:"syntax",t:"SQL Syntax",p:["Every SQL command is a statement. A statement is made of keywords such as SELECT and FROM, plus table and column names, and it ends with a semicolon.","Keywords are not case sensitive, but writing them in capitals makes queries easier to read."],ex:"SELECT CustomerName, City FROM Customers;",q:["Which symbol usually ends an SQL statement?",[".",";",":"],1]},
+   {id:"select",t:"SQL Select",p:["SELECT chooses the columns you want to see. List the column names separated by commas, or use * to get every column.","FROM tells SQL which table to read the data from."],ex:"SELECT CustomerName, Country FROM Customers;",q:["Which command reads data from a table?",["GET","SELECT","FETCH"],1]},
+   {id:"distinct",t:"SQL Select Distinct",p:["A column often repeats the same value many times. SELECT DISTINCT returns each different value only once.","Use it to answer questions such as: which countries do my customers live in?"],ex:"SELECT DISTINCT Country FROM Customers;",q:["What does DISTINCT do?",["Sorts the rows","Removes duplicate values","Deletes rows"],1]},
+   {id:"where",t:"SQL Where",p:["WHERE keeps only the rows that match a condition. Text values go inside single quotes, numbers do not.","You can compare with =, &lt;&gt;, &gt;, &lt;, &gt;= and &lt;=."],ex:"SELECT * FROM Customers WHERE Country = 'India';",q:["Which clause filters rows?",["WHERE","ORDER BY","GROUP BY"],0]},
+   {id:"orderby",t:"SQL Order By",p:["ORDER BY sorts the result. The default order is ascending (ASC). Add DESC to sort from the highest value to the lowest.","You can sort by more than one column by separating them with commas."],ex:"SELECT * FROM Orders ORDER BY Amount DESC;",q:["How do you sort from highest to lowest?",["ORDER BY column ASC","ORDER BY column DESC","SORT column"],1]},
+   {id:"andornot",t:"SQL And, Or, Not",p:["Combine conditions inside WHERE. AND needs both conditions to be true, OR needs at least one, and NOT reverses a condition.","Use brackets when you mix them, so the result is exactly what you expect."],ex:"SELECT * FROM Customers WHERE Country = 'India' AND City <> 'Mumbai';",q:["Which operator needs BOTH conditions to be true?",["OR","AND","NOT"],1]},
+   {id:"insert",t:"SQL Insert Into",p:["INSERT INTO adds a new row to a table. Name the columns, then give the matching values in the same order.","Run the example, then run SELECT again to see your new row."],ex:"INSERT INTO Customers (CustomerID, CustomerName, ContactName, City, Country)\nVALUES (9, 'Iris Stationery', 'Noor Jahan', 'Kochi', 'India');\n\nSELECT * FROM Customers;",q:["Which command adds a new row?",["ADD ROW","INSERT INTO","APPEND"],1]},
+   {id:"null",t:"SQL Null Values",p:["NULL means there is no value in a field. It is not zero and it is not an empty text.","You cannot test it with =. Use IS NULL or IS NOT NULL."],ex:"SELECT CustomerName FROM Customers WHERE ContactName IS NULL;",q:["How do you test for a missing value?",["= NULL","IS NULL","== NULL"],1]},
+   {id:"update",t:"SQL Update",p:["UPDATE changes values in existing rows. SET says what to change and WHERE says which rows.","Be careful: without WHERE every row in the table is changed."],ex:"UPDATE Customers SET City = 'Pune' WHERE CustomerID = 5;\n\nSELECT * FROM Customers WHERE CustomerID = 5;",q:["What happens if you run UPDATE without WHERE?",["Nothing","Only the first row changes","Every row changes"],2]},
+   {id:"delete",t:"SQL Delete",p:["DELETE removes rows from a table. Like UPDATE, it should almost always have a WHERE clause.","DELETE removes rows only. The table itself stays."],ex:"DELETE FROM Orders WHERE OrderID = 110;\n\nSELECT * FROM Orders;",q:["Which command removes rows from a table?",["REMOVE","DELETE","DROP ROW"],1]},
+   {id:"limit",t:"SQL Limit (Top)",p:["LIMIT returns only the first few rows. It is handy with ORDER BY, for example to get the top 3 biggest orders.","SQLite and MySQL use LIMIT. SQL Server uses SELECT TOP instead."],ex:"SELECT * FROM Orders ORDER BY Amount DESC LIMIT 3;",q:["Which keyword limits the number of rows in SQLite and MySQL?",["LIMIT","TOP","FIRST"],0]},
+   {id:"aggregate",t:"SQL Aggregate Functions",p:["Aggregate functions turn many rows into one value: COUNT() counts rows, SUM() adds, AVG() averages, MIN() finds the smallest and MAX() the largest.","AS gives the result column a readable name."],ex:"SELECT COUNT(*) AS Orders, SUM(Amount) AS Total, AVG(Amount) AS Average,\n       MIN(Amount) AS Smallest, MAX(Amount) AS Largest\nFROM Orders;",q:["Which function counts rows?",["COUNT()","SUM()","TOTAL()"],0]},
+   {id:"like",t:"SQL Like",p:["LIKE searches for a pattern in text. The % sign stands for any number of characters, and _ stands for exactly one.","'B%' means starts with B, '%a' means ends with a, and '%an%' means contains an."],ex:"SELECT * FROM Customers WHERE City LIKE 'H%';",q:["What does % mean in a LIKE pattern?",["Exactly one character","Any number of characters","A number"],1]},
+   {id:"joins",t:"SQL Joins",p:["A JOIN combines rows from two tables using a related column. Here Orders.CustomerID points to Customers.CustomerID.","JOIN (INNER JOIN) keeps only rows that match in both tables. LEFT JOIN keeps every row from the left table."],ex:"SELECT Customers.CustomerName, Orders.OrderID, Orders.Amount\nFROM Orders\nJOIN Customers ON Orders.CustomerID = Customers.CustomerID;",q:["What does JOIN do?",["Combines rows from two tables","Deletes a table","Sorts a table"],0]},
+   {id:"groupby",t:"SQL Group By",p:["GROUP BY puts rows with the same value into groups, so an aggregate function can work on each group.","Example: count how many customers live in each country."],ex:"SELECT Country, COUNT(*) AS Customers\nFROM Customers\nGROUP BY Country;",q:["GROUP BY is most often used with...",["Aggregate functions","INSERT","DROP"],0]}
+  ];
+  CH[0].q=["Which SQL statement is used to select all records from a table named 'Customers'?",["SELECT * FROM Customers;","GET ALL Customers;","READ Customers;"],0];
+  CH[0].ex="SELECT * FROM Customers;";
+
+  /* ---------- helpers ---------- */
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  var KW="SELECT|FROM|WHERE|ORDER BY|GROUP BY|DISTINCT|AND|OR|NOT|INSERT INTO|VALUES|UPDATE|SET|DELETE|LIMIT|AS|JOIN|ON|LIKE|IS|NULL|DESC|ASC|COUNT|SUM|AVG|MIN|MAX";
+  var KWRE=new RegExp("('[^']*')|\\b("+KW+")\\b","gi");
+  function hl(s){return esc(s).replace(KWRE,function(m,a,b){return a?'<span class="str">'+a+'</span>':'<span class="kw">'+b+'</span>'})}
+  function done(){return OUM.done(PATH)}
+  function idx(){
+    var h=location.hash.slice(1);
+    for(var i=0;i<CH.length;i++)if(CH[i].id===h)return i;
+    return 0;
+  }
+
+  /* ---------- sidebar + mobile select ---------- */
+  function renderSide(cur){
+    var box=byId("chList");box.innerHTML="";
+    var sel=byId("chSelect");
+    if(!sel){sel=document.createElement("select");sel.id="chSelect";sel.className="lt-select";sel.setAttribute("aria-label","Choose a chapter");sel.onchange=function(){location.hash=this.value};byId("ltMain").parentNode.insertBefore(sel,byId("ltMain"))}
+    sel.innerHTML="";
+    CH.forEach(function(c,i){
+      var a=document.createElement("a");a.href="#"+c.id;a.className=i===cur?"on":"";
+      var s=document.createElement("span");s.textContent=c.t;a.appendChild(s);
+      var d=document.createElement("span");d.className="d";
+      d.textContent=!paid?"🔒":(done().indexOf(i)>-1?"✓":"");
+      a.appendChild(d);box.appendChild(a);
+      var o=document.createElement("option");o.value=c.id;o.textContent=c.t;if(i===cur)o.selected=true;sel.appendChild(o);
+    });
+  }
+
+  /* ---------- locked page (not enrolled) ---------- */
+  function renderLocked(){
+    var u=OUM.user();
+    byId("ltRight").innerHTML="";
+    byId("ltMain").innerHTML=
+      '<div class="lt-lock"><div class="eyebrow"><span>‹</span><span>OneUmmah Data Skills</span><span>|</span><span>Learning Path</span><span>›</span></div>'+
+      '<h2>Take your skills to the next level</h2>'+
+      '<p>The SQL learning path is available to enrolled students. Enroll in Master SQL to unlock every chapter.</p>'+
+      '<ul><li>17 step-by-step SQL chapters</li><li>Try it Yourself editor with sample data</li><li>Exercise after every chapter</li><li>Coding lab, assignment and certificate</li></ul>'+
+      '<div class="row"><button class="btn" type="button" onclick="startEnroll(\'sql\')">Enroll in Master SQL</button>'+
+      (u?'':'<a class="btn outline" href="login.html">Login</a>')+'</div></div>';
+  }
+
+  /* ---------- try it yourself (sql.js, loaded only when needed) ---------- */
+  var S=null,db=null,loading=null;
+  var LIB="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/";
+  function ensureDb(){
+    if(db)return Promise.resolve(db);
+    if(loading)return loading;
+    loading=new Promise(function(res,rej){
+      var s=document.createElement("script");s.src=LIB+"sql-wasm.js";
+      s.onload=function(){initSqlJs({locateFile:function(f){return LIB+f}}).then(function(x){S=x;db=new S.Database();db.run(SEED);res(db)}).catch(rej)};
+      s.onerror=function(){loading=null;rej(new Error("Could not load the SQL engine. Check your internet connection."))};
+      document.head.appendChild(s);
+    });
+    return loading;
+  }
+  function table(r){
+    var t=document.createElement("table"),h=document.createElement("tr");
+    r.columns.forEach(function(c){var th=document.createElement("th");th.textContent=c;h.appendChild(th)});
+    t.appendChild(h);
+    r.values.forEach(function(row){var tr=document.createElement("tr");row.forEach(function(v){var td=document.createElement("td");td.textContent=v===null?"NULL":String(v);tr.appendChild(td)});t.appendChild(tr)});
+    return t;
+  }
+  function runTry(){
+    var out=byId("tryOut"),sql=byId("tryEd").value.trim();
+    if(!sql){out.textContent="Type a query first.";return}
+    out.textContent="Running...";
+    ensureDb().then(function(d){
+      var res=d.exec(sql);out.innerHTML="";
+      if(res.length){res.forEach(function(r){out.appendChild(table(r))})}
+      else{var ch=d.getRowsModified(),p=document.createElement("p");p.className="ok";p.style.margin="0";p.textContent="✓ Done"+(ch?" · "+ch+" row(s) affected":"");out.appendChild(p)}
+    }).catch(function(e){out.innerHTML="";var p=document.createElement("p");p.className="bad";p.style.margin="0";p.textContent="SQL Error: "+e.message;out.appendChild(p)});
+  }
+  function resetData(){
+    if(!S||!db){byId("tryOut").textContent="Sample data is already fresh.";return}
+    db.close();db=new S.Database();db.run(SEED);byId("tryOut").textContent="Sample data reset.";
+  }
+
+  /* ---------- chapter page ---------- */
+  function exercise(i){
+    var q=CH[i].q,h='<div class="lt-exercise"><h3>Exercise</h3><div class="q">'+esc(q[0])+'</div>';
+    q[1].forEach(function(o,k){h+='<label><input type="radio" name="ex" value="'+k+'">'+esc(o)+'</label>'});
+    return h+'<div class="fb" id="exFb"></div><button class="btn" id="exBtn" type="button">Submit Answer »</button></div>';
+  }
+  function show(i){
+    if(!paid){renderLocked();renderSide(i);return}
+    var c=CH[i],m=byId("ltMain"),h="";
+    var prev=i>0?CH[i-1]:null,next=i<CH.length-1?CH[i+1]:null;
+    h+='<h1>'+(i===0?"SQL Tutorial":esc(c.t))+'</h1>';
+    h+='<div class="lt-nav"><a class="btn outline sm" href="#'+(prev?prev.id:"home")+'">‹ '+(i===0?"Home":"Previous")+'</a>'+(next?'<a class="btn sm" id="nextTop" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Dashboard ›</a>')+'</div>';
+    if(i===0){
+      h+='<div class="lt-cards"><div><h2>Learn SQL</h2><p>SQL is a standard language for storing, changing and reading data in databases.</p><p>This path teaches you SQL step by step with short chapters, examples you can run, and an exercise after each one.</p><a class="btn" href="#intro">Learn SQL now »</a></div>'+
+         '<div><h2>Practise as you learn</h2><p>Every example has a <b>Try it Yourself</b> button. Edit the query and see the result instantly, using a small sample database.</p><a class="btn outline" href="compiler.html">Open SQL Lab →</a></div></div>';
+      h+='<h2 style="margin:10px 0 12px">Try it Yourself</h2><p>With our online SQL editor you can edit the statements and click a button to view the result.</p>';
+    }else{
+      c.p.forEach(function(p){h+='<p>'+p+'</p>'});
+    }
+    h+='<div class="lt-ex-box"><h3>Example</h3><div class="code">'+hl(c.ex)+'</div><button class="btn sm" id="tryBtn" type="button">Try it Yourself »</button>'+
+       '<div class="lt-try" id="tryBox"><textarea id="tryEd" spellcheck="false" aria-label="SQL editor"></textarea><div class="acts"><button class="btn sm" id="tryRun" type="button">▶ Run SQL</button><button class="btn outline sm" id="tryReset" type="button">Reset sample data</button></div><div class="lt-out" id="tryOut">Click Run SQL to see the result.</div></div></div>';
+    if(i===0)h+='<p>Click on the "Try it Yourself" button to see how it works.</p><h2 style="margin:26px 0 10px">SQL Exercises</h2><p>Each chapter ends with an exercise where you can check your level of knowledge.</p>';
+    h+=exercise(i);
+    h+='<div class="lt-nav">'+(prev?'<a class="btn outline sm" href="#'+prev.id+'">‹ Previous</a>':'<span></span>')+(next?'<a class="btn sm" id="nextBot" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Back to Dashboard</a>')+'</div>';
+    m.innerHTML=h;
+
+    byId("tryEd").value=c.ex;
+    byId("tryBtn").onclick=function(){byId("tryBox").classList.toggle("open")};
+    byId("tryRun").onclick=runTry;byId("tryReset").onclick=resetData;
+    byId("tryEd").addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();runTry()}});
+    byId("exBtn").onclick=function(){
+      var s=document.querySelector('input[name="ex"]:checked'),fb=byId("exFb");
+      if(!s){fb.style.color="#ffd27a";fb.textContent="Choose an answer first.";return}
+      if(+s.value===c.q[2]){fb.style.color="#7ee2a8";fb.textContent="✓ Correct!";OUM.markDone(PATH,i);renderSide(i);renderRight(i)}
+      else{fb.style.color="#ff9aa6";fb.textContent="Not quite. Read the chapter again and try once more."}
+    };
+    ["nextTop","nextBot"].forEach(function(id){var n=byId(id);if(n)n.onclick=function(){OUM.markDone(PATH,i)}});
+    renderSide(i);renderRight(i);
+    document.title=(i===0?"SQL Tutorial":c.t)+" | OneUmmah Data Skills";
+  }
+  function renderRight(i){
+    var n=done().length,pc=Math.round(n/CH.length*100);
+    byId("ltRight").innerHTML=
+      '<div class="lt-pcard"><h3>Your progress</h3><div class="lt-bar"><div style="width:'+pc+'%"></div></div><p style="margin:0;font-size:14px;color:var(--muted)">'+n+' of '+CH.length+' chapters done ('+pc+'%)</p></div>'+
+      '<div class="lt-pcard"><h3>Practice more</h3><p style="font-size:14px;color:var(--muted);margin:0 0 6px">Write your own queries in the full SQL lab.</p><a class="btn sm" href="compiler.html">Open SQL Lab</a><a class="btn outline sm" href="dashboard.html">Go to Dashboard</a></div>';
+  }
+
+  document.querySelectorAll("[data-soon]").forEach(function(a){a.onclick=function(){say(a.getAttribute("data-soon")+" learning path is coming soon.")}});
+  window.addEventListener("hashchange",function(){show(idx());window.scrollTo({top:0})});
+  show(idx());
+})();
+</script>
+<script src="chatbot.js?v=4"></script>
+</body>
+</html>
