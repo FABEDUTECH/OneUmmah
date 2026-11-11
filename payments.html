@@ -30,7 +30,7 @@ if(!u){sessionStorage.setItem('oum_next','payments.html'+location.search);locati
           <a href="courses.html#java">Java Development</a>
         </div>
       </div>
-      <a href="courses.html">Learning Paths</a>
+      <a href="learning-paths.html">Learning Paths</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="payments.html">Payments</a>
       <a class="m-only" href="login.html">Login</a>
@@ -105,7 +105,7 @@ if(!u){sessionStorage.setItem('oum_next','payments.html'+location.search);locati
   }
   if(u&&(u.paid||[]).indexOf(id)>-1){ /* already paid */
     root.innerHTML='<div class="card done-card"><span class="badge">\u2713</span><h3>You are enrolled in '+c.name+'</h3>'+
-      '<p>Your videos, coding labs and dashboard are unlocked.</p><a class="btn" href="dashboard.html">Go to dashboard</a></div>';
+      '<p>Your videos, coding labs and dashboard are unlocked.</p><a class="btn" href="dashboard.html">Go to dashboard</a> <a class="btn outline" href="learning-paths.html">Open learning path</a></div>';
     return;
   }
   var plain=c.name.replace("&amp;","&");
