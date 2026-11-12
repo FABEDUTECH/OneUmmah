@@ -54,7 +54,7 @@
     <p><b>Technology keeps evolving. Your skills can evolve with it.</b>Learn SQL, Python, Data Engineering, Cloud and more through structured lessons, practical assignments and hands-on projects.</p>
     <div class="acts">
       <a class="btn" href="courses.html">Explore Courses</a>
-      <a class="btn outline" href="register.html">Start Learning</a>
+      <a class="btn outline" href="register.html" data-user-href="learning-paths.html" data-user-text="Continue Learning">Start Learning</a>
     </div>
     <small>Structured Learning • Practical Skills • Learn at Your Pace</small>
   </div>
@@ -165,7 +165,7 @@
   <div class="wrap">
     <h2>Your next learning step starts here</h2>
     <p>Explore technical courses, review learning resources and choose the skills you want to develop.</p>
-    <div class="row"><a class="btn" href="courses.html">Explore Courses</a><a class="btn outline" href="register.html">Create Your Account</a></div>
+    <div class="row"><a class="btn" href="courses.html">Explore Courses</a><a class="btn outline" href="register.html" data-user-href="dashboard.html" data-user-text="Go to Dashboard">Create Your Account</a></div>
   </div>
 </section>
 </main>
@@ -179,6 +179,18 @@
 
 <div id="toast" class="toast"></div>
 
+<script>
+/* Logged-in students: replace "Start Learning / Create Your Account" with links to their own area */
+(function(){try{
+  var e=localStorage.getItem('dfa_session');
+  var u=e&&JSON.parse(localStorage.getItem('dfa_users')||'{}')[e];
+  if(!u)return;
+  document.querySelectorAll('[data-user-href]').forEach(function(a){
+    a.href=a.getAttribute('data-user-href');
+    a.textContent=a.getAttribute('data-user-text');
+  });
+}catch(x){}})();
+</script>
 <script src="script.js"></script>
 <script src="scaler-common.js?v=4"></script>
 <script src="chatbot.js?v=4"></script>
