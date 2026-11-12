@@ -11,19 +11,29 @@
 <title>SQL Learning Path | OneUmmah Data Skills</title>
 <script src="scaler-access.js?v=4"></script>
 <style>
-.lt-tabs{background:var(--navy)}
+header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
+.lt-tabs{background:var(--navy);position:sticky;top:68px;z-index:55}
 .lt-tabs .wrap{display:flex;gap:4px;overflow-x:auto}
 .lt-tabs a{padding:13px 18px;font:600 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:#cfd8f3;white-space:nowrap;cursor:pointer}
 .lt-tabs a:hover{background:#0d2a6b;color:#fff}
 .lt-tabs a.on{background:var(--blue);color:#fff}
-.lt-layout{display:grid;grid-template-columns:260px minmax(0,1fr) 270px;gap:32px;align-items:start;padding-top:28px;padding-bottom:70px}
-.lt-side{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto;background:var(--soft);border:1px solid var(--line)}
-.lt-sidehead{padding:16px 18px 8px;font:600 12px var(--font);letter-spacing:.12em;color:var(--muted)}
-.lt-side a{display:flex;justify-content:space-between;gap:8px;padding:10px 18px;font-size:15px;color:#111;border-left:3px solid transparent;cursor:pointer}
-.lt-side a:hover{background:#eef3fd}
-.lt-side a.on{background:#e3ebfb;border-left-color:var(--blue);font-weight:700}
-.lt-side a .d{color:#1c7a45;font-size:13px}
-.lt-main{min-width:0}
+.lt-layout{display:grid;grid-template-columns:250px minmax(0,1fr) 270px;gap:0;align-items:start}
+.lt-side{position:sticky;top:116px;height:calc(100vh - 116px - 54px);overflow-y:auto;background:#e9edf2;border-right:1px solid #dbe1e8}
+.lt-sidehead{padding:18px 18px 8px;font:600 12px var(--font);letter-spacing:.14em;color:#6b7482}
+.lt-side a{display:block;padding:10px 18px;font-size:15px;color:#111;cursor:pointer}
+.lt-side .ch{display:flex;justify-content:space-between;align-items:center;gap:8px;border-left:3px solid transparent}
+.lt-side .ch:hover,.lt-side .sb:hover{background:#dde5ef}
+.lt-side .ch.cur{background:#fff;font-weight:600}
+.lt-side .ch.on{background:#dbe7fb;border-left-color:var(--blue);font-weight:700}
+.lt-side .car{display:block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #5f6772;transition:transform .2s}
+.lt-side .car.up{transform:rotate(180deg)}
+.lt-side .sub{background:#fff}
+.lt-side .sb{padding:9px 18px 9px 34px;font-size:14px;border-left:3px solid transparent}
+.lt-side .sb.on{background:#dbe7fb;border-left-color:var(--blue);font-weight:700}
+.lt-side .d{color:#1c7a45;font-size:13px}
+.lt-main{min-width:0;padding:30px 40px 70px}
+.lt-hr{border:0;border-top:1px solid var(--line);margin:0 0 24px}
+.lt-exercise{scroll-margin-top:130px}
 .lt-main h1{font:400 clamp(32px,4vw,48px)/1.15 var(--display);margin-bottom:18px}
 .lt-main h2{text-align:left}
 .lt-nav{display:flex;justify-content:space-between;gap:12px;margin:0 0 26px}
@@ -54,7 +64,7 @@
 .lt-exercise input{accent-color:#4d8bff;margin-right:8px}
 .lt-exercise .fb{text-align:center;margin-top:14px;font-weight:700;min-height:22px}
 .lt-exercise .btn{display:block;margin:16px auto 0}
-.lt-right{position:sticky;top:84px}
+.lt-right{position:sticky;top:130px;padding:30px 24px 0 0}
 .lt-pcard{border:1px solid var(--line);padding:22px;margin-bottom:16px;background:#fff}
 .lt-pcard h3{font:500 20px var(--display);margin-bottom:10px}
 .lt-bar{height:8px;background:#e8eef9;margin:10px 0}
@@ -71,7 +81,7 @@
 .lt-lock .btn.outline{background:transparent;color:#fff;border-color:#fff}
 .lt-select{display:none;width:100%;height:44px;margin-bottom:18px;border:1px solid #cfcfcf;padding:0 12px;font:inherit;background:#fff}
 @media(max-width:1180px){.lt-layout{grid-template-columns:240px minmax(0,1fr)}.lt-right{display:none}}
-@media(max-width:860px){.lt-layout{grid-template-columns:1fr}.lt-side{display:none}.lt-select{display:block}.lt-cards{grid-template-columns:1fr}.lt-lock{padding:40px 20px}}
+@media(max-width:860px){.lt-layout{grid-template-columns:1fr}.lt-side{display:none}.lt-select{display:block}.lt-cards{grid-template-columns:1fr}.lt-lock{padding:40px 20px}.lt-main{padding:22px 16px 60px}.lt-tabs{top:0;position:static}}
 </style>
 </head>
 <body>
@@ -112,7 +122,7 @@
   <a class="on">SQL</a><a data-soon="Python">Python</a><a data-soon="Azure">Azure</a><a data-soon="Snowflake">Snowflake</a><a data-soon="Java">Java</a>
 </div></div>
 
-<main class="wrap lt-layout">
+<main class="lt-layout">
   <aside class="lt-side"><div class="lt-sidehead">SQL TUTORIAL</div><nav id="chList" aria-label="SQL chapters"></nav></aside>
   <article class="lt-main" id="ltMain"></article>
   <aside class="lt-right" id="ltRight"></aside>
@@ -169,25 +179,45 @@
   var KWRE=new RegExp("('[^']*')|\\b("+KW+")\\b","gi");
   function hl(s){return esc(s).replace(KWRE,function(m,a,b){return a?'<span class="str">'+a+'</span>':'<span class="kw">'+b+'</span>'})}
   function done(){return OUM.done(PATH)}
-  function idx(){
-    var h=location.hash.slice(1);
-    for(var i=0;i<CH.length;i++)if(CH[i].id===h)return i;
-    return 0;
+  function parse(){
+    var h=location.hash.slice(1),sec="lesson";
+    if(/-challenge$/.test(h)){sec="challenge";h=h.replace(/-challenge$/,"")}
+    for(var i=0;i<CH.length;i++)if(CH[i].id===h)return{i:i,sec:sec};
+    return{i:0,sec:"lesson"};
   }
 
-  /* ---------- sidebar + mobile select ---------- */
-  function renderSide(cur){
+  /* ---------- sidebar (with dropdowns) + mobile select ---------- */
+  var open={},lastCur=-1;
+  function renderSide(cur,sec){
     var box=byId("chList");box.innerHTML="";
+    if(cur!==lastCur){open[cur]=true;lastCur=cur}
     var sel=byId("chSelect");
     if(!sel){sel=document.createElement("select");sel.id="chSelect";sel.className="lt-select";sel.setAttribute("aria-label","Choose a chapter");sel.onchange=function(){location.hash=this.value};byId("ltMain").parentNode.insertBefore(sel,byId("ltMain"))}
     sel.innerHTML="";
     CH.forEach(function(c,i){
-      var a=document.createElement("a");a.href="#"+c.id;a.className=i===cur?"on":"";
-      var s=document.createElement("span");s.textContent=c.t;a.appendChild(s);
+      var hasSub=paid&&i>2,isCur=i===cur;
+      var a=document.createElement("a");a.href="#"+c.id;
+      a.className="ch"+(isCur?(hasSub?" cur":" on"):"");
+      var s1=document.createElement("span");s1.textContent=c.t;
+      var right=document.createElement("span");right.style.cssText="display:flex;align-items:center;gap:8px";
       var d=document.createElement("span");d.className="d";
       d.textContent=!paid?"🔒":(done().indexOf(i)>-1?"✓":"");
-      a.appendChild(d);box.appendChild(a);
-      var o=document.createElement("option");o.value=c.id;o.textContent=c.t;if(i===cur)o.selected=true;sel.appendChild(o);
+      right.appendChild(d);
+      if(hasSub){
+        var cw=document.createElement("span");cw.style.padding="6px";
+        var car=document.createElement("i");car.className="car"+(open[i]?" up":"");
+        cw.appendChild(car);
+        cw.onclick=function(e){e.preventDefault();e.stopPropagation();open[i]=!open[i];renderSide(cur,sec)};
+        right.appendChild(cw);
+      }
+      a.appendChild(s1);a.appendChild(right);box.appendChild(a);
+      if(hasSub&&open[i]){
+        var sub=document.createElement("div");sub.className="sub";
+        var l1=document.createElement("a");l1.className="sb"+(isCur&&sec!=="challenge"?" on":"");l1.href="#"+c.id;l1.textContent=c.t.replace(/^SQL /,"");
+        var l2=document.createElement("a");l2.className="sb"+(isCur&&sec==="challenge"?" on":"");l2.href="#"+c.id+"-challenge";l2.textContent="Code Challenge";
+        sub.appendChild(l1);sub.appendChild(l2);box.appendChild(sub);
+      }
+      var o=document.createElement("option");o.value=c.id;o.textContent=c.t;if(isCur)o.selected=true;sel.appendChild(o);
     });
   }
 
@@ -242,16 +272,17 @@
 
   /* ---------- chapter page ---------- */
   function exercise(i){
-    var q=CH[i].q,h='<div class="lt-exercise"><h3>Exercise</h3><div class="q">'+esc(q[0])+'</div>';
+    var q=CH[i].q,h='<div class="lt-exercise" id="challenge"><h3>Code Challenge</h3><div class="q">'+esc(q[0])+'</div>';
     q[1].forEach(function(o,k){h+='<label><input type="radio" name="ex" value="'+k+'">'+esc(o)+'</label>'});
     return h+'<div class="fb" id="exFb"></div><button class="btn" id="exBtn" type="button">Submit Answer »</button></div>';
   }
-  function show(i){
-    if(!paid){renderLocked();renderSide(i);return}
+  function show(i,sec){
+    sec=sec||"lesson";
+    if(!paid){renderLocked();renderSide(i,sec);return}
     var c=CH[i],m=byId("ltMain"),h="";
     var prev=i>0?CH[i-1]:null,next=i<CH.length-1?CH[i+1]:null;
     h+='<h1>'+(i===0?"SQL Tutorial":esc(c.t))+'</h1>';
-    h+='<div class="lt-nav"><a class="btn outline sm" href="#'+(prev?prev.id:"home")+'">‹ '+(i===0?"Home":"Previous")+'</a>'+(next?'<a class="btn sm" id="nextTop" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Dashboard ›</a>')+'</div>';
+    h+='<div class="lt-nav"><a class="btn outline sm" href="#'+(prev?prev.id:"home")+'">‹ '+(i===0?"Home":"Previous")+'</a>'+(next?'<a class="btn sm" id="nextTop" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Dashboard ›</a>')+'</div><hr class="lt-hr">';
     if(i===0){
       h+='<div class="lt-cards"><div><h2>Learn SQL</h2><p>SQL is a standard language for storing, changing and reading data in databases.</p><p>This path teaches you SQL step by step with short chapters, examples you can run, and an exercise after each one.</p><a class="btn" href="#intro">Learn SQL now »</a></div>'+
          '<div><h2>Practise as you learn</h2><p>Every example has a <b>Try it Yourself</b> button. Edit the query and see the result instantly, using a small sample database.</p><a class="btn outline" href="compiler.html">Open SQL Lab →</a></div></div>';
@@ -273,11 +304,12 @@
     byId("exBtn").onclick=function(){
       var s=document.querySelector('input[name="ex"]:checked'),fb=byId("exFb");
       if(!s){fb.style.color="#ffd27a";fb.textContent="Choose an answer first.";return}
-      if(+s.value===c.q[2]){fb.style.color="#7ee2a8";fb.textContent="✓ Correct!";OUM.markDone(PATH,i);renderSide(i);renderRight(i)}
+      if(+s.value===c.q[2]){fb.style.color="#7ee2a8";fb.textContent="✓ Correct!";OUM.markDone(PATH,i);renderSide(i,"challenge");renderRight(i)}
       else{fb.style.color="#ff9aa6";fb.textContent="Not quite. Read the chapter again and try once more."}
     };
     ["nextTop","nextBot"].forEach(function(id){var n=byId(id);if(n)n.onclick=function(){OUM.markDone(PATH,i)}});
-    renderSide(i);renderRight(i);
+    renderSide(i,sec);renderRight(i);
+    if(sec==="challenge"){var cb=byId("challenge");if(cb)cb.scrollIntoView()}else{window.scrollTo(0,0)}
     document.title=(i===0?"SQL Tutorial":c.t)+" | OneUmmah Data Skills";
   }
   function renderRight(i){
@@ -288,8 +320,9 @@
   }
 
   document.querySelectorAll("[data-soon]").forEach(function(a){a.onclick=function(){say(a.getAttribute("data-soon")+" learning path is coming soon.")}});
-  window.addEventListener("hashchange",function(){show(idx());window.scrollTo({top:0})});
-  show(idx());
+  function go(){var p=parse();show(p.i,p.sec)}
+  window.addEventListener("hashchange",go);
+  go();
 })();
 </script>
 <script src="chatbot.js?v=4"></script>
