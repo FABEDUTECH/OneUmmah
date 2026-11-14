@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scaler-theme.css?v=4">
+<title>Try it Yourself | OneUmmah Data Skills</title>
+<script src="scaler-access.js?v=4"></script>
+<style>
+body{background:#e9edf3;padding-bottom:0;min-height:100vh}
+.tb{display:flex;align-items:center;gap:16px;padding:10px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.tb .logo{font-size:22px}
+.tb .ttl{font:500 18px var(--display);color:#111;margin-right:auto}
+.lbl{font:400 30px var(--display);margin:0 0 8px;text-align:left;color:#111}
+.hint{margin:14px 0 14px;font-size:16px;color:#222}
+.ed{background:#fff;border:1px solid #d5dbe5}
+.edin{position:relative}
+.edin pre,.edin textarea{margin:0;padding:14px 16px;font:15px/1.6 Consolas,"Courier New",monospace;border:0;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;tab-size:4}
+.edin pre{position:absolute;inset:0;pointer-events:none;color:#111;overflow:hidden}
+.edin textarea{position:relative;display:block;width:100%;min-height:190px;background:transparent;color:transparent;caret-color:#000;resize:none;outline:none;overflow:hidden}
+.kw{color:#0443e0;font-weight:600}.str{color:#a31515}.cm{color:#6a737d;font-style:italic}
+/* SQL layout */
+.sqlwrap{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:0;align-items:start}
+.sqlmain{padding:22px 26px 40px;min-width:0}
+.result{background:#fff;border:1px solid #d5dbe5;padding:16px 18px;min-height:240px;overflow:auto;font-size:14px}
+.result table{border-collapse:collapse;width:100%;margin-top:8px}
+.result th,.result td{padding:8px 10px;text-align:left;border:1px solid #dfe4ec;white-space:nowrap}
+.result th{background:#eaf1ff}
+.result tr:nth-child(even) td{background:#fafbfd}
+.result .count{margin:0 0 6px;font-weight:600}
+.result .ok{color:#166534;font-weight:600;margin:0}
+.result .bad{color:#b42318;margin:0;white-space:pre-wrap}
+.dbside{background:#fff;border-left:1px solid #d5dbe5;padding:22px 20px;min-height:calc(100vh - 56px)}
+.dbside h3{font:400 22px var(--display);text-align:center;margin-bottom:14px}
+.dbside table{width:100%;border-collapse:collapse;font-size:14px}
+.dbside th{text-align:left;padding:4px 0}
+.dbside th:last-child,.dbside td:last-child{text-align:right}
+.dbside td{padding:5px 0}
+.dbside a{color:#000;text-decoration:underline;cursor:pointer}
+.dbside a:hover{color:var(--blue)}
+.dbside .small{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.6}
+.linkbtn{margin-top:14px;background:none;border:0;color:var(--blue);font:600 13px var(--font);cursor:pointer;padding:0;text-decoration:underline}
+/* Python layout */
+.pywrap{display:flex;flex-direction:column;height:calc(100vh - 56px)}
+.pybar{display:flex;align-items:center;gap:14px;padding:10px 20px}
+.pybar .nm{font:500 16px var(--display);color:#111}
+.pysplit{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px 20px;min-height:0}
+.pysplit .ed{overflow:auto}
+.pysplit .edin textarea{min-height:calc(100vh - 170px)}
+.pyout{margin:0;background:#000;color:#fff;padding:16px;font:15px/1.6 Consolas,"Courier New",monospace;white-space:pre-wrap;overflow:auto;border:1px solid #000}
+.pyout.bad{color:#ff9aa6}
+@media(max-width:900px){
+  .sqlwrap{grid-template-columns:1fr}.dbside{border-left:0;border-top:1px solid #d5dbe5;min-height:0}
+  .pywrap{height:auto}.pysplit{grid-template-columns:1fr}.pysplit .edin textarea{min-height:220px}.pyout{min-height:240px}
+}
+</style>
+</head>
+<body>
+<div class="tb">
+  <a class="logo" href="learning-paths.html"><i>O</i>OneUmmah</a>
+  <span class="ttl" id="tbTitle">SQL Tryit Editor</span>
+  <a class="btn outline sm" id="backLink" href="learning-paths.html">← Back to tutorial</a>
+</div>
+<main id="app"></main>
+
+<script>
+(function(){
+  function byId(i){return document.getElementById(i)}
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  var qs=new URLSearchParams(location.search);
+  var lang=qs.get("lang")==="python"?"python":"sql";
+  var ch=qs.get("ch")||"";
+  var course=lang==="python"?"python":"sql";
+
+  /* Only enrolled students can use the editor */
+  if(!OUM.hasPaid(course)){location.replace("learning-paths.html"+(lang==="python"?"#py-home":"#home"));return}
+
+  document.title=(lang==="python"?"Python":"SQL")+" Tryit Editor | OneUmmah Data Skills";
+  byId("tbTitle").textContent=(lang==="python"?"Python":"SQL")+" Tryit Editor";
+  if(/^[a-z0-9-]+$/i.test(ch))byId("backLink").href="learning-paths.html#"+ch;
+  var startCode=(qs.get("code")||"").slice(0,5000)||(lang==="python"?'print("Hello, World!")':"SELECT * FROM Customers;");
+
+  /* ---------- syntax colours ---------- */
+  var SQLRE=/('[^']*')|(--[^\n]*)|\b(SELECT|FROM|WHERE|ORDER BY|GROUP BY|HAVING|DISTINCT|AND|OR|NOT|INSERT INTO|VALUES|UPDATE|SET|DELETE|LIMIT|AS|JOIN|LEFT|INNER|ON|LIKE|IS|NULL|DESC|ASC|COUNT|SUM|AVG|MIN|MAX|CREATE TABLE|DROP TABLE|ALTER TABLE|INTEGER|TEXT|REAL|PRIMARY KEY|INT|VARCHAR|IN|BETWEEN)\b/gi;
+  var PYRE=/("[^"\n]*"|'[^'\n]*')|(#[^\n]*)|\b(print|if|elif|else|for|while|in|def|return|import|from|and|or|not|True|False|None|len|range|type|int|float|str|bool|append|class|is|break|continue|pass)\b/g;
+  function color(s){
+    var re=lang==="python"?PYRE:SQLRE;
+    return esc(s).replace(re,function(m,a,b,c){return a?'<span class="str">'+a+'</span>':(b?'<span class="cm">'+b+'</span>':'<span class="kw">'+c+'</span>')});
+  }
+
+  /* ---------- page layout ---------- */
+  var app=byId("app");
+  var EDITOR='<div class="ed" id="ed"><div class="edin"><pre id="hl" aria-hidden="true"></pre><textarea id="code" spellcheck="false" aria-label="Code editor"></textarea></div></div>';
+  if(lang==="sql"){
+    app.innerHTML=
+      '<div class="sqlwrap"><div class="sqlmain">'+
+      '<h2 class="lbl">SQL Statement:</h2>'+EDITOR+
+      '<p class="hint">Edit the SQL Statement, and click "Run SQL" to see the result.</p>'+
+      '<button class="btn" id="runBtn" type="button">Run SQL »</button>'+
+      '<h2 class="lbl" style="margin-top:22px">Result:</h2>'+
+      '<div class="result" id="result">Click <b>"Run SQL"</b> to execute the SQL statement above.</div>'+
+      '</div><aside class="dbside"><h3>Your Database:</h3>'+
+      '<table><thead><tr><th>Tablenames</th><th>Records</th></tr></thead><tbody id="dbRows"><tr><td colspan="2">Loading...</td></tr></tbody></table>'+
+      '<button class="linkbtn" id="resetDb" type="button">Reset database</button>'+
+      '<p class="small">You can make your own tables, for example with <b>CREATE TABLE</b>. They will appear in this list.</p></aside></div>';
+  }else{
+    app.innerHTML=
+      '<div class="pywrap"><div class="pybar"><button class="btn" id="runBtn" type="button">Run ›</button><span class="nm">Python</span></div>'+
+      '<div class="pysplit">'+EDITOR+'<pre class="pyout" id="pyout">Click Run to see the output.</pre></div></div>';
+  }
+
+  var code=byId("code"),hl=byId("hl");
+  function sync(){
+    hl.innerHTML=color(code.value)+"\n";
+    code.style.height="auto";
+    code.style.height=Math.max(code.scrollHeight,code.offsetHeight>0?parseInt(getComputedStyle(code).minHeight)||0:0)+"px";
+  }
+  code.value=startCode;sync();
+  code.addEventListener("input",sync);
+  window.addEventListener("resize",sync);
+  code.addEventListener("keydown",function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();run();return}
+    if(e.key==="Tab"&&lang==="python"){
+      e.preventDefault();
+      var s=code.selectionStart;code.value=code.value.slice(0,s)+"    "+code.value.slice(code.selectionEnd);
+      code.selectionStart=code.selectionEnd=s+4;sync();
+    }
+  });
+  byId("runBtn").onclick=function(){run()};
+  function run(){lang==="python"?runPy():runSql()}
+
+  /* ================= SQL (sql.js, runs in the browser) ================= */
+  var SEED="CREATE TABLE Customers(CustomerID INTEGER PRIMARY KEY, CustomerName TEXT, ContactName TEXT, City TEXT, Country TEXT);"+
+  "INSERT INTO Customers VALUES (1,'Zenith Traders','Amir Khan','Bengaluru','India'),(2,'Blue Orchid Cafe','Sara Ali','Dubai','UAE'),(3,'Crescent Books','Imran Sheikh','Hyderabad','India'),(4,'Delta Electronics','Hana Yusuf','Riyadh','Saudi Arabia'),(5,'Evergreen Foods','Rahul Mehta','Mumbai','India'),(6,'Falcon Logistics','Omar Hassan','Dubai','UAE'),(7,'Garden Fresh',NULL,'Chennai','India'),(8,'Harbor Textiles','Layla Noor','Doha','Qatar');"+
+  "CREATE TABLE Orders(OrderID INTEGER PRIMARY KEY, CustomerID INTEGER, OrderDate TEXT, Amount INTEGER);"+
+  "INSERT INTO Orders VALUES (101,1,'2026-01-05',1200),(102,2,'2026-01-09',450),(103,1,'2026-02-11',800),(104,3,'2026-02-14',300),(105,5,'2026-03-02',950),(106,2,'2026-03-18',600),(107,4,'2026-04-01',1500),(108,6,'2026-04-10',700),(109,1,'2026-05-07',250),(110,3,'2026-05-20',500);"+
+  "CREATE TABLE Products(ProductID INTEGER PRIMARY KEY, ProductName TEXT, Category TEXT, Price INTEGER);"+
+  "INSERT INTO Products VALUES (1,'Notebook','Stationery',60),(2,'Pen Set','Stationery',120),(3,'Desk Lamp','Home',650),(4,'Water Bottle','Home',300),(5,'Backpack','Bags',1400),(6,'Wireless Mouse','Electronics',799),(7,'USB Cable','Electronics',199),(8,'Sticky Notes','Stationery',45);";
+  var LIB="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/",SQLJS=null,db=null,loading=null;
+  function ensureDb(){
+    if(db)return Promise.resolve(db);
+    if(loading)return loading;
+    loading=new Promise(function(res,rej){
+      var s=document.createElement("script");s.src=LIB+"sql-wasm.js";
+      s.onload=function(){initSqlJs({locateFile:function(f){return LIB+f}}).then(function(x){SQLJS=x;db=new x.Database();db.run(SEED);res(db)}).catch(rej)};
+      s.onerror=function(){loading=null;rej(new Error("Could not load the SQL engine. Check your internet connection."))};
+      document.head.appendChild(s);
+    });
+    return loading;
+  }
+  function tableEl(r){
+    var t=document.createElement("table"),h=document.createElement("tr");
+    r.columns.forEach(function(c){var th=document.createElement("th");th.textContent=c;h.appendChild(th)});
+    t.appendChild(h);
+    r.values.forEach(function(row){var tr=document.createElement("tr");row.forEach(function(v){var td=document.createElement("td");td.textContent=v===null?"NULL":String(v);tr.appendChild(td)});t.appendChild(tr)});
+    return t;
+  }
+  function note(cls,text){var res=byId("result");res.innerHTML="";var p=document.createElement("p");p.className=cls;p.textContent=text;res.appendChild(p)}
+  function quoteName(n){return /^\w+$/.test(n)?n:'"'+n.replace(/"/g,'""')+'"'}
+  function refreshDb(d){
+    var rows=byId("dbRows");rows.innerHTML="";
+    var list=d.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name");
+    var names=list.length?list[0].values.map(function(v){return v[0]}):[];
+    if(!names.length){rows.innerHTML='<tr><td colspan="2">No tables yet</td></tr>';return}
+    names.forEach(function(n){
+      var cnt=d.exec("SELECT COUNT(*) FROM "+quoteName(n))[0].values[0][0];
+      var tr=document.createElement("tr"),a=document.createElement("a"),td1=document.createElement("td"),td2=document.createElement("td");
+      a.textContent=n;a.onclick=function(){code.value="SELECT * FROM "+quoteName(n)+";";sync();runSql()};
+      td1.appendChild(a);td2.textContent=cnt;tr.appendChild(td1);tr.appendChild(td2);rows.appendChild(tr);
+    });
+  }
+  function runSql(){
+    var q=code.value.trim();
+    if(!q){note("bad","Type an SQL statement first.");return}
+    var res=byId("result");res.textContent="Running...";
+    ensureDb().then(function(d){
+      try{
+        var out=d.exec(q);res.innerHTML="";
+        if(out.length){
+          out.forEach(function(r){
+            var p=document.createElement("p");p.className="count";p.textContent="Number of Records: "+r.values.length;
+            res.appendChild(p);res.appendChild(tableEl(r));
+          });
+        }else{
+          var first=(q.match(/^\s*(\w+)/)||[])[1]||"",n=d.getRowsModified();
+          note("ok",/^(insert|update|delete)$/i.test(first)?"You have made changes to the database. Rows affected: "+n:"✓ Statement executed successfully.");
+        }
+        refreshDb(d);
+      }catch(e){note("bad","SQL Error: "+e.message)}
+    }).catch(function(e){note("bad",e.message)});
+  }
+  if(lang==="sql"){
+    ensureDb().then(refreshDb).catch(function(e){byId("dbRows").innerHTML='<tr><td colspan="2">'+esc(e.message)+'</td></tr>'});
+    byId("resetDb").onclick=function(){
+      ensureDb().then(function(d){d.close();db=new SQLJS.Database();db.run(SEED);refreshDb(db);note("ok","✓ Database reset to the original sample tables.")});
+    };
+  }
+
+  /* ================= Python (Pyodide, runs in the browser) ================= */
+  var PYO=null,pyLoading=null;
+  function ensurePy(){
+    if(PYO)return Promise.resolve(PYO);
+    if(pyLoading)return pyLoading;
+    pyLoading=new Promise(function(res,rej){
+      var s=document.createElement("script");s.src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js";
+      s.onload=function(){loadPyodide().then(function(x){PYO=x;res(x)}).catch(rej)};
+      s.onerror=function(){pyLoading=null;rej(new Error("Could not load the Python engine. Check your internet connection."))};
+      document.head.appendChild(s);
+    });
+    return pyLoading;
+  }
+  function runPy(){
+    var out=byId("pyout"),src=code.value;
+    if(!src.trim()){out.className="pyout";out.textContent="Type some Python code first.";return}
+    out.className="pyout";out.textContent="Running... (the first run loads Python and takes a few seconds)";
+    ensurePy().then(function(py){
+      py.runPython("import sys, io\nsys.stdout = io.StringIO()\nsys.stderr = io.StringIO()");
+      return py.runPythonAsync(src,{globals:py.globals.get("dict")()}).then(function(){return null},function(e){return e}).then(function(err){
+        var txt=py.runPython("sys.stdout.getvalue()")+py.runPython("sys.stderr.getvalue()");
+        if(err)txt+=(txt&&!/\n$/.test(txt)?"\n":"")+String(err.message||err);
+        out.className="pyout"+(err?" bad":"");
+        out.textContent=txt||"(No output. Use print() to show a result.)";
+      });
+    }).catch(function(e){out.className="pyout bad";out.textContent=e.message});
+  }
+})();
+</script>
+</body>
+</html>
