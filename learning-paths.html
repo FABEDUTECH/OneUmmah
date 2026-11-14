@@ -82,6 +82,9 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
 .lt-select{display:none;width:100%;height:44px;margin-bottom:18px;border:1px solid #cfcfcf;padding:0 12px;font:inherit;background:#fff}
 @media(max-width:1180px){.lt-layout{grid-template-columns:240px minmax(0,1fr)}.lt-right{display:none}}
 @media(max-width:860px){.lt-layout{grid-template-columns:1fr}.lt-side{display:none}.lt-select{display:block}.lt-cards{grid-template-columns:1fr}.lt-lock{padding:40px 20px}.lt-main{padding:22px 16px 60px}.lt-tabs{top:0;position:static}}
+.cm{color:#6a737d;font-style:italic}
+.lt-out pre{margin:0;white-space:pre-wrap;font:14px/1.7 Consolas,"Courier New",monospace;color:#111}
+.lt-out pre.bad{color:#b42318}
 </style>
 </head>
 <body>
@@ -119,11 +122,11 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
 </header>
 
 <div class="lt-tabs"><div class="wrap">
-  <a class="on">SQL</a><a data-soon="Python">Python</a><a data-soon="Azure">Azure</a><a data-soon="Snowflake">Snowflake</a><a data-soon="Java">Java</a>
+  <a class="on" id="tabSql" href="#home">SQL</a><a id="tabPy" href="#py-home">Python</a><a data-soon="Azure">Azure</a><a data-soon="Snowflake">Snowflake</a><a data-soon="Java">Java</a>
 </div></div>
 
 <main class="lt-layout">
-  <aside class="lt-side"><div class="lt-sidehead">SQL TUTORIAL</div><nav id="chList" aria-label="SQL chapters"></nav></aside>
+  <aside class="lt-side"><div class="lt-sidehead" id="sideHead">SQL TUTORIAL</div><nav id="chList" aria-label="SQL chapters"></nav></aside>
   <article class="lt-main" id="ltMain"></article>
   <aside class="lt-right" id="ltRight"></aside>
 </main>
@@ -141,8 +144,7 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
 (function(){
   function byId(i){return document.getElementById(i)}
   function say(m){if(typeof toast==="function")toast(m)}
-  var PATH="sqlpath";
-  var paid=OUM.hasPaid("sql");
+  var CH,P,PATH,paid,PATHS={};
 
   /* ---------- sample data used by "Try it Yourself" ---------- */
   var SEED="CREATE TABLE Customers(CustomerID INTEGER PRIMARY KEY, CustomerName TEXT, ContactName TEXT, City TEXT, Country TEXT);"+
@@ -151,7 +153,7 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
   "INSERT INTO Orders VALUES (101,1,'2026-01-05',1200),(102,2,'2026-01-09',450),(103,1,'2026-02-11',800),(104,3,'2026-02-14',300),(105,5,'2026-03-02',950),(106,2,'2026-03-18',600),(107,4,'2026-04-01',1500),(108,6,'2026-04-10',700),(109,1,'2026-05-07',250),(110,3,'2026-05-20',500);";
 
   /* ---------- chapters ---------- */
-  var CH=[
+  var SQL_CH=[
    {id:"home",t:"SQL HOME"},
    {id:"intro",t:"SQL Intro",p:["SQL (Structured Query Language) is the standard language for working with relational databases. You use it to store, read, change and remove data.","A relational database keeps its data in tables made of rows and columns. SQL is how you talk to those tables, and the same ideas work in MySQL, PostgreSQL, SQL Server and SQLite."],ex:"SELECT * FROM Customers;",q:["What does SQL stand for?",["Structured Query Language","Simple Question List","Stored Query Logic"],0]},
    {id:"syntax",t:"SQL Syntax",p:["Every SQL command is a statement. A statement is made of keywords such as SELECT and FROM, plus table and column names, and it ends with a semicolon.","Keywords are not case sensitive, but writing them in capitals makes queries easier to read."],ex:"SELECT CustomerName, City FROM Customers;",q:["Which symbol usually ends an SQL statement?",[".",";",":"],1]},
@@ -170,20 +172,406 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
    {id:"joins",t:"SQL Joins",p:["A JOIN combines rows from two tables using a related column. Here Orders.CustomerID points to Customers.CustomerID.","JOIN (INNER JOIN) keeps only rows that match in both tables. LEFT JOIN keeps every row from the left table."],ex:"SELECT Customers.CustomerName, Orders.OrderID, Orders.Amount\nFROM Orders\nJOIN Customers ON Orders.CustomerID = Customers.CustomerID;",q:["What does JOIN do?",["Combines rows from two tables","Deletes a table","Sorts a table"],0]},
    {id:"groupby",t:"SQL Group By",p:["GROUP BY puts rows with the same value into groups, so an aggregate function can work on each group.","Example: count how many customers live in each country."],ex:"SELECT Country, COUNT(*) AS Customers\nFROM Customers\nGROUP BY Country;",q:["GROUP BY is most often used with...",["Aggregate functions","INSERT","DROP"],0]}
   ];
-  CH[0].q=["Which SQL statement is used to select all records from a table named 'Customers'?",["SELECT * FROM Customers;","GET ALL Customers;","READ Customers;"],0];
-  CH[0].ex="SELECT * FROM Customers;";
+  SQL_CH[0].q=["Which SQL statement is used to select all records from a table named 'Customers'?",["SELECT * FROM Customers;","GET ALL Customers;","READ Customers;"],0];
+  SQL_CH[0].ex="SELECT * FROM Customers;";
+
+  /* ---------- Python chapters ---------- */
+  var PY_CH=[
+   {
+    "id": "py-home",
+    "t": "Python HOME",
+    "ex": "print(\"Hello, World!\")",
+    "q": [
+     "Which function is used to display output in Python?",
+     [
+      "print()",
+      "echo()",
+      "write()"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-intro",
+    "t": "Python Intro",
+    "p": [
+     "Python is a popular, beginner-friendly programming language. It is used for automation, web apps, data analysis, data engineering and AI.",
+     "Its code reads almost like English, so you can focus on solving problems instead of fighting the syntax."
+    ],
+    "ex": "print(\"Hello, OneUmmah!\")",
+    "q": [
+     "Python is a...",
+     [
+      "Programming language",
+      "Database",
+      "Web browser"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-start",
+    "t": "Python Get Started",
+    "p": [
+     "To run Python on your own computer you need the Python interpreter. Save your code in a file that ends with .py and run it with the python command.",
+     "You can also run Python right here in your browser using the Try it Yourself button."
+    ],
+    "ex": "print(\"Python is ready\")\nprint(2 + 3)",
+    "q": [
+     "Python files usually end with...",
+     [
+      ".py",
+      ".pt",
+      ".pyt"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-syntax",
+    "t": "Python Syntax",
+    "p": [
+     "Python uses indentation (spaces at the start of a line) to mark a block of code. Other languages use curly brackets for this.",
+     "Indentation is required. If you forget it, Python shows an error."
+    ],
+    "ex": "if 5 > 2:\n    print(\"Five is greater than two\")",
+    "q": [
+     "What does Python use to mark a block of code?",
+     [
+      "Indentation",
+      "Semicolons",
+      "Square brackets only"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-output",
+    "t": "Python Output",
+    "p": [
+     "The print() function shows text or values on the screen. You can print several things at once by separating them with commas.",
+     "Text goes inside quotes. Numbers and calculations do not need quotes."
+    ],
+    "ex": "print(\"Welcome to\", \"OneUmmah\")\nprint(2 + 3)",
+    "q": [
+     "Which function displays output?",
+     [
+      "print()",
+      "show()",
+      "display()"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-comments",
+    "t": "Python Comments",
+    "p": [
+     "Comments explain your code to people. Python ignores everything after a # sign on a line.",
+     "Use comments to explain why you did something, not to repeat what the code already says."
+    ],
+    "ex": "# This line is a comment\nprint(\"Comments are ignored\")  # so is this part",
+    "q": [
+     "Which symbol starts a comment in Python?",
+     [
+      "//",
+      "#",
+      "<!--"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-variables",
+    "t": "Python Variables",
+    "p": [
+     "A variable is a name that stores a value. You create it by assigning a value with =. There is no special keyword to declare it.",
+     "Names can contain letters, digits and underscores, but cannot start with a digit."
+    ],
+    "ex": "name = \"Sara\"\nmarks = 90\nprint(name, marks)",
+    "q": [
+     "Which is a valid variable name?",
+     [
+      "2marks",
+      "my_marks",
+      "my-marks"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-datatypes",
+    "t": "Python Data Types",
+    "p": [
+     "Every value has a type. The common built-in types are str (text), int (whole numbers), float (decimals), bool (True or False), list, tuple, set and dict.",
+     "The type() function tells you the type of a value."
+    ],
+    "ex": "print(type(\"hello\"))\nprint(type(10))\nprint(type(3.5))\nprint(type(True))",
+    "q": [
+     "Which type stores whole numbers?",
+     [
+      "str",
+      "int",
+      "bool"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-numbers",
+    "t": "Python Numbers",
+    "p": [
+     "Python has int, float and complex numbers, and the usual maths operators work as you expect.",
+     "// divides and rounds down, % gives the remainder and ** raises a number to a power."
+    ],
+    "ex": "print(7 + 3)\nprint(7 / 2)\nprint(7 // 2)\nprint(7 % 2)\nprint(2 ** 5)",
+    "q": [
+     "What is 7 // 2 in Python?",
+     [
+      "3.5",
+      "3",
+      "4"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-casting",
+    "t": "Python Casting",
+    "p": [
+     "Casting changes a value from one type to another with int(), float() and str().",
+     "For example, a number that arrives as text must be cast before you can do maths with it."
+    ],
+    "ex": "age = \"25\"\nnext_year = int(age) + 1\nprint(next_year)\nprint(str(next_year) + \" years\")",
+    "q": [
+     "Which function turns text into a whole number?",
+     [
+      "int()",
+      "str()",
+      "text()"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-strings",
+    "t": "Python Strings",
+    "p": [
+     "Text is stored in strings, written inside single or double quotes. Join strings with +, find the length with len(), and use methods such as upper().",
+     "You can slice a string to take a part of it: text[0:3] gives the first three characters."
+    ],
+    "ex": "text = \"OneUmmah\"\nprint(len(text))\nprint(text.upper())\nprint(text[0:3])\nprint(\"Hello \" + text)",
+    "q": [
+     "Which function gives the length of a string?",
+     [
+      "len()",
+      "size()",
+      "count()"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-booleans",
+    "t": "Python Booleans",
+    "p": [
+     "A boolean is either True or False. Comparisons such as > and == return a boolean, and if-statements use it to decide what to do.",
+     "bool() converts a value to a boolean: empty or zero values are False, almost everything else is True."
+    ],
+    "ex": "print(10 > 9)\nprint(10 == 9)\nprint(bool(0))\nprint(bool(\"hello\"))",
+    "q": [
+     "What does 10 == 9 return?",
+     [
+      "True",
+      "False",
+      "Error"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-operators",
+    "t": "Python Operators",
+    "p": [
+     "Operators work on values. The ones you will use most are arithmetic (+ - * /), comparison (== != > <), logical (and, or, not) and membership (in).",
+     "Logical operators combine conditions, so they appear a lot inside if-statements."
+    ],
+    "ex": "x = 8\nprint(x > 5 and x < 10)\nprint(\"a\" in \"data\")\nprint(not x == 8)",
+    "q": [
+     "Which operator needs BOTH conditions to be true?",
+     [
+      "or",
+      "and",
+      "not"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-lists",
+    "t": "Python Lists",
+    "p": [
+     "A list holds several items in order, inside square brackets. Lists can be changed: add an item with append(), remove one with remove().",
+     "Read an item by its index. The first item has index 0."
+    ],
+    "ex": "skills = [\"SQL\", \"Python\"]\nskills.append(\"Azure\")\nprint(skills)\nprint(skills[0])\nprint(len(skills))",
+    "q": [
+     "What is the index of the first item in a list?",
+     [
+      "0",
+      "1",
+      "-1"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-tuples",
+    "t": "Python Tuples",
+    "p": [
+     "A tuple is like a list, but it cannot be changed after it is created. It is written with round brackets.",
+     "Use a tuple for values that should stay fixed, such as a point on a map."
+    ],
+    "ex": "point = (10, 20)\nprint(point)\nprint(point[1])",
+    "q": [
+     "Can you change an item inside a tuple?",
+     [
+      "Yes",
+      "No",
+      "Only the first item"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-sets",
+    "t": "Python Sets",
+    "p": [
+     "A set stores unique values with no fixed order, inside curly brackets. Duplicates are removed automatically.",
+     "Sets are handy for removing duplicates and for quickly checking whether a value is present."
+    ],
+    "ex": "tags = {\"sql\", \"python\", \"sql\"}\nprint(len(tags))\nprint(\"python\" in tags)",
+    "q": [
+     "What happens to duplicate values in a set?",
+     [
+      "They are kept",
+      "They are removed",
+      "They cause an error"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-dicts",
+    "t": "Python Dictionaries",
+    "p": [
+     "A dictionary stores key: value pairs inside curly brackets. You look up a value by its key.",
+     "It is perfect for describing one thing with several details, like a student with a name and marks."
+    ],
+    "ex": "student = {\"name\": \"Rahul\", \"marks\": 80}\nprint(student[\"name\"])\nstudent[\"marks\"] = 90\nprint(student)",
+    "q": [
+     "How do you read a value from a dictionary?",
+     [
+      "By its key",
+      "Only by its position",
+      "With get_all()"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-ifelse",
+    "t": "Python If...Else",
+    "p": [
+     "if, elif and else let your program choose. Python runs the first block whose condition is True.",
+     "Remember the colon at the end of each condition line and the indentation of the code below it."
+    ],
+    "ex": "marks = 75\nif marks >= 90:\n    print(\"Excellent\")\nelif marks >= 60:\n    print(\"Good\")\nelse:\n    print(\"Keep practising\")",
+    "q": [
+     "Which keyword adds another condition after if?",
+     [
+      "elif",
+      "else if",
+      "elseif"
+     ],
+     0
+    ]
+   },
+   {
+    "id": "py-while",
+    "t": "Python While Loops",
+    "p": [
+     "A while loop repeats as long as its condition is True.",
+     "Make sure something inside the loop changes the condition, otherwise it will run forever."
+    ],
+    "ex": "count = 1\nwhile count <= 3:\n    print(\"Round\", count)\n    count += 1",
+    "q": [
+     "A while loop keeps running...",
+     [
+      "Exactly once",
+      "As long as the condition is True",
+      "Never"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-for",
+    "t": "Python For Loops",
+    "p": [
+     "A for loop goes through each item of a list, a string or a range. range(n) gives the numbers 0 up to n-1.",
+     "Use a for loop when you know what you want to loop over."
+    ],
+    "ex": "for skill in [\"SQL\", \"Python\", \"Azure\"]:\n    print(skill)\n\nfor i in range(3):\n    print(i)",
+    "q": [
+     "What does range(3) produce?",
+     [
+      "1, 2, 3",
+      "0, 1, 2",
+      "0, 1, 2, 3"
+     ],
+     1
+    ]
+   },
+   {
+    "id": "py-functions",
+    "t": "Python Functions",
+    "p": [
+     "A function is a reusable block of code. Define it with def, give it parameters, and use return to send back a result.",
+     "Call the function by writing its name with brackets. You can call it as many times as you like."
+    ],
+    "ex": "def greet(name):\n    return \"Hello, \" + name\n\nprint(greet(\"Sara\"))\nprint(greet(\"Amir\"))",
+    "q": [
+     "Which keyword defines a function?",
+     [
+      "function",
+      "def",
+      "func"
+     ],
+     1
+    ]
+   }
+  ];
+
+  PATHS.sql={key:"sql",name:"SQL",course:"sql",pk:"sqlpath",CH:SQL_CH,strip:/^SQL /,kind:"sql",lab:"compiler.html",labName:"SQL Lab",title:"SQL Tutorial",enrollName:"Master SQL",home:"home"};
+  PATHS.python={key:"python",name:"Python",course:"python",pk:"pypath",CH:PY_CH,strip:/^Python /,kind:"py",lab:"python-compiler.html",labName:"Python Lab",title:"Python Tutorial",enrollName:"Python for Data Engineering",home:"py-home"};
+  function pick(k){P=PATHS[k];CH=P.CH;PATH=P.pk;paid=OUM.hasPaid(P.course)}
 
   /* ---------- helpers ---------- */
   function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
   var KW="SELECT|FROM|WHERE|ORDER BY|GROUP BY|DISTINCT|AND|OR|NOT|INSERT INTO|VALUES|UPDATE|SET|DELETE|LIMIT|AS|JOIN|ON|LIKE|IS|NULL|DESC|ASC|COUNT|SUM|AVG|MIN|MAX";
   var KWRE=new RegExp("('[^']*')|\\b("+KW+")\\b","gi");
-  function hl(s){return esc(s).replace(KWRE,function(m,a,b){return a?'<span class="str">'+a+'</span>':'<span class="kw">'+b+'</span>'})}
+  var PYRE=/("[^"\n]*"|'[^'\n]*')|(#[^\n]*)|\b(print|if|elif|else|for|while|in|def|return|import|from|and|or|not|True|False|None|len|range|type|int|float|str|bool|append|class|is|break|continue|pass)\b/g;
+  function hl(s){
+    if(P.kind==="py")return esc(s).replace(PYRE,function(m,a,b,c){return a?'<span class="str">'+a+'</span>':(b?'<span class="cm">'+b+'</span>':'<span class="kw">'+c+'</span>')});
+    return esc(s).replace(KWRE,function(m,a,b){return a?'<span class="str">'+a+'</span>':'<span class="kw">'+b+'</span>'});
+  }
   function done(){return OUM.done(PATH)}
   function parse(){
     var h=location.hash.slice(1),sec="lesson";
     if(/-challenge$/.test(h)){sec="challenge";h=h.replace(/-challenge$/,"")}
-    for(var i=0;i<CH.length;i++)if(CH[i].id===h)return{i:i,sec:sec};
-    return{i:0,sec:"lesson"};
+    for(var k in PATHS){var L=PATHS[k].CH;for(var i=0;i<L.length;i++)if(L[i].id===h)return{k:k,i:i,sec:sec}}
+    return{k:"sql",i:0,sec:"lesson"};
   }
 
   /* ---------- sidebar (with dropdowns) + mobile select ---------- */
@@ -213,7 +601,7 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
       a.appendChild(s1);a.appendChild(right);box.appendChild(a);
       if(hasSub&&open[i]){
         var sub=document.createElement("div");sub.className="sub";
-        var l1=document.createElement("a");l1.className="sb"+(isCur&&sec!=="challenge"?" on":"");l1.href="#"+c.id;l1.textContent=c.t.replace(/^SQL /,"");
+        var l1=document.createElement("a");l1.className="sb"+(isCur&&sec!=="challenge"?" on":"");l1.href="#"+c.id;l1.textContent=c.t.replace(P.strip,"");
         var l2=document.createElement("a");l2.className="sb"+(isCur&&sec==="challenge"?" on":"");l2.href="#"+c.id+"-challenge";l2.textContent="Code Challenge";
         sub.appendChild(l1);sub.appendChild(l2);box.appendChild(sub);
       }
@@ -223,14 +611,17 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
 
   /* ---------- locked page (not enrolled) ---------- */
   function renderLocked(){
-    var u=OUM.user();
+    var u=OUM.user(),n=CH.length-1;
     byId("ltRight").innerHTML="";
+    var list=P.kind==="py"
+      ?'<li>'+n+' step-by-step Python chapters</li><li>Try it Yourself editor that runs Python in your browser</li><li>Code Challenge after every chapter</li><li>Coding lab, assignment and certificate</li>'
+      :'<li>'+n+' step-by-step SQL chapters</li><li>Try it Yourself editor with sample data</li><li>Code Challenge after every chapter</li><li>Coding lab, assignment and certificate</li>';
     byId("ltMain").innerHTML=
       '<div class="lt-lock"><div class="eyebrow"><span>‹</span><span>OneUmmah Data Skills</span><span>|</span><span>Learning Path</span><span>›</span></div>'+
       '<h2>Take your skills to the next level</h2>'+
-      '<p>The SQL learning path is available to enrolled students. Enroll in Master SQL to unlock every chapter.</p>'+
-      '<ul><li>17 step-by-step SQL chapters</li><li>Try it Yourself editor with sample data</li><li>Exercise after every chapter</li><li>Coding lab, assignment and certificate</li></ul>'+
-      '<div class="row"><button class="btn" type="button" onclick="startEnroll(\'sql\')">Enroll in Master SQL</button>'+
+      '<p>The '+P.name+' learning path is available to enrolled students. Enroll in '+P.enrollName+' to unlock every chapter.</p>'+
+      '<ul>'+list+'</ul>'+
+      '<div class="row"><button class="btn" type="button" onclick="startEnroll(\''+P.course+'\')">Enroll in '+P.enrollName+'</button>'+
       (u?'':'<a class="btn outline" href="login.html">Login</a>')+'</div></div>';
   }
 
@@ -255,7 +646,36 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
     r.values.forEach(function(row){var tr=document.createElement("tr");row.forEach(function(v){var td=document.createElement("td");td.textContent=v===null?"NULL":String(v);tr.appendChild(td)});t.appendChild(tr)});
     return t;
   }
-  function runTry(){
+  /* Python runs inside the browser with Pyodide (loaded only when needed) */
+  var PYO=null,pyLoading=null;
+  function ensurePy(){
+    if(PYO)return Promise.resolve(PYO);
+    if(pyLoading)return pyLoading;
+    pyLoading=new Promise(function(res,rej){
+      var s=document.createElement("script");s.src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js";
+      s.onload=function(){loadPyodide().then(function(x){PYO=x;res(x)}).catch(rej)};
+      s.onerror=function(){pyLoading=null;rej(new Error("Could not load the Python engine. Check your internet connection."))};
+      document.head.appendChild(s);
+    });
+    return pyLoading;
+  }
+  function runPy(){
+    var out=byId("tryOut"),code=byId("tryEd").value;
+    if(!code.trim()){out.textContent="Type some Python code first.";return}
+    out.textContent="Running... (the first run loads Python and takes a few seconds)";
+    ensurePy().then(function(py){
+      py.runPython("import sys, io\nsys.stdout = io.StringIO()\nsys.stderr = io.StringIO()");
+      return py.runPythonAsync(code,{globals:py.globals.get("dict")()}).then(function(){return null},function(e){return e}).then(function(err){
+        var txt=py.runPython("sys.stdout.getvalue()")+py.runPython("sys.stderr.getvalue()");
+        if(err)txt+=(txt&&!/\n$/.test(txt)?"\n":"")+String(err.message||err);
+        out.innerHTML="";
+        var pre=document.createElement("pre");pre.className=err?"bad":"";
+        pre.textContent=txt||"✓ Done. (No output. Use print() to show a result.)";
+        out.appendChild(pre);
+      });
+    }).catch(function(e){out.innerHTML="";var p=document.createElement("p");p.className="bad";p.style.margin="0";p.textContent=e.message;out.appendChild(p)});
+  }
+  function runSql(){
     var out=byId("tryOut"),sql=byId("tryEd").value.trim();
     if(!sql){out.textContent="Type a query first.";return}
     out.textContent="Running...";
@@ -265,6 +685,7 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
       else{var ch=d.getRowsModified(),p=document.createElement("p");p.className="ok";p.style.margin="0";p.textContent="✓ Done"+(ch?" · "+ch+" row(s) affected":"");out.appendChild(p)}
     }).catch(function(e){out.innerHTML="";var p=document.createElement("p");p.className="bad";p.style.margin="0";p.textContent="SQL Error: "+e.message;out.appendChild(p)});
   }
+  function runTry(){P.kind==="py"?runPy():runSql()}
   function resetData(){
     if(!S||!db){byId("tryOut").textContent="Sample data is already fresh.";return}
     db.close();db=new S.Database();db.run(SEED);byId("tryOut").textContent="Sample data reset.";
@@ -279,27 +700,34 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
   function show(i,sec){
     sec=sec||"lesson";
     if(!paid){renderLocked();renderSide(i,sec);return}
-    var c=CH[i],m=byId("ltMain"),h="";
+    var c=CH[i],m=byId("ltMain"),h="",isPy=P.kind==="py";
     var prev=i>0?CH[i-1]:null,next=i<CH.length-1?CH[i+1]:null;
-    h+='<h1>'+(i===0?"SQL Tutorial":esc(c.t))+'</h1>';
-    h+='<div class="lt-nav"><a class="btn outline sm" href="#'+(prev?prev.id:"home")+'">‹ '+(i===0?"Home":"Previous")+'</a>'+(next?'<a class="btn sm" id="nextTop" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Dashboard ›</a>')+'</div><hr class="lt-hr">';
+    h+='<h1>'+(i===0?P.title:esc(c.t))+'</h1>';
+    h+='<div class="lt-nav"><a class="btn outline sm" href="#'+(prev?prev.id:P.home)+'">‹ '+(i===0?"Home":"Previous")+'</a>'+(next?'<a class="btn sm" id="nextTop" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Dashboard ›</a>')+'</div><hr class="lt-hr">';
     if(i===0){
-      h+='<div class="lt-cards"><div><h2>Learn SQL</h2><p>SQL is a standard language for storing, changing and reading data in databases.</p><p>This path teaches you SQL step by step with short chapters, examples you can run, and an exercise after each one.</p><a class="btn" href="#intro">Learn SQL now »</a></div>'+
-         '<div><h2>Practise as you learn</h2><p>Every example has a <b>Try it Yourself</b> button. Edit the query and see the result instantly, using a small sample database.</p><a class="btn outline" href="compiler.html">Open SQL Lab →</a></div></div>';
-      h+='<h2 style="margin:10px 0 12px">Try it Yourself</h2><p>With our online SQL editor you can edit the statements and click a button to view the result.</p>';
+      if(isPy){
+        h+='<div class="lt-cards"><div><h2>Learn Python</h2><p>Python is a popular programming language. It is used for automation, data analysis, data engineering and AI.</p><p>This path teaches you Python step by step with short chapters, examples you can run in your browser, and a challenge after each one.</p><a class="btn" href="#py-intro">Learn Python now »</a></div>'+
+           '<div><h2>Practise as you learn</h2><p>Every example has a <b>Try it Yourself</b> button. Edit the code and run it instantly. Python runs right inside your browser.</p><a class="btn outline" href="python-compiler.html">Open Python Lab →</a></div></div>';
+        h+='<h2 style="margin:10px 0 12px">Try it Yourself</h2><p>With our online Python editor you can edit the code and click a button to view the result.</p>';
+      }else{
+        h+='<div class="lt-cards"><div><h2>Learn SQL</h2><p>SQL is a standard language for storing, changing and reading data in databases.</p><p>This path teaches you SQL step by step with short chapters, examples you can run, and an exercise after each one.</p><a class="btn" href="#intro">Learn SQL now »</a></div>'+
+           '<div><h2>Practise as you learn</h2><p>Every example has a <b>Try it Yourself</b> button. Edit the query and see the result instantly, using a small sample database.</p><a class="btn outline" href="compiler.html">Open SQL Lab →</a></div></div>';
+        h+='<h2 style="margin:10px 0 12px">Try it Yourself</h2><p>With our online SQL editor you can edit the statements and click a button to view the result.</p>';
+      }
     }else{
       c.p.forEach(function(p){h+='<p>'+p+'</p>'});
     }
     h+='<div class="lt-ex-box"><h3>Example</h3><div class="code">'+hl(c.ex)+'</div><button class="btn sm" id="tryBtn" type="button">Try it Yourself »</button>'+
-       '<div class="lt-try" id="tryBox"><textarea id="tryEd" spellcheck="false" aria-label="SQL editor"></textarea><div class="acts"><button class="btn sm" id="tryRun" type="button">▶ Run SQL</button><button class="btn outline sm" id="tryReset" type="button">Reset sample data</button></div><div class="lt-out" id="tryOut">Click Run SQL to see the result.</div></div></div>';
-    if(i===0)h+='<p>Click on the "Try it Yourself" button to see how it works.</p><h2 style="margin:26px 0 10px">SQL Exercises</h2><p>Each chapter ends with an exercise where you can check your level of knowledge.</p>';
+       '<div class="lt-try" id="tryBox"><textarea id="tryEd" spellcheck="false" aria-label="'+P.name+' editor"></textarea><div class="acts"><button class="btn sm" id="tryRun" type="button">▶ Run '+P.name+'</button><button class="btn outline sm" id="tryReset" type="button">'+(isPy?"Clear output":"Reset sample data")+'</button></div><div class="lt-out" id="tryOut">Click Run '+P.name+' to see the result.</div></div></div>';
+    if(i===0)h+='<p>Click on the "Try it Yourself" button to see how it works.</p><h2 style="margin:26px 0 10px">'+P.name+' Exercises</h2><p>Each chapter ends with a code challenge where you can check your level of knowledge.</p>';
     h+=exercise(i);
     h+='<div class="lt-nav">'+(prev?'<a class="btn outline sm" href="#'+prev.id+'">‹ Previous</a>':'<span></span>')+(next?'<a class="btn sm" id="nextBot" href="#'+next.id+'">Next ›</a>':'<a class="btn sm" href="dashboard.html">Back to Dashboard</a>')+'</div>';
     m.innerHTML=h;
 
     byId("tryEd").value=c.ex;
     byId("tryBtn").onclick=function(){byId("tryBox").classList.toggle("open")};
-    byId("tryRun").onclick=runTry;byId("tryReset").onclick=resetData;
+    byId("tryRun").onclick=runTry;
+    byId("tryReset").onclick=isPy?function(){byId("tryOut").textContent="Click Run Python to see the result."}:resetData;
     byId("tryEd").addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();runTry()}});
     byId("exBtn").onclick=function(){
       var s=document.querySelector('input[name="ex"]:checked'),fb=byId("exFb");
@@ -310,17 +738,28 @@ header .wrap,.lt-tabs .wrap{max-width:none;padding:0 20px}
     ["nextTop","nextBot"].forEach(function(id){var n=byId(id);if(n)n.onclick=function(){OUM.markDone(PATH,i)}});
     renderSide(i,sec);renderRight(i);
     if(sec==="challenge"){var cb=byId("challenge");if(cb)cb.scrollIntoView()}else{window.scrollTo(0,0)}
-    document.title=(i===0?"SQL Tutorial":c.t)+" | OneUmmah Data Skills";
+    document.title=(i===0?P.title:c.t)+" | OneUmmah Data Skills";
   }
   function renderRight(i){
     var n=done().length,pc=Math.round(n/CH.length*100);
     byId("ltRight").innerHTML=
       '<div class="lt-pcard"><h3>Your progress</h3><div class="lt-bar"><div style="width:'+pc+'%"></div></div><p style="margin:0;font-size:14px;color:var(--muted)">'+n+' of '+CH.length+' chapters done ('+pc+'%)</p></div>'+
-      '<div class="lt-pcard"><h3>Practice more</h3><p style="font-size:14px;color:var(--muted);margin:0 0 6px">Write your own queries in the full SQL lab.</p><a class="btn sm" href="compiler.html">Open SQL Lab</a><a class="btn outline sm" href="dashboard.html">Go to Dashboard</a></div>';
+      '<div class="lt-pcard"><h3>Practice more</h3><p style="font-size:14px;color:var(--muted);margin:0 0 6px">Write your own '+(P.kind==="py"?"programs":"queries")+' in the full '+P.labName+'.</p><a class="btn sm" href="'+P.lab+'">Open '+P.labName+'</a><a class="btn outline sm" href="dashboard.html">Go to Dashboard</a></div>';
   }
 
   document.querySelectorAll("[data-soon]").forEach(function(a){a.onclick=function(){say(a.getAttribute("data-soon")+" learning path is coming soon.")}});
-  function go(){var p=parse();show(p.i,p.sec)}
+  var curKey=null;
+  function go(){
+    var p=parse();
+    if(curKey!==p.k){
+      curKey=p.k;open={};lastCur=-1;pick(p.k);
+      byId("sideHead").textContent=P.name.toUpperCase()+" TUTORIAL";
+      byId("chList").setAttribute("aria-label",P.name+" chapters");
+      byId("tabSql").className=p.k==="sql"?"on":"";
+      byId("tabPy").className=p.k==="python"?"on":"";
+    }
+    show(p.i,p.sec);
+  }
   window.addEventListener("hashchange",go);
   go();
 })();
