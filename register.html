@@ -89,6 +89,57 @@
 <script src="script.js"></script>
 <script>
 (function(){
+  /* Firebase (same project as the login panel) */
+  var FIREBASE_CONFIG={
+    apiKey:"AIzaSyBsi1t7Exq3cXJ3d5ox1Y1HT5-a-9k9S60",
+    authDomain:"oneummah-6e213.firebaseapp.com",
+    projectId:"oneummah-6e213",
+    storageBucket:"oneummah-6e213.firebasestorage.app",
+    messagingSenderId:"666681012740",
+    appId:"1:666681012740:web:47634bd38921e1b1a57b51"
+  };
+  var FB_VERSION="10.12.2";
+  function loadScript(src){
+    return new Promise(function(res,rej){
+      var s=document.createElement('script');s.src=src;s.onload=res;
+      s.onerror=function(){rej({code:'auth/network-request-failed'})};
+      document.head.appendChild(s);
+    });
+  }
+  var fbPromise=null;
+  function loadFB(){
+    if(window.firebase&&firebase.auth){
+      if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+      return Promise.resolve(firebase);
+    }
+    if(fbPromise)return fbPromise;
+    var base='https://www.gstatic.com/firebasejs/'+FB_VERSION+'/';
+    fbPromise=loadScript(base+'firebase-app-compat.js')
+      .then(function(){return loadScript(base+'firebase-auth-compat.js')})
+      .then(function(){
+        if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+        return firebase;
+      })
+      .catch(function(e){fbPromise=null;throw e});
+    return fbPromise;
+  }
+  function fbMsg(e){
+    var c=(e&&e.code)||'';
+    var map={
+      'auth/email-already-in-use':'This email is already registered. Please sign in instead. (If you signed up with Google before, use Login via Google.)',
+      'auth/invalid-email':'Please enter a valid email address.',
+      'auth/weak-password':'Password must contain at least 6 characters.',
+      'auth/operation-not-allowed':'Email sign-up is not enabled in Firebase (Authentication > Sign-in method > Email/Password).',
+      'auth/unauthorized-domain':'This website domain is not authorized in Firebase (Authentication > Settings > Authorized domains).',
+      'auth/network-request-failed':'Network error. Check your internet connection and try again.',
+      'auth/too-many-requests':'Too many attempts. Please wait a few minutes and try again.',
+      'auth/invalid-api-key':'Firebase API key is invalid. Check the config in register.html.',
+      'auth/api-key-not-valid':'Firebase API key is invalid. Check the config in register.html.'
+    };
+    return map[c]||('Something went wrong'+(c?' ('+c+')':'')+'. Please try again.');
+  }
+  loadFB().catch(function(){});
+
   const form = document.getElementById('registerForm');
   const nameInput = document.getElementById('regName');
   const emailInput = document.getElementById('regEmail');
@@ -105,12 +156,14 @@
   }
   connectToggle('toggleRegisterPassword', passwordInput);
   connectToggle('toggleConfirmPassword', confirmInput);
-  function hashPassword(password){
-    let hash = 0;
-    for(let i=0;i<password.length;i++){
-      hash = (Math.imul(31,hash) + password.charCodeAt(i)) | 0;
-    }
-    return String(hash);
+  function showError(text){
+    errorBox.textContent = text;
+    errorBox.style.display = 'block';
+  }
+  function goNext(){
+    var n='dashboard.html';
+    try{var v=sessionStorage.getItem('oum_next');sessionStorage.removeItem('oum_next');if(v&&/^[a-z0-9-]+\.html(\?[\w=&-]*)?$/i.test(v))n=v}catch(x){}
+    window.location.href=n;
   }
   form.addEventListener('submit', function(event){
     event.preventDefault();
@@ -121,49 +174,51 @@
     const password = passwordInput.value;
     const confirmPassword = confirmInput.value;
     if(!name || !email || !password || !confirmPassword){
-      errorBox.textContent = 'Please complete all fields.';
-      errorBox.style.display = 'block';
+      showError('Please complete all fields.');
       return;
     }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      errorBox.textContent = 'Please enter a valid email address.';
-      errorBox.style.display = 'block';
+      showError('Please enter a valid email address.');
       return;
     }
     if(password.length < 6){
-      errorBox.textContent = 'Password must contain at least 6 characters.';
-      errorBox.style.display = 'block';
+      showError('Password must contain at least 6 characters.');
       return;
     }
     if(password !== confirmPassword){
-      errorBox.textContent = 'Passwords do not match.';
-      errorBox.style.display = 'block';
+      showError('Passwords do not match.');
       return;
     }
-    try {
-      const users = JSON.parse(localStorage.getItem('dfa_users') || '{}');
-      if(users[email]){
-        errorBox.textContent = 'This email is already registered. Please sign in instead.';
-        errorBox.style.display = 'block';
-        return;
-      }
-      users[email] = {
-        name: name,
-        email: email,
-        passwordHash: hashPassword(password),
+    submitButton.disabled = true;
+    submitButton.textContent = 'Creating account...';
+    loadFB().then(function(){
+      return firebase.auth().createUserWithEmailAndPassword(email, password);
+    }).then(function(cred){
+      /* Save the display name in Firebase (best effort) */
+      try{ if(cred.user) cred.user.updateProfile({displayName: name}).catch(function(){}); }catch(x){}
+      /* Local profile used by the dashboard and the rest of the site */
+      var users = {};
+      try{ users = JSON.parse(localStorage.getItem('dfa_users') || '{}'); }catch(x){}
+      var old = users[email] || {};
+      users[email] = Object.assign({
         enrolled: [],
         certificates: [],
-        joined: new Date().toISOString()
-      };
+        paid: [],
+        progress: {}
+      }, old, {
+        name: name,
+        email: email,
+        joined: old.joined || new Date().toISOString()
+      });
       localStorage.setItem('dfa_users', JSON.stringify(users));
       localStorage.setItem('dfa_session', email);
-      submitButton.disabled = true;
       submitButton.textContent = 'Account created! Opening dashboard...';
-      (function(){var n='dashboard.html';try{var v=sessionStorage.getItem('oum_next');sessionStorage.removeItem('oum_next');if(v&&/^[a-z0-9-]+\.html(\?[\w=&-]*)?$/i.test(v))n=v}catch(x){}window.location.href=n})();
-    } catch(error) {
-      errorBox.textContent = 'Could not save your account in this browser. Please enable local storage and try again.';
-      errorBox.style.display = 'block';
-    }
+      goNext();
+    }).catch(function(error){
+      submitButton.disabled = false;
+      submitButton.textContent = 'Create Account →';
+      showError(fbMsg(error));
+    });
   });
 })();
 </script>
