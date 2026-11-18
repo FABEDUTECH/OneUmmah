@@ -10,6 +10,77 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="scaler-theme.css?v=4">
+<style>
+/* ===== Certificate showcase section (homepage) ===== */
+.cs{padding:96px 0;overflow:hidden;
+  background:
+    radial-gradient(60% 90% at 88% 55%,rgba(10,90,240,.28),transparent 70%),
+    linear-gradient(90deg,#fff 0%,#fff 38%,#eaf1ff 68%,#c9dbfb 100%)}
+.cs-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.cs-eyebrow{display:block;font:500 14px var(--font);letter-spacing:.16em;text-transform:uppercase;color:#8a8a8a;margin-bottom:16px}
+.cs-copy h2{text-align:left;font:400 clamp(32px,4.1vw,54px)/1.12 var(--display);color:#1b1b1b;letter-spacing:-.01em}
+.cs-copy p{color:var(--muted);font-size:17px;max-width:480px;margin:22px 0 30px}
+.cs-pts{list-style:none;display:grid;gap:12px;margin:0 0 32px;font-weight:600;font-size:15px}
+.cs-pts li::before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eaf1ff;color:var(--blue);font-size:12px;margin-right:12px}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(46px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.rv-r{transform:translateX(70px) scale(.97)}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.rv.in{opacity:1;transform:none}
+
+/* certificate mock-up (all sizes use cqw, so it scales with its box) */
+.cm-wrap{perspective:1200px}
+.cm{container-type:inline-size;position:relative;width:100%;aspect-ratio:1.5;background:#e6eeff;overflow:hidden;
+  box-shadow:0 32px 70px rgba(0,26,79,.28);font-family:var(--font);transition:transform .5s ease}
+.cm-wrap:hover .cm{transform:rotateY(-4deg) rotateX(2deg) scale(1.01)}
+.cm .sh{position:absolute;transform:skewX(-38deg)}
+.cm .sh.a{top:0;left:-6%;width:30%;height:9%;background:#06208f}
+.cm .sh.b{top:0;left:21%;width:13%;height:9%;background:#0443e0}
+.cm .sh.c{top:0;left:30%;width:7%;height:9%;background:#1d8cf8}
+.cm .sh.t{top:0;left:36%;right:-6%;height:3.4%;background:linear-gradient(90deg,#5d8ff3,#a9c4fa)}
+.cm .sh.l{top:0;left:-8%;width:12%;height:28%;background:#06208f;transform:none;clip-path:polygon(0 0,100% 0,0 100%)}
+.cm .sh.e{top:0;right:0;width:2%;height:100%;background:#06208f;transform:none}
+.cm .sh.r{bottom:0;right:-6%;width:30%;height:8%;background:#06208f}
+.cm .sh.s{bottom:0;right:22%;width:10%;height:8%;background:#1d8cf8}
+.cm .sh.u{bottom:0;right:30%;width:11%;height:8%;background:#0443e0}
+.cm .sh.v{bottom:0;left:-6%;right:42%;height:3%;background:linear-gradient(90deg,#c9dbfb,#8fb2f6)}
+.cm-card{position:absolute;left:4.5%;right:4.5%;top:7.5%;bottom:7.5%;background:#fff;box-shadow:0 6px 26px rgba(0,26,79,.14)}
+
+.cm-rib{position:absolute;left:4%;width:21%;top:0;bottom:11%;background:#ececec;clip-path:polygon(0 0,100% 0,100% 100%,50% 90%,0 100%)}
+.cm-logo{position:absolute;left:0;right:0;top:6%;display:flex;align-items:center;justify-content:center;gap:.8cqw;
+  font:600 2.1cqw/1 var(--display);letter-spacing:.02em;text-transform:uppercase;color:#000}
+.cm-logo i{font-style:normal;display:grid;place-items:center;width:2.4cqw;height:2.4cqw;border:.4cqw solid #0443e0;border-radius:.5cqw;color:#0443e0;font-size:1.3cqw;font-weight:700}
+.cm-seal{position:absolute;left:8%;right:8%;top:34%;aspect-ratio:1}
+.cm-seal svg{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 4px rgba(0,26,79,.25))}
+.cm-id{position:absolute;left:4.5%;bottom:5%;font:600 1cqw var(--font);color:#222}
+
+.cm-main{position:absolute;left:30%;right:4.5%;top:6%;bottom:4.5%;display:flex;flex-direction:column}
+.cm-title{font:700 12px/1.3 var(--font);font:700 2.9cqw/1.3 var(--font);letter-spacing:.17em;color:#0443e0;text-transform:uppercase}
+.cm-rule{width:5cqw;height:.4cqw;background:#0443e0;margin:1.1cqw 0 1.5cqw}
+.cm-small{font:400 8px var(--font);font:400 1.5cqw/1.4 var(--font);color:#9a9a9a}
+.cm-name{font:600 14px var(--display);font:600 4.3cqw/1.25 var(--display);color:#000;margin:.3cqw 0 1cqw}
+.cm-course{font:600 10px var(--font);font:600 2.2cqw/1.3 var(--font);color:#001a4f;margin:.4cqw 0 1cqw}
+.cm-desc{font:400 8px var(--font);font:400 1.25cqw/1.55 var(--font);color:#222;max-width:92%}
+.cm-date{font:400 8px var(--font);font:400 1.25cqw var(--font);color:#222;margin-top:1cqw}
+.cm-date b{font-weight:700}
+.cm-sigs{margin-top:auto;display:flex;gap:4cqw}
+.cm-sig{min-width:11cqw}
+.cm-sig svg{width:9cqw;height:3.6cqw;display:block;margin-bottom:.4cqw}
+.cm-sig b{display:block;font:700 7px var(--font);font:700 1cqw/1.3 var(--font);color:#001a4f;letter-spacing:.04em;text-transform:uppercase}
+.cm-sig span{display:block;font:400 6px var(--font);font:400 .9cqw/1.3 var(--font);color:#555}
+.cm-foot{font:400 6px var(--font);font:400 .95cqw/1.4 var(--font);color:#999;margin-top:1.1cqw}
+.cm-qr{position:absolute;right:0;top:0;text-align:center}
+.cm-qr i{display:block;width:6.4cqw;height:6.4cqw;background:
+  conic-gradient(#001a4f 25%,#fff 0 50%,#001a4f 0 75%,#fff 0) 0 0/1.3cqw 1.3cqw;border:.5cqw solid #fff;outline:.2cqw solid #0443e0}
+.cm-qr span{display:block;font:700 .85cqw var(--font);letter-spacing:.12em;color:#0443e0;margin-top:.6cqw}
+
+@media(max-width:960px){
+  .cs{padding:70px 0}
+  .cs-grid{grid-template-columns:1fr;gap:40px}
+  .rv.rv-r{transform:translateY(46px)}
+}
+</style>
 </head>
 <body>
 
@@ -146,6 +217,71 @@
   </div>
 </section>
 
+<!-- ===== CERTIFICATE SHOWCASE (scroll reveal) ===== -->
+<section class="cs" id="certificate">
+  <div class="wrap cs-grid">
+    <div class="cs-copy">
+      <span class="cs-eyebrow rv">Certificate</span>
+      <h2 class="rv d1">Will you get a certificate? Of course! It will look great on your resume and LinkedIn.</h2>
+      <p class="rv d2">Complete your course and receive a OneUmmah Data Skills certificate with a unique ID and a QR code that anyone can scan to verify.</p>
+      <ul class="cs-pts rv d2">
+        <li>Unique certificate ID for every student</li>
+        <li>Scan the QR code to verify it online</li>
+        <li>Download it as a print-ready PDF</li>
+      </ul>
+      <div class="rv d3"><a class="btn" href="courses.html">Explore Courses</a></div>
+    </div>
+
+    <div class="cm-wrap rv rv-r d1">
+      <div class="cm" role="img" aria-label="Sample OneUmmah Data Skills certificate of completion">
+        <span class="sh a"></span><span class="sh b"></span><span class="sh c"></span><span class="sh t"></span>
+        <span class="sh e"></span><span class="sh r"></span><span class="sh s"></span><span class="sh u"></span><span class="sh v"></span>
+
+        <div class="cm-card">
+          <div class="cm-rib">
+            <div class="cm-logo"><i>O</i>OneUmmah</div>
+            <div class="cm-seal">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#0443e0" stroke-width="9" stroke-dasharray="7 4.5"/>
+                <circle cx="50" cy="50" r="40" fill="#0443e0"/>
+                <circle cx="50" cy="50" r="36" fill="#fff"/>
+                <path id="cmArc" d="M50,50 m-29,0 a29,29 0 1,1 58,0 a29,29 0 1,1 -58,0" fill="none"/>
+                <text font-size="6.4" font-weight="700" fill="#0443e0" font-family="Plus Jakarta Sans,sans-serif"><textPath href="#cmArc" textLength="178" lengthAdjust="spacing">ONEUMMAH DATA SKILLS • PROGRAM CERTIFICATE •</textPath></text>
+                <circle cx="50" cy="50" r="17" fill="#0443e0"/>
+                <rect x="42" y="42" width="16" height="16" rx="3.5" fill="none" stroke="#fff" stroke-width="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="cm-id">Certificate ID : ODS-SQL-2026-0001</div>
+
+          <div class="cm-main">
+            <div class="cm-qr"><i></i><span>SCAN TO VERIFY</span></div>
+            <div class="cm-title">Certificate<br>of Completion</div>
+            <div class="cm-rule"></div>
+            <div class="cm-small">This certificate is awarded to</div>
+            <div class="cm-name">Your name here!</div>
+            <div class="cm-small">For successfully completing :</div>
+            <div class="cm-course">“Master SQL with OneUmmah.”</div>
+            <div class="cm-desc">The program covers queries, joins, CTEs and window functions, with hands-on practice and practical projects.</div>
+            <div class="cm-date">Program Completion : <b>Your completion date</b></div>
+            <div class="cm-sigs">
+              <div class="cm-sig">
+                <svg viewBox="0 0 70 28" aria-hidden="true"><path d="M3 20 C9 4,15 28,21 12 S34 2,38 18 S50 26,66 8" fill="none" stroke="#001a4f" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <b>Program Director</b><span>OneUmmah Data Skills</span>
+              </div>
+              <div class="cm-sig">
+                <svg viewBox="0 0 70 28" aria-hidden="true"><path d="M4 22 C10 6,16 6,22 20 S30 2,40 14 S54 24,64 6" fill="none" stroke="#001a4f" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <b>Head of Learning</b><span>OneUmmah Data Skills</span>
+              </div>
+            </div>
+            <div class="cm-foot">OneUmmah Data Skills confirms the identity of this individual and their participation in the course.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="alt" id="faqs">
   <div class="wrap">
     <h2>FAQs</h2>
@@ -190,6 +326,19 @@
     a.textContent=a.getAttribute('data-user-text');
   });
 }catch(x){}})();
+</script>
+<script>
+/* Scroll reveal: elements fade / slide in when they come into view */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(list){
+    list.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+    });
+  },{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
 </script>
 <script src="script.js"></script>
 <script src="scaler-common.js?v=4"></script>
