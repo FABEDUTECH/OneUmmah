@@ -288,9 +288,9 @@
     }
   }
 
-  /* ---------- Logged in: hide the "Login" link in the mobile menu ---------- */
+  /* ---------- Logged in: hide every "Login" link (header, mobile menu, footer) ---------- */
   if(cu()){
-    document.querySelectorAll('a.m-only[href="login.html"]').forEach(function(a){a.style.display="none"});
+    document.querySelectorAll('a[href="login.html"]').forEach(function(a){a.style.display="none"});
   }
 
   /* ---------- Mobile menu + Courses dropdown ---------- */
