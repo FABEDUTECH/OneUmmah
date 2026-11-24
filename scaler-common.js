@@ -288,6 +288,11 @@
     }
   }
 
+  /* ---------- Logged in: hide the "Login" link in the mobile menu ---------- */
+  if(cu()){
+    document.querySelectorAll('a.m-only[href="login.html"]').forEach(function(a){a.style.display="none"});
+  }
+
   /* ---------- Mobile menu + Courses dropdown ---------- */
   var b=$("burger"),l=$("links"),dd=$("dd");
   if(b&&l){
