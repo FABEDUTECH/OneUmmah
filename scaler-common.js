@@ -21,6 +21,27 @@
   function $(id){return document.getElementById(id)}
   function wa(t){return "https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
 
+  /* ---------- Brand icon: browser-tab icon (favicon) + logo mark ----------
+     Put your icon in the same folder as the pages and name it:  logo.png
+     If the file is missing, the old "O" logo stays as it was. */
+  (function(){
+    try{
+      var SRC="logo.png?v=1",head=document.head;
+      head.querySelectorAll('link[rel~="icon"]').forEach(function(x){x.parentNode.removeChild(x)});
+      var fav=document.createElement("link");fav.rel="icon";fav.type="image/png";fav.href=SRC;head.appendChild(fav);
+      var ap=document.createElement("link");ap.rel="apple-touch-icon";ap.href=SRC;head.appendChild(ap);
+      var st=document.createElement("style");
+      st.textContent=".logo .logo-img{display:block;height:38px;width:auto;max-width:none;border:0}";
+      head.appendChild(st);
+      document.querySelectorAll(".logo i").forEach(function(mark){
+        var img=new Image();
+        img.className="logo-img";img.alt="";
+        img.onload=function(){if(mark.parentNode)mark.parentNode.replaceChild(img,mark)};
+        img.src=SRC;
+      });
+    }catch(x){}
+  })();
+
   /* ---------- Firebase loader (loads only when needed) ---------- */
   var fbPromise=null;
   function loadScript(src){
